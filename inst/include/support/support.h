@@ -12,15 +12,8 @@ namespace support
 
 template<class InputIterator> size_t count_levels(InputIterator first, InputIterator last)
 {
-  std::set<typename std::iterator_traits<InputIterator>::value_type> set;
-
-  for(;first != last; first++)
-  {
-    set.insert(*first);
-  }
-
+  std::set<typename std::iterator_traits<InputIterator>::value_type> set(first, last);
   return set.size();
-
 }
 
 }
