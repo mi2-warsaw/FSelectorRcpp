@@ -27,6 +27,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// fs_count_levels
+int fs_count_levels(SEXP x);
+RcppExport SEXP FSelectorRcpp_fs_count_levels(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    __result = Rcpp::wrap(fs_count_levels(x));
+    return __result;
+END_RCPP
+}
 // fs_table1d
 IntegerVector fs_table1d(SEXP& x);
 RcppExport SEXP FSelectorRcpp_fs_table1d(SEXP xSEXP) {

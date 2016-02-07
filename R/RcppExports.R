@@ -9,6 +9,10 @@ fs_numeric_entropy <- function(x) {
     .Call('FSelectorRcpp_fs_numeric_entropy', PACKAGE = 'FSelectorRcpp', x)
 }
 
+fs_count_levels <- function(x) {
+    .Call('FSelectorRcpp_fs_count_levels', PACKAGE = 'FSelectorRcpp', x)
+}
+
 fs_table1d <- function(x) {
     .Call('FSelectorRcpp_fs_table1d', PACKAGE = 'FSelectorRcpp', x)
 }
