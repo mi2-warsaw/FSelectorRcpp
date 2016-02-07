@@ -5,14 +5,14 @@
 
 using namespace Rcpp;
 
-// fs_freq_entropy
-double fs_freq_entropy(SEXP x);
-RcppExport SEXP FSelectorRcpp_fs_freq_entropy(SEXP xSEXP) {
+// fs_entropy1d
+double fs_entropy1d(SEXP x);
+RcppExport SEXP FSelectorRcpp_fs_entropy1d(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    __result = Rcpp::wrap(fs_freq_entropy(x));
+    __result = Rcpp::wrap(fs_entropy1d(x));
     return __result;
 END_RCPP
 }

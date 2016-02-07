@@ -5,6 +5,7 @@
 #include <map>
 #include <cmath>
 #include <algorithm>
+#include "support/table.h"
 
 namespace fselector
 {
@@ -62,6 +63,12 @@ template<class InputIterator> double numeric_entropy(InputIterator first, InputI
 
 
   return -result;
+}
+
+template<class InputIterator> double entropy1d(InputIterator first, InputIterator last)
+{
+  const auto table = fselector::support::table1d(first, last);
+  return freq_entropy(table.begin(), table.end());
 }
 
 

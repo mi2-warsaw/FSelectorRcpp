@@ -6,30 +6,26 @@ using namespace Rcpp;
 // [[Rcpp::plugins(cpp11)]]
 
 // [[Rcpp::export]]
-double fs_freq_entropy(SEXP x)
+double fs_entropy1d(SEXP x)
 {
   switch(TYPEOF(x))
   {
     case REALSXP:
     {
       NumericVector xx = as<NumericVector>(x);
-      auto res = fselector::support::table1d(xx.begin(), xx.end());
-      return fselector::entropy::freq_entropy(res.begin(), res.end());
+      return fselector::entropy::entropy1d(xx.begin(), xx.end());
     }
 
     case STRSXP:
     {
       CharacterVector xx = as<CharacterVector>(x);
-      auto res = fselector::support::table1d(xx.begin(), xx.end());
-      return fselector::entropy::freq_entropy(res.begin(), res.end());
-
+      return fselector::entropy::entropy1d(xx.begin(), xx.end());
     }
 
     case INTSXP:
     {
       IntegerVector xx = as<IntegerVector>(x);
-      auto res = fselector::support::table1d(xx.begin(), xx.end());
-      return fselector::entropy::freq_entropy(res.begin(), res.end());
+      return fselector::entropy::entropy1d(xx.begin(), xx.end());
     }
   }
 
