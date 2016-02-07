@@ -10,7 +10,7 @@ namespace support
 {
 
 
-template<class InputIterator> size_t count_levels(InputIterator first, InputIterator last, size_t splitPoint, double gain)
+template<class InputIterator> size_t count_levels(InputIterator first, InputIterator last)
 {
   std::set<typename std::iterator_traits<InputIterator>::value_type> set;
 
