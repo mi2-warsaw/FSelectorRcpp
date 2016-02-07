@@ -1,0 +1,73 @@
+#ifndef FSELECTOR_ENTROPY_H
+#define FSELECTOR_ENTROPY_H
+
+#include <vector>
+#include <map>
+#include <cmath>
+#include <algorithm>
+
+namespace fselector
+{
+
+namespace entropy
+{
+
+
+template<class InputIterator> double freq_entropy(InputIterator first, InputIterator last)
+{
+
+  const double sum = std::accumulate(first, last, 0.0,
+                              [](const double& a, typename std::iterator_traits<InputIterator>::value_type iter)
+                              {
+                                return a + iter.second;
+                              });
+
+  const double result = std::accumulate(first, last, 0.0, [sum](const double& a, typename std::iterator_traits<InputIterator>::value_type iter)
+                            {
+                              if(iter.second > 0)
+                              {
+                                const double res = iter.second/sum;
+                                return a + res * std::log(res);
+                              } else
+                              {
+                                return a;
+                              }
+
+                            });
+
+
+
+  return -result;
+}
+
+//// numeric entropy
+template<class InputIterator> double numeric_entropy(InputIterator first, InputIterator last)
+{
+
+  const double sum = std::accumulate(first, last, 0.0);
+
+  const double result = std::accumulate(first, last, 0.0, [sum](const double& a, typename std::iterator_traits<InputIterator>::value_type iter)
+  {
+    if(iter > 0)
+    {
+      const double res = iter/sum;
+      return a + res * std::log(res);
+    } else
+    {
+      return a;
+    }
+
+  });
+
+
+
+  return -result;
+}
+
+
+
+}
+}
+
+
+#endif
