@@ -78,11 +78,7 @@ template<class InputIterator, class OutputIterator> OptPair cut_index(InputItera
 
     if(*(itX + i) != *(itX + i + 1))
     {
-      const double ct = (*(itX + i) + *(itX + i + 1)) / 2.0;
       const double wn = double(i + 1)/double(lenN);
-
-
-
       const double e1 = wn * lowerEntropy.get_entropy();
       const double e2 = (1.0 - wn) * upperEntropy.get_entropy();
       const double val = e1 + e2;
