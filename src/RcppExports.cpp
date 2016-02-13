@@ -5,6 +5,18 @@
 
 using namespace Rcpp;
 
+// fs_cut_index
+NumericVector fs_cut_index(NumericVector x, IntegerVector y);
+RcppExport SEXP FSelectorRcpp_fs_cut_index(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
+    __result = Rcpp::wrap(fs_cut_index(x, y));
+    return __result;
+END_RCPP
+}
 // fs_entropy1d
 double fs_entropy1d(SEXP x);
 RcppExport SEXP FSelectorRcpp_fs_entropy1d(SEXP xSEXP) {
