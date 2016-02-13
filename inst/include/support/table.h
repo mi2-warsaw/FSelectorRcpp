@@ -10,7 +10,8 @@ namespace fselector
 namespace support
 {
 
-template<class InputIterator> std::map<typename std::iterator_traits<InputIterator>::value_type, int> table1d(InputIterator first, InputIterator last)
+template<class InputIterator> std::map<typename std::iterator_traits<InputIterator>::value_type, int>
+table1d(InputIterator first, InputIterator last)
 {
   std::map<typename std::iterator_traits<InputIterator>::value_type, int> mapRes;
 
@@ -29,6 +30,7 @@ template<class InputIterator> std::map<typename std::iterator_traits<InputIterat
 
   return mapRes;
 }
+
 
 }
 

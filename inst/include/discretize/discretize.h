@@ -65,15 +65,26 @@ template<class InputIterator, class OutputIterator> OptPair cut_index(InputItera
 
   const size_t lenN = itXLast - itX;
 
+
+  typedef fselector::entropy::RollEntropy<typename std::iterator_traits<InputIterator>::value_type> RollEntr;
+
+  RollEntr lowerEntropy;
+  RollEntr upperEntropy(itY, itYLast);
+
   for(size_t i = 0; i < lenN - 1; i++)
   {
+    lowerEntropy.add_sample(*(itY + i));
+    upperEntropy.remove_sample(*(itY + i));
+
     if(*(itX + i) != *(itX + i + 1))
     {
       const double ct = (*(itX + i) + *(itX + i + 1)) / 2.0;
       const double wn = double(i + 1)/double(lenN);
 
-      const double e1 = wn * fselector::entropy::entropy1d(itY, itY + i + 1);
-      const double e2 = (1.0 - wn) * fselector::entropy::entropy1d(itY + i + 1, itYLast);
+
+
+      const double e1 = wn * lowerEntropy.get_entropy();
+      const double e2 = (1.0 - wn) * upperEntropy.get_entropy();
       const double val = e1 + e2;
 
       if(val < entropy)
