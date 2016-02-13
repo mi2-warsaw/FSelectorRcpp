@@ -164,8 +164,6 @@ template<class InputIterator, class OutputIterator> void discretize(InputIterato
 
   for(const auto& sp : splitPoints)
   {
-    std::cout << sp << " " << x[sp] << std::endl;
-
     for(size_t i  = 0; i < orderedIdx.size(); i++)
     {
       if(*(itX+i) > x[sp])
