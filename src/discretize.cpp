@@ -18,7 +18,29 @@ NumericVector fs_cut_index(NumericVector x, IntegerVector y)
   return res;
 }
 
+// [[Rcpp::export]]
+double fs_mdl_stop(int ci, IntegerVector y, double entropy)
+{
+  fselector::discretize::OptDouble res = fselector::discretize::mdl_stop(y.begin(), y.end(), ci, entropy);
+
+  if(res) return *res;
+  return 0.0;
+}
+
 
 /*** R
+x = iris$Sepal.Length
+y = as.integer(iris$Species[order(x)])
+x = sort(x)
 
-*/
+ct <- discretization::cutIndex(x, y)
+
+
+mdlStop(ct[1],y,ct[2])
+fs_mdl_stop(ct[1],y,ct[2])
+
+mdlStop(1,y,0.7)
+fs_mdl_stop(1,y,0.7)
+
+
+  */

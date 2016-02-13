@@ -5,6 +5,10 @@ fs_cut_index <- function(x, y) {
     .Call('FSelectorRcpp_fs_cut_index', PACKAGE = 'FSelectorRcpp', x, y)
 }
 
+fs_mdl_stop <- function(ci, y, entropy) {
+    .Call('FSelectorRcpp_fs_mdl_stop', PACKAGE = 'FSelectorRcpp', ci, y, entropy)
+}
+
 fs_entropy1d <- function(x) {
     .Call('FSelectorRcpp_fs_entropy1d', PACKAGE = 'FSelectorRcpp', x)
 }

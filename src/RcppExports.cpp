@@ -17,6 +17,19 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// fs_mdl_stop
+double fs_mdl_stop(int ci, IntegerVector y, double entropy);
+RcppExport SEXP FSelectorRcpp_fs_mdl_stop(SEXP ciSEXP, SEXP ySEXP, SEXP entropySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< int >::type ci(ciSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type entropy(entropySEXP);
+    __result = Rcpp::wrap(fs_mdl_stop(ci, y, entropy));
+    return __result;
+END_RCPP
+}
 // fs_entropy1d
 double fs_entropy1d(SEXP x);
 RcppExport SEXP FSelectorRcpp_fs_entropy1d(SEXP xSEXP) {

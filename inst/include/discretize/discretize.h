@@ -24,8 +24,8 @@ typedef boost::optional<std::pair<size_t, double>> OptPair;
 template<class InputIterator> OptDouble mdl_stop(InputIterator first,
                                                  InputIterator last,
                                                  size_t splitPoint,
-                                                 double gain,
-                                                 double setEntropy)
+                                                 double entropy
+                                                 )
 {
   double k = fselector::support::count_levels(first, last);
   double leftK = fselector::support::count_levels(first, first + splitPoint);
@@ -33,8 +33,11 @@ template<class InputIterator> OptDouble mdl_stop(InputIterator first,
 
   double leftEntropy = fselector::entropy::entropy1d(first, first + splitPoint);
   double rightEntropy = fselector::entropy::entropy1d(first + splitPoint + 1, last);
+  double totalEntropy = fselector::entropy::entropy1d(first, last);
 
-  double delta = std::log(std::pow(3.0, k) - 2) - (k * setEntropy - leftK * leftEntropy - rightK * rightEntropy);
+  double gain = totalEntropy - entropy;
+
+  double delta = std::log(std::pow(3.0, k) - 2) - (k * totalEntropy - leftK * leftEntropy - rightK * rightEntropy);
 
   double len = last - first;
   double condition = (std::log(len - 1.0) + delta) / len;
@@ -89,6 +92,7 @@ template<class InputIterator, class OutputIterator> OptPair cut_index(InputItera
 
   return result;
 }
+
 
 
 
