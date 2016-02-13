@@ -9,6 +9,14 @@ fs_mdl_stop <- function(ci, y, entropy) {
     .Call('FSelectorRcpp_fs_mdl_stop', PACKAGE = 'FSelectorRcpp', ci, y, entropy)
 }
 
+fs_part <- function(x, y) {
+    .Call('FSelectorRcpp_fs_part', PACKAGE = 'FSelectorRcpp', x, y)
+}
+
+fs_discretize <- function(x, y) {
+    .Call('FSelectorRcpp_fs_discretize', PACKAGE = 'FSelectorRcpp', x, y)
+}
+
 fs_entropy1d <- function(x) {
     .Call('FSelectorRcpp_fs_entropy1d', PACKAGE = 'FSelectorRcpp', x)
 }
@@ -19,6 +27,10 @@ fs_numeric_entropy <- function(x) {
 
 fs_count_levels <- function(x) {
     .Call('FSelectorRcpp_fs_count_levels', PACKAGE = 'FSelectorRcpp', x)
+}
+
+fs_order <- function(x) {
+    .Call('FSelectorRcpp_fs_order', PACKAGE = 'FSelectorRcpp', x)
 }
 
 fs_table1d <- function(x) {

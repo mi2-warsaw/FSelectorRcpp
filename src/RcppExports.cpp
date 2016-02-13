@@ -30,6 +30,30 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// fs_part
+NumericVector fs_part(NumericVector x, IntegerVector y);
+RcppExport SEXP FSelectorRcpp_fs_part(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
+    __result = Rcpp::wrap(fs_part(x, y));
+    return __result;
+END_RCPP
+}
+// fs_discretize
+IntegerVector fs_discretize(NumericVector x, IntegerVector y);
+RcppExport SEXP FSelectorRcpp_fs_discretize(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
+    __result = Rcpp::wrap(fs_discretize(x, y));
+    return __result;
+END_RCPP
+}
 // fs_entropy1d
 double fs_entropy1d(SEXP x);
 RcppExport SEXP FSelectorRcpp_fs_entropy1d(SEXP xSEXP) {
@@ -60,6 +84,17 @@ BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     __result = Rcpp::wrap(fs_count_levels(x));
+    return __result;
+END_RCPP
+}
+// fs_order
+IntegerVector fs_order(SEXP x);
+RcppExport SEXP FSelectorRcpp_fs_order(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    __result = Rcpp::wrap(fs_order(x));
     return __result;
 END_RCPP
 }
