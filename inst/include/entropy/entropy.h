@@ -133,6 +133,59 @@ template<typename T> class RollEntropy
 };
 
 
+class RollIntEntropy
+{
+  std::vector<int> _values;
+  int _size;
+
+public:
+
+  RollIntEntropy(size_t levelsNo) : _size(0),
+  _values(levelsNo + 1) {};
+  template<class InputIterator> RollIntEntropy(InputIterator first, InputIterator last, size_t levelsNo) :
+    _size(0),
+    _values(levelsNo + 1)
+  {
+    for(; first != last; first++)
+    {
+      add_sample(*first);
+      _size++;
+    }
+  };
+
+
+  void add_sample(const int& val)
+  {
+    _size++;
+    _values[val]++;
+
+  }
+
+  void remove_sample(const int& val)
+  {
+    _size--;
+    _values[val]--;
+  }
+
+  double get_entropy()
+  {
+    double total = 0.0;
+    double size = _size;
+    for(const auto& it : _values)
+    {
+      if(it > 0)
+      {
+        const double res = it/size;
+        total += res * std::log(res);
+      }
+    }
+
+    return total;
+  }
+
+};
+
+
 
 }
 }
