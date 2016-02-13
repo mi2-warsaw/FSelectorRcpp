@@ -159,6 +159,9 @@ template<class InputIterator, class OutputIterator> void discretize(InputIterato
   std::vector<typename std::iterator_traits<InputIterator>::value_type> x;
   std::vector<typename std::iterator_traits<OutputIterator>::value_type> y;
 
+  x.reserve(itXLast - itX);
+  y.reserve(itXLast - itX);
+
   for(const auto& iter : orderedIdx)
   {
     x.push_back(*(itX + iter));
