@@ -74,21 +74,25 @@ template<class InputIterator> double entropy1d(InputIterator first, InputIterato
 template<typename T> class RollEntropy
 {
   std::map<T, int> _map;
+  int _size;
 
   public:
 
-    RollEntropy() {};
-    template<class InputIterator> RollEntropy(InputIterator first, InputIterator last)
+    RollEntropy() : _size(0) {};
+    template<class InputIterator> RollEntropy(InputIterator first, InputIterator last) :
+      _size(0)
     {
       for(; first != last; first++)
       {
         add_sample(*first);
+        _size++;
       }
     };
 
 
     void add_sample(const T& val)
     {
+      _size++;
       auto mit = _map.find(val);
       if(mit != _map.end())
       {
@@ -102,6 +106,7 @@ template<typename T> class RollEntropy
 
     void remove_sample(const T& val)
     {
+      _size--;
       auto mit = _map.find(val);
       if(mit != _map.end())
       {
@@ -115,7 +120,14 @@ template<typename T> class RollEntropy
 
     double get_entropy()
     {
-      return freq_entropy(_map.begin(), _map.end());
+      double total = 0.0;
+      for(const auto& it : _map)
+      {
+        const double res = it.second/_size;
+        total += res * std::log(res);
+      }
+
+      return total;
     }
 
 };
