@@ -30,3 +30,25 @@ int fs_count_levels(SEXP x)
 
   return 0;
 }
+
+// [[Rcpp::export]]
+IntegerVector fs_order(SEXP x)
+{
+  switch(TYPEOF(x))
+  {
+  case REALSXP:
+  {
+    NumericVector xx = as<NumericVector>(x);
+    return wrap(fselector::support::order(xx.begin(), xx.end()));
+  }
+
+  case INTSXP:
+  {
+    IntegerVector xx = as<IntegerVector>(x);
+    return wrap(fselector::support::order(xx.begin(), xx.end()));
+  }
+  }
+
+  IntegerVector xx;
+  return xx;
+}
