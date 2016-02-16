@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericVector fs_cut_index(NumericVector x, IntegerVector y)
+NumericVector fs_cut_index(const NumericVector& x, const IntegerVector& y)
 {
 
   fselector::discretize::OptPair result = fselector::discretize::cut_index(x.begin(), x.end(), y.begin(), y.end());
@@ -19,7 +19,7 @@ NumericVector fs_cut_index(NumericVector x, IntegerVector y)
 }
 
 // [[Rcpp::export]]
-double fs_mdl_stop(int ci, IntegerVector y, double entropy)
+double fs_mdl_stop(const int& ci, const IntegerVector& y, const double& entropy)
 {
   fselector::discretize::OptDouble res = fselector::discretize::mdl_stop(y.begin(), y.end(), ci, entropy);
 
@@ -28,7 +28,7 @@ double fs_mdl_stop(int ci, IntegerVector y, double entropy)
 }
 
 // [[Rcpp::export]]
-NumericVector fs_part(NumericVector x, IntegerVector y)
+NumericVector fs_part(const NumericVector& x, const IntegerVector& y)
 {
   std::set<int> splitPoints;
 
