@@ -43,13 +43,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // fs_discretize
-IntegerVector fs_discretize(NumericVector x, IntegerVector y);
+IntegerVector fs_discretize(const NumericVector& x, const IntegerVector& y);
 RcppExport SEXP FSelectorRcpp_fs_discretize(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type y(ySEXP);
     __result = Rcpp::wrap(fs_discretize(x, y));
     return __result;
 END_RCPP

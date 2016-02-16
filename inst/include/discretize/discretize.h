@@ -148,16 +148,16 @@ template<class InputIterator, class OutputIterator> void part(InputIterator itX,
 }
 
 
-template<class InputIterator, class OutputIterator> void discretize(InputIterator itX,
+template<class InputIterator, class VariableIterator, class OutputIterator> void discretize(InputIterator itX,
                 InputIterator itXLast,
-                OutputIterator itY,
+                VariableIterator itY,
                 OutputIterator itResult)
 {
 
   std::vector<std::size_t> orderedIdx = support::order(itX, itXLast);
 
   std::vector<typename std::iterator_traits<InputIterator>::value_type> x;
-  std::vector<typename std::iterator_traits<OutputIterator>::value_type> y;
+  std::vector<typename std::iterator_traits<VariableIterator>::value_type> y;
 
   x.reserve(itXLast - itX);
   y.reserve(itXLast - itX);

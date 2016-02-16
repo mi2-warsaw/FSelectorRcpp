@@ -39,7 +39,7 @@ NumericVector fs_part(const NumericVector& x, const IntegerVector& y)
 }
 
 // [[Rcpp::export]]
-IntegerVector fs_discretize(NumericVector x, IntegerVector y)
+IntegerVector fs_discretize(const NumericVector& x, const IntegerVector& y)
 {
   IntegerVector result(y.size());
 
