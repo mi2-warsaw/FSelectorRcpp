@@ -66,12 +66,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // fs_numeric_entropy
-double fs_numeric_entropy(NumericVector x);
+double fs_numeric_entropy(const NumericVector& x);
 RcppExport SEXP FSelectorRcpp_fs_numeric_entropy(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
     __result = Rcpp::wrap(fs_numeric_entropy(x));
     return __result;
 END_RCPP
