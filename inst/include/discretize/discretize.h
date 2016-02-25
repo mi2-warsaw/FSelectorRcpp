@@ -156,10 +156,18 @@ template<class InputIterator, class VariableIterator, class OutputIterator> void
 
   std::vector<std::size_t> orderedIdx = support::order(itX, itXLast);
 
+  std::vector<typename std::iterator_traits<InputIterator>::value_type> x;
+  std::vector<typename std::iterator_traits<VariableIterator>::value_type> y;
 
+  x.reserve(itXLast - itX);
+  y.reserve(itXLast - itX);
 
-  std::vector<typename std::iterator_traits<InputIterator>::value_type> x(itX, itXLast);
-  std::vector<typename std::iterator_traits<VariableIterator>::value_type> y(itY, itY + orderedIdx.size());
+  for(const auto& iter : orderedIdx)
+  {
+    x.push_back(*(itX + iter));
+    y.push_back(*(itY + iter));
+  }
+
 
   std::set<int> splitPoints;
   part(x.begin(), x.end(), y.begin(), y.end(), 0, 1.0, splitPoints);
