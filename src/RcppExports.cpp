@@ -76,6 +76,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// information_gain_cpp
+List information_gain_cpp(List xx, IntegerVector y);
+RcppExport SEXP FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type xx(xxSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
+    __result = Rcpp::wrap(information_gain_cpp(xx, y));
+    return __result;
+END_RCPP
+}
 // fs_count_levels
 int fs_count_levels(SEXP x);
 RcppExport SEXP FSelectorRcpp_fs_count_levels(SEXP xSEXP) {
