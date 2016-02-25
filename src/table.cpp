@@ -72,3 +72,19 @@ IntegerVector fs_table1d(SEXP& x)
   return  result;
 
 }
+
+// [[Rcpp::export]]
+std::vector<int> fs_table_numeric2d(NumericVector &x, NumericVector &y)
+{
+  std::vector<int> result;
+
+  auto res = fselector::support::table2d(x.begin(), x.end(), y.begin());
+
+  for(const auto& it : res)
+  {
+    result.push_back(it.second);
+  }
+
+  return  result;
+
+}

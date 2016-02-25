@@ -109,3 +109,15 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// fs_table_numeric2d
+std::vector<int> fs_table_numeric2d(NumericVector& x, NumericVector& y);
+RcppExport SEXP FSelectorRcpp_fs_table_numeric2d(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector& >::type y(ySEXP);
+    __result = Rcpp::wrap(fs_table_numeric2d(x, y));
+    return __result;
+END_RCPP
+}

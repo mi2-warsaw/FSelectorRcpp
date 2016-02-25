@@ -37,3 +37,7 @@ fs_table1d <- function(x) {
     .Call('FSelectorRcpp_fs_table1d', PACKAGE = 'FSelectorRcpp', x)
 }
 
+fs_table_numeric2d <- function(x, y) {
+    .Call('FSelectorRcpp_fs_table_numeric2d', PACKAGE = 'FSelectorRcpp', x, y)
+}
+
