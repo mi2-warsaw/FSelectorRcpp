@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <cmath>
 #include <algorithm>
 #include "support/table.h"
@@ -73,7 +74,7 @@ template<class InputIterator> double entropy1d(InputIterator first, InputIterato
 
 template<typename T> class RollEntropy
 {
-  std::map<T, int> _map;
+  std::unordered_map<T, int> _map;
   int _size;
 
   public:
