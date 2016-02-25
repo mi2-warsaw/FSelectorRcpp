@@ -85,7 +85,6 @@ template<typename T> class RollEntropy
       for(; first != last; first++)
       {
         add_sample(*first);
-        _size++;
       }
     };
 
@@ -94,6 +93,7 @@ template<typename T> class RollEntropy
     {
       _size++;
       auto mit = _map.find(val);
+
       if(mit != _map.end())
       {
         mit->second++;
@@ -106,11 +106,11 @@ template<typename T> class RollEntropy
 
     void remove_sample(const T& val)
     {
-      _size--;
       auto mit = _map.find(val);
       if(mit != _map.end())
       {
         mit->second--;
+        _size--;
       }
       else
       {
@@ -123,11 +123,14 @@ template<typename T> class RollEntropy
       double total = 0.0;
       for(const auto& it : _map)
       {
-        const double res = it.second/_size;
-        total += res * std::log(res);
+        if(it.second != 0)
+        {
+          const double res = double(it.second)/double(_size);
+          total += res * std::log(res);
+        }
       }
 
-      return total;
+      return -total;
     }
 
 };
@@ -158,7 +161,6 @@ public:
   {
     _size++;
     _values[val]++;
-
   }
 
   void remove_sample(const int& val)
