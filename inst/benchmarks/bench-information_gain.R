@@ -1,10 +1,10 @@
 library(FSelector)
 library(FSelectorRcpp)
 
-dt = lapply(1:500, function(xx)
+dt = lapply(1:50, function(xx)
 {
-  x = rnorm(1000, mean = 10 * xx)
-  y = rnorm(1000, mean = 0.5 * xx)
+  x = rnorm(100000, mean = 10 * xx)
+  y = rnorm(100000, mean = 0.5 * xx)
   z = 10 * xx + 0.5 * sqrt(xx)
   data.frame(x,y,z)
 })
@@ -13,9 +13,8 @@ dt = Reduce(rbind, dt)
 
 dt$z = as.factor(as.integer(round(dt$z)))
 
-information.gain(z ~ ., dt)
-information_gain(z ~ ., dt)
-
+system.time(information.gain(z ~ ., dt))
+system.time(information_gain(z ~ ., dt))
 
 all(as.numeric(Discretize(z ~ x, dt)[,1]) == fs_discretize(dt$x, dt$z) + 1)
 

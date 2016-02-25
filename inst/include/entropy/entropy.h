@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <cmath>
 #include <algorithm>
+#include <utility>
 #include "support/table.h"
 
 namespace fselector
@@ -74,8 +75,9 @@ template<class InputIterator> double entropy1d(InputIterator first, InputIterato
 
 template<typename T> class RollEntropy
 {
-  std::unordered_map<T, int> _map;
+  std::unordered_map<T, std::pair<int, double> > _map;
   int _size;
+  double _sizeLog;
 
   public:
 
@@ -93,15 +95,18 @@ template<typename T> class RollEntropy
     void add_sample(const T& val)
     {
       _size++;
+      _sizeLog = std::log(_size);
+
       auto mit = _map.find(val);
 
       if(mit != _map.end())
       {
-        mit->second++;
+        mit->second.first++;
+        mit->second.second = std::log(mit->second.first);
       }
       else
       {
-        _map[val] = 1;
+        _map[val] = std::make_pair(1, 0.0);
       }
     }
 
@@ -110,12 +115,15 @@ template<typename T> class RollEntropy
       auto mit = _map.find(val);
       if(mit != _map.end())
       {
-        mit->second--;
+        mit->second.first--;
+        mit->second.second = std::log(mit->second.first);
+
         _size--;
+        _sizeLog = _size > 0 ? std::log(_size) : 0.0;
       }
       else
       {
-        _map[val] = 0;
+        _map[val] = std::make_pair(0, 0.0);
       }
     }
 
@@ -124,10 +132,10 @@ template<typename T> class RollEntropy
       double total = 0.0;
       for(const auto& it : _map)
       {
-        if(it.second != 0)
+        if(it.second.first != 0)
         {
-          const double res = double(it.second)/double(_size);
-          total += res * std::log(res);
+          const double res = it.second.second - _sizeLog;
+          total += double(it.second.first)/double(_size) * res;
         }
       }
 
