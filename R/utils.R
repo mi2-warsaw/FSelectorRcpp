@@ -11,7 +11,7 @@ formula2names = function(formula, data)
 {
   lFormula = as.list(formula)
 
-  y = lFormula[[2]]
+  y = as.character(lFormula[[2]])
 
   if(as.list(lFormula[[3]])[[1]] == ".")
   {
