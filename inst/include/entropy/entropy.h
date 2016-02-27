@@ -147,8 +147,8 @@ template<typename T> class RollEntropy
 
 class RollIntEntropy
 {
-  std::vector<int> _values;
   int _size;
+  std::vector<int> _values;
 
 public:
 
