@@ -162,22 +162,38 @@ template<class InputIterator, class VariableIterator, class OutputIterator> void
   x.reserve(itXLast - itX);
   y.reserve(itXLast - itX);
 
+  size_t naCounter = 0;
+
   for(const auto& iter : orderedIdx)
   {
+    if(std::isnan(*(itX + iter)))
+    {
+      naCounter++;
+    }
+
     x.push_back(*(itX + iter));
     y.push_back(*(itY + iter));
   }
 
+  const size_t nonNanCounter = x.size() - naCounter;
 
   std::set<int> splitPoints;
-  part(x.begin(), x.end(), y.begin(), y.end(), 0, 1.0, splitPoints);
+
+  auto xEnd = x.begin() + nonNanCounter;
+  auto yEnd = y.begin() + nonNanCounter;
+
+  part(x.begin(), xEnd, y.begin(), yEnd, 0, 1.0, splitPoints);
 
 
   for(const auto& sp : splitPoints)
   {
     for(size_t i  = 0; i < orderedIdx.size(); i++)
     {
-      if(*(itX+i) > x[sp])
+      if(std::isnan(*(itX+i)))
+      {
+        *(itResult + i) = *(itX+i);
+      }
+      else if(*(itX+i) > x[sp])
       {
         *(itResult + i) += 1;
       }

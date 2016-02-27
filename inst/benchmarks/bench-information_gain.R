@@ -1,11 +1,12 @@
 library(FSelector)
 library(FSelectorRcpp)
 library(dplyr)
+library(RWeka)
 
 dt = lapply(1:5, function(xx)
 {
-  x = rnorm(100000, mean = 10 * xx)
-  y = rnorm(100000, mean = 0.5 * xx)
+  x = rnorm(1000, mean = 10 * xx)
+  y = rnorm(1000, mean = 0.5 * xx)
   z = 10 * xx + 0.5 * sqrt(xx)
   data.frame(x,y,z)
 })
