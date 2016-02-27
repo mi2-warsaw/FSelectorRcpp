@@ -1,5 +1,6 @@
 library(FSelector)
 library(FSelectorRcpp)
+library(dplyr)
 
 dt = lapply(1:5, function(xx)
 {
@@ -9,7 +10,7 @@ dt = lapply(1:5, function(xx)
   data.frame(x,y,z)
 })
 
-dt = Reduce(rbind, dt)
+dt = do.call(bind_rows, dt)
 
 dt$z = as.factor(as.integer(round(dt$z)))
 
@@ -18,11 +19,4 @@ system.time(information_gain(z ~ ., dt))
 
 all(as.numeric(Discretize(z ~ x, dt)[,1]) == fs_discretize(dt$x, dt$z) + 1)
 
-system.time(Discretize(z ~ x, dt))
-system.time(fs_discretize(dt$x, dt$z))
 
-system.time(fs_table_numeric2d(dt$x, dt$z))
-
-system.time(fs_count_levels(dt$z))
-
-dt[,2] = as.factor(dt[,2])
