@@ -87,8 +87,28 @@ template<typename T> class RollEntropy
     {
       for(; first != last; first++)
       {
-        add_sample(*first);
+        auto mit = _map.find(*first);
+
+        if(mit != _map.end())
+        {
+          mit->second.first++;
+
+        }
+        else
+        {
+          _map[*first] = std::make_pair(1, 0.0);
+        }
+
+        _size++;
       }
+
+      for(auto& mit : _map)
+      {
+        mit.second.second = std::log(mit.second.first);
+      }
+
+      _sizeLog = std::log(_size);
+
     };
 
 
