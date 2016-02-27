@@ -59,7 +59,7 @@ IntegerVector fs_table1d(SEXP& x)
       {
         if(std::strncmp(xx.attr("class"), "factor", 6) == 0)
         {
-          warning("Support for factors is not ready!");
+          result.attr("names") = xx.attr("levels");
         }
       }
 

@@ -43,7 +43,7 @@ test_that("Test factor table",
   stTable = table(x)
 
   fsTable = fs_table1d(x)
-  fsTable = fsTable[order(as.numeric(names(fsTable)))]
+  fsTable = fsTable[order((names(fsTable)))]
 
   expect_equal(names(stTable), names(fsTable))
   expect_equal(as.integer(stTable), as.integer(fsTable))
