@@ -20,4 +20,5 @@ system.time(information_gain(z ~ ., dt))
 
 all(as.numeric(Discretize(z ~ x, dt)[,1]) == fs_discretize(dt$x, dt$z) + 1)
 
+iris$Sepal.Length[3] = NA
 
