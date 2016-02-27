@@ -25,7 +25,13 @@ std::vector<size_t> order(InputIterator first, InputIterator last) {
 
   std::sort(
     begin(indices), end(indices),
-    [&](size_t a, size_t b) { return *(first + a) < *(first + b); }
+    [&](size_t a, size_t b) {
+
+
+      return std::isnan(*(first + a)) ? false :
+      (std::isnan(*(first + b)) ? true : *(first + a) < *(first + b));
+
+    }
   );
 
   return indices;

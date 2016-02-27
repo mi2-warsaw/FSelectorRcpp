@@ -1,7 +1,7 @@
 library(FSelector)
 library(FSelectorRcpp)
 
-dt = lapply(1:50, function(xx)
+dt = lapply(1:5, function(xx)
 {
   x = rnorm(100000, mean = 10 * xx)
   y = rnorm(100000, mean = 0.5 * xx)
