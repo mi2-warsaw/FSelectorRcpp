@@ -1,12 +1,22 @@
 information_gain = function(formula, data)
 {
-  #data = iris
-  #formula = Species ~ .
-  #information.gain(Species ~ ., data = iris)
   formula = formula2names(formula,data)
-  values = information_gain_cpp(data[formula$x], data[[formula$y]])
 
-  classEntropy = fs_entropy1d(data[[formula$y]])
+  y = data[[formula$y]]
+
+  if(anyNA())
+  {
+    stop("FSelector does not support NA in dependent variable")
+  }
+
+  if(!is.factor(y))
+  {
+    y = factor(y)
+  }
+
+  values = information_gain_cpp(data[formula$x], y)
+
+  classEntropy = fs_entropy1d(y)
 
   attrEntropy  = values$entropy
   jointEntropy = values$joint
