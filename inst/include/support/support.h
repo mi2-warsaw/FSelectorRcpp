@@ -37,6 +37,24 @@ std::vector<size_t> order(InputIterator first, InputIterator last) {
   return indices;
 }
 
+class LogPool
+{
+  std::vector<double> _logs;
+
+public:
+  LogPool(size_t n) : _logs(n+1)
+  {
+    for(size_t i = 2; i < _logs.size(); i++)
+      _logs[i] = std::log(i);
+  }
+
+  double operator()(const int& i) { return _logs[i];}
+
+
+};
+
+
+
 }
 
 }
