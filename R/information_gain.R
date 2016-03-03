@@ -4,7 +4,7 @@ information_gain = function(formula, data)
 
   y = data[[formula$y]]
 
-  if(anyNA())
+  if(anyNA(y))
   {
     stop("FSelector does not support NA in dependent variable")
   }
