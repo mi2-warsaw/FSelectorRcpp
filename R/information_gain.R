@@ -1,5 +1,21 @@
-information_gain = function(formula, data)
+
+#' Entropy-based filters
+#'
+#' Entropy-based filters
+#'
+#' @param formula description of a model
+#' @param data data to process
+#' @param type method name.
+#'
+#' @return data.frame
+#' @examples
+#'
+#' information_gain(Species ~ ., data = iris)
+#'
+information_gain = function(formula, data, type = c("infogain", "gainratio", "symuncert"))
 {
+  type = match.arg(type)
+
   formula = formula2names(formula,data)
 
   y = data[[formula$y]]
