@@ -11,6 +11,8 @@
 #' @examples
 #'
 #' information_gain(Species ~ ., data = iris)
+#' information_gain(Species ~ ., data = iris, type = "gainratio")
+#' information_gain(Species ~ ., data = iris, type = "symuncert")
 #'
 information_gain = function(formula, data, type = c("infogain", "gainratio", "symuncert"))
 {
@@ -38,6 +40,15 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
   jointEntropy = values$joint
 
   results = classEntropy + attrEntropy - jointEntropy
+
+  if(type == "gainration")
+  {
+    results = results / attrEntropy
+  } else if(type == "symuncert")
+  {
+    results = 2 * results / (attrEntropy	+ classEntropy)
+  }
+
 
   data.frame(importance = results, row.names = formula$x)
 }
