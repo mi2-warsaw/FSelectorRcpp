@@ -2,8 +2,20 @@ library(FSelectorRcpp)
 library(FSelector)
 library(testthat)
 
-FSelector:::information.gain.body
+test_that("Comparsion with FSelector",
+{
+  expect_equal(information.gain(Species ~ ., data = iris)$attr_importance,
+  information_gain(Species ~ ., data = iris)$importance)
 
+  expect_equal(gain.ratio(Species ~ ., data = iris)$attr_importance,
+               information_gain(Species ~ ., data = iris, type = "gainratio")$importance)
+
+  expect_equal(symmetrical.uncertainty(Species ~ ., data = iris)$attr_importance,
+               information_gain(Species ~ ., data = iris, type = "symuncert")$importance)
+
+
+
+})
 
 test_that("Test character table",
 {
