@@ -41,7 +41,7 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
 
   results = classEntropy + attrEntropy - jointEntropy
 
-  if(type == "gainration")
+  if(type == "gainratio")
   {
     results = results / attrEntropy
   } else if(type == "symuncert")
