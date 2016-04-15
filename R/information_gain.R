@@ -33,13 +33,9 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
   }
 
   values = information_gain_cpp(data[formula$x], y)
-
   classEntropy = fs_entropy1d(y)
 
-  attrEntropy  = values$entropy
-  jointEntropy = values$joint
-
-  results = information_type(classEntropy, attrEntropy, jointEntropy, type)
+  results = information_type(classEntropy, values, type)
 
   data.frame(importance = results, row.names = formula$x)
 }
@@ -61,18 +57,30 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
 #' x <- sparseMatrix(i, j, x = x)
 #' y = c(1,1,1,1,2,2,2,2)
 #'
+#' sp_information_gain(x,y)
+#' sp_information_gain(x,y, type = "gainratio")
+#' sp_information_gain(x,y, type = "symuncert")
+#'
 sp_information_gain = function(x, y, type = c("infogain", "gainratio", "symuncert"))
 {
   type = match.arg(type)
+
   values = sparse_information_gain_cpp(x,y)
+  classEntropy = fs_entropy1d(y)
+
+  results = information_type(classEntropy, values, type)
+
+  data.frame(importance = results, row.names = colnames(x))
 }
 
 
 information_type = function(classEntropy,
-                            attrEntropy,
-                            jointEntropy,
+                            values,
                             type = c("infogain", "gainratio", "symuncert"))
 {
+  attrEntropy  = values$entropy
+  jointEntropy = values$joint
+
   results = classEntropy + attrEntropy - jointEntropy
 
   if(type == "gainratio")
