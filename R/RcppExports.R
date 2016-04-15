@@ -29,6 +29,10 @@ information_gain_cpp <- function(xx, y) {
     .Call('FSelectorRcpp_information_gain_cpp', PACKAGE = 'FSelectorRcpp', xx, y)
 }
 
+sparse_information_gain_cpp <- function(x, y) {
+    .Call('FSelectorRcpp_sparse_information_gain_cpp', PACKAGE = 'FSelectorRcpp', x, y)
+}
+
 fs_count_levels <- function(x) {
     .Call('FSelectorRcpp_fs_count_levels', PACKAGE = 'FSelectorRcpp', x)
 }
