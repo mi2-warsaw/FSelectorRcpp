@@ -10,7 +10,7 @@ namespace fselector
 
 namespace cutoff
 {
-	// Sortowanie roznych par rzeczy
+	// Helper for sorting paris<string, T2>
 	template<typename T>
 	struct sortPairsDescending 
 	{
@@ -31,14 +31,13 @@ namespace cutoff
 	};
 
 
-
-	// Tworzenie wektora par z dwoch wektorow
+	// Main template
 	template<typename T1, typename T2>
-	std::vector< std::pair<T1, T2> > cutOff_k(std::vector<T1> &v1, std::vector<T2> &v2, double k, bool Descending = true)
+	std::vector<T1> cutOff_k(std::vector<T1> &v1, std::vector<T2> &v2, double k, bool Descending = true)
 	{
 		// Initialize final object
 		std::vector< std::pair<T1, T2> > result;
-		std::vector< std::pair<T1, T2> > final_result;
+		std::vector< T1 > final_result;
 
 		// Defining iterators for v1 (names) and v2 (values)
 		typename std::vector<T1>::iterator v1It = v1.begin();
@@ -63,23 +62,28 @@ namespace cutoff
 		{
 			for (int i = 0; i < k; i++)
 			{
-				final_result.push_back(result[i]);
+				final_result.push_back(result[i].first);
 			}
 		}
 		else if (k == 1)
 		{
-			final_result = result;
+			for (int i = 0; i < v1.size(); i++)
+			{
+				final_result.push_back(result[i].first);
+			}
 		}
-		else
+		else if (k > 0)
 		{
 			for (int i = 0; i < std::floor(k*v1.size()); i++)
 			{
-				final_result.push_back(result[i]);
+				final_result.push_back(result[i].first);
 			}
 		}
 
 		return final_result;
 	};
+
+
 	}
 }
 
