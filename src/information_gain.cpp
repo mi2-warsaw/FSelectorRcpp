@@ -15,12 +15,10 @@ List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
   NumericVector varEntropy(xx.length());
   NumericVector jointEntropy(xx.length());
 
-  size_t i = 0;
-
   if(threads < 1) threads = omp_get_max_threads();
 
-  #pragma omp parallel for shared(xx, varEntropy, jointEntropy, y) private(threads) num_threads(threads)
-  for(size_t i = i; i < xx.size(); i++)
+  #pragma omp parallel for shared(xx, varEntropy, jointEntropy, y) num_threads(threads) schedule(dynamic)
+  for(size_t i = 0; i < xx.size(); i++)
   {
     SEXP x = xx[i];
 
@@ -86,8 +84,6 @@ List sparse_information_gain_cpp(arma::sp_mat x, IntegerVector y)
   size_t n = x.n_cols;
   NumericVector varEntropy(n);
   NumericVector jointEntropy(n);
-
-  size_t i = 0;
 
   for(size_t i =0 ; i < n; i++)
   {
