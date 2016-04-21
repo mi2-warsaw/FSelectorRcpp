@@ -6,6 +6,19 @@
 
 using namespace Rcpp;
 
+// cutOff_k
+std::vector< std::string > cutOff_k(std::vector< std::string >& x1, std::vector<double>& x2, double k);
+RcppExport SEXP FSelectorRcpp_cutOff_k(SEXP x1SEXP, SEXP x2SEXP, SEXP kSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector< std::string >& >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< std::vector<double>& >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< double >::type k(kSEXP);
+    __result = Rcpp::wrap(cutOff_k(x1, x2, k));
+    return __result;
+END_RCPP
+}
 // fs_cut_index
 NumericVector fs_cut_index(const NumericVector& x, const IntegerVector& y);
 RcppExport SEXP FSelectorRcpp_fs_cut_index(SEXP xSEXP, SEXP ySEXP) {
@@ -78,14 +91,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // information_gain_cpp
-List information_gain_cpp(List xx, IntegerVector y);
-RcppExport SEXP FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP) {
+List information_gain_cpp(List xx, IntegerVector y, int threads);
+RcppExport SEXP FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type xx(xxSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
-    __result = Rcpp::wrap(information_gain_cpp(xx, y));
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    __result = Rcpp::wrap(information_gain_cpp(xx, y, threads));
     return __result;
 END_RCPP
 }

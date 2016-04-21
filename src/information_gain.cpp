@@ -1,12 +1,13 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
+#include "FSelector.h"
 #include "support/table.h"
 #include "discretize/discretize.h"
 
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-List information_gain_cpp(List xx, IntegerVector y)
+List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
 {
 
   IntegerVector result;
@@ -16,9 +17,12 @@ List information_gain_cpp(List xx, IntegerVector y)
 
   size_t i = 0;
 
-  for(const auto& it : xx)
+  if(threads < 1) threads = omp_get_max_threads();
+
+  #pragma omp parallel for shared(xx, varEntropy, jointEntropy, y) private(threads) num_threads(threads)
+  for(size_t i = i; i < xx.size(); i++)
   {
-    SEXP x = it;
+    SEXP x = xx[i];
 
     double entr = 0.0;
     double joint = 0.0;
@@ -65,7 +69,6 @@ List information_gain_cpp(List xx, IntegerVector y)
 
     varEntropy[i] = entr;
     jointEntropy[i] = joint;
-    i++;
   }
 
   return Rcpp::List::create(Rcpp::Named("entropy") = varEntropy,

@@ -14,7 +14,7 @@
 #' information_gain(Species ~ ., data = iris, type = "gainratio")
 #' information_gain(Species ~ ., data = iris, type = "symuncert")
 #'
-information_gain = function(formula, data, type = c("infogain", "gainratio", "symuncert"))
+information_gain = function(formula, data, type = c("infogain", "gainratio", "symuncert"), threads = 1)
 {
   type = match.arg(type)
 
@@ -32,7 +32,7 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
     y = factor(y)
   }
 
-  values = information_gain_cpp(data[formula$x], y)
+  values = information_gain_cpp(data[formula$x], y, threads = threads)
   classEntropy = fs_entropy1d(y)
 
   results = information_type(classEntropy, values, type)

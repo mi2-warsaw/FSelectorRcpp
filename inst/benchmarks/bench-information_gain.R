@@ -16,4 +16,4 @@ dt$z = as.factor(as.integer(round(dt$z)))
 
 system.time(information.gain(z ~ ., dt))
 system.time(information_gain(z ~ ., dt))
-
+system.time(information_gain(z ~ ., dt, threads = 2))
