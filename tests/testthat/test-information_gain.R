@@ -61,6 +61,7 @@ test_that("Test character table",
 library(FSelectorRcpp)
 library(FSelector)
 library(testthat)
+library(Matrix)
 
 test_that("Sparse matrix - basics",
 {
