@@ -6,3 +6,4 @@ r_packages:
  - BH
  - RcppArmadillo
 sudo: required
+warnings_are_errors: false
