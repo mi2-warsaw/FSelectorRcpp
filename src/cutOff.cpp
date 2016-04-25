@@ -1,5 +1,5 @@
 #include <Rcpp.h>
-#include "cutOff/cutOff.h"
+#include "cutoff/cutOff.h"
 using namespace Rcpp;
 
 // [[Rcpp::plugins(cpp11)]]
