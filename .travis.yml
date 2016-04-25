@@ -5,5 +5,7 @@ r_packages:
  - testthat
  - BH
  - RcppArmadillo
+ - FSelector
+ - foreach
 sudo: required
 warnings_are_errors: false

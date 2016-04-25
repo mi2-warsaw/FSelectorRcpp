@@ -10,9 +10,12 @@ License: What license is it under?
 LazyData: TRUE
 SystemRequirements: C++11
 Imports:
-    Rcpp (>= 0.12.0)
+    Rcpp (>= 0.12.0),
+    foreach
 LinkingTo: Rcpp, BH, RcppArmadillo
 Suggests:
     testthat,
-    Matrix
+    Matrix,
+    FSelector,
+    RcppArmadillo
 RoxygenNote: 5.0.1
