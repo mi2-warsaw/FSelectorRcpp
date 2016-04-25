@@ -11,7 +11,6 @@ library(Rcpp)
 library(RcppArmadillo)
 library(FSelector)
 
-Rcpp::sourceCpp(paste0(getwd(), "/src/cutOff.cpp"))
 
 
 # Prepare datasets
