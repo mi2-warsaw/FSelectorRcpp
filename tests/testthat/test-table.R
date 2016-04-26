@@ -1,4 +1,3 @@
-library(FSelectorRcpp)
 
 test_that("Test character table",
 {

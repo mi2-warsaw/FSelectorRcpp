@@ -1,6 +1,4 @@
-library(FSelectorRcpp)
-library(entropy)
-library(testthat)
+
 
 test_that("Test entropy",
 {

@@ -1,6 +1,3 @@
-library(FSelectorRcpp)
-library(FSelector)
-library(testthat)
 
 test_that("Comparsion with FSelector",
 {

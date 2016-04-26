@@ -17,5 +17,8 @@ Suggests:
     testthat,
     Matrix,
     FSelector,
-    RcppArmadillo
+    RcppArmadillo,
+    dplyr,
+    RWeka,
+    entropy
 RoxygenNote: 5.0.1

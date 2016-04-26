@@ -1,7 +1,3 @@
-library(FSelectorRcpp)
-library(dplyr)
-library(RWeka)
-library(testthat)
 
 test_that("Discretization - basic",
 {

@@ -1,6 +1,4 @@
-library(Rcpp)
-library(RcppArmadillo)
-library(FSelector)
+
 
 test_that("Cutoff - test",
 {
