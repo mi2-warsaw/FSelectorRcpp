@@ -20,5 +20,6 @@ Suggests:
     RcppArmadillo,
     dplyr,
     RWeka,
-    entropy
+    entropy,
+    FSelector
 RoxygenNote: 5.0.1
