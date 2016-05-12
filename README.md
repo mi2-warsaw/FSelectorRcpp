@@ -7,7 +7,7 @@
 [![Pending Pull-Requests](http://githubbadges.herokuapp.com/mi2-warsaw/FSelectorRcpp/pulls.svg?style=flat)](https://github.com/mi2-warsaw/FSelectorRcpp/pulls)
 [![Github Issues](http://githubbadges.herokuapp.com/mi2-warsaw/FSelectorRcpp/issues.svg)](https://github.com/mi2-warsaw/FSelectorRcpp/issues)
 
-# FSelectorRcpp
+# [FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/)
 Rcpp (free of Java/Weka) implementation of FSelector entropy-based feature selection algorithms with sparse matrix support
 
 Project is supported by [waffle.io](https://waffle.io/mi2-warsaw/FSelectorRcpp).
