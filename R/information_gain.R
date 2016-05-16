@@ -1,4 +1,3 @@
-
 #' Entropy-based filters
 #'
 #' Entropy-based filters
@@ -6,6 +5,9 @@
 #' @param formula description of a model
 #' @param data data to process
 #' @param type method name.
+#' @param x sparse matrix
+#' @param y dependent variable
+#' @param threads no idea what is it for Zygmunt?
 #'
 #' @return data.frame
 #' @examples
@@ -14,6 +16,22 @@
 #' information_gain(Species ~ ., data = iris, type = "gainratio")
 #' information_gain(Species ~ ., data = iris, type = "symuncert")
 #'
+#' # sparse examples
+#' library(Matrix)
+#' i <- c(1,3:8); j <- c(2,9,6:10); x <- 7 * (1:7)
+#' x <- sparseMatrix(i, j, x = x)
+#' y = c(1,1,1,1,2,2,2,2)
+#'
+#' sp_information_gain(x,y)
+#' sp_information_gain(x,y, type = "gainratio")
+#' sp_information_gain(x,y, type = "symuncert")
+#'
+#' @importFrom Rcpp evalCpp
+#' @importFrom stats na.omit
+#' @useDynLib FSelectorRcpp
+#' @name FSelectorRcpp
+#' @rdname information_gain
+#' @export
 information_gain = function(formula, data, type = c("infogain", "gainratio", "symuncert"), threads = 1)
 {
   type = match.arg(type)
@@ -47,26 +65,10 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
 }
 
 
-#' Entropy-based filters
-#'
-#' Entropy-based filters
-#'
-#' @param x sparse matrix
-#' @param y dependent variable
-#' @param type method name.
-#'
-#' @return data.frame
-#' @examples
-#'
-#' library(Matrix)
-#' i <- c(1,3:8); j <- c(2,9,6:10); x <- 7 * (1:7)
-#' x <- sparseMatrix(i, j, x = x)
-#' y = c(1,1,1,1,2,2,2,2)
-#'
-#' sp_information_gain(x,y)
-#' sp_information_gain(x,y, type = "gainratio")
-#' sp_information_gain(x,y, type = "symuncert")
-#'
+
+#' @export
+#' @rdname information_gain
+#' @aliases infotmation_gain
 sp_information_gain = function(x, y, type = c("infogain", "gainratio", "symuncert"))
 {
   type = match.arg(type)

@@ -5,7 +5,7 @@ Version: 0.0.2
 Date: 2016-05-12
 Author: Zygmunt Zawadzki <zygmunt.zawadzki@gmail.com>
 Maintainer: Zygmunt Zawadzki <zygmunt.zawadzki@gmail.com>
-Description: 'Rcpp' (free of Java/Weka) implementation of 'FSelector' entropy-based feature selection algorithms with sparse matrix support
+Description: 'Rcpp' (free of Java/Weka) implementation of 'FSelector' entropy-based feature selection algorithms with sparse matrix support.
 License: GPL-2
 LazyData: TRUE
 SystemRequirements: C++11
@@ -16,7 +16,6 @@ LinkingTo: Rcpp, BH, RcppArmadillo
 Suggests:
     testthat,
     Matrix,
-    FSelector,
     RcppArmadillo,
     dplyr,
     RWeka,

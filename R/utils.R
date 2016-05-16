@@ -2,8 +2,6 @@
 #'
 #' Converts formula to character vector
 #'
-#' @param formula
-#' @param data
 #'
 #' @noRd
 #'
