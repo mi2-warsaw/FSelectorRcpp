@@ -63,9 +63,14 @@ library(Matrix)
 test_that("Sparse matrix - basics",
 {
   species = iris$Species
-  x = as.matrix(iris[,1:4])
+  x = (as.matrix(iris[,1:4]))
+  mode(x) = "integer"
   x = Matrix(x, sparse = TRUE)
 
+  mode(iris$Sepal.Length) = "integer"
+  mode(iris$Sepal.Width)  = "integer"
+  mode(iris$Petal.Length) = "integer"
+  mode(iris$Petal.Width)  = "integer"
 
   expect_equal(sp_information_gain(x, species)$importance,
                information_gain(Species ~ ., data = iris)$importance)

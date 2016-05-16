@@ -89,15 +89,15 @@ List sparse_information_gain_cpp(arma::sp_mat x, IntegerVector y)
   {
     const auto sp = x.col(i);
 
-    std::vector<double> xx(sp.begin(), sp.end());
+    arma::vec xx(sp);
 
+    //IntegerVector disX(y.size()); //discretized x
+    //fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin());
 
-    IntegerVector disX(y.size()); //discretized x
-    fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin());
+    varEntropy[i] = fselector::entropy::entropy1d(xx.begin(), xx.end());
 
-    varEntropy[i] = fselector::entropy::entropy1d(disX.begin(), disX.end());
+    auto map = fselector::support::table2d(xx.begin(), xx.end(), y.begin());
 
-    auto map = fselector::support::table2d(disX.begin(),disX.end(), y.begin());
     jointEntropy[i] = fselector::entropy::freq_entropy(map.begin(), map.end());
   }
 
