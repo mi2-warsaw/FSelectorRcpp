@@ -10,6 +10,9 @@
 #' @param threads no idea what is it for Zygmunt?
 #'
 #' @return data.frame
+#'
+#' @author Zygmunt Zawadzki , \email{zygmunt.zawadzki@@gmail.com}
+#'
 #' @examples
 #'
 #' information_gain(Species ~ ., data = iris)

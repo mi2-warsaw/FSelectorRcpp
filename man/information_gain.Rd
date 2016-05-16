@@ -48,4 +48,7 @@ sp_information_gain(x,y, type = "gainratio")
 sp_information_gain(x,y, type = "symuncert")
 
 }
+\author{
+Zygmunt Zawadzki , \email{zygmunt.zawadzki@gmail.com}
+}
 
