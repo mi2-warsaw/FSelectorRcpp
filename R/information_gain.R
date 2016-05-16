@@ -18,6 +18,12 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
 {
   type = match.arg(type)
 
+  if(anyNA(data))
+  {
+    warning("There are missing values in your data. information_gain will remove them with na.omit().")
+    data = na.omit(data)
+  }
+
   formula = formula2names(formula,data)
 
   y = data[[formula$y]]
