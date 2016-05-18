@@ -7,19 +7,21 @@
 #'
 formula2names = function(formula, data)
 {
-  lFormula = as.list(formula)
-
-  y = as.character(lFormula[[2]])
-
-  if(as.list(lFormula[[3]])[[1]] == ".")
-  {
-    cnames = colnames(data)
-    x = cnames[!cnames == y]
-  } else
-  {
-    x = as.list(lFormula[[3]])[-1]
-    x = sapply(x, as.character)
-  }
+  # lFormula = as.list(formula)
+  #
+  # y = as.character(lFormula[[2]])
+  #
+  # if(as.list(lFormula[[3]])[[1]] == ".")
+  # {
+  #   cnames = colnames(data)
+  #   x = cnames[!cnames == y]
+  # } else
+  # {
+  #   x = as.list(lFormula[[3]])[-1]
+  #   x = sapply(x, as.character)
+  # }
+  y = formula[[2]]
+  x = attr(stats::terms(formula, data=data), "term.labels")
 
   list(y = y, x = x)
 }
