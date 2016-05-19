@@ -42,7 +42,6 @@
 #' @importFrom Rcpp evalCpp
 #' @importFrom stats na.omit
 #' @useDynLib FSelectorRcpp
-#' @name FSelectorRcpp
 #' @rdname information_gain
 #' @export
 information_gain = function(formula, data, type = c("infogain", "gainratio", "symuncert"), threads = 1)
