@@ -23,7 +23,7 @@ formula2names = function(formula, data)
   y = formula[[2]]
   x = attr(stats::terms(formula, data=data), "term.labels")
 
-  list(y = y, x = x)
+  list(y = as.character(y), x = x)
 }
 
 
