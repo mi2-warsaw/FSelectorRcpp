@@ -2,6 +2,16 @@
 #'
 #' Entropy-based filters
 #'
+#' The algorithms find weights of discrete attributes basing on their correlation with continous class attribute.
+#'
+#' @details
+#'
+#'  \code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
+#'
+#'  \code{type = "gainratio"} is \deqn{\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute)}}{(H(Class) + H(Attribute) - H(Class, Attribute)) / H(Attribute)}
+#'
+#'  \code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class, Attribute)) / (H(Attribute) + H(Class))}
+#'
 #' @param formula description of a model
 #' @param data data to process
 #' @param type method name.
@@ -9,7 +19,7 @@
 #' @param y dependent variable
 #' @param threads no idea what is it for Zygmunt?
 #'
-#' @return data.frame
+#' @return a data.frame containing the worth of attributes in the first column and their names as row names
 #'
 #' @author Zygmunt Zawadzki , \email{zygmunt.zawadzki@@gmail.com}
 #'
