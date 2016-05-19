@@ -25,27 +25,89 @@
 #'
 #' @examples
 #'
-#' information_gain(Species ~ ., data = iris)
-#' information_gain(Species ~ ., data = iris, type = "gainratio")
-#' information_gain(Species ~ ., data = iris, type = "symuncert")
 #'
-#' # sparse examples
+#' irisX = iris[-5]
+#' y = iris$Species
+#'
+#' ## data.frame interface
+#' information_gain(irisX, y)
+#'
+#' # formula interface
+#' information_gain(Species ~ ., y = iris)
+#' information_gain(Species ~ ., y = iris, type = "gainratio")
+#' information_gain(Species ~ ., y = iris, type = "symuncert")
+#'
+#' # sparse matrix interface
 #' library(Matrix)
 #' i <- c(1,3:8); j <- c(2,9,6:10); x <- 7 * (1:7)
 #' x <- sparseMatrix(i, j, x = x)
 #' y = c(1,1,1,1,2,2,2,2)
 #'
-#' sp_information_gain(x,y)
-#' sp_information_gain(x,y, type = "gainratio")
-#' sp_information_gain(x,y, type = "symuncert")
+#' information_gain(x,y)
+#' information_gain(x,y, type = "gainratio")
+#' information_gain(x,y, type = "symuncert")
 #'
 #' @importFrom Rcpp evalCpp
 #' @importFrom stats na.omit
 #' @useDynLib FSelectorRcpp
 #' @rdname information_gain
 #' @export
-information_gain = function(formula, data, type = c("infogain", "gainratio", "symuncert"), threads = 1)
+#'
+information_gain = function(x,
+                            y,
+                            type = c("infogain", "gainratio", "symuncert"),
+                            threads = 1)
 {
+  UseMethod("information_gain", x)
+}
+
+information_gain.default = function(x,
+                                    y,
+                                    type = c("infogain", "gainratio", "symuncert"),
+                                    threads = 1)
+{
+  stop("Unsupported data type. x must be data.frame, sparse matrix or formula")
+}
+
+
+information_gain.data.frame = function(x,
+                                       y,
+                                       type = c("infogain", "gainratio", "symuncert"),
+                                       threads = 1)
+{
+  type = match.arg(type)
+
+  if(anyNA(x) || anyNA(y))
+  {
+    warning("There are missing values in your data. information_gain will remove them.")
+    idx = complete.cases(x, y)
+    x = x[idx,]
+    y = y[idx]
+  }
+
+  if(!is.factor(y))
+  {
+    y = factor(y)
+  }
+
+  values = information_gain_cpp(x, y, threads = threads)
+  classEntropy = fs_entropy1d(y)
+
+  results = information_type(classEntropy, values, type)
+  data.frame(importance = results, row.names = colnames(x))
+}
+
+information_gain.formula = function(x,
+                                    y,
+                                    type = c("infogain", "gainratio", "symuncert"),
+                                    threads = 1)
+{
+  if(!is.data.frame(y)) stop("y must be a data.frame!")
+
+  formula = x
+  data = y
+
+
   type = match.arg(type)
 
   if(anyNA(data))
@@ -54,7 +116,7 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
     data = na.omit(data)
   }
 
-  formula = formula2names(formula,data)
+  formula = formula2names(formula, data)
 
   y = data[[formula$y]]
 
@@ -81,7 +143,7 @@ information_gain = function(formula, data, type = c("infogain", "gainratio", "sy
 #' @export
 #' @rdname information_gain
 #' @aliases infotmation_gain
-sp_information_gain = function(x, y, type = c("infogain", "gainratio", "symuncert"))
+information_gain.dgCMatrix = function(x, y, type = c("infogain", "gainratio", "symuncert"), threads = 1)
 {
   type = match.arg(type)
 
