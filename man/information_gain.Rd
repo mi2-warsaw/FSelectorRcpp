@@ -2,27 +2,36 @@
 % Please edit documentation in R/information_gain.R
 \name{information_gain}
 \alias{information_gain}
+\alias{information_gain.data.frame}
+\alias{information_gain.default}
+\alias{information_gain.dgCMatrix}
+\alias{information_gain.formula}
 \alias{infotmation_gain}
-\alias{sp_information_gain}
 \title{Entropy-based filters}
 \usage{
-information_gain(formula, data, type = c("infogain", "gainratio",
+information_gain(x, y, type = c("infogain", "gainratio", "symuncert"),
+  threads = 1)
+
+\method{information_gain}{default}(x, y, type = c("infogain", "gainratio",
   "symuncert"), threads = 1)
 
-sp_information_gain(x, y, type = c("infogain", "gainratio", "symuncert"))
+\method{information_gain}{data.frame}(x, y, type = c("infogain", "gainratio",
+  "symuncert"), threads = 1)
+
+\method{information_gain}{formula}(x, y, type = c("infogain", "gainratio",
+  "symuncert"), threads = 1)
+
+\method{information_gain}{dgCMatrix}(x, y, type = c("infogain", "gainratio",
+  "symuncert"), threads = 1)
 }
 \arguments{
-\item{formula}{description of a model}
+\item{x}{data.frame or sparse matrix with independent variables, or formula.}
 
-\item{data}{data to process}
+\item{y}{vector with dependent variable, or data.frame if \code{x} is formula}
 
 \item{type}{method name.}
 
-\item{threads}{no idea what is it for Zygmunt?}
-
-\item{x}{sparse matrix}
-
-\item{y}{dependent variable}
+\item{threads}{number of threads for parallel backend}
 }
 \value{
 a data.frame containing the worth of attributes in the first column and their names as row names
@@ -43,19 +52,27 @@ The algorithms find weights of discrete attributes basing on their correlation w
 }
 \examples{
 
-information_gain(Species ~ ., data = iris)
-information_gain(Species ~ ., data = iris, type = "gainratio")
-information_gain(Species ~ ., data = iris, type = "symuncert")
 
-# sparse examples
+irisX = iris[-5]
+y = iris$Species
+
+## data.frame interface
+information_gain(irisX, y)
+
+# formula interface
+information_gain(Species ~ ., y = iris)
+information_gain(Species ~ ., y = iris, type = "gainratio")
+information_gain(Species ~ ., y = iris, type = "symuncert")
+
+# sparse matrix interface
 library(Matrix)
 i <- c(1,3:8); j <- c(2,9,6:10); x <- 7 * (1:7)
 x <- sparseMatrix(i, j, x = x)
 y = c(1,1,1,1,2,2,2,2)
 
-sp_information_gain(x,y)
-sp_information_gain(x,y, type = "gainratio")
-sp_information_gain(x,y, type = "symuncert")
+information_gain(x,y)
+information_gain(x,y, type = "gainratio")
+information_gain(x,y, type = "symuncert")
 
 }
 \author{

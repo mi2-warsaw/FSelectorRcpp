@@ -12,12 +12,10 @@
 #'
 #'  \code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class, Attribute)) / (H(Attribute) + H(Class))}
 #'
-#' @param formula description of a model
-#' @param data data to process
 #' @param type method name.
-#' @param x sparse matrix
-#' @param y dependent variable
-#' @param threads no idea what is it for Zygmunt?
+#' @param x data.frame or sparse matrix with independent variables, or formula.
+#' @param y vector with dependent variable, or data.frame if \code{x} is formula
+#' @param threads number of threads for parallel backend
 #'
 #' @return a data.frame containing the worth of attributes in the first column and their names as row names
 #'
@@ -61,6 +59,9 @@ information_gain = function(x,
   UseMethod("information_gain", x)
 }
 
+#' @export
+#' @rdname information_gain
+#' @aliases infotmation_gain
 information_gain.default = function(x,
                                     y,
                                     type = c("infogain", "gainratio", "symuncert"),
@@ -69,7 +70,9 @@ information_gain.default = function(x,
   stop("Unsupported data type. x must be data.frame, sparse matrix or formula")
 }
 
-
+#' @export
+#' @rdname information_gain
+#' @aliases infotmation_gain
 information_gain.data.frame = function(x,
                                        y,
                                        type = c("infogain", "gainratio", "symuncert"),
@@ -97,6 +100,9 @@ information_gain.data.frame = function(x,
   data.frame(importance = results, row.names = colnames(x))
 }
 
+#' @export
+#' @rdname information_gain
+#' @aliases infotmation_gain
 information_gain.formula = function(x,
                                     y,
                                     type = c("infogain", "gainratio", "symuncert"),
