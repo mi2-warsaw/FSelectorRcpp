@@ -48,7 +48,7 @@ get_best_attributes.ExhaustiveSearchResult = function(x)
 print.ExhaustiveSearchResult = function(x, ...)
 {
   cat("Exhaustive Search Result:\n\n")
-  cat("\t",paste(fs_get_best_attributes(x), collapse = " + "))
+  cat("\t",paste(get_best_attributes(x), collapse = " + "))
   cat("\n\n\n")
   if(!is.null(x$allResult))
   {
