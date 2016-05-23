@@ -1,0 +1,91 @@
+#'
+#'
+#' @example
+#' # evaluator from FSelector package
+#' evaluator = function(subset, data)
+#' {
+#'   library(rpart)
+#'   library(FSelector)
+#'   k <- 5
+#'   splits <- runif(nrow(data))
+#'   results = sapply(1:k, function(i) {
+#'   test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
+#'   train.idx <- !test.idx
+#'   test <- data[test.idx, , drop=FALSE]
+#'   train <- data[train.idx, , drop=FALSE]
+#'   tree <- rpart(as.simple.formula(subset, "Species"), train)
+#'   error.rate = sum(test$Species != predict(tree, test, type="c")) / nrow(test)
+#'   return(1 - error.rate)
+#'    })
+#'   return(mean(results))
+#' }
+#'
+#'  system.time(fs_exhaustive_search(names(iris)[-5], evaluator, iris))
+#'  system.time(fs_exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
+#'
+
+fs_exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attributes), singleAttr = FALSE, keepAll = TRUE, allowParallel = TRUE, ...)
+{
+  library(foreach)
+  library(iterators)
+
+  len = length(attributes)
+  if (len == 0)
+    stop("attributes length must be > 0")
+  fun = match.fun(fun)
+
+
+  bestVal = -Inf
+  bestAttr = NULL
+
+  allCombn = NULL
+  allResult = NULL
+
+  if(length(subsetsSizes) == 1 & !singleAttr)
+  {
+    subsetsSizes = 1:subsetsSizes
+  }
+
+  `%op%` = ifelse(allowParallel, `%dopar%`, `%do%`)
+
+  for(size in subsetsSizes)
+  {
+    childComb = combn(1:len, size)
+    childComb = apply(childComb, 2, function(i) { x = rep(0, len); x[i] = 1; x}  )
+    childComb = t(childComb)
+
+    matIter = iter(childComb, by = "row")
+
+    result = foreach(it = matIter, ...) %op%
+    {
+      fun(attributes[as.logical(as.numeric(it))], data)
+    }
+
+    result = unlist(result)
+
+    if(keepAll)
+    {
+      allResult = c(allResult, result)
+      allCombn  = rbind(allCombn, childComb)
+    }
+
+    maxIdx = which.max(result)
+
+    if(result[maxIdx] > bestVal)
+    {
+      bestVal  = result[maxIdx]
+      bestAttr = childComb[maxIdx,]
+    }
+
+  }
+
+  if(keepAll)
+  {
+    res = list(result = bestVal, bestAttr = bestAttr, allResult = cbind(allCombn, values = allResult), attributes = attributes)
+  } else
+  {
+    res = list(result = bestVal, bestAttr = bestAttr, attributes = attributes)
+  }
+
+  return(res)
+}
