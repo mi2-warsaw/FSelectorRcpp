@@ -42,9 +42,6 @@
 #'
 exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attributes), singleAttr = FALSE, keepAll = TRUE, allowParallel = TRUE, ...)
 {
-  library(foreach)
-  library(iterators)
-
   len = length(attributes)
   if (len == 0)
     stop("attributes length must be > 0")
