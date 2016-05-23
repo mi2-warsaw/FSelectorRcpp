@@ -32,12 +32,12 @@
 #'   return(mean(results))
 #' }
 #'
-#'  system.time(fs_exhaustive_search(names(iris)[-5], evaluator, iris))
-#'  system.time(fs_exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
+#'  system.time(exhaustive_search(names(iris)[-5], evaluator, iris))
+#'  system.time(exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
 #'
 #' @export
 #'
-fs_exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attributes), singleAttr = FALSE, keepAll = TRUE, allowParallel = TRUE, ...)
+exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attributes), singleAttr = FALSE, keepAll = TRUE, allowParallel = TRUE, ...)
 {
   library(foreach)
   library(iterators)
