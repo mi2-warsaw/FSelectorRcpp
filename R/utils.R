@@ -27,13 +27,22 @@ formula2names = function(formula, data)
 }
 
 #' @export
-fs_get_best_attributes = function(x) UseMethod("fs_get_best_attributes")
+to_formula = function(attr, class)
+{
+  as.formula(paste(class, paste(attr, collapse = " + "), sep = " ~ "))
+}
+
+#### fs_get_best_attributes ----
+#' @export
+get_best_attributes = function(x) UseMethod("get_best_attributes")
 
 #' @export
-fs_get_best_attributes.ExhaustiveSearchResult = function(x)
+get_best_attributes.ExhaustiveSearchResult = function(x)
 {
   x$attributes[as.logical(x$bestAttr)]
 }
+
+#### print functions ----
 
 #' @export
 print.ExhaustiveSearchResult = function(x, ...)
