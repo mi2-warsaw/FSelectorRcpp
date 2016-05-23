@@ -105,4 +105,61 @@ exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attrib
   return(res)
 }
 
+#### greedy search ----
+#' @examples
+#'
+#' library(doParallel)
+#' registerDoParallel(cores = 2)
+#' system.time(greedy_search(names(iris)[-5], evaluator, iris))
+#' system.time(greedy_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
+#'
+#' @export
+greedy_search = function (attributes, fun, data, type = c("forward", "backward"), allowParallel = TRUE, ...)
+{
+  if (length(attributes) == 0)
+    stop("Attributes not specified")
 
+  fun = match.fun(fun)
+  type = match.arg(type)
+
+  isForward = type == "forward"
+
+  best = list(result = -Inf, attrs = rep(as.numeric(!isForward),
+                                         length(attributes)))
+  if(!isForward)
+  {
+    best$result = fun(attributes[as.logical(best$attrs)], data)
+  }
+
+  `%op%` = ifelse(allowParallel, `%dopar%`, `%do%`)
+
+  repeat
+  {
+    children = get_children(best$attrs, type)
+    if (is.null(children)) break;
+
+    iterChild = iter(children, by = "row")
+
+
+    childrenResults = foreach(it = iterChild, ...) %op%
+    {
+      fun(attributes[as.logical(it)],data)
+    }
+
+    childrenResults = unlist(childrenResults)
+
+    maxIdx = which.max(childrenResults)
+
+
+    if(childrenResults[maxIdx] > best$result)
+    {
+      best$result = childrenResults[maxIdx]
+      best$attrs  = children[maxIdx, ]
+    } else
+    {
+      break;
+    }
+  }
+
+  best
+}
