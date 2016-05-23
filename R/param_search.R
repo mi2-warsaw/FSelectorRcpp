@@ -1,6 +1,18 @@
+#' Exhaustive search
 #'
+#' The algorithm for searching atrribute subset space.
 #'
-#' @example
+#' @param attributes character vector with attributes names
+#' @param fun function to evaluate. See Details.
+#' @param data data set for fun function.
+#' @param subsetsSizes sizes of attributes subsets.
+#' @param singleAttr singleAttr
+#' @param keepAll keepAll
+#' @param allowParallel allowParallel
+#' @param \dots other arguments passed to foreach
+#'
+#' @examples
+#'
 #' # evaluator from FSelector package
 #' evaluator = function(subset, data)
 #' {
@@ -23,7 +35,8 @@
 #'  system.time(fs_exhaustive_search(names(iris)[-5], evaluator, iris))
 #'  system.time(fs_exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
 #'
-
+#' @export
+#'
 fs_exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attributes), singleAttr = FALSE, keepAll = TRUE, allowParallel = TRUE, ...)
 {
   library(foreach)
@@ -87,5 +100,9 @@ fs_exhaustive_search = function(attributes, fun, data, subsetsSizes = length(att
     res = list(result = bestVal, bestAttr = bestAttr, attributes = attributes)
   }
 
+  attr(res, "class") = c("ExhaustiveSearchResult","list")
+
   return(res)
 }
+
+
