@@ -26,5 +26,28 @@ formula2names = function(formula, data)
   list(y = as.character(y), x = x)
 }
 
+#' @export
+fs_get_best_attributes = function(x) UseMethod("fs_get_best_attributes")
 
+#' @export
+fs_get_best_attributes.ExhaustiveSearchResult = function(x)
+{
+  x$attributes[as.logical(x$bestAttr)]
+}
 
+#' @export
+print.ExhaustiveSearchResult = function(x, ...)
+{
+  cat("Exhaustive Search Result:\n\n")
+  cat("\t",paste(fs_get_best_attributes(x), collapse = " + "))
+  cat("\n\n\n")
+  if(!is.null(x$allResult))
+  {
+    cat('  Results for other attributes subsamples are avaiable.
+  You can extract them with x[["allResult"]]\n')
+  } else
+  {
+    cat("  Results for other attributes subsamples are not avaiable.
+  You can get them by rerunning fs_exhaustive_search with keepAll = TRUE\n")
+  }
+}
