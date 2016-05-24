@@ -10,5 +10,9 @@ r_packages:
  - dplyr
  - RWeka
  - entropy
+ - foreach
+ - doParallel
+ - rpart
+ - iterators
 sudo: required
 warnings_are_errors: false

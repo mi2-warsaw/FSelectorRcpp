@@ -35,6 +35,7 @@ fs_part <- function(x, y) {
     .Call('FSelectorRcpp_fs_part', PACKAGE = 'FSelectorRcpp', x, y)
 }
 
+#' @export
 fs_discretize <- function(x, y) {
     .Call('FSelectorRcpp_fs_discretize', PACKAGE = 'FSelectorRcpp', x, y)
 }

@@ -1,3 +1,5 @@
+library(dplyr)
+library(RWeka)
 
 test_that("Discretization - basic",
 {
