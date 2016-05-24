@@ -24,5 +24,7 @@ Suggests:
     dplyr,
     RWeka,
     entropy,
-    FSelector
+    FSelector,
+    doParallel,
+    rpart
 RoxygenNote: 5.0.1
