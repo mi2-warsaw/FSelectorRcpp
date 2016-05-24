@@ -106,6 +106,11 @@ exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attrib
 }
 
 #### greedy search ----
+
+#' Greedy Search
+#'
+#' Greedy Search
+#'
 #' @examples
 #'
 #' library(doParallel)
