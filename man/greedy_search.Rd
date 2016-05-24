@@ -12,6 +12,23 @@ Greedy Search
 }
 \examples{
 
+evaluator = function(subset, data)
+{
+  library(rpart)
+  k <- 5
+  splits <- runif(nrow(data))
+  results = sapply(1:k, function(i) {
+  test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
+  train.idx <- !test.idx
+  test <- data[test.idx, , drop=FALSE]
+  train <- data[train.idx, , drop=FALSE]
+  tree <- rpart(to_formula(subset, "Species"), train)
+  error.rate = sum(test$Species != predict(tree, test, type="c")) / nrow(test)
+  return(1 - error.rate)
+   })
+  return(mean(results))
+ }
+
 library(doParallel)
 registerDoParallel(cores = 2)
 system.time(greedy_search(names(iris)[-5], evaluator, iris))
