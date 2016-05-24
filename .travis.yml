@@ -10,7 +10,6 @@ r_packages:
  - dplyr
  - RWeka
  - entropy
- - foreach
  - doParallel
  - rpart
  - iterators
