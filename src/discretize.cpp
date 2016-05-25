@@ -1,5 +1,8 @@
 #include <Rcpp.h>
 #include "discretize/discretize.h"
+#include <string>
+
+// [[Rcpp::plugins(cpp11)]]
 using namespace Rcpp;
 
 // [[Rcpp::export]]
@@ -42,8 +45,35 @@ NumericVector fs_part(const NumericVector& x, const IntegerVector& y)
 IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
 {
   IntegerVector result(y.size());
+  std::set<int> splitPoints;
 
-  fselector::discretize::discretize(x.begin(), x.end(), y.begin(), result.begin());
+  fselector::discretize::discretize(x.begin(), x.end(), y.begin(), result.begin(), splitPoints);
+  result = result + 1; //discretize returns values stratring from zero
+
+  Rcpp::CharacterVector splitVals(splitPoints.size() + 1);
+
+  size_t i = 0;
+  std::string first = "(-Inf;";
+  std::string last  = "";
+  for(auto iter = splitPoints.rbegin(); iter != splitPoints.rend(); iter++ )
+  {
+    const std::string spl  = std::to_string(x[*iter]);
+    const std::string frmt = first + spl + "]";
+    first = std::string("(") + spl + ";";
+    splitVals[i] = frmt;
+    i++;
+  }
+
+  splitVals[splitPoints.size()] = std::string("(") +
+                                    std::to_string(x[*splitPoints.begin()]) + ";" + "Inf)";
+
+  result.attr("levels") = splitVals;
+
+  CharacterVector cl(2);
+  cl[0] = "ordered";
+  cl[1] = "factor";
+
+  result.attr("class") = cl;
 
   return result;
 

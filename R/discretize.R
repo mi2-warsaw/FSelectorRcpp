@@ -7,6 +7,10 @@
 #'
 #' @export
 #'
+#' @examples
+#'
+#' discretize(iris[[1]], iris[[5]])
+#'
 discretize = function(x, y)
 {
   UseMethod("discretize", x)
