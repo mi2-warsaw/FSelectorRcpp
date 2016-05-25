@@ -1,6 +1,7 @@
 #ifndef FSELECTOR_DISCRETIZE_H
 #define FSELECTOR_DISCRETIZE_H
 
+#include "../FSelectorConfig.h"
 #include <vector>
 #include <set>
 #include <cmath>
