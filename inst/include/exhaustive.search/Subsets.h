@@ -1,10 +1,10 @@
-#include <iostream> 
+#include "../FSelectorConfig.h"
 #include <list>
 #include <vector>
 
 // =========================================================================
 //
-// Author:			Damian Skrzypiec 
+// Author:			Damian Skrzypiec
 // Date:			18.04.2016 22:55:46
 // E-Mail:			damian.j.skrzypiec@gmail.com
 // GitHub:			@DSkrzypiec
@@ -106,10 +106,10 @@ void Subset<T>::PrintKSubsets()
 	{
 		for (auto j : it)
 		{
-			std::cout << j << " ";
+			FS_OUTPUT << j << " ";
 		}
 
-		std::cout << " " << std::endl;
+		FS_OUTPUT << " " << std::endl;
 	}
 }
 
