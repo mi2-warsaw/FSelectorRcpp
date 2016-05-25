@@ -15,8 +15,8 @@
 #'
 #' @examples
 #'
-#' \dontrun{
-#' }
+#' x = information_gain(Species ~ ., iris)
+#' cutOff_k(rownames(x), x[[1]], 2)
 #'
 #' @export
 cutOff_k <- function(x1, x2, k) {

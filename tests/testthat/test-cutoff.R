@@ -1,4 +1,5 @@
-
+library(FSelectorRcpp)
+library(FSelector)
 
 test_that("Cutoff - test",
 {
