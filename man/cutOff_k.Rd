@@ -22,8 +22,8 @@ Selection Cutoffs for Ranked Attributes
 }
 \examples{
 
-\dontrun{
-}
+x = information_gain(Species ~ ., iris)
+cutOff_k(rownames(x), x[[1]], 2)
 
 }
 \author{
