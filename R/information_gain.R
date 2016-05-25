@@ -47,6 +47,7 @@
 #'
 #' @importFrom Rcpp evalCpp
 #' @importFrom stats na.omit
+#' @importFrom stats complete.cases
 #' @useDynLib FSelectorRcpp
 #' @rdname information_gain
 #' @export

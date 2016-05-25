@@ -26,6 +26,7 @@ formula2names = function(formula, data)
   list(y = as.character(y), x = x)
 }
 
+#' @importFrom stats as.formula
 #' @export
 to_formula = function(attr, class)
 {
@@ -62,6 +63,8 @@ print.ExhaustiveSearchResult = function(x, ...)
 }
 
 #### create children ----
+
+#' @importFrom utils combn
 get_children = function (parent, direction = c("forward", "backward", "both"),
           omit.func = NULL)
 {

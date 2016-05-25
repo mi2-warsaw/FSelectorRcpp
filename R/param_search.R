@@ -1,3 +1,5 @@
+utils::globalVariables("it")
+
 #' Exhaustive search
 #'
 #' The algorithm for searching atrribute subset space.
