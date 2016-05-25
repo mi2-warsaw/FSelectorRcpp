@@ -16,7 +16,7 @@ test_that("Discretization - basic",
   dt$z = as.factor(as.integer(round(dt$z)))
 
   weka = as.numeric(Discretize(z ~ x, dt)[,1])
-  fs   = fs_discretize(dt$x, dt$z) + 1
+  fs   = FSelectorRcpp:::discretize_cpp(dt$x, dt$z) + 1
 
   expect_equal(weka, fs)
 }
@@ -30,7 +30,7 @@ test_that("Discretization - single NA (independent variable)",
   Weka = as.numeric(Discretize(Species ~ Sepal.Length, data = iris)[,1])
   Weka = c(Weka[1:2],NA,tail(Weka,-2))
 
-  fs   = fs_discretize(iris$Sepal.Length, iris$Species) + 1
+  fs   = FSelectorRcpp:::discretize_cpp(iris$Sepal.Length, iris$Species) + 1
 
   expect_equal(Weka, fs)
 

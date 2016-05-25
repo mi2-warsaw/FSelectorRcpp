@@ -35,9 +35,8 @@ fs_part <- function(x, y) {
     .Call('FSelectorRcpp_fs_part', PACKAGE = 'FSelectorRcpp', x, y)
 }
 
-#' @export
-fs_discretize <- function(x, y) {
-    .Call('FSelectorRcpp_fs_discretize', PACKAGE = 'FSelectorRcpp', x, y)
+discretize_cpp <- function(x, y) {
+    .Call('FSelectorRcpp_discretize_cpp', PACKAGE = 'FSelectorRcpp', x, y)
 }
 
 fs_entropy1d <- function(x) {
