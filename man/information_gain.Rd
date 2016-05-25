@@ -37,14 +37,10 @@ information_gain(x, y, type = c("infogain", "gainratio", "symuncert"),
 a data.frame containing the worth of attributes in the first column and their names as row names
 }
 \description{
-Entropy-based filters
+The algorithms find weights of discrete attributes basing on their correlation with continous class attribute.
 }
 \details{
-The algorithms find weights of discrete attributes basing on their correlation with continous class attribute.
-
-
-
- \code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
+\code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
 
  \code{type = "gainratio"} is \deqn{\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute)}}{(H(Class) + H(Attribute) - H(Class, Attribute)) / H(Attribute)}
 
