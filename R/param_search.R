@@ -111,7 +111,14 @@ exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attrib
 
 #' Greedy Search
 #'
-#' Greedy Search
+#' The algorithm for searching atrribute subset space.
+#'
+#' @param attributes character vector with attributes names
+#' @param fun function to evaluate. See Details.
+#' @param data data set for fun function.
+#' @param type algorithm used for search. Possible values \code{forward} and \code{backward}.
+#' @param allowParallel allowParallel
+#' @param \dots other arguments passed to foreach
 #'
 #' @examples
 #'

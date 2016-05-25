@@ -7,8 +7,21 @@
 greedy_search(attributes, fun, data, type = c("forward", "backward"),
   allowParallel = TRUE, ...)
 }
+\arguments{
+\item{attributes}{character vector with attributes names}
+
+\item{fun}{function to evaluate. See Details.}
+
+\item{data}{data set for fun function.}
+
+\item{type}{algorithm used for search. Possible values \code{forward} and \code{backward}.}
+
+\item{allowParallel}{allowParallel}
+
+\item{\dots}{other arguments passed to foreach}
+}
 \description{
-Greedy Search
+The algorithm for searching atrribute subset space.
 }
 \examples{
 
