@@ -45,6 +45,36 @@ to_formula = function(attr, class)
 }
 
 #### fs_get_best_attributes ----
+#' Extract best attributes subset from fitted object.
+#'
+#' @param x object fitted with \code{exhaustive_search} function.
+#'
+#' @examples
+#'
+#' #' # evaluator from FSelector package
+#' evaluator = function(subset, data)
+#' {
+#'   library(rpart)
+#'   k <- 5
+#'   splits <- runif(nrow(data))
+#'   results = sapply(1:k, function(i) {
+#'   test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
+#'   train.idx <- !test.idx
+#'   test <- data[test.idx, , drop=FALSE]
+#'   train <- data[train.idx, , drop=FALSE]
+#'   tree <- rpart(to_formula(subset, "Species"), train)
+#'   error.rate = sum(test$Species != predict(tree, test, type="c")) / nrow(test)
+#'   return(1 - error.rate)
+#'    })
+#'   return(mean(results))
+#' }
+#'
+#'  fit = exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE)
+#'  get_best_attributes(fit)
+#'
+#'  # with to_formula
+#'  to_formula(get_best_attributes(fit), "Species")
+#'
 #' @export
 get_best_attributes = function(x) UseMethod("get_best_attributes")
 
