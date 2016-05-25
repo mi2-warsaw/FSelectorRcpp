@@ -31,7 +31,7 @@ test_that("Test character table",
   formula = z ~ .
   data = dt
 
-  expect_less_than(sum(information.gain(z~., data)[,1] - information_gain(z~., data)[,1]), 1e-10)
+  expect_lt(sum(information.gain(z~., data)[,1] - information_gain(z~., data)[,1]), 1e-10)
 })
 
 
