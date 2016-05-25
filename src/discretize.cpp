@@ -45,9 +45,11 @@ NumericVector fs_part(const NumericVector& x, const IntegerVector& y)
 IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
 {
   IntegerVector result(y.size());
-  std::set<int> splitPoints;
 
-  fselector::discretize::discretize(x.begin(), x.end(), y.begin(), result.begin(), splitPoints);
+  auto splitPoints = fselector::discretize::discretize(x.begin(),
+                                    x.end(),
+                                    y.begin(),
+                                    result.begin());
   result = result + 1; //discretize returns values stratring from zero
 
   Rcpp::CharacterVector splitVals(splitPoints.size() + 1);
@@ -55,9 +57,9 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
   size_t i = 0;
   std::string first = "(-Inf;";
   std::string last  = "";
-  for(auto iter = splitPoints.rbegin(); iter != splitPoints.rend(); iter++ )
+  for(auto iter = splitPoints.begin(); iter != splitPoints.end(); iter++ )
   {
-    const std::string spl  = std::to_string(x[*iter]);
+    const std::string spl  = std::to_string(*iter);
     const std::string frmt = first + spl + "]";
     first = std::string("(") + spl + ";";
     splitVals[i] = frmt;
@@ -65,7 +67,7 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
   }
 
   splitVals[splitPoints.size()] = std::string("(") +
-                                    std::to_string(x[*splitPoints.begin()]) + ";" + "Inf)";
+                                    std::to_string(splitPoints.back()) + ";" + "Inf)";
 
   result.attr("levels") = splitVals;
 

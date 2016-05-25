@@ -18,7 +18,14 @@ test_that("Discretization - basic",
   weka = as.numeric(Discretize(z ~ x, dt)[,1])
   fs   = as.numeric(discretize(dt$x, dt$z))
 
+
   expect_equal(weka, fs)
+
+  weka = Discretize(z ~ x, dt)[,1]
+  fs   = discretize(dt$x, dt$z)
+  levels(weka)
+  levels(fs)
+
 }
 )
 

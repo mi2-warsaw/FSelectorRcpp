@@ -150,17 +150,17 @@ template<class InputIterator, class OutputIterator> void part(InputIterator itX,
 
 
 
-template<class InputIterator, class VariableIterator, class OutputIterator> void discretize(InputIterator itX,
+template<class InputIterator, class VariableIterator, class OutputIterator> std::vector<typename std::iterator_traits<InputIterator>::value_type> discretize(InputIterator itX,
                 InputIterator itXLast,
                 VariableIterator itY,
-                OutputIterator itResult,
-                std::set<int>& splitPoints)
+                OutputIterator itResult)
 {
 
   std::vector<std::size_t> orderedIdx = support::order(itX, itXLast);
 
   std::vector<typename std::iterator_traits<InputIterator>::value_type> x;
   std::vector<typename std::iterator_traits<VariableIterator>::value_type> y;
+
 
   x.reserve(itXLast - itX);
   y.reserve(itXLast - itX);
@@ -183,11 +183,15 @@ template<class InputIterator, class VariableIterator, class OutputIterator> void
   auto xEnd = x.begin() + nonNanCounter;
   auto yEnd = y.begin() + nonNanCounter;
 
+  std::set<int> splitPoints;
   part(x.begin(), xEnd, y.begin(), yEnd, 0, 1.0, splitPoints);
 
+  std::vector<typename std::iterator_traits<InputIterator>::value_type> splitValues;
 
   for(const auto& sp : splitPoints)
   {
+    splitValues.push_back((x[sp] + x[sp + 1])/2);
+
     for(size_t i  = 0; i < orderedIdx.size(); i++)
     {
       if(std::isnan(*(itX+i)))
@@ -201,17 +205,9 @@ template<class InputIterator, class VariableIterator, class OutputIterator> void
     }
   }
 
-}
+  return splitValues;
 
-template<class InputIterator, class VariableIterator, class OutputIterator> void discretize(InputIterator itX,
-                                                                                            InputIterator itXLast,
-                                                                                            VariableIterator itY,
-                                                                                            OutputIterator itResult)
-{
-  std::set<int> splitPoints;
-  discretize(itX, itXLast, itY, itResult, splitPoints);
 }
-
 
 } // namespace
 
