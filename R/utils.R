@@ -26,6 +26,17 @@ formula2names = function(formula, data)
   list(y = as.character(y), x = x)
 }
 
+#' Create formula object
+#'
+#' Utility function to create formula object
+#'
+#' @param attr character vector with names of independent variables
+#' @param class single string with dependent variable name
+#'
+#' @examples
+#'
+#' to_formula(names(iris)[-5], names(iris)[5])
+#'
 #' @importFrom stats as.formula
 #' @export
 to_formula = function(attr, class)

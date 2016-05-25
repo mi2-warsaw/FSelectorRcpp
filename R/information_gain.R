@@ -1,6 +1,5 @@
 #' Entropy-based filters
 #'
-#' Entropy-based filters
 #'
 #' The algorithms find weights of discrete attributes basing on their correlation with continous class attribute.
 #'
