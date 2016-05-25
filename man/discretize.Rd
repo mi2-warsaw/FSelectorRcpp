@@ -14,4 +14,9 @@ discretize(x, y)
 \description{
 Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by MDL method.
 }
+\examples{
+
+discretize(iris[[1]], iris[[5]])
+
+}
 

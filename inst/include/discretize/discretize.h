@@ -148,10 +148,13 @@ template<class InputIterator, class OutputIterator> void part(InputIterator itX,
 }
 
 
+
+
 template<class InputIterator, class VariableIterator, class OutputIterator> void discretize(InputIterator itX,
                 InputIterator itXLast,
                 VariableIterator itY,
-                OutputIterator itResult)
+                OutputIterator itResult,
+                std::set<int>& splitPoints)
 {
 
   std::vector<std::size_t> orderedIdx = support::order(itX, itXLast);
@@ -177,8 +180,6 @@ template<class InputIterator, class VariableIterator, class OutputIterator> void
 
   const size_t nonNanCounter = x.size() - naCounter;
 
-  std::set<int> splitPoints;
-
   auto xEnd = x.begin() + nonNanCounter;
   auto yEnd = y.begin() + nonNanCounter;
 
@@ -202,7 +203,14 @@ template<class InputIterator, class VariableIterator, class OutputIterator> void
 
 }
 
-
+template<class InputIterator, class VariableIterator, class OutputIterator> void discretize(InputIterator itX,
+                                                                                            InputIterator itXLast,
+                                                                                            VariableIterator itY,
+                                                                                            OutputIterator itResult)
+{
+  std::set<int> splitPoints;
+  discretize(itX, itXLast, itY, itResult, splitPoints);
+}
 
 
 } // namespace
