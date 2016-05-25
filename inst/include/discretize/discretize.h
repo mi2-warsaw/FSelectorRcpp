@@ -8,7 +8,6 @@
 #include "entropy/entropy.h"
 #include "support/support.h"
 #include "boost/optional.hpp"
-#include <iostream>
 
 
 namespace fselector
