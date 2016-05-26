@@ -54,6 +54,7 @@ evaluator = function(subset, data)
  registerDoParallel(cores = 2)
  system.time(exhaustive_search(names(iris)[-5], evaluator, iris))
  system.time(exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
+ system.time(exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE, randomSubsetsNumber = 5))
 
 }
 
