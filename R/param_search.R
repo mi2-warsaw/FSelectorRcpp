@@ -10,7 +10,8 @@ utils::globalVariables("it")
 #' @param subsetsSizes sizes of attributes subsets.
 #' @param singleAttr singleAttr
 #' @param keepAll keepAll
-#' @param allowParallel allowParallel
+#' @param allowParallel allowParallel,
+#' @param randomSubsetsNumber number of random subsets. Used only if greater than zero.
 #' @param \dots other arguments passed to foreach
 #'
 #' @importFrom foreach foreach %dopar% %do%
@@ -42,7 +43,14 @@ utils::globalVariables("it")
 #'
 #' @export
 #'
-exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attributes), singleAttr = FALSE, keepAll = TRUE, allowParallel = TRUE, ...)
+exhaustive_search = function(attributes,
+                             fun,
+                             data,
+                             subsetsSizes = length(attributes),
+                             singleAttr = FALSE,
+                             keepAll = TRUE,
+                             allowParallel = TRUE,
+                             randomSubsetsNumber = 0, ...)
 {
   len = length(attributes)
   if (len == 0)
@@ -65,8 +73,22 @@ exhaustive_search = function(attributes, fun, data, subsetsSizes = length(attrib
 
   for(size in subsetsSizes)
   {
-    childComb = combn(1:len, size)
-    childComb = apply(childComb, 2, function(i) { x = rep(0, len); x[i] = 1; x}  )
+    if(randomSubsetsNumber > 0)
+    {
+      if(choose(len, size) < subsetsSizes)
+      {
+        childComb = combn(1:len, size) # use all subsets
+      } else
+      {
+        childComb = replicate(subsetsSizes, {sample.int(len, size, replace = FALSE)})
+      }
+    } else
+    {
+      childComb = combn(1:len, size)
+    }
+
+    zeroes = rep(0, len)
+    childComb = apply(childComb, 2, function(i) { x = zeroes; x[i] = 1; x}  )
     childComb = t(childComb)
 
     matIter = iter(childComb, by = "row")

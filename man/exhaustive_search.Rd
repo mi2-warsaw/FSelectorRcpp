@@ -5,7 +5,8 @@
 \title{Exhaustive search}
 \usage{
 exhaustive_search(attributes, fun, data, subsetsSizes = length(attributes),
-  singleAttr = FALSE, keepAll = TRUE, allowParallel = TRUE, ...)
+  singleAttr = FALSE, keepAll = TRUE, allowParallel = TRUE,
+  randomSubsetsNumber = 0, ...)
 }
 \arguments{
 \item{attributes}{character vector with attributes names}
@@ -20,7 +21,9 @@ exhaustive_search(attributes, fun, data, subsetsSizes = length(attributes),
 
 \item{keepAll}{keepAll}
 
-\item{allowParallel}{allowParallel}
+\item{allowParallel}{allowParallel,}
+
+\item{randomSubsetsNumber}{number of random subsets. Used only if greater than zero.}
 
 \item{\dots}{other arguments passed to foreach}
 }
