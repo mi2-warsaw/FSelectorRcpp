@@ -33,7 +33,7 @@ discretize.numeric = function(x, y)
 #' @export
 discretize.formula = function(x, y)
 {
-  formula = FSelectorRcpp:::formula2names(x, y)
+  formula = formula2names(x, y)
 
   data = y
   yy   = y[[formula$y]]
