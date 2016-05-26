@@ -40,6 +40,7 @@ utils::globalVariables("it")
 #'  registerDoParallel(cores = 2)
 #'  system.time(exhaustive_search(names(iris)[-5], evaluator, iris))
 #'  system.time(exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
+#'  system.time(exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE, randomSubsetsNumber = 5))
 #'
 #' @export
 #'
@@ -73,14 +74,14 @@ exhaustive_search = function(attributes,
 
   for(size in subsetsSizes)
   {
-    if(randomSubsetsNumber > 0)
+    if(randomSubsetsNumber > len)
     {
-      if(choose(len, size) < subsetsSizes)
+      if(choose(len, size) <= randomSubsetsNumber)
       {
         childComb = combn(1:len, size) # use all subsets
       } else
       {
-        childComb = replicate(subsetsSizes, {sample.int(len, size, replace = FALSE)})
+        childComb = replicate(randomSubsetsNumber, {sample.int(len, size, replace = FALSE)})
       }
     } else
     {
