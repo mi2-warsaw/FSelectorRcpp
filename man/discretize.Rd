@@ -18,5 +18,7 @@ Discretize a range of numeric attributes in the dataset into nominal attributes.
 
 discretize(iris[[1]], iris[[5]])
 
+discretize(Species ~ ., iris)
+
 }
 
