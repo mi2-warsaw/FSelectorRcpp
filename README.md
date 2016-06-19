@@ -13,4 +13,6 @@ Rcpp (free of Java/Weka) implementation of FSelector entropy-based feature selec
 Project is supported by [waffle.io](https://waffle.io/mi2-warsaw/FSelectorRcpp).
 
 
+- [Venn Diagram Comparison of Boruta, FSelectorRcpp and GLMnet Algorithms, Marcin Kosiński](http://www.r-bloggers.com/venn-diagram-comparison-of-boruta-fselectorrcpp-and-glmnet-algorithms/)
+
 ![Orly cover](https://raw.githubusercontent.com/mi2-warsaw/FSelectorRcpp/master/o_rly.png)
