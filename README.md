@@ -2,8 +2,12 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/FSelectorRcpp)](http://cran.rstudio.com/package=FSelectorRcpp)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/FSelectorRcpp?color=orange)](http://cranlogs.r-pkg.org/badges/grand-total/FSelectorRcpp)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/jv14pt787g7h26sn?svg=true)](https://ci.appveyor.com/project/MarcinKosinski/fselectorrcpp)[![Build Status](https://api.travis-ci.org/mi2-warsaw/FSelectorRcpp.png)](https://travis-ci.org/mi2-warsaw/FSelectorRcpp)
+
+
+
+
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Build Status](https://api.travis-ci.org/mi2-warsaw/FSelectorRcpp.png)](https://travis-ci.org/mi2-warsaw/FSelectorRcpp)
 [![Pending Pull-Requests](http://githubbadges.herokuapp.com/mi2-warsaw/FSelectorRcpp/pulls.svg?style=flat)](https://github.com/mi2-warsaw/FSelectorRcpp/pulls)
 [![Github Issues](http://githubbadges.herokuapp.com/mi2-warsaw/FSelectorRcpp/issues.svg)](https://github.com/mi2-warsaw/FSelectorRcpp/issues)
 
