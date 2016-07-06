@@ -11,9 +11,11 @@
 #'
 #'  \code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class, Attribute)) / (H(Attribute) + H(Class))}
 #'
+#' @param x data.frame or sparse matrix with attributes.
+#' @param y vector with response variable.
+#' @param formula an object of class \link{formula} with model description.
+#' @param data data.frame accompanying formula.
 #' @param type method name.
-#' @param x data.frame or sparse matrix with independent variables, or formula.
-#' @param y vector with dependent variable, or data.frame if \code{x} is formula
 #' @param threads number of threads for parallel backend
 #'
 #' @return a data.frame containing the worth of attributes in the first column and their names as row names
@@ -30,9 +32,9 @@
 #' information_gain(irisX, y)
 #'
 #' # formula interface
-#' information_gain(Species ~ ., y = iris)
-#' information_gain(Species ~ ., y = iris, type = "gainratio")
-#' information_gain(Species ~ ., y = iris, type = "symuncert")
+#' information_gain(formula = Species ~ ., data = iris)
+#' information_gain(formula = Species ~ ., data = iris, type = "gainratio")
+#' information_gain(formula = Species ~ ., data = iris, type = "symuncert")
 #'
 #' # sparse matrix interface
 #' library(Matrix)
@@ -53,27 +55,56 @@
 #'
 information_gain = function(x,
                             y,
+                            formula,
+                            data,
                             type = c("infogain", "gainratio", "symuncert"),
                             threads = 1)
 {
-  UseMethod("information_gain", x)
+  if(missing(x) && missing(y) && missing(formula) && missing(data))
+  {
+    stop("Please specify `x = attributes, y = response`,
+or use `formula = response ~ attributes, data = dataset")
+  }
+
+  if(((!missing(x) && !missing(y)) && (!missing(formula) || !missing(formula))) ||
+     ((!missing(x) || !missing(y)) && (!missing(formula) && !missing(formula))))
+  {
+    stop(" You cannot use both interfaces!
+Please specify `x = attributes, y = response`,
+or use `formula = response ~ attributes, data = dataset`")
+  }
+
+  if(!missing(x) && !missing(y))
+  {
+    if(class(x) == "formula")
+      stop("Please use `formula = response ~ attributes, data = dataset` interface.")
+
+    return(.information_gain(x,y, type, threads))
+  } else if(!missing(formula) && !missing(data))
+  {
+    .information_gain(formula, data, type, threads)
+  }
+
 }
 
-#' @export
-#' @rdname information_gain
-#' @aliases infotmation_gain
-information_gain.default = function(x,
+.information_gain = function(x,
+                             y,
+                             type = c("infogain", "gainratio", "symuncert"),
+                             threads = 1)
+{
+  UseMethod(".information_gain", x)
+}
+
+.information_gain.default = function(x,
                                     y,
                                     type = c("infogain", "gainratio", "symuncert"),
                                     threads = 1)
 {
-  stop("Unsupported data type. x must be data.frame, sparse matrix or formula")
+  stop("Unsupported data type.")
 }
 
-#' @export
-#' @rdname information_gain
-#' @aliases infotmation_gain
-information_gain.data.frame = function(x,
+
+.information_gain.data.frame = function(x,
                                        y,
                                        type = c("infogain", "gainratio", "symuncert"),
                                        threads = 1)
@@ -100,10 +131,7 @@ information_gain.data.frame = function(x,
   data.frame(importance = results, row.names = colnames(x))
 }
 
-#' @export
-#' @rdname information_gain
-#' @aliases infotmation_gain
-information_gain.formula = function(x,
+.information_gain.formula = function(x,
                                     y,
                                     type = c("infogain", "gainratio", "symuncert"),
                                     threads = 1)
@@ -145,11 +173,7 @@ information_gain.formula = function(x,
 }
 
 
-
-#' @export
-#' @rdname information_gain
-#' @aliases infotmation_gain
-information_gain.dgCMatrix = function(x, y, type = c("infogain", "gainratio", "symuncert"), threads = 1)
+.information_gain.dgCMatrix = function(x, y, type = c("infogain", "gainratio", "symuncert"), threads = 1)
 {
   type = match.arg(type)
 

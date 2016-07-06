@@ -2,32 +2,19 @@
 % Please edit documentation in R/information_gain.R
 \name{information_gain}
 \alias{information_gain}
-\alias{information_gain.data.frame}
-\alias{information_gain.default}
-\alias{information_gain.dgCMatrix}
-\alias{information_gain.formula}
-\alias{infotmation_gain}
 \title{Entropy-based filters}
 \usage{
-information_gain(x, y, type = c("infogain", "gainratio", "symuncert"),
-  threads = 1)
-
-\method{information_gain}{default}(x, y, type = c("infogain", "gainratio",
-  "symuncert"), threads = 1)
-
-\method{information_gain}{data.frame}(x, y, type = c("infogain", "gainratio",
-  "symuncert"), threads = 1)
-
-\method{information_gain}{formula}(x, y, type = c("infogain", "gainratio",
-  "symuncert"), threads = 1)
-
-\method{information_gain}{dgCMatrix}(x, y, type = c("infogain", "gainratio",
+information_gain(x, y, formula, data, type = c("infogain", "gainratio",
   "symuncert"), threads = 1)
 }
 \arguments{
-\item{x}{data.frame or sparse matrix with independent variables, or formula.}
+\item{x}{data.frame or sparse matrix with attributes.}
 
-\item{y}{vector with dependent variable, or data.frame if \code{x} is formula}
+\item{y}{vector with response variable.}
+
+\item{formula}{an object of class \link{formula} with model description.}
+
+\item{data}{data.frame accompanying formula.}
 
 \item{type}{method name.}
 
@@ -56,9 +43,9 @@ y = iris$Species
 information_gain(irisX, y)
 
 # formula interface
-information_gain(Species ~ ., y = iris)
-information_gain(Species ~ ., y = iris, type = "gainratio")
-information_gain(Species ~ ., y = iris, type = "symuncert")
+information_gain(formula = Species ~ ., data = iris)
+information_gain(formula = Species ~ ., data = iris, type = "gainratio")
+information_gain(formula = Species ~ ., data = iris, type = "symuncert")
 
 # sparse matrix interface
 library(Matrix)
