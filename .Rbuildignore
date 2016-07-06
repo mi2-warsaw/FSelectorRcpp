@@ -4,3 +4,4 @@
 staticdocs_build/
 doc/
 o_rly.png
+^appveyor\.yml$
