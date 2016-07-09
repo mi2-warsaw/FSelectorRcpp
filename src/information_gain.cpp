@@ -9,11 +9,10 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
 {
-
   IntegerVector result;
 
-  NumericVector varEntropy(xx.length());
-  NumericVector jointEntropy(xx.length());
+  std::vector<double> varEntropy(xx.length());
+  std::vector<double> jointEntropy(xx.length());
 
   if(threads < 1) threads = omp_get_max_threads();
 
@@ -32,7 +31,7 @@ List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
       {
         NumericVector xx = as<NumericVector>(x);
 
-        IntegerVector disX(y.size()); //discretized x
+        std::vector<int> disX(y.size()); //discretized x
         fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin());
 
         entr = fselector::entropy::entropy1d(disX.begin(), disX.end());
