@@ -4,17 +4,17 @@
 \alias{information_gain}
 \title{Entropy-based filters}
 \usage{
-information_gain(x, y, formula, data, type = c("infogain", "gainratio",
+information_gain(formula, data, x, y, type = c("infogain", "gainratio",
   "symuncert"), threads = 1)
 }
 \arguments{
-\item{x}{data.frame or sparse matrix with attributes.}
-
-\item{y}{vector with response variable.}
-
 \item{formula}{an object of class \link{formula} with model description.}
 
 \item{data}{data.frame accompanying formula.}
+
+\item{x}{data.frame or sparse matrix with attributes.}
+
+\item{y}{vector with response variable.}
 
 \item{type}{method name.}
 
@@ -40,7 +40,7 @@ irisX = iris[-5]
 y = iris$Species
 
 ## data.frame interface
-information_gain(irisX, y)
+information_gain(x = irisX, y = y)
 
 # formula interface
 information_gain(formula = Species ~ ., data = iris)
@@ -53,9 +53,9 @@ i <- c(1,3:8); j <- c(2,9,6:10); x <- 7 * (1:7)
 x <- sparseMatrix(i, j, x = x)
 y = c(1,1,1,1,2,2,2,2)
 
-information_gain(x,y)
-information_gain(x,y, type = "gainratio")
-information_gain(x,y, type = "symuncert")
+information_gain(x = x, y = y)
+information_gain(x = x, y = y, type = "gainratio")
+information_gain(x = x, y = y, type = "symuncert")
 
 }
 \author{

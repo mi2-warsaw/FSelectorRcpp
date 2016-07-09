@@ -11,10 +11,10 @@
 #'
 #'  \code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class, Attribute)) / (H(Attribute) + H(Class))}
 #'
-#' @param x data.frame or sparse matrix with attributes.
-#' @param y vector with response variable.
 #' @param formula an object of class \link{formula} with model description.
 #' @param data data.frame accompanying formula.
+#' @param x data.frame or sparse matrix with attributes.
+#' @param y vector with response variable.
 #' @param type method name.
 #' @param threads number of threads for parallel backend
 #'
@@ -29,7 +29,7 @@
 #' y = iris$Species
 #'
 #' ## data.frame interface
-#' information_gain(irisX, y)
+#' information_gain(x = irisX, y = y)
 #'
 #' # formula interface
 #' information_gain(formula = Species ~ ., data = iris)
@@ -42,9 +42,9 @@
 #' x <- sparseMatrix(i, j, x = x)
 #' y = c(1,1,1,1,2,2,2,2)
 #'
-#' information_gain(x,y)
-#' information_gain(x,y, type = "gainratio")
-#' information_gain(x,y, type = "symuncert")
+#' information_gain(x = x, y = y)
+#' information_gain(x = x, y = y, type = "gainratio")
+#' information_gain(x = x, y = y, type = "symuncert")
 #'
 #' @importFrom Rcpp evalCpp
 #' @importFrom stats na.omit
@@ -53,10 +53,10 @@
 #' @rdname information_gain
 #' @export
 #'
-information_gain = function(x,
-                            y,
-                            formula,
+information_gain = function(formula,
                             data,
+                            x,
+                            y,
                             type = c("infogain", "gainratio", "symuncert"),
                             threads = 1)
 {
