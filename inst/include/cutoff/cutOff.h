@@ -12,7 +12,7 @@ namespace cutoff
 {
 	// Helper for sorting paris<string, T2>
 	template<typename T>
-	struct sortPairsDescending 
+	struct sortPairsDescending
 	{
 		bool operator()(const std::pair<std::string, T> &left, const std::pair<std::string, T> &right)
 		{
@@ -58,16 +58,9 @@ namespace cutoff
 
 
 		// Triming result for final_result
-		if (k > 1)
+		if (k > 0.9999999)
 		{
 			for (int i = 0; i < k; i++)
-			{
-				final_result.push_back(result[i].first);
-			}
-		}
-		else if (k == 1)
-		{
-			for (int i = 0; i < v1.size(); i++)
 			{
 				final_result.push_back(result[i].first);
 			}
