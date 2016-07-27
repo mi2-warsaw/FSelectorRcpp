@@ -25,6 +25,7 @@ Suggests:
     RWeka,
     entropy,
     FSelector,
+    randomForest,
     doParallel,
     rpart
 RoxygenNote: 5.0.1
