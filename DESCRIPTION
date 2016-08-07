@@ -27,5 +27,6 @@ Suggests:
     FSelector,
     randomForest,
     doParallel,
-    rpart
+    rpart,
+    covr
 RoxygenNote: 5.0.1
