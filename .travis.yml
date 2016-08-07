@@ -13,6 +13,8 @@ r_packages:
  - doParallel
  - rpart
  - iterators
+ - covr
+ - MASS
 sudo: required
 warnings_are_errors: false
 
