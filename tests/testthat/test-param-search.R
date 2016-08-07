@@ -1,5 +1,7 @@
 library(FSelectorRcpp)
 
+context("Param search")
+
 test_that("Exhaustive search",
 {
   evaluator = function(subset, data)
@@ -19,25 +21,15 @@ test_that("Exhaustive search",
     return(mean(results))
   }
 
-  library(doParallel)
-  cl = makeCluster(2)
-  registerDoParallel(cl)
+
+  iris = iris[sample.int(75),]
 
   fit1 = exhaustive_search(names(iris)[-5], evaluator, iris)
   fit2 = exhaustive_search(names(iris)[-5],
                                 evaluator,
                                 iris,
                                 allowParallel = FALSE)
-  fit3 = exhaustive_search(names(iris)[-5],
-                                evaluator,
-                                iris,
-                                allowParallel = FALSE,
-                                randomSubsetsNumber = 5, keepAll = FALSE)
-
 
   expect_error(exhaustive_search(character(), evaluator, iris))
-
-  stopCluster(cl)
-  registerDoSEQ()
 })
 
