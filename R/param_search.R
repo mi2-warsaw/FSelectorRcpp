@@ -49,6 +49,8 @@ utils::globalVariables("it")
 #'                                allowParallel = FALSE,
 #'                                randomSubsetsNumber = 5))
 #'
+#' registerDoSEQ()
+#'
 #' @export
 #'
 exhaustive_search = function(attributes,
@@ -173,6 +175,8 @@ exhaustive_search = function(attributes,
 #' registerDoParallel(cores = 2)
 #' system.time(greedy_search(names(iris)[-5], evaluator, iris))
 #' system.time(greedy_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
+#'
+#' registerDoSEQ()
 #'
 #' @export
 greedy_search = function (attributes, fun, data, type = c("forward", "backward"), allowParallel = TRUE, ...)

@@ -63,5 +63,7 @@ evaluator = function(subset, data)
                                allowParallel = FALSE,
                                randomSubsetsNumber = 5))
 
+registerDoSEQ()
+
 }
 

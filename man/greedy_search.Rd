@@ -47,5 +47,7 @@ registerDoParallel(cores = 2)
 system.time(greedy_search(names(iris)[-5], evaluator, iris))
 system.time(greedy_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
 
+registerDoSEQ()
+
 }
 
