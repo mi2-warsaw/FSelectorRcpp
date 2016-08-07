@@ -37,7 +37,9 @@ utils::globalVariables("it")
 #' }
 #'
 #'  library(doParallel)
-#'  registerDoParallel(cores = 2)
+#'  cl = makeCluster(2)
+#'  registerDoParallel(cl)
+#'
 #'  system.time(exhaustive_search(names(iris)[-5], evaluator, iris))
 #'  system.time(exhaustive_search(names(iris)[-5],
 #'                                evaluator,
@@ -49,6 +51,7 @@ utils::globalVariables("it")
 #'                                allowParallel = FALSE,
 #'                                randomSubsetsNumber = 5))
 #'
+#' stopCluster(cl)
 #' registerDoSEQ()
 #'
 #' @export
@@ -172,10 +175,13 @@ exhaustive_search = function(attributes,
 #'  }
 #'
 #' library(doParallel)
-#' registerDoParallel(cores = 2)
+#' cl = makeCluster(2)
+#' registerDoParallel(cl)
+#'
 #' system.time(greedy_search(names(iris)[-5], evaluator, iris))
 #' system.time(greedy_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
 #'
+#' stopCluster(cl)
 #' registerDoSEQ()
 #'
 #' @export

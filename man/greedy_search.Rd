@@ -43,10 +43,13 @@ evaluator = function(subset, data)
  }
 
 library(doParallel)
-registerDoParallel(cores = 2)
+cl = makeCluster(2)
+registerDoParallel(cl)
+
 system.time(greedy_search(names(iris)[-5], evaluator, iris))
 system.time(greedy_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE))
 
+stopCluster(cl)
 registerDoSEQ()
 
 }
