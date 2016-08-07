@@ -32,7 +32,19 @@ The algorithm for searching atrribute subset space.
 }
 \examples{
 
-# evaluator from FSelector package
+
+### enable parallelization in examples
+
+ library(doParallel)
+ cl = makeCluster(2)
+ registerDoParallel(cl)
+# close at the end
+# stopCluster(cl)
+# registerDoSEQ()
+
+####################################
+## 1) evaluator from FSelector package
+####################################
 evaluator = function(subset, data)
 {
   library(rpart)
@@ -50,9 +62,6 @@ evaluator = function(subset, data)
   return(mean(results))
 }
 
- library(doParallel)
- cl = makeCluster(2)
- registerDoParallel(cl)
 
  system.time(exhaustive_search(names(iris)[-5], evaluator, iris))
  system.time(exhaustive_search(names(iris)[-5],
@@ -65,8 +74,27 @@ evaluator = function(subset, data)
                                allowParallel = FALSE,
                                randomSubsetsNumber = 5))
 
+
+
+################################
+## 2) maximize R^2 statistics in
+## the linear regression model/problem
+################################
+
+evaluator_R2_lm = function(subset, data, dependent = names(iris)[1])
+{
+  summary(
+    lm(to_formula(subset, dependent), data = data)
+  )$r.squared
+}
+
+
+system.time(exhaustive_search(names(iris)[-1], fun = evaluator_R2_lm, data =iris))
+
+### close parallelization
 stopCluster(cl)
 registerDoSEQ()
+
 
 }
 
