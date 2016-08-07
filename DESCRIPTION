@@ -28,5 +28,6 @@ Suggests:
     randomForest,
     doParallel,
     rpart,
+    MASS,
     covr
 RoxygenNote: 5.0.1
