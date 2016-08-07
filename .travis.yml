@@ -15,6 +15,7 @@ r_packages:
  - iterators
  - covr
  - MASS
+ - e1071
 sudo: required
 warnings_are_errors: false
 
