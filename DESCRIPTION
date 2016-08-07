@@ -29,5 +29,6 @@ Suggests:
     doParallel,
     rpart,
     MASS,
+    e1071,
     covr
 RoxygenNote: 5.0.1
