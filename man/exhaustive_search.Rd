@@ -51,7 +51,9 @@ evaluator = function(subset, data)
 }
 
  library(doParallel)
- registerDoParallel(cores = 2)
+ cl = makeCluster(2)
+ registerDoParallel(cl)
+
  system.time(exhaustive_search(names(iris)[-5], evaluator, iris))
  system.time(exhaustive_search(names(iris)[-5],
                                evaluator,
@@ -63,6 +65,7 @@ evaluator = function(subset, data)
                                allowParallel = FALSE,
                                randomSubsetsNumber = 5))
 
+stopCluster(cl)
 registerDoSEQ()
 
 }
