@@ -67,15 +67,40 @@ utils::globalVariables("it")
 #' ## the linear regression model/problem
 #' ################################
 #'
-#' evaluator_R2_lm = function(subset, data, dependent = names(iris)[1])
+#' evaluator_R2_lm = function(attributes, data, dependent = names(iris)[1])
 #' {
 #'   summary(
-#'     lm(to_formula(subset, dependent), data = data)
+#'     lm(to_formula(attributes, dependent), data = data)
 #'   )$r.squared
 #' }
 #'
 #'
 #' system.time(exhaustive_search(names(iris)[-1], fun = evaluator_R2_lm, data =iris))
+#'
+#'
+#'
+#' ##############################
+#' ## 3) optimize BIC crietion in
+#' ## generalized linear model
+#' ##
+#' ## Aim of Bayesian approach it to identify the
+#' ## model with the highest probability of being
+#' ## the true model. - Kuha 2004
+#' ##############################
+#' utils::data(anorexia, package = "MASS")
+#'
+#' evaluator_BIC_glm <- function(attributes, data, dependent = "Postwt")
+#' {
+#'   extractAIC(
+#'     glm(to_formula(attributes, dependent),
+#'         family = gaussian, data = data),
+#'     k = log(nrow(data))
+#'   )[2]
+#' }
+#'
+#' exhaustive_search(c("Prewt", "Treat", "offset(Prewt)"),
+#'                   fun = evaluator_BIC_glm,
+#'                   data = anorexia)
 #'
 #' ### close parallelization
 #' stopCluster(cl)
