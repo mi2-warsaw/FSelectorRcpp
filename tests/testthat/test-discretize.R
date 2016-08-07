@@ -43,3 +43,29 @@ test_that("Discretization - single NA (independent variable)",
 
 })
 
+test_that("Discretization - not supported data type - throw error.",
+{
+  x = "a"
+  y = "b"
+  expect_error(discretize(x,y))
+})
+
+test_that("Discretization - formula returns data.frame.",
+{
+  expect_s3_class(discretize(Species ~ ., iris),"data.frame")
+})
+
+test_that("Discretization - expect warning when there is non numeric column in formula.",
+{
+  dt = cbind(iris,b = "a")
+  expect_warning(discretize(Species ~ ., dt))
+})
+
+test_that("Discretization - not implemented for data.frame",
+{
+  dt = cbind(iris,b = "a")
+  expect_error(discretize(dt))
+})
+
+
+
