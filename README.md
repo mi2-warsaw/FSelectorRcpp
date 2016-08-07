@@ -4,7 +4,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/jv14pt787g7h26sn?svg=true)](https://ci.appveyor.com/project/MarcinKosinski/fselectorrcpp)[![Build Status](https://api.travis-ci.org/mi2-warsaw/FSelectorRcpp.png)](https://travis-ci.org/mi2-warsaw/FSelectorRcpp)
 
-
+[![Coverage Status](https://img.shields.io/codecov/c/github/mi2-warsaw/FSelectorRcpp/master.svg)](https://codecov.io/github/mi2-warsaw/FSelectorRcpp?branch=master)
 
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
