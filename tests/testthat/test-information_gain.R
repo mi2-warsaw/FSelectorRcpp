@@ -65,3 +65,10 @@ test_that("Sparse matrix - basics",
                information_gain(formula = Species ~ ., data = iris, type = "symuncert")$importance)
 })
 
+test_that("Removing NAs in formula",
+{
+  xx = data_frame(x = as.character(c(1,2,3)), y = as.character(c(1,2,3)), na = c(NA, NA, 1))
+
+  expect_equal(information_gain(xx[,"x", drop = FALSE], xx$y)$importance,
+  information_gain(y ~ x, xx)$importance)
+})

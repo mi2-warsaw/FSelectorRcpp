@@ -144,13 +144,15 @@ or use `formula = response ~ attributes, data = dataset`")
 
   type = match.arg(type)
 
+
+  formula = formula2names(formula, data)
+  data    = data[c(formula$x, formula$y)]
+
   if(anyNA(data))
   {
     warning("There are missing values in your data. information_gain will remove them with na.omit().")
     data = na.omit(data)
   }
-
-  formula = formula2names(formula, data)
 
   y = data[[formula$y]]
 
