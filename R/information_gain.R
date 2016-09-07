@@ -156,11 +156,6 @@ or use `formula = response ~ attributes, data = dataset`")
 
   y = data[[formula$y]]
 
-  if(anyNA(y))
-  {
-    stop("FSelector does not support NA in dependent variable")
-  }
-
   if(!is.factor(y))
   {
     y = factor(y)
