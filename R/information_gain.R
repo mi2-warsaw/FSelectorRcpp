@@ -77,7 +77,7 @@ or use `formula = response ~ attributes, data = dataset`")
   if(!missing(x) && !missing(y))
   {
     if(class(x) == "formula")
-      stop("Please use `formula = response ~ attributes, data = dataset` interface.")
+      stop("Please use `formula = response ~ attributes, data = dataset` interface instead of `x = formula`.")
 
     return(.information_gain(x,y, type, threads))
   } else if(!missing(formula) && !missing(data))
