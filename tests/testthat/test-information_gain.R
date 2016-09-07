@@ -81,7 +81,7 @@ test_that("Removing NAs in formula",
   expect_warning(information_gain(y ~ ., data = xx))
 })
 
-test_that("Interfaces",
+test_that("Interfaces errors",
 {
   expect_error(information_gain())
   x = 1
@@ -92,6 +92,10 @@ test_that("Interfaces",
                                 y = x))
 
   expect_error(information_gain(formula = x, data = x))
+
+  xx = data_frame(x = as.character(c(1,2,3)), y = as.character(c(1,2,3)))
+  expect_error(information_gain(x = y ~ ., y = xx))
+
 })
 
 
