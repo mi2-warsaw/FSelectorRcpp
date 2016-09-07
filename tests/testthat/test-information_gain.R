@@ -65,10 +65,34 @@ test_that("Sparse matrix - basics",
                information_gain(formula = Species ~ ., data = iris, type = "symuncert")$importance)
 })
 
-test_that("Removing NAs in formula",
+test_that("Removing NAs in formula (order)",
 {
   xx = data_frame(x = as.character(c(1,2,3)), y = as.character(c(1,2,3)), na = c(NA, NA, 1))
 
   expect_equal(information_gain(xx[,"x", drop = FALSE], xx$y)$importance,
   information_gain(y ~ x, xx)$importance)
 })
+
+test_that("Removing NAs in formula",
+{
+  xx = data_frame(x = as.character(c(1,2,3)), y = as.character(c(1,2,3)), na = c(NA, NA, 1))
+
+  expect_warning(information_gain(xx[,c("x","na")], xx$y))
+  expect_warning(information_gain(y ~ ., data = xx))
+})
+
+test_that("Interfaces",
+{
+  expect_error(information_gain())
+  x = 1
+  y = 1
+  expect_error(information_gain(formula = x,
+                                data = x,
+                                x = x,
+                                y = x))
+
+  expect_error(information_gain(formula = x, data = x))
+})
+
+
+

@@ -14,3 +14,11 @@ test_that("Cutoff - test",
 
   expect_equal(x, x2)
 })
+
+test_that("Cutoff - test",
+{
+  x = c(1,2,3)
+  expect_error(cutOff_attrs(x))
+})
+
+
