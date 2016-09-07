@@ -48,4 +48,7 @@ test_that("Test factor table",
   expect_equal(as.integer(stTable), as.integer(fsTable))
 })
 
-
+test_that("Test numeric 2d table",
+{
+  expect_equal(fs_table_numeric2d(c(10,10,20),c(10,10,11)), 2:1)
+})
