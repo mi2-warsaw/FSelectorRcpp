@@ -39,10 +39,6 @@ discretize_cpp <- function(x, y) {
     .Call('FSelectorRcpp_discretize_cpp', PACKAGE = 'FSelectorRcpp', x, y)
 }
 
-fs_entropy1d <- function(x) {
-    .Call('FSelectorRcpp_fs_entropy1d', PACKAGE = 'FSelectorRcpp', x)
-}
-
 information_gain_cpp <- function(xx, y, threads = 1L) {
     .Call('FSelectorRcpp_information_gain_cpp', PACKAGE = 'FSelectorRcpp', xx, y, threads)
 }
@@ -57,6 +53,10 @@ fs_count_levels <- function(x) {
 
 fs_order <- function(x) {
     .Call('FSelectorRcpp_fs_order', PACKAGE = 'FSelectorRcpp', x)
+}
+
+fs_entropy1d <- function(x) {
+    .Call('FSelectorRcpp_fs_entropy1d', PACKAGE = 'FSelectorRcpp', x)
 }
 
 fs_table1d <- function(x) {
