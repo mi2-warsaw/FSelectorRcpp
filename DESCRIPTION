@@ -30,5 +30,6 @@ Suggests:
     rpart,
     MASS,
     e1071,
-    covr
+    covr,
+    parallel
 RoxygenNote: 5.0.1

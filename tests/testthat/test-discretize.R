@@ -1,6 +1,6 @@
 library(dplyr)
-library(RWeka)
 
+# nocov start
 test_that("Discretization - basic",
 {
   dt = lapply(1:5, function(xx)
@@ -15,13 +15,13 @@ test_that("Discretization - basic",
 
   dt$z = as.factor(as.integer(round(dt$z)))
 
-  weka = as.numeric(Discretize(z ~ x, dt)[,1])
+  weka = as.numeric(RWeka::Discretize(z ~ x, dt)[,1])
   fs   = as.numeric(discretize(dt$x, dt$z))
 
 
   expect_equal(weka, fs)
 
-  weka = Discretize(z ~ x, dt)[,1]
+  weka = RWeka::Discretize(z ~ x, dt)[,1]
   fs   = discretize(dt$x, dt$z)
   levels(weka)
   levels(fs)
@@ -34,7 +34,7 @@ test_that("Discretization - single NA (independent variable)",
 {
   iris$Sepal.Length[3] = NA
 
-  Weka = as.numeric(Discretize(Species ~ Sepal.Length, data = iris)[,1])
+  Weka = as.numeric(RWeka::Discretize(Species ~ Sepal.Length, data = iris)[,1])
   Weka = c(Weka[1:2],NA,tail(Weka,-2))
 
   fs   = as.numeric(discretize(iris$Sepal.Length, iris$Species))
@@ -67,5 +67,6 @@ test_that("Discretization - not implemented for data.frame",
   expect_error(discretize(dt))
 })
 
+# nocov end
 
 

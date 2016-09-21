@@ -1,3 +1,5 @@
+# nocov start
+
 library(dplyr)
 library(FSelector)
 test_that("Comparsion with FSelector",
@@ -98,5 +100,6 @@ test_that("Interfaces errors",
 
 })
 
+# nocov end
 
 
