@@ -68,17 +68,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// fs_entropy1d
-double fs_entropy1d(SEXP x);
-RcppExport SEXP FSelectorRcpp_fs_entropy1d(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(fs_entropy1d(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // information_gain_cpp
 List information_gain_cpp(List xx, IntegerVector y, int threads);
 RcppExport SEXP FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP, SEXP threadsSEXP) {
@@ -123,6 +112,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(fs_order(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fs_entropy1d
+double fs_entropy1d(SEXP x);
+RcppExport SEXP FSelectorRcpp_fs_entropy1d(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(fs_entropy1d(x));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -120,6 +120,5 @@ exhaustive_search(c("Prewt", "Treat", "offset(Prewt)"),
 stopCluster(cl)
 registerDoSEQ()
 
-
 }
 

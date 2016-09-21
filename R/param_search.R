@@ -106,7 +106,7 @@ utils::globalVariables("it")
 #' stopCluster(cl)
 #' registerDoSEQ()
 #'
-#'
+#' @importFrom foreach getDoParRegistered
 #' @export
 #'
 exhaustive_search = function(attributes,
@@ -135,7 +135,8 @@ exhaustive_search = function(attributes,
     subsetsSizes = 1:subsetsSizes
   }
 
-  `%op%` = ifelse(allowParallel, `%dopar%`, `%do%`)
+
+  `%op%` = ifelse(allowParallel && getDoParRegistered(), `%dopar%`, `%do%`)
 
   for(size in subsetsSizes)
   {
@@ -255,7 +256,7 @@ greedy_search = function (attributes, fun, data, type = c("forward", "backward")
     best$result = fun(attributes[as.logical(best$attrs)], data)
   }
 
-  `%op%` = ifelse(allowParallel, `%dopar%`, `%do%`)
+  `%op%` = ifelse(allowParallel && getDoParRegistered(), `%dopar%`, `%do%`)
 
   repeat
   {
