@@ -16,7 +16,7 @@ Imports:
     Rcpp (>= 0.12.0),
     foreach,
     iterators
-LinkingTo: Rcpp, BH, RcppArmadillo
+LinkingTo: Rcpp, BH, RcppArmadillo, testthat
 Suggests:
     testthat,
     Matrix,

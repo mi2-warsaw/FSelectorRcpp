@@ -1,8 +1,6 @@
 library(entropy)
 library(FSelectorRcpp)
 
-
-
 test_that("Test entropy",
 {
   x = c(10,11,21,50.0,11)

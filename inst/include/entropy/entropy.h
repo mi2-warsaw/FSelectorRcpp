@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <utility>
 #include "support/table.h"
+#include <numeric>
 
 namespace fselector
 {
