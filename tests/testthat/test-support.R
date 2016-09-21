@@ -62,6 +62,7 @@ test_that("Test count levels",
   expect_equal(FSelectorRcpp:::fs_count_levels(xNum),3)
   expect_equal(FSelectorRcpp:::fs_count_levels(xChar),2)
   expect_equal(FSelectorRcpp:::fs_count_levels(xFac),2)
+  expect_error(FSelectorRcpp:::fs_count_levels(list()))
 })
 
 test_that("Test order levels",
@@ -72,6 +73,7 @@ test_that("Test order levels",
 
   expect_equal(xNum[FSelectorRcpp:::fs_order(xNum)+1], sort(xNum))
   expect_equal(xFac[FSelectorRcpp:::fs_order(xFac)+1], sort(xFac))
+  expect_error(FSelectorRcpp:::fs_order(list()))
 })
 
 test_that("Test order levels",
@@ -83,4 +85,6 @@ test_that("Test order levels",
   expect_equal(FSelectorRcpp:::fs_entropy1d(xNum), entropy(table(xNum)))
   expect_equal(FSelectorRcpp:::fs_entropy1d(xChar), entropy(table(xChar)))
   expect_equal(FSelectorRcpp:::fs_entropy1d(xFac), entropy(table(xFac)))
+
+  expect_error(FSelectorRcpp:::fs_entropy1d(list()))
 })
