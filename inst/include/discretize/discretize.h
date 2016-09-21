@@ -15,6 +15,14 @@ enum DISCRETIZE_METHOD {
   EQUAL_SIZE = 1
 };
 
+class DiscControl {
+  size_t k_ = 10;
+
+  public:
+    void set_k(size_t k) { k_ = k; }
+    size_t get_k() { return k_; }
+};
+
 template<class InputIterator,
          class VariableIterator,
          class OutputIterator>
@@ -22,6 +30,7 @@ template<class InputIterator,
                                                                                           InputIterator itXLast,
                                                                                           VariableIterator itY,
                                                                                           OutputIterator itResult,
+                                                                                          DiscControl control,
                                                                                           DISCRETIZE_METHOD method = DISCRETIZE_METHOD::MDL)
 {
   switch(method)
@@ -31,7 +40,7 @@ template<class InputIterator,
       break;
 
     case DISCRETIZE_METHOD::EQUAL_SIZE:
-      return equalsize::discretize(itX, itXLast, itY, itResult);
+      return equalsize::discretize(itX, itXLast, itY, itResult, control.get_k());
       break;
   }
 

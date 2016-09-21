@@ -30,9 +30,10 @@ List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
       case REALSXP:
       {
         NumericVector xx = as<NumericVector>(x);
+        fselector::discretize::DiscControl control;
 
         std::vector<int> disX(y.size()); //discretized x
-        fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin());
+        fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin(), control);
 
         entr = fselector::entropy::entropy1d(disX.begin(), disX.end());
 

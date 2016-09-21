@@ -11,10 +11,13 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
 {
   IntegerVector result(y.size());
 
+  fselector::discretize::DiscControl control;
+
   auto splitPoints = fselector::discretize::discretize(x.begin(),
                                     x.end(),
                                     y.begin(),
-                                    result.begin());
+                                    result.begin(),
+                                    control);
   result = result + 1; //discretize returns values starting from zero
 
   Rcpp::CharacterVector splitVals(splitPoints.size() + 1);
