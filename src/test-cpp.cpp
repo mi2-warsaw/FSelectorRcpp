@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 #include <testthat.h>
 
+#include "support/support.h"
 #include "support/table.h"
 #include "entropy/entropy.h"
 
@@ -42,6 +43,16 @@ context("Entropy tests") {
     std::vector<int> xx = {1,2,2,3,3,3};
 
     expect_true(entrR[0] == fselector::entropy::entropy1d(xx.begin(), xx.end()));
+  }
+
+}
+
+context("Other tests") {
+
+  test_that("Count levels") {
+    std::vector<int> xx = {1,2,2,3,3,3};
+
+    expect_true(3 == fselector::support::count_levels(xx.begin(), xx.end()));
   }
 
 }
