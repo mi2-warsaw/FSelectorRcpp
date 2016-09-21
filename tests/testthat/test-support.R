@@ -52,3 +52,16 @@ test_that("Test numeric 2d table",
 {
   expect_equal(fs_table_numeric2d(c(10,10,20),c(10,10,11)), 2:1)
 })
+
+test_that("Test count levels",
+{
+  xNum  = c(12,23,0.3)
+  xChar = c("A","A","B")
+  xFac  = as.factor(xChar)
+
+  expect_equal(FSelectorRcpp:::fs_count_levels(xNum),3)
+  expect_equal(FSelectorRcpp:::fs_count_levels(xChar),3)
+  expect_equal(FSelectorRcpp:::fs_count_levels(xFac),3)
+})
+
+
