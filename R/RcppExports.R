@@ -43,10 +43,6 @@ fs_entropy1d <- function(x) {
     .Call('FSelectorRcpp_fs_entropy1d', PACKAGE = 'FSelectorRcpp', x)
 }
 
-fs_numeric_entropy <- function(x) {
-    .Call('FSelectorRcpp_fs_numeric_entropy', PACKAGE = 'FSelectorRcpp', x)
-}
-
 information_gain_cpp <- function(xx, y, threads = 1L) {
     .Call('FSelectorRcpp_information_gain_cpp', PACKAGE = 'FSelectorRcpp', xx, y, threads)
 }

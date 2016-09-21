@@ -31,10 +31,3 @@ double fs_entropy1d(SEXP x)
 
   return 0.0;
 }
-
-// [[Rcpp::export]]
-double fs_numeric_entropy(const NumericVector& x)
-{
-  return fselector::entropy::numeric_entropy(x.begin(), x.end());
-}
-
