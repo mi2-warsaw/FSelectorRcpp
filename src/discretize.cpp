@@ -15,7 +15,7 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
                                     x.end(),
                                     y.begin(),
                                     result.begin());
-  result = result + 1; //discretize returns values stratring from zero
+  result = result + 1; //discretize returns values starting from zero
 
   Rcpp::CharacterVector splitVals(splitPoints.size() + 1);
 
