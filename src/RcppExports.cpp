@@ -19,43 +19,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// fs_cut_index
-NumericVector fs_cut_index(const NumericVector& x, const IntegerVector& y);
-RcppExport SEXP FSelectorRcpp_fs_cut_index(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector& >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(fs_cut_index(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
-// fs_mdl_stop
-double fs_mdl_stop(const int& ci, const IntegerVector& y, const double& entropy);
-RcppExport SEXP FSelectorRcpp_fs_mdl_stop(SEXP ciSEXP, SEXP ySEXP, SEXP entropySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const int& >::type ci(ciSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const double& >::type entropy(entropySEXP);
-    rcpp_result_gen = Rcpp::wrap(fs_mdl_stop(ci, y, entropy));
-    return rcpp_result_gen;
-END_RCPP
-}
-// fs_part
-NumericVector fs_part(const NumericVector& x, const IntegerVector& y);
-RcppExport SEXP FSelectorRcpp_fs_part(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector& >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(fs_part(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
 // discretize_cpp
 IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y);
 RcppExport SEXP FSelectorRcpp_discretize_cpp(SEXP xSEXP, SEXP ySEXP) {

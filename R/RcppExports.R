@@ -23,18 +23,6 @@ cutOff_k <- function(x1, x2, k) {
     .Call('FSelectorRcpp_cutOff_k', PACKAGE = 'FSelectorRcpp', x1, x2, k)
 }
 
-fs_cut_index <- function(x, y) {
-    .Call('FSelectorRcpp_fs_cut_index', PACKAGE = 'FSelectorRcpp', x, y)
-}
-
-fs_mdl_stop <- function(ci, y, entropy) {
-    .Call('FSelectorRcpp_fs_mdl_stop', PACKAGE = 'FSelectorRcpp', ci, y, entropy)
-}
-
-fs_part <- function(x, y) {
-    .Call('FSelectorRcpp_fs_part', PACKAGE = 'FSelectorRcpp', x, y)
-}
-
 discretize_cpp <- function(x, y) {
     .Call('FSelectorRcpp_discretize_cpp', PACKAGE = 'FSelectorRcpp', x, y)
 }
