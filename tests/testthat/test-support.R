@@ -64,4 +64,13 @@ test_that("Test count levels",
   expect_equal(FSelectorRcpp:::fs_count_levels(xFac),3)
 })
 
+test_that("Test order levels",
+{
+  xNum  = c(12,23,0.3)
+  xChar = c("C","A","A","B")
+  xFac  = factor(xChar, levels = c("A","B","C"), ordered = TRUE)
+
+  expect_equal(xNum[FSelectorRcpp:::fs_order(xNum)+1], sort(xNum))
+  expect_equal(xFac[FSelectorRcpp:::fs_order(xFac)+1], sort(xFac))
+})
 
