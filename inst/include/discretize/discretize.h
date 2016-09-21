@@ -16,9 +16,10 @@ enum DISCRETIZE_METHOD {
 };
 
 class DiscControl {
-  size_t k_ = 10;
+  size_t k_;
 
   public:
+    DiscControl() : k_(10) {}
     void set_k(size_t k) { k_ = k; }
     size_t get_k() { return k_; }
 };
