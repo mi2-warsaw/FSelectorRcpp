@@ -11,7 +11,7 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
 {
   IntegerVector result(y.size());
 
-  auto splitPoints = fselector::discretize::mdl::discretize(x.begin(),
+  auto splitPoints = fselector::discretize::discretize(x.begin(),
                                     x.end(),
                                     y.begin(),
                                     result.begin());
