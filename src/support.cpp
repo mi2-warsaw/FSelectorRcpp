@@ -30,7 +30,7 @@ int fs_count_levels(SEXP x)
   }
   }
 
-  return 0;
+  stop("Not supported type.");
 }
 
 // [[Rcpp::export]]
@@ -51,8 +51,7 @@ IntegerVector fs_order(SEXP x)
   }
   }
 
-  IntegerVector xx;
-  return xx;
+  stop("Not supported type.");
 }
 
 ////////////////////////// Entropy //////////////////////
@@ -81,7 +80,7 @@ double fs_entropy1d(SEXP x)
   }
   }
 
-  return 0.0;
+  stop("Not supported type.");
 }
 
 //////////////////////////// Table /////////////////////////////
