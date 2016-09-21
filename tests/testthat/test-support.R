@@ -60,8 +60,8 @@ test_that("Test count levels",
   xFac  = as.factor(xChar)
 
   expect_equal(FSelectorRcpp:::fs_count_levels(xNum),3)
-  expect_equal(FSelectorRcpp:::fs_count_levels(xChar),3)
-  expect_equal(FSelectorRcpp:::fs_count_levels(xFac),3)
+  expect_equal(FSelectorRcpp:::fs_count_levels(xChar),2)
+  expect_equal(FSelectorRcpp:::fs_count_levels(xFac),2)
 })
 
 test_that("Test order levels",
@@ -74,3 +74,13 @@ test_that("Test order levels",
   expect_equal(xFac[FSelectorRcpp:::fs_order(xFac)+1], sort(xFac))
 })
 
+test_that("Test order levels",
+{
+  xNum  = c(12,23,0.3)
+  xChar = c("C","A","A","B")
+  xFac  = factor(xChar, levels = c("A","B","C"), ordered = TRUE)
+
+  expect_equal(FSelectorRcpp:::fs_entropy1d(xNum), entropy(table(xNum)))
+  expect_equal(FSelectorRcpp:::fs_entropy1d(xChar), entropy(table(xChar)))
+  expect_equal(FSelectorRcpp:::fs_entropy1d(xFac), entropy(table(xFac)))
+})
