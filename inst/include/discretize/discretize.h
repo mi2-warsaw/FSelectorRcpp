@@ -2,6 +2,7 @@
 #define FSELECTOR_DISCRETIZE_H
 
 #include "discretize/methods/mdl.h"
+#include "discretize/methods/equalsize.h"
 
 namespace fselector
 {
@@ -11,7 +12,7 @@ namespace discretize
 
 enum DISCRETIZE_METHOD {
   MDL = 0,
-  QUANTILE = 1
+  EQUAL_SIZE = 1
 };
 
 template<class InputIterator,
@@ -29,6 +30,9 @@ template<class InputIterator,
       return mdl::discretize(itX, itXLast, itY, itResult);
       break;
 
+    case DISCRETIZE_METHOD::EQUAL_SIZE:
+      return equalsize::discretize(itX, itXLast, itY, itResult);
+      break;
   }
 
 
