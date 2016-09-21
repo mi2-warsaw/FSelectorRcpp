@@ -79,17 +79,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// fs_numeric_entropy
-double fs_numeric_entropy(const NumericVector& x);
-RcppExport SEXP FSelectorRcpp_fs_numeric_entropy(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(fs_numeric_entropy(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // information_gain_cpp
 List information_gain_cpp(List xx, IntegerVector y, int threads);
 RcppExport SEXP FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP, SEXP threadsSEXP) {

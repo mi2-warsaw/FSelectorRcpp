@@ -32,4 +32,16 @@ context("Entropy tests") {
     expect_true(entrR[0] == fselector::entropy::numeric_entropy(x.begin(), x.end()));
   }
 
+  test_that("Table entropy - comparsion with entropy package") {
+    Rcpp::Environment entrEnv("package:entropy");
+    Rcpp::Function    entropyFnc = entrEnv["entropy"];
+
+    Rcpp::NumericVector x     = {1,2,3};
+    Rcpp::NumericVector entrR = entropyFnc(x);
+
+    std::vector<int> xx = {1,2,2,3,3,3};
+
+    expect_true(entrR[0] == fselector::entropy::entropy1d(xx.begin(), xx.end()));
+  }
+
 }
