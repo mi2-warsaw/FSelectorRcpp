@@ -2,10 +2,6 @@
 #define FSELECTOR_DISCRETIZE_MDL_H
 
 #include "FSelectorConfig.h"
-#include <vector>
-#include <set>
-#include <cmath>
-#include <utility>
 #include "entropy/entropy.h"
 #include "support/support.h"
 #include "boost/optional.hpp"
@@ -16,6 +12,8 @@ namespace fselector
 namespace discretize
 {
 
+namespace mdl
+{
 
 typedef boost::optional<double> OptDouble;
 typedef boost::optional<std::pair<size_t, double>> OptPair;
@@ -208,13 +206,14 @@ template<class InputIterator, class VariableIterator, class OutputIterator> std:
 
 }
 
+} // mdl namespace
+
+
+
 } // namespace
 
 
 }
-
-
-
 
 
 #endif
