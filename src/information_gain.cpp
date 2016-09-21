@@ -32,7 +32,7 @@ List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
         NumericVector xx = as<NumericVector>(x);
 
         std::vector<int> disX(y.size()); //discretized x
-        fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin());
+        fselector::discretize::mdl::discretize(xx.begin(), xx.end(), y.begin(), disX.begin());
 
         entr = fselector::entropy::entropy1d(disX.begin(), disX.end());
 

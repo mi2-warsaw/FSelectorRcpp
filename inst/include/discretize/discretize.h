@@ -3,6 +3,4 @@
 
 #include "discretize/methods/mdl.h"
 
-
-
 #endif
