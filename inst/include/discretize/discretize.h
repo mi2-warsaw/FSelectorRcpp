@@ -24,6 +24,13 @@ class DiscControl {
     size_t get_k() { return k_; }
 };
 
+template<class STRING> DISCRETIZE_METHOD string2discretizeMethod(const STRING& method)
+{
+  if("MDL" == method) return DISCRETIZE_METHOD::MDL;
+  if("EQUAL_SIZE" == method) return DISCRETIZE_METHOD::EQUAL_SIZE;
+  return DISCRETIZE_METHOD::MDL;
+}
+
 template<class InputIterator,
          class VariableIterator,
          class OutputIterator>
