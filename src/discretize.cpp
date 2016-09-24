@@ -1,10 +1,6 @@
-#include <Rcpp.h>
-#include "discretize/discretize.h"
-#include <string>
+#include "discretizeControl.h"
 
 // [[Rcpp::plugins(cpp11)]]
-using namespace Rcpp;
-
 
 // [[Rcpp::export]]
 IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
