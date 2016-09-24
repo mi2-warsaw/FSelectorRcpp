@@ -6,6 +6,14 @@ mdlControl = function()
   params
 }
 
+#' @export
+equalsizeControl = function(k = 10)
+{
+  params = list(method = "EQUAL_SIZE", k = k)
+  attr(params, "class") = c("equalsizeControl", "discretizationControl", "list")
+  params
+}
+
 ################ Discretisation
 
 #' Discretization
