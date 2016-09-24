@@ -16,7 +16,10 @@ List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
 
   if(threads < 1) threads = omp_get_max_threads();
 
-  #pragma omp parallel for shared(xx, varEntropy, jointEntropy, y) num_threads(threads) schedule(dynamic)
+  std::shared_ptr<fselector::discretize::DiscControl> control =
+    std::make_shared<fselector::discretize::mdl::DiscControlMdl>();
+
+  #pragma omp parallel for shared(xx, varEntropy, jointEntropy, y, control) num_threads(threads) schedule(dynamic)
   for(size_t i = 0; i < xx.size(); i++)
   {
     SEXP x = xx[i];
@@ -30,7 +33,6 @@ List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
       case REALSXP:
       {
         NumericVector xx = as<NumericVector>(x);
-        fselector::discretize::DiscControl control;
 
         std::vector<int> disX(y.size()); //discretized x
         fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin(), control);

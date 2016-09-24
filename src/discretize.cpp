@@ -1,4 +1,4 @@
-#include "discretizeControl.h"
+#include "discretizeControlR.h"
 
 // [[Rcpp::plugins(cpp11)]]
 
@@ -7,7 +7,7 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y, con
 {
   IntegerVector result(y.size());
 
-  fselector::discretize::DiscControl control = control_builder(discControl);
+  std::shared_ptr<fselector::discretize::DiscControl> control = control_builder(discControl);
 
   auto splitPoints = fselector::discretize::discretize(x.begin(),
                                     x.end(),

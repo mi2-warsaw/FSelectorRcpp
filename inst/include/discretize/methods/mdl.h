@@ -5,6 +5,7 @@
 #include "entropy/entropy.h"
 #include "support/support.h"
 #include "boost/optional.hpp"
+#include "discretize/discretizeControl.h"
 
 namespace fselector
 {
@@ -14,6 +15,14 @@ namespace discretize
 
 namespace mdl
 {
+
+/////////////Control //////////
+class DiscControlMdl : public DiscControl {
+
+public:
+  DiscControlMdl(DISCRETIZE_METHOD method = DISCRETIZE_METHOD::MDL) : DiscControl(method) {}
+};
+
 
 typedef boost::optional<double> OptDouble;
 typedef boost::optional<std::pair<size_t, double>> OptPair;

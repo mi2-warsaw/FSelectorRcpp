@@ -2,6 +2,7 @@
 #define FSELECTOR_DISCRETIZE_EQUALSIZE_H
 
 #include "FSelectorConfig.h"
+#include "discretize/discretizeControl.h"
 
 namespace fselector
 {
@@ -12,12 +13,28 @@ namespace discretize
 namespace equalsize
 {
 
+/////////////Control //////////
+class DiscControlEqualSize : public DiscControl {
+  size_t k_;
+
+public:
+  DiscControlEqualSize(DISCRETIZE_METHOD method = DISCRETIZE_METHOD::EQUAL_SIZE) : DiscControl(method), k_(10) {}
+
+  void set_k(size_t k) { k_ = k; }
+  size_t get_k() const { return k_; }
+};
+
+
+
+
+
 template<class InputIterator, class VariableIterator, class OutputIterator> std::vector<typename std::iterator_traits<InputIterator>::value_type> discretize(InputIterator itX,
                                                                                                                                                              InputIterator itXLast,
                                                                                                                                                              VariableIterator itY,
                                                                                                                                                              OutputIterator itResult,
-                                                                                                                                                             size_t k = 10)
+                                                                                                                                                             std::shared_ptr<DiscControlEqualSize> control)
 {
+  const int k =  control->get_k();
 
   const std::vector<std::size_t> orderedIdx = support::order(itX, itXLast);
 
