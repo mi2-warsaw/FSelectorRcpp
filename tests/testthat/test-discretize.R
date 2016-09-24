@@ -70,7 +70,7 @@ test_that("Discretization - not implemented for data.frame",
 
 # nocov end
 
-test_that("Discretization - equalsize - orered groups",
+test_that("Discretization - equalsize - ordered.",
 {
   x = 1:6
   y = 1:6
@@ -89,3 +89,43 @@ test_that("Discretization - equalsize - orered groups",
   expect_equal(as.numeric(d),c(1,1,2,3,4,5))
 
 })
+
+test_that("Discretization - equalsize - reverse order",
+{
+  x = 6:1
+  y = 1:6
+
+  d = discretize(x, y, control = equalsizeControl(k = 2))
+  expect_equal(as.numeric(d),c(1,1,1,2,2,2) %>% rev)
+
+  d = discretize(x, y, control = equalsizeControl(k = 3))
+  expect_equal(as.numeric(d),c(1,1,2,2,3,3) %>% rev)
+
+  d = discretize(x, y, control = equalsizeControl(k = 4))
+  expect_equal(as.numeric(d),c(1,1,2,2,3,4) %>% rev)
+
+  d = discretize(x, y, control = equalsizeControl(k = 5))
+  expect_equal(as.numeric(d),c(1,1,2,3,4,5) %>% rev)
+
+})
+
+test_that("Discretization - equalsize - pseudo-random order",
+{
+  x = c(6,4,2,3,1,5)
+  y = 1:6
+
+  d = discretize(x, y, control = equalsizeControl(k = 2))
+  expect_equal(as.numeric(d),c(2,2,1,1,1,2))
+
+  d = discretize(x, y, control = equalsizeControl(k = 3))
+  expect_equal(as.numeric(d),c(3,2,1,2,1,3))
+
+  d = discretize(x, y, control = equalsizeControl(k = 4))
+  expect_equal(as.numeric(d),c(4,2,1,2,1,3))
+
+  d = discretize(x, y, control = equalsizeControl(k = 5))
+  expect_equal(as.numeric(d),c(5,3,1,2,1,4))
+
+})
+
+
