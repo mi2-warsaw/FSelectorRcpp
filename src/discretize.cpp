@@ -3,11 +3,11 @@
 // [[Rcpp::plugins(cpp11)]]
 
 // [[Rcpp::export]]
-IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y)
+IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y, const List& discControl)
 {
   IntegerVector result(y.size());
 
-  fselector::discretize::DiscControl control;
+  fselector::discretize::DiscControl control = control_builder(discControl);
 
   auto splitPoints = fselector::discretize::discretize(x.begin(),
                                     x.end(),

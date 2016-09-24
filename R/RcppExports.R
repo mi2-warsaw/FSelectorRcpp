@@ -23,8 +23,8 @@ cutOff_k <- function(x1, x2, k) {
     .Call('FSelectorRcpp_cutOff_k', PACKAGE = 'FSelectorRcpp', x1, x2, k)
 }
 
-discretize_cpp <- function(x, y) {
-    .Call('FSelectorRcpp_discretize_cpp', PACKAGE = 'FSelectorRcpp', x, y)
+discretize_cpp <- function(x, y, discControl) {
+    .Call('FSelectorRcpp_discretize_cpp', PACKAGE = 'FSelectorRcpp', x, y, discControl)
 }
 
 information_gain_cpp <- function(xx, y, threads = 1L) {

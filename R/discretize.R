@@ -1,9 +1,20 @@
+#' @export
+mdlControl = function()
+{
+  params = list(method = "MDL")
+  attr(params, "class") = c("mdlControl", "discretizationControl", "list")
+  params
+}
+
+################ Discretisation
+
 #' Discretization
 #'
 #' Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by MDL method.
 #'
 #' @param x x
 #' @param y y
+#' @param control control object containing the parameters for discretisation algorithm.
 #'
 #' @export
 #'
@@ -13,25 +24,25 @@
 #'
 #' discretize(Species ~ ., iris)
 #'
-discretize = function(x, y)
+discretize = function(x, y, control = mdlControl())
 {
   UseMethod("discretize", x)
 }
 
 #' @export
-discretize.default = function(x, y)
+discretize.default = function(x, y, control = mdlControl())
 {
   stop(sprintf("Object of class %s is not supported!", class(x)[1]))
 }
 
 #' @export
-discretize.numeric = function(x, y)
+discretize.numeric = function(x, y, control = mdlControl())
 {
-  discretize_cpp(x, y)
+  discretize_cpp(x, y, control)
 }
 
 #' @export
-discretize.formula = function(x, y)
+discretize.formula = function(x, y, control = mdlControl())
 {
   formula = formula2names(x, y)
 
@@ -54,7 +65,7 @@ discretize.formula = function(x, y)
 
   for(col in columnsToDiscretize)
   {
-    data[[col]] = discretize(data[[col]], yy)
+    data[[col]] = discretize(data[[col]], yy, control)
   }
 
   return(data)

@@ -20,14 +20,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // discretize_cpp
-IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y);
-RcppExport SEXP FSelectorRcpp_discretize_cpp(SEXP xSEXP, SEXP ySEXP) {
+IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y, const List& discControl);
+RcppExport SEXP FSelectorRcpp_discretize_cpp(SEXP xSEXP, SEXP ySEXP, SEXP discControlSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const IntegerVector& >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(discretize_cpp(x, y));
+    Rcpp::traits::input_parameter< const List& >::type discControl(discControlSEXP);
+    rcpp_result_gen = Rcpp::wrap(discretize_cpp(x, y, discControl));
     return rcpp_result_gen;
 END_RCPP
 }
