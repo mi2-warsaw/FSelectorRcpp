@@ -16,12 +16,16 @@ enum DISCRETIZE_METHOD {
 };
 
 class DiscControl {
+  DISCRETIZE_METHOD method_;
   size_t k_;
 
   public:
-    DiscControl() : k_(10) {}
+    DiscControl(DISCRETIZE_METHOD method = DISCRETIZE_METHOD::MDL) : method_(method), k_(10) {}
+
+    DISCRETIZE_METHOD get_method() const { return method_; }
+
     void set_k(size_t k) { k_ = k; }
-    size_t get_k() { return k_; }
+    size_t get_k() const { return k_; }
 };
 
 template<class STRING> DISCRETIZE_METHOD string2discretizeMethod(const STRING& method)
@@ -38,9 +42,10 @@ template<class InputIterator,
                                                                                           InputIterator itXLast,
                                                                                           VariableIterator itY,
                                                                                           OutputIterator itResult,
-                                                                                          DiscControl control,
-                                                                                          DISCRETIZE_METHOD method = DISCRETIZE_METHOD::MDL)
+                                                                                          const DiscControl& control)
 {
+  DISCRETIZE_METHOD method = control.get_method();
+
   switch(method)
   {
     case DISCRETIZE_METHOD::MDL:

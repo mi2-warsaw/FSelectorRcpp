@@ -4,12 +4,14 @@
 \alias{discretize}
 \title{Discretization}
 \usage{
-discretize(x, y)
+discretize(x, y, control = mdlControl())
 }
 \arguments{
 \item{x}{x}
 
 \item{y}{y}
+
+\item{control}{control object containing the parameters for discretisation algorithm.}
 }
 \description{
 Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by MDL method.
