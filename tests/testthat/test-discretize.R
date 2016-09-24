@@ -70,21 +70,22 @@ test_that("Discretization - not implemented for data.frame",
 
 # nocov end
 
-test_that("Discretization - equalsize",
+test_that("Discretization - equalsize - orered groups",
 {
-  dt = lapply(1:5, function(xx)
-  {
-    x = rnorm(1000, mean = 10 * xx)
-    y = rnorm(1000, mean = 0.5 * xx)
-    z = 10 * xx + 0.5 * sqrt(xx)
-    data.frame(x,y,z)
-  })
+  x = 1:6
+  y = 1:6
 
-  dt = do.call(bind_rows, dt)
 
-  xx = discretize(dt$x, dt$y, control = mdlControl())
-  yy = discretize(dt$x, dt$y, control = equalsizeControl(k = 20))
+  d = discretize(x, y, control = equalsizeControl(k = 2))
+  expect_equal(as.numeric(d),c(1,1,1,2,2,2))
 
-  length(levels(xx))
-  length(levels(yy))
+  d = discretize(x, y, control = equalsizeControl(k = 3))
+  expect_equal(as.numeric(d),c(1,1,2,2,3,3))
+
+  d = discretize(x, y, control = equalsizeControl(k = 4))
+  expect_equal(as.numeric(d),c(1,1,2,2,3,4))
+
+  d = discretize(x, y, control = equalsizeControl(k = 5))
+  expect_equal(as.numeric(d),c(1,1,2,3,4,5))
+
 })

@@ -45,12 +45,14 @@ template<class InputIterator, class VariableIterator, class OutputIterator> std:
   const long n = orderedIdx.size();
   const long binSize = n / k;
   long rest = n % k;
+  long usedRest = 0;
 
   for(int i = 1; i <= k; i++)
   {
-    int tmp = binSize * i;
+    int tmp = binSize * i + usedRest;
     if(rest > 0) {
       rest--;
+      usedRest++;
       tmp++;
     }
 
@@ -60,7 +62,7 @@ template<class InputIterator, class VariableIterator, class OutputIterator> std:
   size_t gr = 0;
   for(size_t i = 0; i < orderedIdx.size(); i++)
   {
-    if(i > binSizes[gr]) {
+    if(i >= binSizes[gr]) {
       gr++;
       splitValues.push_back((*(itX + orderedIdx[i-1]) + *(itX + orderedIdx[i])) / 2.0 );
     }
