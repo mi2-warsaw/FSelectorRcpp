@@ -67,6 +67,24 @@ test_that("Discretization - not implemented for data.frame",
   expect_error(discretize(dt))
 })
 
+
 # nocov end
 
+test_that("Discretization - equalsize",
+{
+  dt = lapply(1:5, function(xx)
+  {
+    x = rnorm(1000, mean = 10 * xx)
+    y = rnorm(1000, mean = 0.5 * xx)
+    z = 10 * xx + 0.5 * sqrt(xx)
+    data.frame(x,y,z)
+  })
 
+  dt = do.call(bind_rows, dt)
+
+  xx = discretize(dt$x, dt$y, control = mdlControl())
+  yy = discretize(dt$x, dt$y, control = equalsizeControl(k = 20))
+
+  length(levels(xx))
+  length(levels(yy))
+})

@@ -29,7 +29,7 @@ template<class InputIterator,
 
     case DISCRETIZE_METHOD::EQUAL_SIZE:
       std::shared_ptr<equalsize::DiscControlEqualSize> controlEqual = std::static_pointer_cast<equalsize::DiscControlEqualSize>(control);
-      return equalsize::discretize(itX, itXLast, itY, itResult, controlEqual);
+      return equalsize::discretize(itX, itXLast, itY, itResult, *controlEqual);
       break;
   }
 
