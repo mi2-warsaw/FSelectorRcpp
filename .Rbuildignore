@@ -3,6 +3,7 @@
 .travis.yml
 staticdocs_build/
 doc/
+article/
 o_rly.png
 ^appveyor\.yml$
 ^codecov\.yml$

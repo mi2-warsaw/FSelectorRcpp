@@ -1,0 +1,57 @@
+% !TeX root = RJwrapper.tex
+\title{Rcpp Implementation of Entropy Based Feature Selection Algorithms with
+Sparse Matrix Support}
+\author{by Zygmunt Zawadzki, Marcin Kosiński}
+
+\maketitle
+
+\abstract{%
+\par 
+
+Feature selection is a process of extracting valuable features that have
+significant influence on dependent variable. Time efficient feature
+selection algorithms are still an active field of research and are in
+the high demand in the machine learning area. \par We introduce
+\pkg{FSelectorRcpp}, an \R ~package \citep{R} that includes entropy
+based feature selection algorithms. Methods presented in this package
+are not new, they were reimplemented in C++ and originally come from
+\pkg{FSelector} package \citep{FSelector}. Our reimplementation occures
+to have shorter computation times, it does not require earlier Java nor
+Weka \citep{Hall:2009:WDM:1656274.1656278} installation and provides
+support for sparse matrix format of data, e.g.~presented in \pkg{Matrix}
+package \citep{Matrix}. This approach facilitates software installation
+and improves work with bigger datasets, in comparison to the base
+\R ~implementation in \pkg{FSelector}, which is even not optimal in the
+sense of \R ~code. \par Additionally, we present new, C++ implementation
+of continuous variables Multi-Interval Discretization (MDL) method
+\citep{Fayyad1993}, which is required in entropy calculations during the
+feature selection process in showed methods. By default, regular
+\pkg{FSelector} implementation uses \pkg{entropy} package
+\citep{entropy}, for which we also attach the computation times
+comparison. \par Finally, we announce the full list of available
+functions, which are divided to 2 groups: entropy based feature
+selection methods and stepwise attribute selection functions that might
+use any evaluator to choose propoer features, e.g.~presented entropy
+based algorithms.
+}
+
+\section{Introduction and Motivation}\label{introduction-and-motivation}
+
+\section{}\label{section}
+
+\bibliography{RJreferences}
+
+\address{%
+Zygmunt Zawadzki\\
+\\
+\\
+}
+\href{mailto:zygmunt@zstat.pl}{\nolinkurl{zygmunt@zstat.pl}}
+
+\address{%
+Marcin Kosiński\\
+Warsaw Univeristy of Technology\\
+Faculty of Mathematics and Information Science\\ Koszykowa 75, Warsaw Poland\\
+}
+m.kosinski\R@mini.pw.edu.pl
+
