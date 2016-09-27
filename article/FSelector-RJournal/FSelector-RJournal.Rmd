@@ -8,7 +8,7 @@ author:
     address:
     - Faculty of Mathematics and Information Science
     - Koszykowa 75, Warsaw Poland
-    email:  m.kosinski\R@mini.pw.edu.pl
+    email:  m.kosinski@mini.pw.edu.pl
 abstract: > 
   \par Feature selection is a process of extracting valuable features that have significant influence on dependent variable. Time efficient feature selection algorithms are still an active field of research and are in the high demand in the machine learning area.  
   \par We introduce \pkg{FSelectorRcpp}, an \R \ package \citep{R} that includes entropy based feature selection algorithms. Methods presented in this package are not new, they were reimplemented in C++ and originally come from \pkg{FSelector} package \citep{FSelector}. Our reimplementation occures to have shorter computation times, it does not require earlier Java nor Weka \citep{Hall:2009:WDM:1656274.1656278} installation and provides support for sparse matrix format of data, e.g. presented in \pkg{Matrix} package \citep{Matrix}. This approach facilitates software installation and improves work with bigger datasets, in comparison to the base \R \ implementation in \pkg{FSelector}, which is even not optimal in the sense of \R \ code.
