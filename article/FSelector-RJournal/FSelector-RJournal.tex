@@ -74,8 +74,10 @@ parallel to shorter the procedure's time. For this approach we provide
 an \R ~interface to Rcpp reimplementation of methods included in
 \pkg{FSelector} package which we also extended with parallel background
 and sparse matrix support. This has significant impact on computations
-time and can be used on greater datasets than regular \R ~implementation
-prepared by \pkg{FSelector} original author, Piotr Romański.
+time and can be used on greater datasets, comparing to \pkg{FSelector}.
+Additionally we avoided the Weka \citep{Hall:2009:WDM:1656274.1656278}
+dependency and we provided faster discretization implementations than
+those from \pkg{entropy} package, used originally in \pkg{FSelector}.
 
 \section{Discretization}\label{discretization}
 
