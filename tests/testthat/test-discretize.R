@@ -1,5 +1,6 @@
 library(dplyr)
-
+library(FSelector)
+library(FSelectorRcpp)
 # nocov start
 test_that("Discretization - basic",
 {
@@ -128,4 +129,12 @@ test_that("Discretization - equalsize - pseudo-random order",
 
 })
 
+test_that("Zero split points",{
+  set.seed(1)
+
+  x = rep(0,10)
+  y = rep(0,10)
+
+  expect_warning(discretize(x,y))
+})
 
