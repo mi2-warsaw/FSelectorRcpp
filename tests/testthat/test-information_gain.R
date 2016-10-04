@@ -45,8 +45,6 @@ library(Matrix)
 
 test_that("Sparse matrix - basics",
 {
-
-
   species = iris$Species
   x = (as.matrix(iris[,1:4]))
   mode(x) = "integer"
@@ -97,6 +95,16 @@ test_that("Interfaces errors",
 
   xx = data_frame(x = as.character(c(1,2,3)), y = as.character(c(1,2,3)))
   expect_error(information_gain(x = y ~ ., y = xx))
+
+})
+
+test_that("Warning when y is numeric",
+{
+    dt = data_frame(x = rnorm(10), y = rnorm(10))
+    z = rnorm(10)
+
+    expect_warning(information_gain(y~x, dt))
+    expect_warning(information_gain(dt, z))
 
 })
 
