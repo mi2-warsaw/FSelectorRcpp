@@ -119,6 +119,11 @@ or use `formula = response ~ attributes, data = dataset`")
     y = y[idx]
   }
 
+  if(is.numeric(y))
+  {
+    warning("Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default!")
+  }
+
   if(!is.factor(y))
   {
     y = factor(y)
@@ -155,6 +160,11 @@ or use `formula = response ~ attributes, data = dataset`")
   }
 
   y = data[[formula$y]]
+
+  if(is.numeric(y))
+  {
+    warning("Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default!")
+  }
 
   if(!is.factor(y))
   {
