@@ -14,17 +14,20 @@ equalsizeControl = function(k = 10)
   params
 }
 
-################ Discretisation
+################ Discretization
 
 #' Discretization
 #'
-#' Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by MDL method.
+#' Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by \code{Minimum Description Length} (MD)L method.
 #'
-#' @param x x
-#' @param y y
-#' @param control control object containing the parameters for discretisation algorithm.
+#' @param x The explanatory continuous variables to be discretized or formula.
+#' @param y The dependent variable for supervised discretization
+#' @param control The \code{control} object containing the parameters for discretisation algorithm.
 #'
-#' @export
+#' @references
+#' U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of Continuous-Valued Attributes for Classi-
+#' fication Learning. In 13th International Joint Conference on Uncertainly in Artificial Intelligence(IJCAI93),
+#' pages 1022–1029, 1993.
 #'
 #' @examples
 #'
@@ -32,6 +35,22 @@ equalsizeControl = function(k = 10)
 #'
 #' discretize(Species ~ ., iris)
 #'
+#' \dontrun{
+#' # the same results
+#' library(RWeka)
+#' RWeka::Discretize(Species~Sepal.Length, data = iris)[, 1] -> Rweka_disc_out
+#' FSelectorRcpp::discretize(iris$Sepal.Length, iris$Species) ->FSelectorRcpp_disc_out
+#' table(Rweka_disc_out,FSelectorRcpp_disc_out)
+#' # but faster method
+#' library(microbenchmark)
+#' microbenchmark(discretize(iris$Sepal.Length, iris$Species),
+#'                Discretize(Species~Sepal.Length, data = iris))
+#'
+#' }
+#'
+#' @author Zygmunt Zawadzki , \email{zygmunt.zawadzki@@gmail.com}
+#'
+#' @export
 discretize = function(x, y, control = mdlControl())
 {
   UseMethod("discretize", x)
