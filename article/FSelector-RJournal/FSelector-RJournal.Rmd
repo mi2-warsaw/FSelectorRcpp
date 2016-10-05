@@ -19,6 +19,23 @@ preamble: >
 output: rticles::rjournal_article
 ---
 
+```{r include = FALSE}
+library(knitr)
+opts_chunk$set(
+	comment = "",
+	fig.width = 12, 
+	message = FALSE,
+	warning = FALSE,
+	tidy.opts = list(
+		keep.blank.line = TRUE,
+		width.cutoff = 100
+		),
+	options(width = 100),
+	eval = TRUE
+)
+```
+
+
 # Introduction and Motivation
 
 In modern statistical learning the biggest bottlenecks are computation times of model training procedures and the overfitting. Both are caused by the same issue - the high dimension of explanatory variables space. Researchers have encountered problems with too big sets of features used in machine learning algorithms also in terms of model interpretaion. This motivates applying feature selection algorithms before performing statisical modeling, so that on smaller set of attributes the training time will be shorter, the interpretation might be clearer and the noise from non important features can be avoided. More motivation can be found in \cite{John94irrelevantfeatures}.
@@ -28,6 +45,36 @@ In modern statistical learning the biggest bottlenecks are computation times of 
 \par In business applications there appear a need to provide a fast feature selection that is extremely easy to understand. For such demands easy methods are prefered. This motivates using simple techniques like Entropy Based Feature Selection \citep{Largeron:2011:EBF:1982185.1982389}, where every feature can be checked independently so that computations can be performed in a parallel to shorter the procedure's time. For this approach we provide an \R \ interface to Rcpp reimplementation \citep{Rcpp} of methods included in \pkg{FSelector} package which we also extended with parallel background and sparse matrix support. This has significant impact on computations time and can be used on greater datasets, comparing to \pkg{FSelector}. Additionally we avoided the Weka \citep{Hall:2009:WDM:1656274.1656278} dependency and we provided faster discretization implementations than those from \pkg{entropy} package, used originally in \pkg{FSelector}.
 
 # Discretization
+
+In statistical modelling, the **discretization** is the process of transferring continuous explanatory variables into discrete counterparts. The problems caused by categorization of continuous variables are known and widely spread \citep{HarrellDISC}, but in some cases there appear an algorithmic requirement for the discretization. Moreover, there exist few algorithms, like decision trees \citep{Salzberg1994}, where continuous attributes are discretized during the learning process.  Other reason for variable discretization include increasing the speed of induction algorithms \citep{Catlett1991}. 
+\par Even though many categorization algorithms have been developed \citep{Holte1993, Chan169942}, in this chapter we focus on a recursive entropy minimization heuristic for categorization coupled with a *Minimum Description Length* critetion \citep{rissanen1986} that controls the number of intervals produced over the continuous space. This is motivated by the original usage of this algorithm in \pkg{FSelector} package, which is our baseline. As \cite{Dougherty95supervisedand} showed better performance of classification for discretized feature set on real-world datasets and states that the described method was found promising by the authors not only for the local discretization but also for global discretization \citep{Ting94discretizationof}.
+
+## Entropy Dased Minimum Description Length Discretization Method
+
+Overview of the method.
+
+- Backward compatibility with \pkg{FSelector}
+
+```{r}
+library(RWeka)
+library(FSelectorRcpp)
+RWeka::Discretize(Species~Sepal.Length, data = iris)[, 1] -> Rweka_disc_out
+FSelectorRcpp::discretize(iris$Sepal.Length, iris$Species) ->FSelectorRcpp_disc_out
+table(Rweka_disc_out,FSelectorRcpp_disc_out)
+```
+
+- Time comparison on small datasets
+
+```{r}
+library(microbenchmark)
+microbenchmark(discretize(iris$Sepal.Length, iris$Species),
+               Discretize(Species~Sepal.Length, data = iris))
+```
+
+- Comparison on big datasets
+
+- Plot comparison
+
 
 # Entropy Based Feature Selection Algorithms
 
