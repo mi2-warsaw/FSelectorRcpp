@@ -7,14 +7,14 @@
 discretize(x, y, control = mdlControl())
 }
 \arguments{
-\item{x}{x}
+\item{x}{The explanatory continuous variables to be discretized or formula.}
 
-\item{y}{y}
+\item{y}{The dependent variable for supervised discretization}
 
-\item{control}{control object containing the parameters for discretisation algorithm.}
+\item{control}{The \code{control} object containing the parameters for discretisation algorithm.}
 }
 \description{
-Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by MDL method.
+Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by \code{Minimum Description Length} (MD)L method.
 }
 \examples{
 
@@ -22,5 +22,26 @@ discretize(iris[[1]], iris[[5]])
 
 discretize(Species ~ ., iris)
 
+\dontrun{
+# the same results
+library(RWeka)
+RWeka::Discretize(Species~Sepal.Length, data = iris)[, 1] -> Rweka_disc_out
+FSelectorRcpp::discretize(iris$Sepal.Length, iris$Species) ->FSelectorRcpp_disc_out
+table(Rweka_disc_out,FSelectorRcpp_disc_out)
+# but faster method
+library(microbenchmark)
+microbenchmark(discretize(iris$Sepal.Length, iris$Species),
+               Discretize(Species~Sepal.Length, data = iris))
+
+}
+
+}
+\author{
+Zygmunt Zawadzki , \email{zygmunt.zawadzki@gmail.com}
+}
+\references{
+U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of Continuous-Valued Attributes for Classi-
+fication Learning. In 13th International Joint Conference on Uncertainly in Artificial Intelligence(IJCAI93),
+pages 1022–1029, 1993.
 }
 
