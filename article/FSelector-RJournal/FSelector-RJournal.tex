@@ -22,16 +22,17 @@ for sparse matrix format of data, e.g.~presented in \pkg{Matrix} package
 improves work with bigger datasets, in comparison to the base
 \R ~implementation in \pkg{FSelector}, which is even not optimal in the
 sense of \R ~code. \par Additionally, we present new, C++ implementation
-of continuous variables Multi-Interval Discretization (MDL) method
-\citep{Fayyad1993}, which is required in entropy calculations during the
-feature selection process in showed methods. By default, regular
-\pkg{FSelector} implementation uses \pkg{entropy} package
-\citep{entropy}, for which we also attach the computation times
-comparison. \par Finally, we announce the full list of available
-functions, which are divided to 2 groups: entropy based feature
-selection methods and stepwise attribute selection functions that might
-use any evaluator to choose propoer features, e.g.~presented entropy
-based algorithms.
+of the discretization method for continuous variables Multi-Interval
+Discretization (MDL) method \citep{Fayyad1993}, which is required in
+entropy calculations during the feature selection process in showed
+methods. By default, regular \pkg{FSelector} implementation uses
+\pkg{RWeka} package \citep{Hornik2009} for discretization and
+\pkg{entropy} \citep{entropy} for entropy - for both we also attach the
+computation times comparison. \par Finally, we announce the full list of
+available functions, which are divided to 2 groups: entropy based
+feature selection methods and stepwise attribute selection functions
+that might use any evaluator to choose propoer features, e.g.~presented
+entropy based algorithms.
 }
 
 \section{Introduction and Motivation}\label{introduction-and-motivation}
