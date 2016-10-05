@@ -22,17 +22,17 @@ for sparse matrix format of data, e.g.~presented in \pkg{Matrix} package
 improves work with bigger datasets, in comparison to the base
 \R ~implementation in \pkg{FSelector}, which is even not optimal in the
 sense of \R ~code. \par Additionally, we present new, C++ implementation
-of the discretization method for continuous variables Multi-Interval
-Discretization (MDL) method \citep{Fayyad1993}, which is required in
-entropy calculations during the feature selection process in showed
-methods. By default, regular \pkg{FSelector} implementation uses
+of the discretization method for continuous variables called
+Multi-Interval Discretization (MDL) method \citep{Fayyad1993}, which is
+required in entropy calculations during the feature selection process in
+showed methods. By default, regular \pkg{FSelector} implementation uses
 \pkg{RWeka} package \citep{Hornik2009} for discretization and
-\pkg{entropy} \citep{entropy} for entropy - for both we also attach the
-computation times comparison. \par Finally, we announce the full list of
-available functions, which are divided to 2 groups: entropy based
-feature selection methods and stepwise attribute selection functions
-that might use any evaluator to choose propoer features, e.g.~presented
-entropy based algorithms.
+\pkg{entropy} \citep{entropy} for entropy calculations - for both we
+also attach the computation times comparison. \par Finally, we announce
+the full list of available functions, which are divided to 2 groups:
+entropy based feature selection methods and stepwise attribute selection
+functions that might use any evaluator to choose propoer features,
+e.g.~presented entropy based algorithms.
 }
 
 \section{Introduction and Motivation}\label{introduction-and-motivation}
@@ -49,15 +49,15 @@ from non important features can be avoided. More motivation can be found
 in \cite{John94irrelevantfeatures}. \par Many methods were developed to
 reduce the curse of dimensionality like Principal Component Analysis
 \citep{PCA:14786440109462720} or Singular Value Decomposition
-\citep{eckart1936approximation} which approximates the variables buy
+\citep{eckart1936approximation} which approximates the variables by
 smaller number of combinations of original variables, but this approach
 is hard to interpret in the final model. \par Sophisticated methods of
 attribute selection as Boruta algoritm \citep{Boruta}, genetic
 algorithms \citep{geneticAlgo, FedCSIS2013l106} or simulated annealing
 techniques \citep{Khachaturyan:a19748} are known and broadly used but in
 some cases for those algorithms computations can take even days, not to
-mention that datasets are growing every day. \par Few classification and
-regression models can reduce redundand variables during the training
+mention that datasets are growing every hour. \par Few classification
+and regression models can reduce redundand variables during the training
 phase of statistical learning process, e.g.~Decision Trees
 \citep{Rokach:2008:DMD:1796114, cart84}, LASSO Regularized Generalized
 Linear Models (with cross-validation) \citep{glmnet} or Regularized
@@ -72,15 +72,96 @@ techniques like Entropy Based Feature Selection
 \citep{Largeron:2011:EBF:1982185.1982389}, where every feature can be
 checked independently so that computations can be performed in a
 parallel to shorter the procedure's time. For this approach we provide
-an \R ~interface to Rcpp reimplementation of methods included in
-\pkg{FSelector} package which we also extended with parallel background
-and sparse matrix support. This has significant impact on computations
-time and can be used on greater datasets, comparing to \pkg{FSelector}.
-Additionally we avoided the Weka \citep{Hall:2009:WDM:1656274.1656278}
-dependency and we provided faster discretization implementations than
-those from \pkg{entropy} package, used originally in \pkg{FSelector}.
+an \R ~interface to Rcpp reimplementation \citep{Rcpp} of methods
+included in \pkg{FSelector} package which we also extended with parallel
+background and sparse matrix support. This has significant impact on
+computations time and can be used on greater datasets, comparing to
+\pkg{FSelector}. Additionally we avoided the Weka
+\citep{Hall:2009:WDM:1656274.1656278} dependency and we provided faster
+discretization implementations than those from \pkg{entropy} package,
+used originally in \pkg{FSelector}.
 
 \section{Discretization}\label{discretization}
+
+In statistical modelling, the \textbf{discretization} is the process of
+transferring continuous explanatory variables into discrete
+counterparts. The problems caused by categorization of continuous
+variables are known and widely spread \citep{HarrellDISC}, but in some
+cases there appear an algorithmic requirement for the discretization.
+Moreover, there exist few algorithms, like decision trees
+\citep{Salzberg1994}, where continuous attributes are discretized during
+the learning process. Other reason for variable discretization include
+increasing the speed of induction algorithms \citep{Catlett1991}.
+\par Even though many categorization algorithms have been developed
+\citep{Holte1993, Chan169942}, in this chapter we focus on a recursive
+entropy minimization heuristic for categorization coupled with a
+\emph{Minimum Description Length} critetion \citep{rissanen1986} that
+controls the number of intervals produced over the continuous space.
+This is motivated by the original usage of this algorithm in
+\pkg{FSelector} package, which is our baseline. As
+\cite{Dougherty95supervisedand} showed better performance of
+classification for discretized feature set on real-world datasets and
+states that the described method was found promising by the authors not
+only for the local discretization but also for global discretization
+\citep{Ting94discretizationof}.
+
+\subsection{Entropy Dased Minimum Description Length Discretization
+Method}\label{entropy-dased-minimum-description-length-discretization-method}
+
+Overview of the method.
+
+\begin{itemize}
+\tightlist
+\item
+  Backward compatibility with \pkg{FSelector}
+\end{itemize}
+
+\begin{Schunk}
+\begin{Sinput}
+library(RWeka)
+library(FSelectorRcpp)
+RWeka::Discretize(Species~Sepal.Length, data = iris)[, 1] -> Rweka_disc_out
+FSelectorRcpp::discretize(iris$Sepal.Length, iris$Species) ->FSelectorRcpp_disc_out
+table(Rweka_disc_out,FSelectorRcpp_disc_out)
+\end{Sinput}
+\begin{Soutput}
+               FSelectorRcpp_disc_out
+Rweka_disc_out  (-Inf;5.550000] (5.550000;6.150000] (6.150000;Inf)
+  '(-inf-5.55]'              59                   0              0
+  '(5.55-6.15]'               0                  36              0
+  '(6.15-inf)'                0                   0             55
+\end{Soutput}
+\end{Schunk}
+
+\begin{itemize}
+\tightlist
+\item
+  Time comparison on small datasets
+\end{itemize}
+
+\begin{Schunk}
+\begin{Sinput}
+library(microbenchmark)
+microbenchmark(discretize(iris$Sepal.Length, iris$Species),
+               Discretize(Species~Sepal.Length, data = iris))
+\end{Sinput}
+\begin{Soutput}
+Unit: microseconds
+                                            expr      min       lq      mean    median        uq
+     discretize(iris$Sepal.Length, iris$Species)  135.303  243.881  265.1694  275.3655  300.3235
+ Discretize(Species ~ Sepal.Length, data = iris) 5045.496 5549.937 6388.4559 5899.8145 7037.4495
+       max neval
+   410.577   100
+ 10792.033   100
+\end{Soutput}
+\end{Schunk}
+
+\begin{itemize}
+\item
+  Comparison on big datasets
+\item
+  Plot comparison
+\end{itemize}
 
 \section{Entropy Based Feature Selection
 Algorithms}\label{entropy-based-feature-selection-algorithms}
