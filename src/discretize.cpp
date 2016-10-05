@@ -30,6 +30,13 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y, con
     i++;
   }
 
+  if(splitPoints.empty())
+  {
+    Rcpp::warning("Cannot find any split points. Returns NAs.");
+    IntegerVector x(y.size(),IntegerVector::get_na());
+    return x;
+  }
+
   splitVals[splitPoints.size()] = std::string("(") +
                                     std::to_string(splitPoints.back()) + ";" + "Inf)";
 

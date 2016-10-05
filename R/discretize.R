@@ -80,7 +80,7 @@ discretize.formula = function(x, y, control = mdlControl())
 }
 
 #' @export
-discretize.data.frame = function(x, y)
+discretize.data.frame = function(x, y, control = mdlControl())
 {
   stop("Not implemented yet!")
 }
