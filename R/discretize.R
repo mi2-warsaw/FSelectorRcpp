@@ -23,6 +23,7 @@ equalsizeControl = function(k = 10)
 #' @param x The explanatory continuous variables to be discretized or formula.
 #' @param y The dependent variable for supervised discretization
 #' @param control The \code{control} object containing the parameters for discretisation algorithm.
+#' @param keepAll tmp
 #'
 #' @references
 #' U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of Continuous-Valued Attributes for Classi-
@@ -51,19 +52,19 @@ equalsizeControl = function(k = 10)
 #' @author Zygmunt Zawadzki , \email{zygmunt.zawadzki@@gmail.com}
 #'
 #' @export
-discretize = function(x, y, control = mdlControl())
+discretize = function(x, y, control = mdlControl(), keepAll = FALSE)
 {
   UseMethod("discretize", x)
 }
 
 #' @export
-discretize.default = function(x, y, control = mdlControl())
+discretize.default = function(x, y, control = mdlControl(), keepAll = FALSE)
 {
   stop(sprintf("Object of class %s is not supported!", class(x)[1]))
 }
 
 #' @export
-discretize.numeric = function(x, y, control = mdlControl())
+discretize.numeric = function(x, y, control = mdlControl(), keepAll = FALSE)
 {
   call = match.call()
   res = discretize_cpp(x, y, control)
@@ -81,7 +82,7 @@ discretize.numeric = function(x, y, control = mdlControl())
 }
 
 #' @export
-discretize.formula = function(x, y, control = mdlControl())
+discretize.formula = function(x, y, control = mdlControl(), keepAll = FALSE)
 {
   formula = formula2names(x, y)
 
@@ -114,6 +115,11 @@ discretize.formula = function(x, y, control = mdlControl())
     }
 
     data[[col]] = res
+  }
+
+  if(!keepAll)
+  {
+    data = data[,c(formula$x, formula$y)]
   }
 
   return(data)
