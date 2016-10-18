@@ -67,6 +67,14 @@ discretize.numeric = function(x, y, control = mdlControl())
 {
   call = match.call()
   res = discretize_cpp(x, y, control)
+
+  if(!is.null(attr(res,"SplitValues")))
+  {
+    # ini case of no split points
+    splitVals = attr(res, "SplitValues")
+    levels(res) = levels(cut(splitVals,splitVals))
+  }
+
   dt  = data.frame(res, y, stringsAsFactors = FALSE)
   colnames(dt) = c(call$x, call$y)
   dt
@@ -96,7 +104,16 @@ discretize.formula = function(x, y, control = mdlControl())
 
   for(col in columnsToDiscretize)
   {
-    data[[col]] = discretize_cpp(data[[col]], yy, control)
+    res = discretize_cpp(data[[col]], yy, control)
+
+    if(!is.null(attr(res,"SplitValues")))
+    {
+      # ini case of no split points
+      splitVals = attr(res, "SplitValues")
+      levels(res) = levels(cut(splitVals,splitVals))
+    }
+
+    data[[col]] = res
   }
 
   return(data)
