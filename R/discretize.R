@@ -65,7 +65,11 @@ discretize.default = function(x, y, control = mdlControl())
 #' @export
 discretize.numeric = function(x, y, control = mdlControl())
 {
-  discretize_cpp(x, y, control)
+  call = match.call()
+  res = discretize_cpp(x, y, control)
+  dt  = data.frame(res, y, stringsAsFactors = FALSE)
+  colnames(dt) = c(call$x, call$y)
+  dt
 }
 
 #' @export
@@ -92,7 +96,7 @@ discretize.formula = function(x, y, control = mdlControl())
 
   for(col in columnsToDiscretize)
   {
-    data[[col]] = discretize(data[[col]], yy, control)
+    data[[col]] = discretize_cpp(data[[col]], yy, control)
   }
 
   return(data)
