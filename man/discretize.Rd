@@ -4,7 +4,7 @@
 \alias{discretize}
 \title{Discretization}
 \usage{
-discretize(x, y, control = mdlControl())
+discretize(x, y, control = mdlControl(), keepAll = FALSE)
 }
 \arguments{
 \item{x}{The explanatory continuous variables to be discretized or formula.}
@@ -12,6 +12,8 @@ discretize(x, y, control = mdlControl())
 \item{y}{The dependent variable for supervised discretization}
 
 \item{control}{The \code{control} object containing the parameters for discretisation algorithm.}
+
+\item{keepAll}{tmp}
 }
 \description{
 Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by \code{Minimum Description Length} (MD)L method.
