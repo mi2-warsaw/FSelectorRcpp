@@ -1,6 +1,15 @@
 library(dplyr)
 library(FSelector)
 library(FSelectorRcpp)
+
+
+test_that("Data frame output",
+{
+  expect_s3_class(discretize(Species ~ ., iris), class = "data.frame")
+  expect_s3_class(discretize(Species ~ Sepal.Length, iris), class = "data.frame")
+  expect_s3_class(discretize(iris$Sepal.Length, iris$Species), class = "data.frame")
+})
+
 # nocov start
 test_that("Discretization - basic",
 {
@@ -17,13 +26,13 @@ test_that("Discretization - basic",
   dt$z = as.factor(as.integer(round(dt$z)))
 
   weka = as.numeric(RWeka::Discretize(z ~ x, dt)[,1])
-  fs   = as.numeric(discretize(dt$x, dt$z))
+  fs   = as.numeric(discretize(dt$x, dt$z)[[1]])
 
 
   expect_equal(weka, fs)
 
   weka = RWeka::Discretize(z ~ x, dt)[,1]
-  fs   = discretize(dt$x, dt$z)
+  fs   = discretize(dt$x, dt$z)[[1]]
   levels(weka)
   levels(fs)
 
@@ -38,7 +47,7 @@ test_that("Discretization - single NA (independent variable)",
   Weka = as.numeric(RWeka::Discretize(Species ~ Sepal.Length, data = iris)[,1])
   Weka = c(Weka[1:2],NA,tail(Weka,-2))
 
-  fs   = as.numeric(discretize(iris$Sepal.Length, iris$Species))
+  fs   = as.numeric(discretize(iris$Sepal.Length, iris$Species)[[1]])
 
   expect_equal(Weka, fs)
 
@@ -77,16 +86,16 @@ test_that("Discretization - equalsize - ordered.",
   y = 1:6
 
 
-  d = discretize(x, y, control = equalsizeControl(k = 2))
+  d = discretize(x, y, control = equalsizeControl(k = 2))[[1]]
   expect_equal(as.numeric(d),c(1,1,1,2,2,2))
 
-  d = discretize(x, y, control = equalsizeControl(k = 3))
+  d = discretize(x, y, control = equalsizeControl(k = 3))[[1]]
   expect_equal(as.numeric(d),c(1,1,2,2,3,3))
 
-  d = discretize(x, y, control = equalsizeControl(k = 4))
+  d = discretize(x, y, control = equalsizeControl(k = 4))[[1]]
   expect_equal(as.numeric(d),c(1,1,2,2,3,4))
 
-  d = discretize(x, y, control = equalsizeControl(k = 5))
+  d = discretize(x, y, control = equalsizeControl(k = 5))[[1]]
   expect_equal(as.numeric(d),c(1,1,2,3,4,5))
 
 })
@@ -96,16 +105,16 @@ test_that("Discretization - equalsize - reverse order",
   x = 6:1
   y = 1:6
 
-  d = discretize(x, y, control = equalsizeControl(k = 2))
+  d = discretize(x, y, control = equalsizeControl(k = 2))[[1]]
   expect_equal(as.numeric(d),c(1,1,1,2,2,2) %>% rev)
 
-  d = discretize(x, y, control = equalsizeControl(k = 3))
+  d = discretize(x, y, control = equalsizeControl(k = 3))[[1]]
   expect_equal(as.numeric(d),c(1,1,2,2,3,3) %>% rev)
 
-  d = discretize(x, y, control = equalsizeControl(k = 4))
+  d = discretize(x, y, control = equalsizeControl(k = 4))[[1]]
   expect_equal(as.numeric(d),c(1,1,2,2,3,4) %>% rev)
 
-  d = discretize(x, y, control = equalsizeControl(k = 5))
+  d = discretize(x, y, control = equalsizeControl(k = 5))[[1]]
   expect_equal(as.numeric(d),c(1,1,2,3,4,5) %>% rev)
 
 })
@@ -115,16 +124,16 @@ test_that("Discretization - equalsize - pseudo-random order",
   x = c(6,4,2,3,1,5)
   y = 1:6
 
-  d = discretize(x, y, control = equalsizeControl(k = 2))
+  d = discretize(x, y, control = equalsizeControl(k = 2))[[1]]
   expect_equal(as.numeric(d),c(2,2,1,1,1,2))
 
-  d = discretize(x, y, control = equalsizeControl(k = 3))
+  d = discretize(x, y, control = equalsizeControl(k = 3))[[1]]
   expect_equal(as.numeric(d),c(3,2,1,2,1,3))
 
-  d = discretize(x, y, control = equalsizeControl(k = 4))
+  d = discretize(x, y, control = equalsizeControl(k = 4))[[1]]
   expect_equal(as.numeric(d),c(4,2,1,2,1,3))
 
-  d = discretize(x, y, control = equalsizeControl(k = 5))
+  d = discretize(x, y, control = equalsizeControl(k = 5))[[1]]
   expect_equal(as.numeric(d),c(5,3,1,2,1,4))
 
 })
