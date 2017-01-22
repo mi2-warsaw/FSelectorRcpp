@@ -51,7 +51,25 @@ In statistical modelling, the **discretization** is the process of transferring 
 
 ## Entropy Based Minimum Description Length Discretization Method
 
-Overview of the method.
+In this section we pressent the overview of the method, but before that let us introduce some terminology, after \citep{Fayyad1993}. 
+
+\par Assume we are to discretize continuous variable $A$, having set $S$ of $N$ observations. As a *cut point*, we call such a treshold value $T$ that $A<=T$ assigns observations to left interval of S and $A>T$ assigns observations to right interval of S\footnotetext{The $A > T$ means: the values of $A$ are greater than $T$}. For the ordered $A$ the algorithm is looking for the best cut point $T_A$ from the range of $A$ by evaluating *every candidate cut point* in the range of values. For each evaluation of a candidate cut point $T$, the data are partitioned into two sets and the class entropy of resulting partition is calucalted.
+
+\par Let *T* partition the set $S$ into subsets $S_1$ and $S_2$. For $k$ classes ($C_1,\dots,C_k$) let $\mathbb{P}(C_i, S)$ be proportion of observations that belongs to class $C_i$. The *class entropy* of a subset S is defined as: $$Ent(S) = - \sum_{i=1}^{k}\mathbb{P}(C_i, S)\log_{2}\mathbb{P}(C_i, S).$$
+
+This is said to to measure the information needed (in *bits*) to specify the classes in $S$. Having this definition one can specify, for partitioned set $S$, the weighted average of the resulting class entropies:
+
+\textbf{Definition 1.} For an example set $S$, an attribute $A$ and a cut value $T$; let $S_1 \subset S$ be the subset of observations in $S$ with $A$ values $<= T$ and $S_2 = S - S_1$. The *class information entropy of the partition induced by T, E(A, T; S)*, is defined 
+\begin{equation}
+E(A, T; S) = \frac{|S_1|}{S}Ent(S_1) + \frac{|S_2|}{S}Ent(S_2).
+\end{equation}
+
+A binary discretization for $A$ is determined by selecting the cut point $T_A$ for which $E(A, T; S)$ is minimal amongst all the candidate cut points. 
+
+\par Choosing beetwen all possible values of $A$, when looking for optimal $T_A$, could be very time and computations consuming, but in \cite{Fayyad:1992:IDT:144532} it is proved that if $T$ is an optimal cut point (minimizes the E(A, T; S)) then $T$ is a *boundary point*.
+
+\textbf{Definition 2.} A value $T$ in the range of $A$ is a *boundary point* if in the sequence of examples sorted by the value of $A$, there exist two points $\epsilon_1, \epsilon_2 \in S$, having different classes, such that $A(\epsilon_1) < T < A(\epsilon_2)$; such that there exists no other example $\epsilon^1 \in S$ such that $A(\epsilon_1) < A(\epsilon^1) < A(\epsilon_2)$, where $A(\epsilon)$ denote the $A$ value of example $\epsilon \in S$.
+
 
 - Backward compatibility with \pkg{FSelector}
 
