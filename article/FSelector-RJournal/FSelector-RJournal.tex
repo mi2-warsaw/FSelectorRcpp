@@ -23,16 +23,18 @@ improves work with bigger datasets, in comparison to the base
 \R ~implementation in \pkg{FSelector}, which is even not optimal in the
 sense of \R ~code. \par Additionally, we present new, C++ implementation
 of the discretization method for continuous variables called
-Multi-Interval Discretization (MDL) method \citep{Fayyad1993}, which is
-required in entropy calculations during the feature selection process in
-showed methods. By default, regular \pkg{FSelector} implementation uses
-\pkg{RWeka} package \citep{Hornik2009} for discretization and
-\pkg{entropy} \citep{entropy} for entropy calculations - for both we
-also attach the computation times comparison. \par Finally, we announce
-the full list of available functions, which are divided to 2 groups:
-entropy based feature selection methods and stepwise attribute selection
-functions that might use any evaluator to choose propoer features,
-e.g.~presented entropy based algorithms.
+Multi-Interval Discretization (MDL) method \citep{Fayyad1993} that is
+based on \emph{Minimum Description Length} critetion
+\citep{rissanen1986} and is required in entropy calculations during the
+feature selection process in showed methods. By default, regular
+\pkg{FSelector} implementation uses \pkg{RWeka} package
+\citep{Hornik2009} for discretization and \pkg{entropy} \citep{entropy}
+for entropy calculations - for both we also attach the computation times
+comparison. \par Finally, we announce the full list of available
+functions, which are divided to 2 groups: entropy based feature
+selection methods and stepwise attribute selection functions that might
+use any evaluator to choose propoer features, e.g.~presented entropy
+based algorithms.
 }
 
 \section{Introduction and Motivation}\label{introduction-and-motivation}
@@ -85,14 +87,14 @@ used originally in \pkg{FSelector}.
 
 In statistical modelling, the \textbf{discretization} is the process of
 transferring continuous explanatory variables into discrete
-counterparts. The problems caused by categorization of continuous
-variables are known and widely spread \citep{HarrellDISC}, but in some
-cases there appear an algorithmic requirement for the discretization.
-Moreover, there exist few algorithms, like decision trees
-\citep{Salzberg1994}, where continuous attributes are discretized during
-the learning process. Other reason for variable discretization include
-increasing the speed of induction algorithms \citep{Catlett1991}.
-\par Even though many categorization algorithms have been developed
+counterparts. Problems caused by categorization of continuous variables
+are known and widely spread \citep{HarrellDISC}, but in some cases there
+appear an algorithmic requirement for the discretization. Moreover,
+there exist few algorithms, like decision trees \citep{Salzberg1994},
+where continuous attributes are discretized during the learning process.
+Other reason for variable discretization include increasing the speed of
+induction algorithms \citep{Catlett1991}. \par Even though many
+categorization algorithms have been developed
 \citep{Holte1993, Chan169942}, in this chapter we focus on a recursive
 entropy minimization heuristic for categorization coupled with a
 \emph{Minimum Description Length} critetion \citep{rissanen1986} that
@@ -105,10 +107,68 @@ states that the described method was found promising by the authors not
 only for the local discretization but also for global discretization
 \citep{Ting94discretizationof}.
 
-\subsection{Entropy Dased Minimum Description Length Discretization
-Method}\label{entropy-dased-minimum-description-length-discretization-method}
+\subsection{Entropy Based Minimum Description Length Discretization
+Method}\label{entropy-based-minimum-description-length-discretization-method}
 
-Overview of the method.
+In this section we pressent the overview of the method, but before that
+let us introduce some terminology, after \citep{Fayyad1993}.
+
+\par 
+
+Assume we are to discretize continuous variable \(A\), having set \(S\)
+of \(N\) observations. As a \emph{cut point}, we call such a treshold
+value \(T\) that \(A<=T\) assigns observations to left interval of S and
+\(A>T\) assigns observations to right interval of
+S\footnotetext{The $A > T$ means: the values of $A$ are greater than $T$}.
+For the ordered \(A\) the algorithm is looking for the best cut point
+\(T_A\) from the range of \(A\) by evaluating \emph{every candidate cut
+point} in the range of values. For each evaluation of a candidate cut
+point \(T\), the data are partitioned into two sets and the class
+entropy of resulting partition is calucalted.
+
+\par 
+
+Let \emph{T} partition the set \(S\) into subsets \(S_1\) and \(S_2\).
+For \(k\) classes (\(C_1,\dots,C_k\)) let \(\mathbb{P}(C_i, S)\) be
+proportion of observations that belongs to class \(C_i\). The
+\emph{class entropy} of a subset S is defined as:
+\[Ent(S) = - \sum_{i=1}^{k}\mathbb{P}(C_i, S)\log_{2}\mathbb{P}(C_i, S).\]
+
+This is said to to measure the information needed (in \emph{bits}) to
+specify the classes in \(S\). Having this definition one can specify,
+for partitioned set \(S\), the weighted average of the resulting class
+entropies:
+
+\textbf{Definition 1.} For an example set \(S\), an attribute \(A\) and
+a cut value \(T\); let \(S_1 \subset S\) be the subset of observations
+in \(S\) with \(A\) values \(<= T\) and \(S_2 = S - S_1\). The
+\emph{class information entropy of the partition induced by T, E(A, T;
+S)}, is defined
+
+\begin{equation}
+E(A, T; S) = \frac{|S_1|}{S}Ent(S_1) + \frac{|S_2|}{S}Ent(S_2).
+\end{equation}
+
+A binary discretization for \(A\) is determined by selecting the cut
+point \(T_A\) for which \(E(A, T; S)\) is minimal amongst all the
+candidate cut points.
+
+\par 
+
+Choosing beetwen all possible values of \(A\), when looking for optimal
+\(T_A\), could be very time and computations consuming, but in
+\cite{Fayyad:1992:IDT:144532} it is proved that if \(T\) is an optimal
+cut point (minimizes the E(A, T; S)) then \(T\) is a \emph{boundary
+point}.
+
+\textbf{Definition 2.} A value \(T\) in the range of \(A\) is a
+\emph{boundary point} if in the sequence of examples sorted by the value
+of \(A\), there exist two points \(\epsilon_1, \epsilon_2 \in S\),
+having different classes, such that
+\(A(\epsilon_1) < T < A(\epsilon_2)\); such that there exists no other
+example \(\epsilon^1 \in S\) such that
+\(A(\epsilon_1) < A(\epsilon^1) < A(\epsilon_2)\), where \(A(\epsilon)\)
+denote the \(A\) value of example \(\epsilon \in S\).
 
 \begin{itemize}
 \tightlist
@@ -147,12 +207,12 @@ microbenchmark(discretize(iris$Sepal.Length, iris$Species),
 \end{Sinput}
 \begin{Soutput}
 Unit: microseconds
-                                            expr      min       lq      mean    median        uq
-     discretize(iris$Sepal.Length, iris$Species)  135.303  243.881  265.1694  275.3655  300.3235
- Discretize(Species ~ Sepal.Length, data = iris) 5045.496 5549.937 6388.4559 5899.8145 7037.4495
-       max neval
-   410.577   100
- 10792.033   100
+                                            expr      min       lq      mean    median       uq
+     discretize(iris$Sepal.Length, iris$Species)  143.331  247.405  266.4419  278.5305  297.222
+ Discretize(Species ~ Sepal.Length, data = iris) 5147.027 5670.589 6554.0072 6036.0655 7145.927
+       max neval cld
+   351.111   100  a 
+ 11871.580   100   b
 \end{Soutput}
 \end{Schunk}
 
