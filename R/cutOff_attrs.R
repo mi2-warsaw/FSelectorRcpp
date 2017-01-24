@@ -13,16 +13,9 @@
 #' cutOff_attrs(x)
 #' cutOff_attrs(x, k = 1)
 #'
-cutOff_attrs = function(attrs, k = 0.5)
-{
-  if(!is.data.frame(attrs))
-  {
+cutOff_attrs <- function(attrs, k = 0.5) {
+  if (!is.data.frame(attrs)) {
     stop("attrs must be a data.frame!")
   }
-
   cutOff_k(rownames(attrs), attrs[[1]], k)
 }
-
-
-
-

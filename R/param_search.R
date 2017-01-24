@@ -109,89 +109,79 @@ utils::globalVariables("it")
 #' @importFrom foreach getDoParRegistered
 #' @export
 #'
-exhaustive_search = function(attributes,
-                             fun,
-                             data,
-                             subsetsSizes = length(attributes),
-                             singleAttr = FALSE,
-                             keepAll = TRUE,
-                             allowParallel = TRUE,
-                             randomSubsetsNumber = 0, ...)
-{
-  len = length(attributes)
-  if (len == 0)
-    stop("attributes length must be > 0")
-  fun = match.fun(fun)
+exhaustive_search <- function(attributes, fun, data,
+                              subsetsSizes = length(attributes),
+                              singleAttr = FALSE, keepAll = TRUE,
+                              allowParallel = TRUE, randomSubsetsNumber = 0,
+                              ...) {
+  len <- length(attributes)
+  if (len == 0) {
+    stop("Attributes length must be > 0.")
+  }
+  fun <- match.fun(fun)
 
+  bestVal <- -Inf
+  bestAttr <- NULL
 
-  bestVal = -Inf
-  bestAttr = NULL
+  allCombn <- NULL
+  allResult <- NULL
 
-  allCombn = NULL
-  allResult = NULL
-
-  if(length(subsetsSizes) == 1 & !singleAttr)
-  {
-    subsetsSizes = 1:subsetsSizes
+  if (length(subsetsSizes) == 1 & !singleAttr) {
+    subsetsSizes <- 1:subsetsSizes
   }
 
+  `%op%` <- ifelse(allowParallel && getDoParRegistered(), `%dopar%`, `%do%`)
 
-  `%op%` = ifelse(allowParallel && getDoParRegistered(), `%dopar%`, `%do%`)
-
-  for(size in subsetsSizes)
-  {
-    if(randomSubsetsNumber > len)
-    {
-      if(choose(len, size) <= randomSubsetsNumber)
-      {
-        childComb = combn(1:len, size) # use all subsets
-      } else
-      {
-        childComb = replicate(randomSubsetsNumber, {sample.int(len, size, replace = FALSE)})
+  for (size in subsetsSizes) {
+    if (randomSubsetsNumber > len) {
+      if (choose(len, size) <= randomSubsetsNumber) {
+        childComb <- combn(1:len, size) # use all subsets
+      } else {
+        childComb <- replicate(randomSubsetsNumber,
+                              {sample.int(len, size, replace = FALSE)})
       }
-    } else
-    {
-      childComb = combn(1:len, size)
+    } else {
+      childComb <- combn(1:len, size)
     }
 
-    zeroes = rep(0, len)
-    childComb = apply(childComb, 2, function(i) { x = zeroes; x[i] = 1; x}  )
-    childComb = t(childComb)
+    zeroes <- rep(0, len)
+    childComb <- apply(childComb, 2, function(i) {
+      x <- zeroes
+      x[i] <- 1
+      x
+    })
+    childComb <- t(childComb)
 
-    matIter = iter(childComb, by = "row")
+    matIter <- iter(childComb, by = "row")
 
-    result = foreach(it = matIter, ...) %op%
-    {
+    result <- foreach(it = matIter, ...) %op% {
       fun(attributes[as.logical(as.numeric(it))], data)
     }
 
-    result = unlist(result)
+    result <- unlist(result)
 
-    if(keepAll)
-    {
-      allResult = c(allResult, result)
-      allCombn  = rbind(allCombn, childComb)
+    if (keepAll) {
+      allResult <- c(allResult, result)
+      allCombn <- rbind(allCombn, childComb)
     }
 
     maxIdx = which.max(result)
 
-    if(result[maxIdx] > bestVal)
-    {
-      bestVal  = result[maxIdx]
-      bestAttr = childComb[maxIdx,]
+    if (result[maxIdx] > bestVal) {
+      bestVal <- result[maxIdx]
+      bestAttr <- childComb[maxIdx,]
     }
-
   }
 
-  if(keepAll)
-  {
-    res = list(result = bestVal, bestAttr = bestAttr, allResult = cbind(allCombn, values = allResult), attributes = attributes)
-  } else
-  {
-    res = list(result = bestVal, bestAttr = bestAttr, attributes = attributes)
+  if (keepAll) {
+    res <- list(result = bestVal, bestAttr = bestAttr,
+               allResult = cbind(allCombn, values = allResult),
+               attributes = attributes)
+  } else {
+    res <- list(result = bestVal, bestAttr = bestAttr, attributes = attributes)
   }
 
-  attr(res, "class") = c("ExhaustiveSearchResult","list")
+  attr(res, "class") <- c("ExhaustiveSearchResult", "list")
 
   return(res)
 }
@@ -239,50 +229,47 @@ exhaustive_search = function(attributes,
 #' registerDoSEQ()
 #'
 #' @export
-greedy_search = function (attributes, fun, data, type = c("forward", "backward"), allowParallel = TRUE, ...)
-{
-  if (length(attributes) == 0)
-    stop("Attributes not specified")
+greedy_search <- function(attributes, fun, data,
+                          type = c("forward", "backward"), allowParallel = TRUE,
+                          ...) {
+  if (length(attributes) == 0) {
+    stop("Attributes not specified.")
+  }
 
-  fun = match.fun(fun)
-  type = match.arg(type)
+  fun <- match.fun(fun)
+  type <- match.arg(type)
 
-  isForward = type == "forward"
+  isForward <- type == "forward"
 
   best = list(result = -Inf, attrs = rep(as.numeric(!isForward),
                                          length(attributes)))
-  if(!isForward)
-  {
+  if (!isForward) {
     best$result = fun(attributes[as.logical(best$attrs)], data)
   }
 
   `%op%` = ifelse(allowParallel && getDoParRegistered(), `%dopar%`, `%do%`)
 
-  repeat
-  {
-    children = get_children(best$attrs, type)
-    if (is.null(children)) break;
-
-    iterChild = iter(children, by = "row")
-
-
-    childrenResults = foreach(it = iterChild, ...) %op%
-    {
-      fun(attributes[as.logical(it)],data)
+  repeat {
+    children <- get_children(best$attrs, type)
+    if (is.null(children)) {
+      break
     }
 
-    childrenResults = unlist(childrenResults)
+    iterChild <- iter(children, by = "row")
 
-    maxIdx = which.max(childrenResults)
+    childrenResults <- foreach(it = iterChild, ...) %op% {
+      fun(attributes[as.logical(it)], data)
+    }
 
+    childrenResults <- unlist(childrenResults)
 
-    if(childrenResults[maxIdx] > best$result)
-    {
-      best$result = childrenResults[maxIdx]
-      best$attrs  = children[maxIdx, ]
-    } else
-    {
-      break;
+    maxIdx <- which.max(childrenResults)
+
+    if (childrenResults[maxIdx] > best$result) {
+      best$result <- childrenResults[maxIdx]
+      best$attrs <- children[maxIdx, ]
+    } else {
+      break
     }
   }
 

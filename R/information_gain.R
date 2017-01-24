@@ -53,161 +53,148 @@
 #' @rdname information_gain
 #' @export
 #'
-information_gain = function(formula,
-                            data,
-                            x,
-                            y,
-                            type = c("infogain", "gainratio", "symuncert"),
-                            threads = 1)
-{
-  if(missing(x) && missing(y) && missing(formula) && missing(data))
-  {
-    stop("Please specify `x = attributes, y = response`,
-or use `formula = response ~ attributes, data = dataset")
+information_gain <- function(formula, data, x, y,
+                             type = c("infogain", "gainratio", "symuncert"),
+                             threads = 1) {
+  if (missing(x) && missing(y) && missing(formula) && missing(data)) {
+    stop(paste("Please specify `x = attributes, y = response`,",
+               "or use `formula = response ~ attributes, data = dataset"))
   }
 
-  if(((!missing(x) && !missing(y)) && (!missing(formula) || !missing(formula))) ||
-     ((!missing(x) || !missing(y)) && (!missing(formula) && !missing(formula))))
-  {
-    stop(" You cannot use both interfaces!
-Please specify `x = attributes, y = response`,
-or use `formula = response ~ attributes, data = dataset`")
+  if (((!missing(x) && !missing(y)) && !missing(formula)) ||
+      ((!missing(x) || !missing(y)) && !missing(formula))) {
+    stop(paste("You cannot use both interfaces!",
+               "Please specify `x = attributes, y = response`,",
+               "or use `formula = response ~ attributes, data = dataset`."))
   }
 
-  if(!missing(x) && !missing(y))
-  {
-    if(class(x) == "formula")
-      stop("Please use `formula = response ~ attributes, data = dataset` interface instead of `x = formula`.")
-
-    return(.information_gain(x,y, type, threads))
-  } else if(!missing(formula) && !missing(data))
-  {
+  if (!missing(x) && !missing(y)) {
+    if (class(x) == "formula") {
+      stop(paste("Please use `formula = response ~ attributes, data = dataset`",
+                 "interface instead of `x = formula`."))
+    }
+    return(.information_gain(x, y, type, threads))
+  } else if (!missing(formula) && !missing(data)) {
     .information_gain(formula, data, type, threads)
   }
-
 }
 
-.information_gain = function(x,
-                             y,
-                             type = c("infogain", "gainratio", "symuncert"),
-                             threads = 1)
-{
+.information_gain <- function(x, y,
+                              type = c("infogain", "gainratio", "symuncert"),
+                              threads = 1) {
   UseMethod(".information_gain", x)
 }
 
-.information_gain.default = function(x,
-                                    y,
-                                    type = c("infogain", "gainratio", "symuncert"),
-                                    threads = 1)
-{
+.information_gain.default <- function(x, y,
+                                      type = c("infogain",
+                                               "gainratio",
+                                               "symuncert"),
+                                      threads = 1) {
   stop("Unsupported data type.")
 }
 
+.information_gain.data.frame <- function(x, y,
+                                         type = c("infogain",
+                                                  "gainratio",
+                                                  "symuncert"),
+                                         threads = 1) {
+  type <- match.arg(type)
 
-.information_gain.data.frame = function(x,
-                                       y,
-                                       type = c("infogain", "gainratio", "symuncert"),
-                                       threads = 1)
-{
-  type = match.arg(type)
-
-  if(anyNA(x) || anyNA(y))
-  {
-    warning("There are missing values in your data. information_gain will remove them.")
-    idx = complete.cases(x, y)
-    x = x[idx,]
-    y = y[idx]
+  if (anyNA(x) || anyNA(y)) {
+    warning(paste("There are missing values in your data.",
+                  "information_gain will remove them."))
+    idx <- complete.cases(x, y)
+    x <- x[idx,]
+    y <- y[idx]
   }
 
-  if(is.numeric(y))
-  {
-    warning("Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default!")
+  if (is.numeric(y)) {
+    warning(paste("Dependent variable is a numeric! It will be converted",
+                  "to factor with simple factor(y). We do not discretize",
+                  "dependent variable in FSelectorRcpp by default!"))
   }
 
-  if(!is.factor(y))
-  {
-    y = factor(y)
+  if (!is.factor(y)) {
+    y <- factor(y)
   }
 
-  values = information_gain_cpp(x, y, threads = threads)
-  classEntropy = fs_entropy1d(y)
+  values <- information_gain_cpp(x, y, threads = threads)
+  classEntropy <- fs_entropy1d(y)
 
-  results = information_type(classEntropy, values, type)
+  results <- information_type(classEntropy, values, type)
   data.frame(importance = results, row.names = colnames(x))
 }
 
-.information_gain.formula = function(x,
-                                    y,
-                                    type = c("infogain", "gainratio", "symuncert"),
-                                    threads = 1)
-{
-  if(!is.data.frame(y)) stop("y must be a data.frame!")
-
-  formula = x
-  data = y
-
-
-  type = match.arg(type)
-
-
-  formula = formula2names(formula, data)
-  data    = data[c(formula$x, formula$y)]
-
-  if(anyNA(data))
-  {
-    warning("There are missing values in your data. information_gain will remove them with na.omit().")
-    data = na.omit(data)
+.information_gain.formula <- function(x, y,
+                                      type = c("infogain",
+                                               "gainratio",
+                                               "symuncert"),
+                                      threads = 1) {
+  if (!is.data.frame(y)) {
+    stop("y must be a data.frame!")
   }
 
-  y = data[[formula$y]]
+  formula <- x
+  data <- y
 
-  if(is.numeric(y))
-  {
-    warning("Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default!")
+  type <- match.arg(type)
+
+  formula <- formula2names(formula, data)
+  data <- data[c(formula$x, formula$y)]
+
+  if (anyNA(data)) {
+    warning(paste("There are missing values in your data.",
+                  "information_gain will remove them with na.omit()."))
+    data <- na.omit(data)
   }
 
-  if(!is.factor(y))
-  {
-    y = factor(y)
+  y <- data[[formula$y]]
+
+  if (is.numeric(y)) {
+    warning(paste("Dependent variable is a numeric! It will be converted",
+                  "to factor with simple factor(y). We do not discretize",
+                  "dependent variable in FSelectorRcpp by default!"))
   }
 
-  values = information_gain_cpp(data[formula$x], y, threads = threads)
-  classEntropy = fs_entropy1d(y)
+  if (!is.factor(y)) {
+    y <- factor(y)
+  }
 
-  results = information_type(classEntropy, values, type)
+  values <- information_gain_cpp(data[formula$x], y, threads = threads)
+  classEntropy <- fs_entropy1d(y)
+
+  results <- information_type(classEntropy, values, type)
 
   data.frame(importance = results, row.names = formula$x)
 }
 
 
-.information_gain.dgCMatrix = function(x, y, type = c("infogain", "gainratio", "symuncert"), threads = 1)
-{
-  type = match.arg(type)
+.information_gain.dgCMatrix <- function(x, y,
+                                        type = c("infogain",
+                                                 "gainratio",
+                                                 "symuncert"),
+                                        threads = 1) {
+  type <- match.arg(type)
 
-  values = sparse_information_gain_cpp(x,y)
-  classEntropy = fs_entropy1d(y)
+  values <- sparse_information_gain_cpp(x, y)
+  classEntropy <- fs_entropy1d(y)
 
-  results = information_type(classEntropy, values, type)
+  results <- information_type(classEntropy, values, type)
 
   data.frame(importance = results, row.names = colnames(x))
 }
 
+information_type <- function(classEntropy, values,
+                             type = c("infogain", "gainratio", "symuncert")) {
+  attrEntropy <- values$entropy
+  jointEntropy <- values$joint
 
-information_type = function(classEntropy,
-                            values,
-                            type = c("infogain", "gainratio", "symuncert"))
-{
-  attrEntropy  = values$entropy
-  jointEntropy = values$joint
+  results <- classEntropy + attrEntropy - jointEntropy
 
-  results = classEntropy + attrEntropy - jointEntropy
-
-  if(type == "gainratio")
-  {
-    results = results / attrEntropy
-  } else if(type == "symuncert")
-  {
-    results = 2 * results / (attrEntropy	+ classEntropy)
+  if (type == "gainratio") {
+    results <- results / attrEntropy
+  } else if (type == "symuncert") {
+    results <- 2 * results / (attrEntropy	+ classEntropy)
   }
 
   results
