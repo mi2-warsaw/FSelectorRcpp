@@ -192,7 +192,9 @@ call2names <- function(vecCall) {
 #' @noRd
 #'
 format_handler <- function(xCall, x) {
-  x <- as.data.frame(x)
-  colnames(x) <- call2names(xCall)
-  x
+  df <- as.data.frame(x)
+  if (!is.matrix(x)) {
+    colnames(df) <- call2names(xCall)
+  }
+  df
 }

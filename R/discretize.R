@@ -104,8 +104,8 @@ discretize.formula <- function(x, y, control = mdlControl(), keepAll = FALSE) {
 }
 
 #' @export
-discretize.data.frame <- function(x, y, call = match.call(),
-                                  control = mdlControl(), keepAll = FALSE) {
+discretize.data.frame <- function(x, y, control = mdlControl(),
+                                  keepAll = FALSE, call = match.call()) {
   if (!is.data.frame(y)) {
     y <- format_handler(call$y, y)
   }
@@ -119,12 +119,15 @@ discretize.data.frame <- function(x, y, call = match.call(),
 }
 
 #' @export
-discretize.numeric <- function(call, x, y, control = mdlControl(), keepAll = FALSE) {
+discretize.numeric <- function(x, y, control = mdlControl(), keepAll = FALSE) {
   call <- match.call()
   x <- format_handler(call$x, x)
-  discretize.data.frame(call = call, x = x, y = y, control = control,
-                        keepAll = keepAll)
+  discretize.data.frame(x = x, y = y, control = control,
+                        keepAll = keepAll, call = call)
 }
 
 #' @export
 discretize.list <- discretize.numeric
+
+#' @export
+discretize.matrix <- discretize.numeric
