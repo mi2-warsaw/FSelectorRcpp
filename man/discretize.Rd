@@ -2,48 +2,67 @@
 % Please edit documentation in R/discretize.R
 \name{discretize}
 \alias{discretize}
+\alias{equalsizeControl}
+\alias{mdlControl}
 \title{Discretization}
 \usage{
-discretize(x, y, control = mdlControl(), keepAll = FALSE)
+discretize(x, y, control = list(mdlControl(), equalsizeControl()),
+  keepAll = FALSE, call = NULL)
+
+mdlControl()
+
+equalsizeControl(k = 10)
 }
 \arguments{
-\item{x}{The explanatory continuous variables to be discretized or formula.}
+\item{x}{Explanatory continuous variables to be discretized or formula.}
 
-\item{y}{The dependent variable for supervised discretization}
+\item{y}{Dependent variable for supervised discretization or data frame.}
 
-\item{control}{The \code{control} object containing the parameters for discretisation algorithm.}
+\item{control}{\code{control} object containing the parameters for
+discretization algorithm.}
 
-\item{keepAll}{tmp}
+\item{keepAll}{Logical indicating if returned data frame should contain non
+discretized columns.}
+
+\item{call}{Keep as NULL. Inner method parameter for consistency.}
+
+\item{k}{Number of partitions.}
 }
 \description{
-Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by \code{Minimum Description Length} (MD)L method.
+Discretize a range of numeric attributes in the dataset into nominal
+attributes. \code{Minimum Description Length} (MD)L method is set as default
+control. There is also available equalsizeControl method.
 }
 \examples{
 
-discretize(iris[[1]], iris[[5]])
+discretize(x = iris[[1]], y = iris[[5]])
 
-discretize(Species ~ ., iris)
+discretize(x = list(iris[[1]], iris$Sepal.Width), y = iris$Species)
+
+discretize(x = Species ~ ., y = iris)
 
 \dontrun{
-# the same results
+# Same results
 library(RWeka)
-RWeka::Discretize(Species~Sepal.Length, data = iris)[, 1] -> Rweka_disc_out
-FSelectorRcpp::discretize(iris$Sepal.Length, iris$Species) ->FSelectorRcpp_disc_out
-table(Rweka_disc_out,FSelectorRcpp_disc_out)
-# but faster method
+Rweka_disc_out <- RWeka::Discretize(Species ~ Sepal.Length, iris)[, 1]
+FSelectorRcpp_disc_out <- FSelectorRcpp::discretize(Species ~ Sepal.Length,
+                                                    iris)[, 1]
+table(Rweka_disc_out, FSelectorRcpp_disc_out)
+# But faster method
 library(microbenchmark)
-microbenchmark(discretize(iris$Sepal.Length, iris$Species),
-               Discretize(Species~Sepal.Length, data = iris))
+microbenchmark(FSelectorRcpp::discretize(Species ~ Sepal.Length, iris),
+               RWeka::Discretize(Species ~ Sepal.Length, iris))
 
 }
 
 }
 \author{
-Zygmunt Zawadzki , \email{zygmunt.zawadzki@gmail.com}
+Zygmunt Zawadzki \email{zygmunt.zawadzki@gmail.com}
 }
 \references{
-U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of Continuous-Valued Attributes for Classi-
-fication Learning. In 13th International Joint Conference on Uncertainly in Artificial Intelligence(IJCAI93),
-pages 1022–1029, 1993.
+U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
+  Continuous-Valued Attributes for Classi- fication Learning. In 13th
+  International Joint Conference on Uncertainly in Artificial
+  Intelligence(IJCAI93), pages 1022-1029, 1993.
 }
 

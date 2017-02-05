@@ -1,72 +1,70 @@
-#' @export
-mdlControl <- function() {
-  params <- list(method = "MDL")
-  attr(params, "class") <- c("mdlControl", "discretizationControl", "list")
-  params
-}
-
-#' @export
-equalsizeControl <- function(k = 10) {
-  params <- list(method = "EQUAL_SIZE", k = k)
-  attr(params, "class") <- c("equalsizeControl",
-                             "discretizationControl",
-                             "list")
-  params
-}
-
-################ Discretization
-
 #' Discretization
 #'
-#' Discretize a range of numeric attributes in the dataset into nominal attributes. Discretization is by \code{Minimum Description Length} (MD)L method.
+#' Discretize a range of numeric attributes in the dataset into nominal
+#' attributes. \code{Minimum Description Length} (MD)L method is set as default
+#' control. There is also available equalsizeControl method.
 #'
-#' @param x The explanatory continuous variables to be discretized or formula.
-#' @param y The dependent variable for supervised discretization
-#' @param control The \code{control} object containing the parameters for discretisation algorithm.
-#' @param keepAll tmp
+#' @param x Explanatory continuous variables to be discretized or formula.
+#' @param y Dependent variable for supervised discretization or data frame.
+#' @param control \code{control} object containing the parameters for
+#'   discretization algorithm.
+#' @param keepAll Logical indicating if returned data frame should contain non
+#'   discretized columns.
+#' @param call Keep as NULL. Inner method parameter for consistency.
 #'
-#' @references
-#' U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of Continuous-Valued Attributes for Classi-
-#' fication Learning. In 13th International Joint Conference on Uncertainly in Artificial Intelligence(IJCAI93),
-#' pages 1022–1029, 1993.
+#' @references U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
+#'   Continuous-Valued Attributes for Classi- fication Learning. In 13th
+#'   International Joint Conference on Uncertainly in Artificial
+#'   Intelligence(IJCAI93), pages 1022-1029, 1993.
 #'
 #' @examples
 #'
-#' discretize(iris[[1]], iris[[5]])
+#' discretize(x = iris[[1]], y = iris[[5]])
 #'
-#' discretize(Species ~ ., iris)
+#' discretize(x = list(iris[[1]], iris$Sepal.Width), y = iris$Species)
+#'
+#' discretize(x = Species ~ ., y = iris)
 #'
 #' \dontrun{
-#' # the same results
+#' # Same results
 #' library(RWeka)
-#' RWeka::Discretize(Species~Sepal.Length, data = iris)[, 1] -> Rweka_disc_out
-#' FSelectorRcpp::discretize(iris$Sepal.Length, iris$Species) ->FSelectorRcpp_disc_out
-#' table(Rweka_disc_out,FSelectorRcpp_disc_out)
-#' # but faster method
+#' Rweka_disc_out <- RWeka::Discretize(Species ~ Sepal.Length, iris)[, 1]
+#' FSelectorRcpp_disc_out <- FSelectorRcpp::discretize(Species ~ Sepal.Length,
+#'                                                     iris)[, 1]
+#' table(Rweka_disc_out, FSelectorRcpp_disc_out)
+#' # But faster method
 #' library(microbenchmark)
-#' microbenchmark(discretize(iris$Sepal.Length, iris$Species),
-#'                Discretize(Species~Sepal.Length, data = iris))
+#' microbenchmark(FSelectorRcpp::discretize(Species ~ Sepal.Length, iris),
+#'                RWeka::Discretize(Species ~ Sepal.Length, iris))
 #'
 #' }
 #'
-#' @author Zygmunt Zawadzki , \email{zygmunt.zawadzki@@gmail.com}
-#'
+#' @author Zygmunt Zawadzki \email{zygmunt.zawadzki@@gmail.com}
+#' @importFrom stats formula
 #' @export
-discretize <- function(x, y, control = mdlControl(), keepAll = FALSE) {
+discretize <- function(x, y, control = list(mdlControl(), equalsizeControl()),
+                       keepAll = FALSE, call = NULL) {
   UseMethod("discretize", x)
 }
 
 #' @export
-discretize.default <- function(x, y, control = mdlControl(), keepAll = FALSE) {
+discretize.default <- function(x, y,
+                               control = list(mdlControl(), equalsizeControl()),
+                               keepAll = FALSE, call = NULL) {
   stop(sprintf("Object of class %s is not supported!", class(x)[1]))
 }
 
 #' @export
-discretize.formula <- function(x, y, control = mdlControl(), keepAll = FALSE) {
+discretize.formula <- function(x, y,
+                               control = list(mdlControl(), equalsizeControl()),
+                               keepAll = FALSE, call = NULL) {
   formula <- formula2names(x, y)
-
   data <- y
   yy <- y[[formula$y]]
+
+  if (!("discretizationControl" %in% class(control))) {
+    control <- control[[1]]
+  }
 
   colClasses <- sapply(data, is.numeric)
   colClasses <- colClasses[formula$x]
@@ -104,7 +102,9 @@ discretize.formula <- function(x, y, control = mdlControl(), keepAll = FALSE) {
 }
 
 #' @export
-discretize.data.frame <- function(x, y, control = mdlControl(),
+discretize.data.frame <- function(x, y,
+                                  control = list(mdlControl(),
+                                                 equalsizeControl()),
                                   keepAll = FALSE, call = match.call()) {
   if (!is.data.frame(y)) {
     y <- format_handler(call$y, y)
@@ -115,13 +115,23 @@ discretize.data.frame <- function(x, y, control = mdlControl(),
   }
   x <- formula(paste0(colnames(y)[1], "~."))
 
+  if (!("discretizationControl" %in% class(control))) {
+    control <- control[[1]]
+  }
+
   discretize.formula(x = x, y = y, control = control, keepAll = keepAll)
 }
-
 #' @export
-discretize.numeric <- function(x, y, control = mdlControl(), keepAll = FALSE) {
+discretize.numeric <- function(x, y,
+                               control = list(mdlControl(), equalsizeControl()),
+                               keepAll = FALSE, call = NULL) {
   call <- match.call()
   x <- format_handler(call$x, x)
+
+  if (!("discretizationControl" %in% class(control))) {
+    control <- control[[1]]
+  }
+
   discretize.data.frame(x = x, y = y, control = control,
                         keepAll = keepAll, call = call)
 }
@@ -131,3 +141,22 @@ discretize.list <- discretize.numeric
 
 #' @export
 discretize.matrix <- discretize.numeric
+
+#' @rdname discretize
+#' @export
+mdlControl <- function() {
+  params <- list(method = "MDL")
+  attr(params, "class") <- c("mdlControl", "discretizationControl", "list")
+  params
+}
+
+#' @rdname discretize
+#' @param k Number of partitions.
+#' @export
+equalsizeControl <- function(k = 10) {
+  params <- list(method = "EQUAL_SIZE", k = k)
+  attr(params, "class") <- c("equalsizeControl",
+                             "discretizationControl",
+                             "list")
+  params
+}
