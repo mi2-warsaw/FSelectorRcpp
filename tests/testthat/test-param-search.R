@@ -2,34 +2,31 @@ library(FSelectorRcpp)
 
 context("Param search")
 
-test_that("Exhaustive search",
-{
-  evaluator = function(subset, data)
-  {
+test_that("Exhaustive search", {
+  evaluator <- function(subset, data, dependent = names(iris)[5]) {
     library(rpart)
     k <- 5
     splits <- runif(nrow(data))
-    results = sapply(1:k, function(i) {
+    results <- sapply(1:k, function(i) {
       test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
       train.idx <- !test.idx
-      test <- data[test.idx, , drop=FALSE]
-      train <- data[train.idx, , drop=FALSE]
-      tree <- rpart(to_formula(subset, "Species"), train)
-      error.rate = sum(test$Species != predict(tree, test, type="c")) / nrow(test)
+      test <- data[test.idx, , drop = FALSE]
+      train <- data[train.idx, , drop = FALSE]
+      tree <- rpart(to_formula(subset, dependent), train)
+      error.rate <- sum(test[[dependent]] != predict(tree, test, type = "c")) /
+        nrow(test)
       return(1 - error.rate)
     })
     return(mean(results))
   }
 
+  iris <- iris[sample.int(75), ]
 
-  iris = iris[sample.int(75),]
+  fit1 <- f_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
+                   mode = "exhaustive")
+  fit2 <- f_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
+                   mode = "exhaustive", allowParallel = FALSE)
 
-  fit1 = exhaustive_search(names(iris)[-5], evaluator, iris)
-  fit2 = exhaustive_search(names(iris)[-5],
-                                evaluator,
-                                iris,
-                                allowParallel = FALSE)
-
-  expect_error(exhaustive_search(character(), evaluator, iris))
+  expect_error(f_search(attributes = character(), fun = evaluator, data = iris,
+                        mode = "exhaustive"))
 })
-
