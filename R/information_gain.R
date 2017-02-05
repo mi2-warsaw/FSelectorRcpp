@@ -1,29 +1,34 @@
 #' Entropy-based filters
 #'
-#'
-#' The algorithms find weights of discrete attributes basing on their correlation with continous class attribute.
+#' The algorithms find weights of discrete attributes basing on their
+#' correlation with continous class attribute.
 #'
 #' @details
 #'
-#'  \code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
+#' \code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class,
+#' Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
 #'
-#'  \code{type = "gainratio"} is \deqn{\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute)}}{(H(Class) + H(Attribute) - H(Class, Attribute)) / H(Attribute)}
+#' \code{type = "gainratio"} is \deqn{\frac{H(Class) + H(Attribute) - H(Class,
+#' Attribute)}{H(Attribute)}}{(H(Class) + H(Attribute) - H(Class, Attribute)) /
+#' H(Attribute)}
 #'
-#'  \code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class, Attribute)) / (H(Attribute) + H(Class))}
+#' \code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class,
+#' Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class,
+#' Attribute)) / (H(Attribute) + H(Class))}
 #'
-#' @param formula an object of class \link{formula} with model description.
+#' @param formula An object of class \link{formula} with model description.
 #' @param data data.frame accompanying formula.
 #' @param x data.frame or sparse matrix with attributes.
-#' @param y vector with response variable.
-#' @param type method name.
-#' @param threads number of threads for parallel backend
+#' @param y Vector with response variable.
+#' @param type Method name.
+#' @param threads Number of threads for parallel backend
 #'
-#' @return a data.frame containing the worth of attributes in the first column and their names as row names
+#' @return data.frame containing the worth of attributes in the first column and
+#' their names as row names.
 #'
-#' @author Zygmunt Zawadzki , \email{zygmunt.zawadzki@@gmail.com}
+#' @author Zygmunt Zawadzki \email{zygmunt.zawadzki@@gmail.com}
 #'
 #' @examples
-#'
 #'
 #' irisX = iris[-5]
 #' y = iris$Species
@@ -38,9 +43,9 @@
 #'
 #' # sparse matrix interface
 #' library(Matrix)
-#' i <- c(1,3:8); j <- c(2,9,6:10); x <- 7 * (1:7)
+#' i <- c(1, 3:8); j <- c(2, 9, 6:10); x <- 7 * (1:7)
 #' x <- sparseMatrix(i, j, x = x)
-#' y = c(1,1,1,1,2,2,2,2)
+#' y = c(1, 1, 1, 1, 2, 2, 2, 2)
 #'
 #' information_gain(x = x, y = y)
 #' information_gain(x = x, y = y, type = "gainratio")

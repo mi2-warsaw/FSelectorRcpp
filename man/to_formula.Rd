@@ -12,7 +12,7 @@ to_formula(attr, class)
 \item{class}{single string with dependent variable name}
 }
 \description{
-Utility function to create formula object
+Utility function to create formula object.
 }
 \examples{
 
