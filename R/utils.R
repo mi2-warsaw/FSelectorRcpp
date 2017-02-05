@@ -1,24 +1,10 @@
 #' Formula to variables names
 #'
-#' Converts formula to character vector
-#'
+#' Converts formula to character vector.
 #'
 #' @noRd
 #'
 formula2names <- function(formula, data) {
-  # lFormula = as.list(formula)
-  #
-  # y = as.character(lFormula[[2]])
-  #
-  # if(as.list(lFormula[[3]])[[1]] == ".")
-  # {
-  #   cnames = colnames(data)
-  #   x = cnames[!cnames == y]
-  # } else
-  # {
-  #   x = as.list(lFormula[[3]])[-1]
-  #   x = sapply(x, as.character)
-  # }
   y <- formula[[2]]
   x <- attr(stats::terms(formula, data = data), "term.labels")
 
@@ -27,7 +13,7 @@ formula2names <- function(formula, data) {
 
 #' Create formula object
 #'
-#' Utility function to create formula object
+#' Utility function to create formula object.
 #'
 #' @param attr character vector with names of independent variables
 #' @param class single string with dependent variable name
@@ -42,36 +28,38 @@ to_formula <- function(attr, class) {
   as.formula(paste(class, paste(attr, collapse = " + "), sep = " ~ "))
 }
 
-#### fs_get_best_attributes ----
+#' Get best attributes
+#'
 #' Extract best attributes subset from fitted object.
 #'
-#' @param x object fitted with \code{exhaustive_search} function.
+#' @param x Object fitted with \code{f_search} function.
 #'
 #' @examples
 #'
-#' #' # evaluator from FSelector package
-#' evaluator = function(subset, data)
-#' {
+#' # evaluator from FSelector package
+#' evaluator <- function(subset, data, dependent = names(iris)[5]) {
 #'   library(rpart)
 #'   k <- 5
 #'   splits <- runif(nrow(data))
-#'   results = sapply(1:k, function(i) {
-#'   test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
-#'   train.idx <- !test.idx
-#'   test <- data[test.idx, , drop=FALSE]
-#'   train <- data[train.idx, , drop=FALSE]
-#'   tree <- rpart(to_formula(subset, "Species"), train)
-#'   error.rate = sum(test$Species != predict(tree, test, type="c")) / nrow(test)
-#'   return(1 - error.rate)
-#'    })
+#'   results <- sapply(1:k, function(i) {
+#'     test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
+#'     train.idx <- !test.idx
+#'     test <- data[test.idx, , drop = FALSE]
+#'     train <- data[train.idx, , drop = FALSE]
+#'     tree <- rpart(to_formula(subset, dependent), train)
+#'     error.rate <- sum(test[[dependent]] != predict(tree, test, type = "c")) /
+#'     nrow(test)
+#'     return(1 - error.rate)
+#'   })
 #'   return(mean(results))
 #' }
 #'
-#'  fit = exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE)
-#'  get_best_attributes(fit)
+#' fit <- f_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
+#'                 mode = "exhaustive", allowParallel = FALSE)
+#' get_best_attributes(fit)
 #'
-#'  # with to_formula
-#'  to_formula(get_best_attributes(fit), "Species")
+#' # with to_formula
+#' to_formula(get_best_attributes(fit), "Species")
 #'
 #' @export
 get_best_attributes <- function(x) {
@@ -79,30 +67,17 @@ get_best_attributes <- function(x) {
 }
 
 #' @export
-get_best_attributes.ExhaustiveSearchResult <- function(x) {
-  x$attributes[as.logical(x$bestAttr)]
+get_best_attributes.default <- function(x) {
+  x$bestResult$values <- NULL
+  names(x$bestResult)
 }
 
-#### print functions ----
-
-#' @export
-print.ExhaustiveSearchResult <- function(x, ...) {
-  cat("Exhaustive Search Result:\n\n")
-  cat("\t", paste(get_best_attributes(x), collapse = " + "))
-  cat("\n\n\n")
-  if (!is.null(x$allResult)) {
-    cat('  Results for other attributes subsamples are avaiable.
-        You can extract them with:
-        x[["allResult"]]\n')
-  } else {
-    cat("  Results for other attributes subsamples are not avaiable.
-        You can get them by rerunning fs_exhaustive_search with:
-        keepAll = TRUE\n")
-  }
-}
-
-#### create children ----
-
+#' Get children
+#'
+#' Function to obtain children matrices
+#'
+#' @noRd
+#'
 #' @importFrom utils combn
 get_children <- function(parent, direction = c("forward", "backward", "both"),
                          omit.func = NULL) {
@@ -169,7 +144,6 @@ get_children <- function(parent, direction = c("forward", "backward", "both"),
 #'
 #' Sets names of output based on call
 #'
-#'
 #' @noRd
 #'
 call2names <- function(vecCall) {
@@ -178,16 +152,35 @@ call2names <- function(vecCall) {
     charCall
   } else if (charCall[1] == "$") {
     charCall[3]
+  } else if (grepl(pattern = "[[", x = charCall[1], fixed = TRUE)) {
+    if (grepl(pattern = "^[[:digit:]]*$", x = charCall[3])) {
+      names(get(charCall[2]))[as.integer(charCall[3])]
+    } else {
+      names(get(charCall[2]))[charCall[3]]
+    }
   } else {
-    toSub <- grep(pattern = "\\$", x = charCall, value = TRUE)
-    gsub(pattern = ".*\\$", replacement = "", x = toSub)
+    toSub <- charCall[-1]
+    withBrackets <- grep(pattern = "[[", x = toSub, fixed = TRUE)
+    toSub[withBrackets] <- gsub(pattern = "]]", replacement = "",
+                                x = toSub[withBrackets])
+    toSub[withBrackets] <- strsplit(x = toSub[withBrackets], split = "[[",
+                                    fixed = TRUE)
+    toSub[withBrackets] <- lapply(toSub[withBrackets], function(x) {
+      if (grepl(pattern = "^[[:digit:]]*$", x = x[2])) {
+        names(get(x[1]))[as.integer(x[2])]
+      } else {
+        names(get(x[1]))[x[2]]
+      }
+    })
+    toSub[-withBrackets] <- gsub(pattern = ".*\\$", replacement = "",
+                                 x = toSub[-withBrackets])
+    unlist(toSub)
   }
 }
 
 #' Format handler
 #'
 #' Handles values format
-#'
 #'
 #' @noRd
 #'

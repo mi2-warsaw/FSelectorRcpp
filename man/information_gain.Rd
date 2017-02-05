@@ -8,33 +8,39 @@ information_gain(formula, data, x, y, type = c("infogain", "gainratio",
   "symuncert"), threads = 1)
 }
 \arguments{
-\item{formula}{an object of class \link{formula} with model description.}
+\item{formula}{An object of class \link{formula} with model description.}
 
 \item{data}{data.frame accompanying formula.}
 
 \item{x}{data.frame or sparse matrix with attributes.}
 
-\item{y}{vector with response variable.}
+\item{y}{Vector with response variable.}
 
-\item{type}{method name.}
+\item{type}{Method name.}
 
-\item{threads}{number of threads for parallel backend}
+\item{threads}{Number of threads for parallel backend}
 }
 \value{
-a data.frame containing the worth of attributes in the first column and their names as row names
+data.frame containing the worth of attributes in the first column and
+their names as row names.
 }
 \description{
-The algorithms find weights of discrete attributes basing on their correlation with continous class attribute.
+The algorithms find weights of discrete attributes basing on their
+correlation with continous class attribute.
 }
 \details{
-\code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
+\code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class,
+Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
 
- \code{type = "gainratio"} is \deqn{\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute)}}{(H(Class) + H(Attribute) - H(Class, Attribute)) / H(Attribute)}
+\code{type = "gainratio"} is \deqn{\frac{H(Class) + H(Attribute) - H(Class,
+Attribute)}{H(Attribute)}}{(H(Class) + H(Attribute) - H(Class, Attribute)) /
+H(Attribute)}
 
- \code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class, Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class, Attribute)) / (H(Attribute) + H(Class))}
+\code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class,
+Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class,
+Attribute)) / (H(Attribute) + H(Class))}
 }
 \examples{
-
 
 irisX = iris[-5]
 y = iris$Species
@@ -49,9 +55,9 @@ information_gain(formula = Species ~ ., data = iris, type = "symuncert")
 
 # sparse matrix interface
 library(Matrix)
-i <- c(1,3:8); j <- c(2,9,6:10); x <- 7 * (1:7)
+i <- c(1, 3:8); j <- c(2, 9, 6:10); x <- 7 * (1:7)
 x <- sparseMatrix(i, j, x = x)
-y = c(1,1,1,1,2,2,2,2)
+y = c(1, 1, 1, 1, 2, 2, 2, 2)
 
 information_gain(x = x, y = y)
 information_gain(x = x, y = y, type = "gainratio")
@@ -59,6 +65,6 @@ information_gain(x = x, y = y, type = "symuncert")
 
 }
 \author{
-Zygmunt Zawadzki , \email{zygmunt.zawadzki@gmail.com}
+Zygmunt Zawadzki \email{zygmunt.zawadzki@gmail.com}
 }
 

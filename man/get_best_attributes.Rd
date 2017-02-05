@@ -2,41 +2,42 @@
 % Please edit documentation in R/utils.R
 \name{get_best_attributes}
 \alias{get_best_attributes}
-\title{Extract best attributes subset from fitted object.}
+\title{Get best attributes}
 \usage{
 get_best_attributes(x)
 }
 \arguments{
-\item{x}{object fitted with \code{exhaustive_search} function.}
+\item{x}{Object fitted with \code{f_search} function.}
 }
 \description{
 Extract best attributes subset from fitted object.
 }
 \examples{
 
-#' # evaluator from FSelector package
-evaluator = function(subset, data)
-{
+# evaluator from FSelector package
+evaluator <- function(subset, data, dependent = names(iris)[5]) {
   library(rpart)
   k <- 5
   splits <- runif(nrow(data))
-  results = sapply(1:k, function(i) {
-  test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
-  train.idx <- !test.idx
-  test <- data[test.idx, , drop=FALSE]
-  train <- data[train.idx, , drop=FALSE]
-  tree <- rpart(to_formula(subset, "Species"), train)
-  error.rate = sum(test$Species != predict(tree, test, type="c")) / nrow(test)
-  return(1 - error.rate)
-   })
+  results <- sapply(1:k, function(i) {
+    test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
+    train.idx <- !test.idx
+    test <- data[test.idx, , drop = FALSE]
+    train <- data[train.idx, , drop = FALSE]
+    tree <- rpart(to_formula(subset, dependent), train)
+    error.rate <- sum(test[[dependent]] != predict(tree, test, type = "c")) /
+    nrow(test)
+    return(1 - error.rate)
+  })
   return(mean(results))
 }
 
- fit = exhaustive_search(names(iris)[-5], evaluator, iris, allowParallel = FALSE)
- get_best_attributes(fit)
+fit <- f_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
+                mode = "exhaustive", allowParallel = FALSE)
+get_best_attributes(fit)
 
- # with to_formula
- to_formula(get_best_attributes(fit), "Species")
+# with to_formula
+to_formula(get_best_attributes(fit), "Species")
 
 }
 
