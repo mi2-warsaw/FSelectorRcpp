@@ -1,0 +1,184 @@
+---
+title: "Discretize benchmark"
+author: "Krzysztof Słomczyński"
+output:
+  rmarkdown::html_vignette:
+    mathjax:  default
+    fig_caption:  true
+    toc: true
+    section_numbering: true
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Microbenchmarks of FSelectoRcpp and FSelector}
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+opts_chunk$set(
+    comment = "",
+    fig.width = 12, 
+    message = FALSE,
+    warning = FALSE,
+    tidy.opts = list(
+        keep.blank.line = TRUE,
+        width.cutoff = 150
+        ),
+    options(width = 150),
+    eval = TRUE
+)
+```
+
+```{r}
+#install.packages('microbenchmark')
+library(microbenchmark)
+
+library(FSelectorRcpp)
+library(RWeka)
+```
+
+# Comparisons on RTCGA data
+
+## About The Cancer Genome Atlas
+
+> The Cancer Genome Atlas (TCGA) is a comprehensive and coordinated effort to accelerate our understanding of the molecular basis of cancer through the application of genome analysis technologies, including large-scale genome sequencing - [http://cancergenome.nih.gov/](http://cancergenome.nih.gov/). 
+
+[Our team](https://github.com/orgs/RTCGA/people) converted selected datasets from this study into few separate packages that are hosted on Bioconductor. These R packages make selected datasets easier to access and manage. Data sets in RTCGA packages are large and cover complex relations between clinical outcomes and genetic background.
+
+To use RTCGA install package with instructions from it's [Bioconductor home page](https://www.bioconductor.org/packages/RTCGA/)
+
+```{r, eval = FALSE}
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("RTCGA")
+```
+
+### Dependent variable
+
+Specifies whether a sample came from tumour or healthy tissue. It is denoted by 14th sign in `bcr_patiend_barcode` variable in `BRCA.rnaseq` dataset that containt RNA-Seq genes' expressions for patients suffering from Breast Cancer.
+
+### Independent variables
+
+It is mandatory to get rid of special signs from their names.
+
+```{r}
+library(RTCGA.rnaseq)
+BRCA.rnaseq <- RTCGA.rnaseq::BRCA.rnaseq
+BRCA.rnaseq$bcr_patient_barcode <- 
+   factor(substr(BRCA.rnaseq$bcr_patient_barcode, 14, 14))
+names(BRCA.rnaseq) <- gsub(pattern = "?", replacement = "q",
+                           x = names(BRCA.rnaseq), fixed = TRUE)
+names(BRCA.rnaseq) <- gsub(pattern = "[[:punct:]]", replacement = "_",
+                           x = names(BRCA.rnaseq))
+```
+
+### More
+
+- [RTCGA Quick Guide](http://r-addict.com/2016/05/04/RTCGA-Quick-Guide.html)
+- [RTCGA Website](http://rtcga.github.io/RTCGA/)
+
+## Discretization
+
+```{r}
+library(ggplot2)
+library(pbapply)
+library(tibble)
+names_by <- function(nameBy, vecBy) {
+  c(paste0(nameBy,
+           sapply(max(nchar(vecBy)) - nchar(vecBy),
+                  function(zeros) {
+                    paste0(rep(0, zeros), collapse = "")
+                  }), 
+                  vecBy))
+}
+
+get_times <- function(fun, vecRows, vecCols, nTimes) {
+  forRows <- pblapply(vecRows, function(nRows) {
+    forCols <- pblapply(vecCols + 1, function(nCols) {
+      microbenchmark(fun(bcr_patient_barcode ~ .,
+                         BRCA.rnaseq[1:nRows, 1:nCols]),
+                     times = nTimes)
+    })
+    colsNames <- names_by(nameBy = "columns_", vecBy = vecCols)
+    setNames(forCols, colsNames)
+  })
+  rowsNames <- names_by(nameBy = "rows_", vecBy = vecRows)
+  setNames(forRows, rowsNames)
+}
+
+make_df <- function(bm_data, package) {
+  data_frame(
+    rows = rep(
+      x = as.integer(
+        gsub(
+          pattern = "rows_0*",
+             replacement = "",
+             x = names(bm_data)
+        )
+      ),
+      each =  unique(sapply(bm_data, length))
+    ),
+    columns = as.integer(
+      gsub(
+        pattern = "columns_0*",
+        replacement = "",
+        x = as.vector(sapply(bm_data, names))
+      )
+    ),
+    time = as.vector(
+      sapply(
+        bm_data,
+        function(setOfCols) {
+          sapply(
+            setOfCols,
+            function(set) {
+              median(set$time) / 10 ^ 9
+            }
+          )
+        }
+      )
+    ),
+    package = package
+  )
+}
+
+bm_fsr_discretize <- get_times(fun = discretize,
+                               vecRows = c(100, 500, 1000),
+                               vecCols = c(10, 100, 500, 1000, 2000),
+                               nTimes = 1L)
+bm_rwk_discretize <- get_times(fun = Discretize,
+                               vecRows = c(100, 500, 1000),
+                               vecCols = c(10, 100, 500, 1000, 2000),
+                               nTimes = 1L)
+
+df_fsr <- make_df(bm_data = bm_fsr_discretize, package = "FSelectorRcpp")
+df_rwk <- make_df(bm_data = bm_rwk_discretize, package = "RWeka")
+bm_df <- rbind(df_fsr, df_rwk)
+
+make_plot <- function(y) {
+  yUnit <- gsub(pattern = "time",
+                replacement = "s",
+                x = y)
+  
+  ggplot(data = bm_df, aes_string(x = "rows", y = y, color = "package")) +
+  facet_grid(columns ~ .) +
+  geom_point() +
+  geom_smooth() +
+  xlab("Number of rows [-]") +
+  ylab(paste0("Elapsed time [", yUnit, "]")) +
+  ggtitle(label = "Microbenchmark: discretization function comparison",
+          subtitle = "for different numbers of columns") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5),
+        legend.position = "top")
+}
+
+bm_plot <- make_plot("time")
+bm_plot_log <- make_plot("log(time)")
+```
+
+### Plots
+
+```{r}
+bm_plot
+bm_plot_log
+```
