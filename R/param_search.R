@@ -135,7 +135,7 @@ greedy_search <- function(attributes, fun, data,
 #' @param \dots Other arguments passed to foreach function.
 #'
 #' @author Zygmunt Zawadzki \email{zygmunt.zawadzki@@gmail.com}
-#' @author Krzysztof Słomczyński \email{krzysztofslomczynski@@gmail.com}
+#' @author Krzysztof Slomczynski \email{krzysztofslomczynski@@gmail.com}
 #'
 #' @importFrom foreach foreach %dopar% %do% getDoParRegistered getDoParName
 #' @importFrom iterators iter

@@ -115,4 +115,9 @@ stopCluster(cl)
 registerDoSEQ()
 
 }
+\author{
+Zygmunt Zawadzki \email{zygmunt.zawadzki@gmail.com}
+
+Krzysztof Slomczynski \email{krzysztofslomczynski@gmail.com}
+}
 
