@@ -2,11 +2,12 @@
 title: "Discretize benchmark"
 author: "Krzysztof Słomczyński"
 output:
-  rmarkdown::html_vignette:
+  html_document:
     mathjax:  default
     fig_caption:  true
     toc: true
     section_numbering: true
+    css: ggsci.css
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Microbenchmarks of FSelectoRcpp and FSelector}
@@ -29,7 +30,7 @@ opts_chunk$set(
 ```
 
 ```{r}
-#install.packages('microbenchmark')
+# install.packages('microbenchmark')
 library(microbenchmark)
 
 library(FSelectorRcpp)
@@ -142,12 +143,12 @@ make_df <- function(bm_data, package) {
 }
 
 bm_fsr_discretize <- get_times(fun = discretize,
-                               vecRows = c(100, 500, 1000),
-                               vecCols = c(10, 100, 500, 1000, 2000),
+                               vecRows = seq(from = 200, to = 1000, by = 200),
+                               vecCols = c(10, 100, 500, 1000),
                                nTimes = 1L)
 bm_rwk_discretize <- get_times(fun = Discretize,
-                               vecRows = c(100, 500, 1000),
-                               vecCols = c(10, 100, 500, 1000, 2000),
+                               vecRows = seq(from = 200, to = 1000, by = 200),
+                               vecCols = c(10, 100, 500, 1000),
                                nTimes = 1L)
 
 df_fsr <- make_df(bm_data = bm_fsr_discretize, package = "FSelectorRcpp")
@@ -160,13 +161,12 @@ make_plot <- function(y) {
                 x = y)
   
   ggplot(data = bm_df, aes_string(x = "rows", y = y, color = "package")) +
-  facet_grid(columns ~ .) +
+  facet_grid(columns ~ ., labeller = label_both) +
   geom_point() +
-  geom_smooth() +
   xlab("Number of rows [-]") +
   ylab(paste0("Elapsed time [", yUnit, "]")) +
   ggtitle(label = "Microbenchmark: discretization function comparison",
-          subtitle = "for different numbers of columns") +
+          subtitle = "for different sizes of data sets") +
   theme(plot.title = element_text(hjust = 0.5),
         plot.subtitle = element_text(hjust = 0.5),
         legend.position = "top")
