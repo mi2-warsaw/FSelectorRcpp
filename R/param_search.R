@@ -172,20 +172,20 @@ greedy_search <- function(attributes, fun, data,
 #' }
 #'
 #' # Default greedy search.
-#' system.time(f_search(attributes = names(iris)[-5],
+#' system.time(feature_search(attributes = names(iris)[-5],
 #'                      fun = evaluator,
 #'                      data = iris))
-#' system.time(f_search(attributes = names(iris)[-5],
+#' system.time(feature_search(attributes = names(iris)[-5],
 #'                      fun = evaluator,
 #'                      data = iris,
 #'                      allowParallel = FALSE))
 #'
 #' # Optional exhaustive search.
-#' system.time(f_search(attributes = names(iris)[-5],
+#' system.time(feature_search(attributes = names(iris)[-5],
 #'                      fun = evaluator,
 #'                      data = iris,
 #'                      mode = "exhaustive"))
-#' system.time(f_search(attributes = names(iris)[-5],
+#' system.time(feature_search(attributes = names(iris)[-5],
 #'                      fun = evaluator,
 #'                      data = iris,
 #'                      mode = "exhaustive",
@@ -199,7 +199,7 @@ greedy_search <- function(attributes, fun, data,
 #'   )$r.squared
 #' }
 #'
-#' f_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, data = iris,
+#' feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, data = iris,
 #'          mode = "exhaustive")
 #'
 #' # 3) Optimize BIC crietion in generalized linear model.
@@ -216,7 +216,7 @@ greedy_search <- function(attributes, fun, data,
 #'   )[2]
 #' }
 #'
-#' f_search(attributes = c("Prewt", "Treat", "offset(Prewt)"),
+#' feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"),
 #'          fun = evaluator_BIC_glm,
 #'          data = anorexia,
 #'          mode = "exhaustive")
@@ -226,7 +226,7 @@ greedy_search <- function(attributes, fun, data,
 #' registerDoSEQ()
 #'
 #' @export
-f_search <- function(attributes, fun, data, mode = c("greedy", "exhaustive"),
+feature_search <- function(attributes, fun, data, mode = c("greedy", "exhaustive"),
                      type = c("forward", "backward"),
                      subsetsSizes = 1:length(attributes), allowParallel = TRUE,
                      ...) {
