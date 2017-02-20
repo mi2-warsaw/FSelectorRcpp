@@ -118,7 +118,7 @@ greedy_search <- function(attributes, fun, data,
   return(res)
 }
 
-#' General search function
+#' General Feature Searching Function
 #'
 #' Convenience function wrapper for greedy and exhaustive algorithms for
 #' searching atrribute subset space.

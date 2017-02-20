@@ -2,7 +2,7 @@
 % Please edit documentation in R/param_search.R
 \name{feature_search}
 \alias{feature_search}
-\title{General search function}
+\title{General Feature Searching Function}
 \usage{
 feature_search(attributes, fun, data, mode = c("greedy", "exhaustive"),
   type = c("forward", "backward"), subsetsSizes = 1:length(attributes),
