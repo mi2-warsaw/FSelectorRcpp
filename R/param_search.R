@@ -2,15 +2,15 @@ utils::globalVariables("it")
 
 #' @noRd
 exhaustive_search <- function(attributes, fun, data,
-                              subsetsSizes = 1:length(attributes),
-                              allowParallel = TRUE, ...) {
+                              sizes = 1:length(attributes),
+                              parallel = TRUE, ...) {
 
   len <- length(attributes)
   fun <- match.fun(fun)
   zeroes <- rep(0, len)
   childComb <- NULL
 
-  for (size in subsetsSizes) {
+  for (size in sizes) {
     childComb <- cbind(childComb,
                        apply(combn(1:len, size), 2, function(i) {
                          x <- zeroes
@@ -21,7 +21,7 @@ exhaustive_search <- function(attributes, fun, data,
 
   matIter <- iter(childComb, by = "column")
 
-  if (allowParallel && getDoParRegistered()) {
+  if (parallel && getDoParRegistered()) {
     `%op%` <- `%dopar%`
     if (getDoParName() == "doSNOW") {
       tpb <- txtProgressBar(max = matIter$length, style = 3)
@@ -55,7 +55,7 @@ exhaustive_search <- function(attributes, fun, data,
 #' @noRd
 greedy_search <- function(attributes, fun, data,
                           type = c("forward", "backward"),
-                          allowParallel = TRUE, ...) {
+                          parallel = TRUE, ...) {
 
   len <- length(attributes)
   fun <- match.fun(fun)
@@ -77,7 +77,7 @@ greedy_search <- function(attributes, fun, data,
 
     iterChild <- iter(children, by = "row")
 
-    if (allowParallel && getDoParRegistered()) {
+    if (parallel && getDoParRegistered()) {
       `%op%` <- `%dopar%`
       if (getDoParName() == "doSNOW") {
         tpb <- txtProgressBar(max = iterChild$length, style = 3)
@@ -120,19 +120,20 @@ greedy_search <- function(attributes, fun, data,
 
 #' General Feature Searching Function
 #'
-#' Convenience function wrapper for greedy and exhaustive algorithms for
-#' searching atrribute subset space.
+#' A convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that
+#' extract valuable attributes depending on the evaluation method (called evaluator).
 #'
-#' @param attributes Character vector with attributes names.
-#' @param fun Function to evaluate. See Details.
-#' @param data Data set for fun function.
-#' @param mode String to determine which search to perform
-#' @param type Argument for \code{mode = "greedy"}. Algorithm used for search.
-#' Possible values are \code{forward} and \code{backward}.
-#' @param subsetsSizes Argument for \code{mode = "exhaustive"}. Vector of sizes
+#' @param attributes A character vector with attributes' names to be used to extract the most valuable features.
+#' @param fun A function (evaluator) to be used to score features' sets at each iteration of the algorithm passed via \code{mode}.
+#' See Examples.
+#' @param data A data set for \code{fun} function (evaluator).
+#' @param mode A character that determines which search algorithm to perform.
+#' @param type An argument for \code{mode = "greedy"} - whether to use the
+#' \code{backward} or the \code{forward} multiple-way search.
+#' @param sizes An argument for \code{mode = "exhaustive"}. Vector of sizes
 #' of attributes subsets.
-#' @param allowParallel Allow parallelization.
-#' @param \dots Other arguments passed to foreach function.
+#' @param parallel Allow parallelization.
+#' @param \dots Other arguments passed to \link{foreach} function.
 #'
 #' @author Zygmunt Zawadzki \email{zygmunt.zawadzki@@gmail.com}
 #' @author Krzysztof Slomczynski \email{krzysztofslomczynski@@gmail.com}
@@ -172,24 +173,32 @@ greedy_search <- function(attributes, fun, data,
 #' }
 #'
 #' # Default greedy search.
-#' system.time(feature_search(attributes = names(iris)[-5],
-#'                      fun = evaluator,
-#'                      data = iris))
-#' system.time(feature_search(attributes = names(iris)[-5],
-#'                      fun = evaluator,
-#'                      data = iris,
-#'                      allowParallel = FALSE))
+#' system.time(
+#'   feature_search(attributes = names(iris)[-5],
+#'                  fun = evaluator,
+#'                  data = iris)
+#' )
+#' system.time(
+#'   feature_search(attributes = names(iris)[-5],
+#'                  fun = evaluator,
+#'                  data = iris,
+#'                  parallel = FALSE)
+#' )
 #'
 #' # Optional exhaustive search.
-#' system.time(feature_search(attributes = names(iris)[-5],
-#'                      fun = evaluator,
-#'                      data = iris,
-#'                      mode = "exhaustive"))
-#' system.time(feature_search(attributes = names(iris)[-5],
-#'                      fun = evaluator,
-#'                      data = iris,
-#'                      mode = "exhaustive",
-#'                      allowParallel = FALSE))
+#' system.time(
+#'   feature_search(attributes = names(iris)[-5],
+#'                  fun = evaluator,
+#'                  data = iris,
+#'                  mode = "exhaustive")
+#' )
+#' system.time(
+#'   feature_search(attributes = names(iris)[-5],
+#'                  fun = evaluator,
+#'                  data = iris,
+#'                  mode = "exhaustive",
+#'                  parallel = FALSE)
+#' )
 #'
 #' # 2) Maximize R^2 statistics in the linear regression model/problem.
 #'
@@ -199,8 +208,9 @@ greedy_search <- function(attributes, fun, data,
 #'   )$r.squared
 #' }
 #'
-#' feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, data = iris,
-#'          mode = "exhaustive")
+#' feature_search(attributes = names(iris)[-1],
+#'                fun = evaluator_R2_lm, data = iris,
+#'                mode = "exhaustive")
 #'
 #' # 3) Optimize BIC crietion in generalized linear model.
 #' # Aim of Bayesian approach it to identify the model with the highest
@@ -217,30 +227,31 @@ greedy_search <- function(attributes, fun, data,
 #' }
 #'
 #' feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"),
-#'          fun = evaluator_BIC_glm,
-#'          data = anorexia,
-#'          mode = "exhaustive")
+#'                fun = evaluator_BIC_glm,
+#'                data = anorexia,
+#'                mode = "exhaustive")
 #'
 #' # Close parallelization
 #' stopCluster(cl)
 #' registerDoSEQ()
 #'
 #' @export
-feature_search <- function(attributes, fun, data, mode = c("greedy", "exhaustive"),
-                     type = c("forward", "backward"),
-                     subsetsSizes = 1:length(attributes), allowParallel = TRUE,
-                     ...) {
+feature_search <- function(attributes, fun, data,
+                           mode = c("greedy", "exhaustive"),
+                           type = c("forward", "backward"),
+                           sizes = 1:length(attributes), parallel = TRUE,
+                           ...) {
 
   call <- match.call()
   mode <- match.arg(mode)
   if (mode == "greedy") {
     type <- match.arg(type)
     output <- greedy_search(attributes = attributes, fun = fun, data = data,
-                            type = type, allowParallel = allowParallel, ...)
+                            type = type, parallel = parallel, ...)
   } else if (mode == "exhaustive") {
     output <- exhaustive_search(attributes = attributes, fun = fun, data = data,
-                                subsetsSizes = subsetsSizes,
-                                allowParallel = allowParallel, ...)
+                                sizes = sizes,
+                                parallel = parallel, ...)
   }
 
   output <- c(output, call = call)
