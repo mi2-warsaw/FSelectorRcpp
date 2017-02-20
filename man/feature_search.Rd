@@ -5,31 +5,32 @@
 \title{General Feature Searching Function}
 \usage{
 feature_search(attributes, fun, data, mode = c("greedy", "exhaustive"),
-  type = c("forward", "backward"), subsetsSizes = 1:length(attributes),
-  allowParallel = TRUE, ...)
+  type = c("forward", "backward"), sizes = 1:length(attributes),
+  parallel = TRUE, ...)
 }
 \arguments{
-\item{attributes}{Character vector with attributes names.}
+\item{attributes}{A character vector with attributes' names to be used to extract the most valuable features.}
 
-\item{fun}{Function to evaluate. See Details.}
+\item{fun}{A function (evaluator) to be used to score features' sets at each iteration of the algorithm passed via \code{mode}.
+See Examples.}
 
-\item{data}{Data set for fun function.}
+\item{data}{A data set for \code{fun} function (evaluator).}
 
-\item{mode}{String to determine which search to perform}
+\item{mode}{A character that determines which search algorithm to perform.}
 
-\item{type}{Argument for \code{mode = "greedy"}. Algorithm used for search.
-Possible values are \code{forward} and \code{backward}.}
+\item{type}{An argument for \code{mode = "greedy"} - whether to use the
+\code{backward} or the \code{forward} multiple-way search.}
 
-\item{subsetsSizes}{Argument for \code{mode = "exhaustive"}. Vector of sizes
+\item{sizes}{An argument for \code{mode = "exhaustive"}. Vector of sizes
 of attributes subsets.}
 
-\item{allowParallel}{Allow parallelization.}
+\item{parallel}{Allow parallelization.}
 
-\item{\dots}{Other arguments passed to foreach function.}
+\item{\dots}{Other arguments passed to \link{foreach} function.}
 }
 \description{
-Convenience function wrapper for greedy and exhaustive algorithms for
-searching atrribute subset space.
+A convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that
+extract valuable attributes depending on the evaluation method (called evaluator).
 }
 \examples{
 
@@ -61,24 +62,32 @@ evaluator <- function(subset, data, dependent = names(iris)[5]) {
 }
 
 # Default greedy search.
-system.time(feature_search(attributes = names(iris)[-5],
-                     fun = evaluator,
-                     data = iris))
-system.time(feature_search(attributes = names(iris)[-5],
-                     fun = evaluator,
-                     data = iris,
-                     allowParallel = FALSE))
+system.time(
+  feature_search(attributes = names(iris)[-5],
+                 fun = evaluator,
+                 data = iris)
+)
+system.time(
+  feature_search(attributes = names(iris)[-5],
+                 fun = evaluator,
+                 data = iris,
+                 parallel = FALSE)
+)
 
 # Optional exhaustive search.
-system.time(feature_search(attributes = names(iris)[-5],
-                     fun = evaluator,
-                     data = iris,
-                     mode = "exhaustive"))
-system.time(feature_search(attributes = names(iris)[-5],
-                     fun = evaluator,
-                     data = iris,
-                     mode = "exhaustive",
-                     allowParallel = FALSE))
+system.time(
+  feature_search(attributes = names(iris)[-5],
+                 fun = evaluator,
+                 data = iris,
+                 mode = "exhaustive")
+)
+system.time(
+  feature_search(attributes = names(iris)[-5],
+                 fun = evaluator,
+                 data = iris,
+                 mode = "exhaustive",
+                 parallel = FALSE)
+)
 
 # 2) Maximize R^2 statistics in the linear regression model/problem.
 
@@ -88,8 +97,9 @@ evaluator_R2_lm <- function(attributes, data, dependent = names(iris)[1]) {
   )$r.squared
 }
 
-feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, data = iris,
-         mode = "exhaustive")
+feature_search(attributes = names(iris)[-1],
+               fun = evaluator_R2_lm, data = iris,
+               mode = "exhaustive")
 
 # 3) Optimize BIC crietion in generalized linear model.
 # Aim of Bayesian approach it to identify the model with the highest
@@ -106,9 +116,9 @@ evaluator_BIC_glm <- function(attributes, data, dependent = "Postwt") {
 }
 
 feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"),
-         fun = evaluator_BIC_glm,
-         data = anorexia,
-         mode = "exhaustive")
+               fun = evaluator_BIC_glm,
+               data = anorexia,
+               mode = "exhaustive")
 
 # Close parallelization
 stopCluster(cl)
