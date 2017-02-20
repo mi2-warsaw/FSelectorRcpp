@@ -2,7 +2,7 @@
 #'
 #' Select Cutoffs for Ranked Attributes
 #'
-#' @param attrs data.frame with attributes' importance.
+#' @param attrs A \link{data.frame} with attributes' importance.
 #' @param k A numeric. For \code{k >= 1} it indicates how many attributes to
 #' take with the highest attribute rank (chooses k best attributes).
 #' For \code{0 < k < 1} it stands for the percent of top attributes to take

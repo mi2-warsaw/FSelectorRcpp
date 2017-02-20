@@ -1,7 +1,7 @@
 #' Entropy-based Filters
 #'
-#' The algorithms find weights of discrete attributes basing on their
-#' correlation with continous class attribute.
+#' Algorithms that find ranks of importance of discrete attributes, basing on their
+#' entropy with a continous class attribute.
 #'
 #' @details
 #'
@@ -16,10 +16,13 @@
 #' Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class,
 #' Attribute)) / (H(Attribute) + H(Class))}
 #'
+#' where H(X) is Shannon's Entropy for a variable X and H(X, Y) is a conditional
+#' Shannon's Entropy for a variable X with a condition to Y
+#'
 #' @param formula An object of class \link{formula} with model description.
-#' @param data data.frame accompanying formula.
-#' @param x data.frame or sparse matrix with attributes.
-#' @param y Vector with response variable.
+#' @param data A \link{data.frame} accompanying formula.
+#' @param x A \link{data.frame} or sparse matrix with attributes.
+#' @param y A vector with response variable.
 #' @param type Method name.
 #' @param threads Number of threads for parallel backend
 #'

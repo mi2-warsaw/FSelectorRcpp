@@ -7,7 +7,7 @@
 cut_attrs(attrs, k = 0.5)
 }
 \arguments{
-\item{attrs}{data.frame with attributes' importance.}
+\item{attrs}{A \link{data.frame} with attributes' importance.}
 
 \item{k}{A numeric. For \code{k >= 1} it indicates how many attributes to
 take with the highest attribute rank (chooses k best attributes).
