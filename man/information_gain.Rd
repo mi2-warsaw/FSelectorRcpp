@@ -10,11 +10,11 @@ information_gain(formula, data, x, y, type = c("infogain", "gainratio",
 \arguments{
 \item{formula}{An object of class \link{formula} with model description.}
 
-\item{data}{data.frame accompanying formula.}
+\item{data}{A \link{data.frame} accompanying formula.}
 
-\item{x}{data.frame or sparse matrix with attributes.}
+\item{x}{A \link{data.frame} or sparse matrix with attributes.}
 
-\item{y}{Vector with response variable.}
+\item{y}{A vector with response variable.}
 
 \item{type}{Method name.}
 
@@ -25,8 +25,8 @@ data.frame containing the worth of attributes in the first column and
 their names as row names.
 }
 \description{
-The algorithms find weights of discrete attributes basing on their
-correlation with continous class attribute.
+Algorithms that find ranks of importance of discrete attributes, basing on their
+entropy with a continous class attribute.
 }
 \details{
 \code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class,
@@ -39,6 +39,9 @@ H(Attribute)}
 \code{type = "symuncert"} is \deqn{2\frac{H(Class) + H(Attribute) - H(Class,
 Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class,
 Attribute)) / (H(Attribute) + H(Class))}
+
+where H(X) is Shannon's Entropy for a variable X and H(X, Y) is a conditional
+Shannon's Entropy for a variable X with a condition to Y
 }
 \examples{
 
