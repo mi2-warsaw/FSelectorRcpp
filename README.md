@@ -1,22 +1,20 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/FSelectorRcpp)](http://cran.r-project.org/web/packages/FSelectorRcpp)
 [![Downloads](http://cranlogs.r-pkg.org/badges/FSelectorRcpp)](http://cran.rstudio.com/package=FSelectorRcpp)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/FSelectorRcpp?color=orange)](http://cranlogs.r-pkg.org/badges/grand-total/FSelectorRcpp)
-
 [![Build status](https://ci.appveyor.com/api/projects/status/jv14pt787g7h26sn?svg=true)](https://ci.appveyor.com/project/MarcinKosinski/fselectorrcpp)[![Build Status](https://api.travis-ci.org/mi2-warsaw/FSelectorRcpp.png)](https://travis-ci.org/mi2-warsaw/FSelectorRcpp)
-
 [![Coverage Status](https://img.shields.io/codecov/c/github/mi2-warsaw/FSelectorRcpp/master.svg)](https://codecov.io/github/mi2-warsaw/FSelectorRcpp?branch=master)
-
-
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Pending Pull-Requests](http://githubbadges.herokuapp.com/mi2-warsaw/FSelectorRcpp/pulls.svg?style=flat)](https://github.com/mi2-warsaw/FSelectorRcpp/pulls)
-[![Github Issues](http://githubbadges.herokuapp.com/mi2-warsaw/FSelectorRcpp/issues.svg)](https://github.com/mi2-warsaw/FSelectorRcpp/issues)
+
 
 # [FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/)
-Rcpp (free of Java/Weka) implementation of FSelector entropy-based feature selection algorithms with sparse matrix support
+Rcpp (free of Java/Weka) implementation of [FSelector](https://cran.r-project.org/web/packages/FSelector/index.html) entropy-based feature selection algorithms with sparse matrix support.
 
-Project is supported by [waffle.io](https://waffle.io/mi2-warsaw/FSelectorRcpp).
+Want to chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
 
+### Blog posts history
+
+- [Entropy Based Image Binarization with imager and FSelectorRcpp, Marcin Kosiński](http://r-addict.com/2017/01/08/Entropy-Based-Image-Binarization.html)
 - [Venn Diagram Comparison of Boruta, FSelectorRcpp and GLMnet Algorithms, Marcin Kosiński](http://www.r-bloggers.com/venn-diagram-comparison-of-boruta-fselectorrcpp-and-glmnet-algorithms/)
 
 ![Orly cover](https://raw.githubusercontent.com/mi2-warsaw/FSelectorRcpp/master/o_rly.png)

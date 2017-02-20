@@ -7,7 +7,7 @@
 get_best_attributes(x)
 }
 \arguments{
-\item{x}{Object fitted with \code{f_search} function.}
+\item{x}{An object fitted with \code{feature_search} function.}
 }
 \description{
 Extract best attributes subset from fitted object.
@@ -32,8 +32,8 @@ evaluator <- function(subset, data, dependent = names(iris)[5]) {
   return(mean(results))
 }
 
-fit <- f_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
-                mode = "exhaustive", allowParallel = FALSE)
+fit <- feature_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
+                mode = "exhaustive", parallel = FALSE)
 get_best_attributes(fit)
 
 # with to_formula

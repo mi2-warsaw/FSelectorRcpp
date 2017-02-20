@@ -32,7 +32,7 @@ to_formula <- function(attr, class) {
 #'
 #' Extract best attributes subset from fitted object.
 #'
-#' @param x Object fitted with \code{f_search} function.
+#' @param x An object fitted with \code{feature_search} function.
 #'
 #' @examples
 #'
@@ -54,8 +54,8 @@ to_formula <- function(attr, class) {
 #'   return(mean(results))
 #' }
 #'
-#' fit <- f_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
-#'                 mode = "exhaustive", allowParallel = FALSE)
+#' fit <- feature_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
+#'                 mode = "exhaustive", parallel = FALSE)
 #' get_best_attributes(fit)
 #'
 #' # with to_formula
@@ -68,8 +68,8 @@ get_best_attributes <- function(x) {
 
 #' @export
 get_best_attributes.default <- function(x) {
-  x$bestResult$values <- NULL
-  names(x$bestResult)
+  x$best$values <- NULL
+  names(x$best)
 }
 
 #' Get children
