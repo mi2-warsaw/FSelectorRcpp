@@ -18,15 +18,26 @@ See Examples.}
 
 \item{mode}{A character that determines which search algorithm to perform.}
 
-\item{type}{An argument for \code{mode = "greedy"} - whether to use the
+\item{type}{Used when \code{mode = "greedy"} - whether to use the
 \code{backward} or the \code{forward} multiple-way search.}
 
-\item{sizes}{An argument for \code{mode = "exhaustive"}. Vector of sizes
+\item{sizes}{Used when \code{mode = "exhaustive"} - a vector of sizes
 of attributes subsets.}
 
 \item{parallel}{Allow parallelization.}
 
 \item{\dots}{Other arguments passed to \link{foreach} function.}
+}
+\value{
+A list with following components
+\itemize{
+  \item best - a \link{data.frame} with the best subset and it's score (1 - feature used, 0 - feature not used),
+  \item all - a \link{data.frame} with all checked features' subsets and their score (1 - feature used, 0 - feature not used),
+  \item data - the data used in the feature selection,
+  \item fun - the evaluator used to compute the score of importance for features' subsets,
+  \item call - an origin call of the \code{feature_search},
+  \item mode - the mode used in the call.
+}
 }
 \description{
 A convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that
@@ -39,6 +50,9 @@ The score is used in a multiple-way (backward or forward) \code{greedy}
 algorithm as a stopping moment or as a selection criterion
 in the \code{exhaustive} search that checks all possible
 attributes' subset combinations (of sizes passed in \code{sizes}).
+}
+\note{
+Note that score depends on the evaluator you provide in the \code{fun} parameter.
 }
 \examples{
 
