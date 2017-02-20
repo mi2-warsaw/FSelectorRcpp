@@ -1,6 +1,6 @@
 ---
-title: "Discretize benchmark"
-author: "Krzysztof Słomczyński"
+title: "discretize() benchmark"
+author: "Krzysztof Słomczyński, Marcin Kosinski"
 output:
   html_document:
     mathjax:  default
