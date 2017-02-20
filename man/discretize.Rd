@@ -14,32 +14,36 @@ mdlControl()
 equalsizeControl(k = 10)
 }
 \arguments{
-\item{x}{Explanatory continuous variables to be discretized or formula.}
+\item{x}{Explanatory continuous variables to be discretized or a \link{formula}.}
 
-\item{y}{Dependent variable for supervised discretization or data frame.}
+\item{y}{Dependent variable for supervised discretization or a \link{data.frame} when \code{x} ia a \link{formula}.}
 
-\item{control}{\code{control} object containing the parameters for
-discretization algorithm.}
+\item{control}{\code{discretizationControl} object containing the parameters for
+discretization algorithm. Possible inputs are \code{mdlControl} or \code{equalsizeControl}, so far. If passed as a list, the first element is used.}
 
-\item{keepAll}{Logical indicating if returned data frame should contain non
+\item{keepAll}{Logical indicating if a returned \link{data.frame} should contain non
 discretized columns.}
 
-\item{call}{Keep as NULL. Inner method parameter for consistency.}
+\item{call}{Keep as \code{NULL}. Inner method parameter for consistency.}
 
 \item{k}{Number of partitions.}
 }
 \description{
 Discretize a range of numeric attributes in the dataset into nominal
 attributes. \code{Minimum Description Length} (MDL) method is set as default
-control. There is also available equalsizeControl method.
+control. There is also available \code{equalsizeControl} method.
 }
 \examples{
 
+# vectors
 discretize(x = iris[[1]], y = iris[[5]])
 
+# list and vector
 discretize(x = list(iris[[1]], iris$Sepal.Width), y = iris$Species)
 
+# formula input
 discretize(x = Species ~ ., y = iris)
+discretize(Species ~ ., iris)
 
 \dontrun{
 # Same results

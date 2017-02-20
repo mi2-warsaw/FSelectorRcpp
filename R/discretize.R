@@ -2,15 +2,15 @@
 #'
 #' Discretize a range of numeric attributes in the dataset into nominal
 #' attributes. \code{Minimum Description Length} (MDL) method is set as default
-#' control. There is also available equalsizeControl method.
+#' control. There is also available \code{equalsizeControl} method.
 #'
-#' @param x Explanatory continuous variables to be discretized or formula.
-#' @param y Dependent variable for supervised discretization or data frame.
-#' @param control \code{control} object containing the parameters for
-#'   discretization algorithm.
-#' @param keepAll Logical indicating if returned data frame should contain non
+#' @param x Explanatory continuous variables to be discretized or a \link{formula}.
+#' @param y Dependent variable for supervised discretization or a \link{data.frame} when \code{x} ia a \link{formula}.
+#' @param control \code{discretizationControl} object containing the parameters for
+#'   discretization algorithm. Possible inputs are \code{mdlControl} or \code{equalsizeControl}, so far. If passed as a list, the first element is used.
+#' @param keepAll Logical indicating if a returned \link{data.frame} should contain non
 #'   discretized columns.
-#' @param call Keep as NULL. Inner method parameter for consistency.
+#' @param call Keep as \code{NULL}. Inner method parameter for consistency.
 #'
 #' @references U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
 #'   Continuous-Valued Attributes for Classi- fication Learning. In 13th
@@ -19,11 +19,15 @@
 #'
 #' @examples
 #'
+#' # vectors
 #' discretize(x = iris[[1]], y = iris[[5]])
 #'
+#' # list and vector
 #' discretize(x = list(iris[[1]], iris$Sepal.Width), y = iris$Species)
 #'
+#' # formula input
 #' discretize(x = Species ~ ., y = iris)
+#' discretize(Species ~ ., iris)
 #'
 #' \dontrun{
 #' # Same results
