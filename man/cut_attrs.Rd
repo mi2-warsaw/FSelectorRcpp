@@ -15,7 +15,7 @@ For \code{0 < k < 1} it stands for the percent of top attributes to take
 (chooses best k * 100\% of attributes).}
 }
 \description{
-Select cutoffs for ranked attributes.
+Select Cutoffs for Ranked Attributes
 }
 \examples{
 

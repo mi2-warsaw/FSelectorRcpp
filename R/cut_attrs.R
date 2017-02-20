@@ -1,6 +1,6 @@
 #' Cutoff attributes
 #'
-#' Select cutoffs for ranked attributes.
+#' Select Cutoffs for Ranked Attributes
 #'
 #' @param attrs data.frame with attributes' importance.
 #' @param k A numeric. For \code{k >= 1} it indicates how many attributes to

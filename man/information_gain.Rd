@@ -2,7 +2,7 @@
 % Please edit documentation in R/information_gain.R
 \name{information_gain}
 \alias{information_gain}
-\title{Entropy-based filters}
+\title{Entropy-based Filters}
 \usage{
 information_gain(formula, data, x, y, type = c("infogain", "gainratio",
   "symuncert"), threads = 1)
