@@ -32,6 +32,14 @@ of attributes subsets.}
 A convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that
 extract valuable attributes depending on the evaluation method (called evaluator).
 }
+\details{
+The evaluator function passed with \code{fun} is used to determine
+the importance score of current features' subset.
+The score is used in a multiple-way (backward or forward) \code{greedy}
+algorithm as a stopping moment or as a selection criterion
+in the \code{exhaustive} search that checks all possible
+attributes' subset combinations (of sizes passed in \code{sizes}).
+}
 \examples{
 
 # Enable parallelization in examples
