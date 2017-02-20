@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{get_best_attributes}
 \alias{get_best_attributes}
-\title{Get best attributes}
+\title{Get the best attributes}
 \usage{
 get_best_attributes(x)
 }
@@ -10,7 +10,7 @@ get_best_attributes(x)
 \item{x}{An object fitted with \code{feature_search} function.}
 }
 \description{
-Extract best attributes subset from fitted object.
+Extract attributes subset with the highest score from the fitted object.
 }
 \examples{
 

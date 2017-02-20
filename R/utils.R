@@ -28,9 +28,9 @@ to_formula <- function(attr, class) {
   as.formula(paste(class, paste(attr, collapse = " + "), sep = " ~ "))
 }
 
-#' Get best attributes
+#' Get the best attributes
 #'
-#' Extract best attributes subset from fitted object.
+#' Extract attributes subset with the highest score from the fitted object.
 #'
 #' @param x An object fitted with \code{feature_search} function.
 #'
