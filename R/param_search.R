@@ -45,8 +45,8 @@ exhaustive_search <- function(attributes, fun, data,
   allResults <- setNames(as.data.frame(t(rbind(childComb, result))),
                          c(attributes, "values"))
   bestResult <- allResults[maxIdx, ]
-  res <- list(bestResult = bestResult,
-              allResults = allResults,
+  res <- list(best = bestResult,
+              all = allResults,
               fun = fun)
 
   return(res)
@@ -111,8 +111,8 @@ greedy_search <- function(attributes, fun, data,
   allResults <- setNames(as.data.frame(allResults),
                          c(attributes, "values"))
   bestResult <- tail(allResults, 1)
-  res <- list(bestResult = bestResult,
-              allResults = allResults,
+  res <- list(best = bestResult,
+              all = allResults,
               fun = fun)
 
   return(res)
@@ -128,9 +128,9 @@ greedy_search <- function(attributes, fun, data,
 #' See Examples.
 #' @param data A data set for \code{fun} function (evaluator).
 #' @param mode A character that determines which search algorithm to perform.
-#' @param type An argument for \code{mode = "greedy"} - whether to use the
+#' @param type Used when \code{mode = "greedy"} - whether to use the
 #' \code{backward} or the \code{forward} multiple-way search.
-#' @param sizes An argument for \code{mode = "exhaustive"}. Vector of sizes
+#' @param sizes Used when \code{mode = "exhaustive"} - a vector of sizes
 #' of attributes subsets.
 #' @param parallel Allow parallelization.
 #' @param \dots Other arguments passed to \link{foreach} function.
@@ -149,6 +149,18 @@ greedy_search <- function(attributes, fun, data,
 #' algorithm as a stopping moment or as a selection criterion
 #' in the \code{exhaustive} search that checks all possible
 #' attributes' subset combinations (of sizes passed in \code{sizes}).
+#'
+#' @return A list with following components
+#' \itemize{
+#'   \item best - a \link{data.frame} with the best subset and it's score (1 - feature used, 0 - feature not used),
+#'   \item all - a \link{data.frame} with all checked features' subsets and their score (1 - feature used, 0 - feature not used),
+#'   \item data - the data used in the feature selection,
+#'   \item fun - the evaluator used to compute the score of importance for features' subsets,
+#'   \item call - an origin call of the \code{feature_search},
+#'   \item mode - the mode used in the call.
+#' }
+#'
+#' @note Note that score depends on the evaluator you provide in the \code{fun} parameter.
 #'
 #' @examples
 #'
@@ -261,7 +273,7 @@ feature_search <- function(attributes, fun, data,
                                 parallel = parallel, ...)
   }
 
-  output <- c(output, call = call)
+  output <- c(output, call = call, mode = mode, data = data)
 
   return(output)
 }
