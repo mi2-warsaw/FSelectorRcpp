@@ -1,0 +1,41 @@
+---
+title: "Motivation, Installation <br> and Quick Workflow"
+subtitle: "<small> <br>[Marcin Kosiński](http://r-addict.com/About.html) </small>"
+author: "<small><a href='https://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a></small><br>"
+output:
+  html_document:
+    mathjax:  default
+    fig_caption:  true
+    toc: true
+    section_numbering: true
+    css: ggsci.css
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Get started: Motivation, Installation and Quick Workflow}
+---
+
+```{r setup, include = FALSE}
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+library(knitr)
+opts_chunk$set(
+    comment = "",
+    fig.width = 12,
+    message = FALSE,
+    warning = FALSE,
+    tidy.opts = list(
+        keep.blank.line = TRUE,
+        width.cutoff = 150
+        ),
+    options(width = 150),
+    eval = TRUE
+)
+```
+
+### Installation
+
+```{r}
+install.packages('FSelectorRcpp') # stable release version on CRAN
+devtools::install_github('mi2-warsaw/FSelectorRcpp') # dev version
+# windows users should have Rtools for devtools installation
+# https://cran.r-project.org/bin/windows/Rtools/
+```
