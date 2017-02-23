@@ -2,17 +2,17 @@
 % Please edit documentation in R/utils.R
 \name{to_formula}
 \alias{to_formula}
-\title{Create formula object}
+\title{Create a formula Object}
 \usage{
 to_formula(attr, class)
 }
 \arguments{
 \item{attr}{character vector with names of independent variables}
 
-\item{class}{single string with dependent variable name}
+\item{class}{single string with a dependent variable's name}
 }
 \description{
-Utility function to create formula object.
+Utility function to create a \link{formula} object.
 }
 \examples{
 
