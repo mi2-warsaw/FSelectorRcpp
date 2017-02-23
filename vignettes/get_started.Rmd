@@ -1,5 +1,5 @@
 ---
-title: "Motivation, Installation <br> and Quick Workflow"
+title: "Motivation, Installation and Quick Workflow"
 subtitle: "<small> [Marcin Kosiński](http://r-addict.com/About.html) &nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='https://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a> <br> [Zygmunt Zawadzki](http://www.zstat.pl/) &nbsp;&nbsp;<a href='http://www.zstat.pl/'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/zzawadz'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:zygmunt.zawadzki@gmail.com'><i class='fa fa-envelope-o'></i></a></small><br>"
 output:
   html_document:
@@ -33,7 +33,7 @@ opts_chunk$set(
 
 [FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/) is an [Rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html) (free of Java/Weka) implementation of [FSelector](https://cran.r-project.org/web/packages/FSelector/index.html) entropy-based feature selection algorithms with a sparse matrix support.
 
-### Installation
+## Installation
 
 ```{r, eval=FALSE}
 install.packages('FSelectorRcpp') # stable release version on CRAN
@@ -42,7 +42,7 @@ devtools::install_github('mi2-warsaw/FSelectorRcpp') # dev version
 # https://cran.r-project.org/bin/windows/Rtools/
 ```
 
-### Motivation
+## Motivation
 
 In the modern statistical learning the biggest bottlenecks are computation times of model training procedures and the overfitting. Both are caused by the same issue - the high dimension of explanatory variables space. Researchers have encountered problems with too big sets of features used in machine learning algorithms also in terms of model interpretaion. This motivates applying feature selection algorithms before performing statisical modeling, so that on smaller set of attributes the training time will be shorter, the interpretation might be clearer and the noise from non important features can be avoided. More motivation can be found in \cite{John94irrelevantfeatures}.
 
@@ -54,9 +54,9 @@ Few classification and regression models can reduce redundand variables during t
 
 In business applications there appear a need to provide a fast feature selection that is extremely easy to understand. For such demands easy methods are prefered. This motivates using simple techniques like **Entropy Based Feature Selection** [@Largeron:2011:EBF:1982185.1982389], where every feature can be checked independently so that computations can be performed in a parallel to shorter the procedure's time. For this approach we provide an R interface to **Rcpp** reimplementation [@Rcpp] of methods included in **FSelector** package which we also extended with parallel background and sparse matrix support. This has significant impact on computations time and can be used on greater datasets, comparing to **FSelector**. Additionally we avoided the Weka [@Hall:2009:WDM:1656274.1656278] dependency and we provided faster discretization implementations than those from **entropy** package, used originally in **FSelector**.
 
-### Quick Workflow
+## Quick Workflow
 
-### Use cases
+## Use cases
 
 - [Entropy Based Image Binarization with imager and FSelectorRcpp](http://r-addict.com/2017/01/08/Entropy-Based-Image-Binarization.html)
 - [Venn Diagram Comparison of Boruta, FSelectorRcpp and GLMnet Algorithms](http://www.r-bloggers.com/venn-diagram-comparison-of-boruta-fselectorrcpp-and-glmnet-algorithms/)
