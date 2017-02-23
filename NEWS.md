@@ -11,4 +11,4 @@ Provided functions
 - `information_gain()` - algorithms that find ranks of importance of discrete attributes, basing on their  entropy with a continous class attribute,
 - `feature_search()` - a convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that extract valuable attributes depending on the evaluation method (called evaluator),
 - `cut_attrs()` - select attributes by their score/rank/weights, depending on the cutoff that may be specified by the percentage of the highest ranked attributes or by the number of the highest ranked attributes,
-- `to_formula()` (misc) - create formula object from a vector.
+- `to_formula()` (misc) - create a `formula` object from a vector.
