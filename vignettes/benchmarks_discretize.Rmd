@@ -1,6 +1,6 @@
 ---
-title: "discretize() benchmark"
-author: "Krzysztof Słomczyński, Marcin Kosinski"
+title: "Benchmarks: discretize()"
+subtitle: "<small> [Marcin Kosiński](http://r-addict.com/About.html) &nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='https://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a> <br> [Krzysztof Słomczyński](https://www.linkedin.com/in/krzysztof-s%C5%82omczy%C5%84ski-20a364134) &nbsp;&nbsp;<a href='https://github.com/krzyslom'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:krzysztofslomczynski@gmail.com'><i class='fa fa-envelope-o'></i></a></small><br>"
 output:
   html_document:
     mathjax:  default
@@ -8,12 +8,14 @@ output:
     toc: true
     section_numbering: true
     css: ggsci.css
+bibliography: RJreferences.bib
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Microbenchmarks of FSelectoRcpp and FSelector}
+  %\VignetteIndexEntry{Microbenchmarks of FSelectoRcpp and FSelector - discretization}
 ---
 
 ```{r setup, include = FALSE}
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 library(knitr)
 opts_chunk$set(
     comment = "",
@@ -30,12 +32,19 @@ opts_chunk$set(
 ```
 
 ```{r}
-# install.packages('microbenchmark')
 library(microbenchmark)
-
 library(FSelectorRcpp)
 library(RWeka)
 ```
+
+# About discretization
+
+In the statistical modelling, the **discretization** is the process of transferring continuous explanatory variables into discrete counterparts. Problems caused by categorization of continuous variables are known and widely spread [@HarrellDISC], but in some cases there appear an algorithmic requirement for the discretization. Moreover, there exist few algorithms, like **Decision Trees** [@Salzberg1994], where continuous attributes are discretized during the learning process.  Other reason for variable discretization include increasing the speed of induction algorithms [@Catlett1991].
+
+Even though many categorization algorithms have been developed [@Holte1993, @Chan169942], in this article we focus on a recursive entropy minimization heuristic for categorization coupled with a **Minimum Description Length (MDL)** critetion [@rissanen1986] that controls the number of intervals produced over the continuous space. This is motivated by the original usage of this algorithm in **FSelector** package, which is our baseline. 
+
+[@Dougherty95supervisedand] showed better performance of classification for discretized feature set on real-world datasets and states that the described method was found promising by the authors not only for the local discretization but also for global discretization [@Ting94discretizationof].
+
 
 # Comparisons on RTCGA data
 
@@ -43,7 +52,7 @@ library(RWeka)
 
 > The Cancer Genome Atlas (TCGA) is a comprehensive and coordinated effort to accelerate our understanding of the molecular basis of cancer through the application of genome analysis technologies, including large-scale genome sequencing - [http://cancergenome.nih.gov/](http://cancergenome.nih.gov/). 
 
-[Our team](https://github.com/orgs/RTCGA/people) converted selected datasets from this study into few separate packages that are hosted on Bioconductor. These R packages make selected datasets easier to access and manage. Data sets in RTCGA packages are large and cover complex relations between clinical outcomes and genetic background.
+[RTCGA team](https://github.com/orgs/RTCGA/people) converted selected datasets from this study into few separate packages that are hosted on Bioconductor. These R packages make selected datasets easier to access and manage. Data sets in RTCGA packages are large and cover complex relations between clinical outcomes and genetic background.
 
 To use RTCGA install package with instructions from it's [Bioconductor home page](https://www.bioconductor.org/packages/RTCGA/)
 
@@ -53,11 +62,11 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("RTCGA")
 ```
 
-### Dependent variable
+## Dependent variable
 
 Specifies whether a sample came from tumour or healthy tissue. It is denoted by 14th sign in `bcr_patiend_barcode` variable in `BRCA.rnaseq` dataset that containt RNA-Seq genes' expressions for patients suffering from Breast Cancer.
 
-### Independent variables
+## Independent variables
 
 It is mandatory to get rid of special signs from their names.
 
@@ -72,12 +81,12 @@ names(BRCA.rnaseq) <- gsub(pattern = "[[:punct:]]", replacement = "_",
                            x = names(BRCA.rnaseq))
 ```
 
-### More
+## More
 
 - [RTCGA Quick Guide](http://r-addict.com/2016/05/04/RTCGA-Quick-Guide.html)
 - [RTCGA Website](http://rtcga.github.io/RTCGA/)
 
-## Discretization
+# Discretization Benchmarks
 
 ```{r}
 library(ggplot2)
@@ -176,9 +185,11 @@ bm_plot <- make_plot("time")
 bm_plot_log <- make_plot("log(time)")
 ```
 
-### Plots
+## Plots
 
 ```{r}
 bm_plot
 bm_plot_log
 ```
+
+# References
