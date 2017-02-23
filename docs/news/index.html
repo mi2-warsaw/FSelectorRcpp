@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Select Attributes by Score Depending on the Cutoff — cut_attrs • FSelectorRcpp</title>
+<title>All news • FSelectorRcpp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -34,7 +34,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -70,49 +70,43 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9 contents">
+
+  <div class="col-md-9">
     <div class="page-header">
-    <h1>Select Attributes by Score Depending on the Cutoff</h1>
+      <h1>Change log <small>All releases</small></h1>
     </div>
 
-    
-    <p>Select attributes by their score/rank/weights, depending on the cutoff that may be specified
-by the percentage of the highest ranked attributes or by the number of the highest ranked attributes.</p>
-    
-
-    <pre><span class='fu'>cut_attrs</span>(<span class='no'>attrs</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>attrs</dt>
-      <dd>A data.frame with attributes&#39; importance.</dd>
-      <dt>k</dt>
-      <dd>A numeric. For <code>k &gt;= 1</code> it indicates how many attributes to
-take with the highest attribute rank (chooses k best attributes).
-For <code>0 &lt; k &lt; 1</code> it stands for the percent of top attributes to take
-(chooses best k * 100% of attributes).</dd>
-    </dl>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='information_gain.html'>information_gain</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='no'>iris</span>)
-<span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; [1] &quot;Petal.Width&quot;  &quot;Petal.Length&quot;</div><div class='input'><span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] &quot;Petal.Width&quot;</div></pre>
+    <div class="contents">
+    <div id="fselectorrcpp-0-1-0" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fselectorrcpp-0-1-0" class="anchor"> </a>FSelectorRcpp 0.1.0</h2>
+<p>Rcpp (free of Java/Weka) implementation of <a href="https://cran.r-project.org/web/packages/FSelector/index.html">FSelector</a> entropy-based feature selection algorithms with sparse matrix support.</p>
+<p>Provided functions</p>
+<ul>
+<li>
+<code><a href="../reference/discretize.html">discretize()</a></code> with additional <code><a href="../reference/discretize.html">equalsizeControl()</a></code> and <code>mdlControl</code> - discretize a range of numeric attributes in the dataset into nominal attributes. <strong>Minimum Description Length (MDL)</strong> method is set as the default control. There is also available <code><a href="../reference/discretize.html">equalsizeControl()</a></code> method.</li>
+<li>
+<code><a href="../reference/information_gain.html">information_gain()</a></code> - algorithms that find ranks of importance of discrete attributes, basing on their entropy with a continous class attribute,</li>
+<li>
+<code><a href="../reference/feature_search.html">feature_search()</a></code> - a convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that extract valuable attributes depending on the evaluation method (called evaluator),</li>
+<li>
+<code><a href="../reference/cut_attrs.html">cut_attrs()</a></code> - select attributes by their score/rank/weights, depending on the cutoff that may be specified by the percentage of the highest ranked attributes or by the number of the highest ranked attributes,</li>
+<li>
+<code><a href="../reference/to_formula.html">to_formula()</a></code> (misc) - create a <code>formula</code> object from a vector.</li>
+</ul>
+</div>
+    </div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    
-Damian Skrzypiec <a href='mailto:damian.j.skrzypiec@gmail.com'>damian.j.skrzypiec@gmail.com</a> and
-Zygmunt Zawadzki <a href='mailto:zygmunt@zstat.pl'>zygmunt@zstat.pl</a>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#fselectorrcpp-0-1-0">0.1.0</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>
