@@ -118,7 +118,7 @@ greedy_search <- function(attributes, fun, data,
   return(res)
 }
 
-#' General Feature Searching Function
+#' General Feature Searching Engine
 #'
 #' A convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that
 #' extract valuable attributes depending on the evaluation method (called evaluator).
