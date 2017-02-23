@@ -1,7 +1,7 @@
 #' Discretization
 #'
 #' Discretize a range of numeric attributes in the dataset into nominal
-#' attributes. \code{Minimum Description Length} (MDL) method is set as default
+#' attributes. \code{Minimum Description Length} (MDL) method is set as the default
 #' control. There is also available \code{equalsizeControl} method.
 #'
 #' @param x Explanatory continuous variables to be discretized or a \link{formula}.
