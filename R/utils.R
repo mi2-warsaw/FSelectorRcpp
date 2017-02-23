@@ -11,12 +11,12 @@ formula2names <- function(formula, data) {
   list(y = as.character(y), x = x)
 }
 
-#' Create formula object
+#' Create a formula Object
 #'
-#' Utility function to create formula object.
+#' Utility function to create a \link{formula} object.
 #'
 #' @param attr character vector with names of independent variables
-#' @param class single string with dependent variable name
+#' @param class single string with a dependent variable's name
 #'
 #' @examples
 #'
