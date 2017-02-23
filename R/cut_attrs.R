@@ -1,6 +1,7 @@
-#' Cutoff attributes
+#' Select Attributes by Score Depending on the Cutoff
 #'
-#' Select Cutoffs for Ranked Attributes
+#' Select attributes by their score/rank/weights, depending on the cutoff that may be specified
+#' by the percentage of the highest ranked attributes or by the number of the highest ranked attributes.
 #'
 #' @param attrs A \link{data.frame} with attributes' importance.
 #' @param k A numeric. For \code{k >= 1} it indicates how many attributes to
