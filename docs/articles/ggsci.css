@@ -73,6 +73,7 @@ table thead, table tr.even {
 
 p {
   margin: 0.5em 0;
+  text-align: justify;
 }
 
 blockquote {
