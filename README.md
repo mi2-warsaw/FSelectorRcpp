@@ -11,16 +11,11 @@ Rcpp (free of Java/Weka) implementation of [FSelector](https://cran.r-project.or
 
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
-### Provided functions
+### Get started: [Motivation, Installation and Quick Workflow](http://mi2-warsaw.github.io/FSelectorRcpp/articles/get_started.html)
 
-- `discretize()` with additional `equalsizeControl()` and `mdlControl` - discretize a range of numeric attributes in the dataset into nominal attributes. **Minimum Description Length (MDL)** method is set as the default control. There is also available `equalsizeControl()` method.
-- `information_gain()` - algorithms that find ranks of importance of discrete attributes, basing on their  entropy with a continous class attribute,
-- `feature_search()` - a convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that extract valuable attributes depending on the evaluation method (called evaluator),
-- `cut_attrs()` - select attributes by their score/rank/weights, depending on the cutoff that may be specified by the percentage of the highest ranked attributes or by the number of the highest ranked attributes,
-- `to_formula()` (misc) - create a `formula` object from a vector.
+### [Provided functionalities](http://mi2-warsaw.github.io/FSelectorRcpp/reference/)
 
-
-### Blog posts history
+### Blog posts history with use cases
 
 - [Entropy Based Image Binarization with imager and FSelectorRcpp, Marcin Kosiński](http://r-addict.com/2017/01/08/Entropy-Based-Image-Binarization.html)
 - [Venn Diagram Comparison of Boruta, FSelectorRcpp and GLMnet Algorithms, Marcin Kosiński](http://www.r-bloggers.com/venn-diagram-comparison-of-boruta-fselectorrcpp-and-glmnet-algorithms/)
