@@ -20,22 +20,6 @@ formula2names <- function(formula, data) {
 #'
 #' @examples
 #'
-#' to_formula(names(iris)[-5], names(iris)[5])
-#'
-#' @importFrom stats as.formula
-#' @export
-to_formula <- function(attr, class) {
-  as.formula(paste(class, paste(attr, collapse = " + "), sep = " ~ "))
-}
-
-#' Get the best attributes
-#'
-#' Extract attributes subset with the highest score from the fitted object.
-#'
-#' @param x An object fitted with \code{feature_search} function.
-#'
-#' @examples
-#'
 #' # evaluator from FSelector package
 #' evaluator <- function(subset, data, dependent = names(iris)[5]) {
 #'   library(rpart)
@@ -56,20 +40,15 @@ to_formula <- function(attr, class) {
 #'
 #' fit <- feature_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
 #'                 mode = "exhaustive", parallel = FALSE)
-#' get_best_attributes(fit)
-#'
+#' fit$best
+#' names(fit$best)[fit$best == 1]
 #' # with to_formula
-#' to_formula(get_best_attributes(fit), "Species")
+#' to_formula(names(fit$best)[fit$best == 1], "Species")
 #'
+#' @importFrom stats as.formula
 #' @export
-get_best_attributes <- function(x) {
-  UseMethod("get_best_attributes")
-}
-
-#' @export
-get_best_attributes.default <- function(x) {
-  x$best$values <- NULL
-  names(x$best)
+to_formula <- function(attr, class) {
+  as.formula(paste(class, paste(attr, collapse = " + "), sep = " ~ "))
 }
 
 #' Get children
