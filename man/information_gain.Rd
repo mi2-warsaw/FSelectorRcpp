@@ -18,7 +18,7 @@ information_gain(formula, data, x, y, type = c("infogain", "gainratio",
 
 \item{type}{Method name.}
 
-\item{threads}{Number of threads for parallel backend}
+\item{threads}{Number of threads for parallel backend.}
 }
 \value{
 data.frame containing the worth of attributes in the first column and
@@ -30,7 +30,7 @@ entropy with a continous class attribute.
 }
 \details{
 \code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class,
-Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
+Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}
 
 \code{type = "gainratio"} is \deqn{\frac{H(Class) + H(Attribute) - H(Class,
 Attribute)}{H(Attribute)}}{(H(Class) + H(Attribute) - H(Class, Attribute)) /
@@ -41,12 +41,12 @@ Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class,
 Attribute)) / (H(Attribute) + H(Class))}
 
 where H(X) is Shannon's Entropy for a variable X and H(X, Y) is a conditional
-Shannon's Entropy for a variable X with a condition to Y
+Shannon's Entropy for a variable X with a condition to Y.
 }
 \examples{
 
-irisX = iris[-5]
-y = iris$Species
+irisX <- iris[-5]
+y <- iris$Species
 
 ## data.frame interface
 information_gain(x = irisX, y = y)
@@ -60,7 +60,7 @@ information_gain(formula = Species ~ ., data = iris, type = "symuncert")
 library(Matrix)
 i <- c(1, 3:8); j <- c(2, 9, 6:10); x <- 7 * (1:7)
 x <- sparseMatrix(i, j, x = x)
-y = c(1, 1, 1, 1, 2, 2, 2, 2)
+y <- c(1, 1, 1, 1, 2, 2, 2, 2)
 
 information_gain(x = x, y = y)
 information_gain(x = x, y = y, type = "gainratio")
