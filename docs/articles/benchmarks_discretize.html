@@ -67,7 +67,7 @@
 <div id="about-discretization" class="section level1">
 <h1 class="hasAnchor">
 <html><body><a href="#about-discretization" class="anchor"> </a></body></html>About discretization</h1>
-<p>In statistical modelling, the <strong>discretization</strong> is the process of transferring continuous explanatory variables into discrete counterparts. Problems caused by categorization of continuous variables are known and widely spread <span class="citation">(Harrell 2015)</span>, but in some cases there appear an algorithmic requirement for the discretization. Moreover, there exist few algorithms, like <strong>Decision Trees</strong> <span class="citation">(Salzberg 1994)</span>, where continuous attributes are discretized during the learning process. Other reason for variable discretization include increasing the speed of induction algorithms <span class="citation">(Catlett 1991)</span>.</p>
+<p>In the statistical modelling, the <strong>discretization</strong> is the process of transferring continuous explanatory variables into discrete counterparts. Problems caused by categorization of continuous variables are known and widely spread <span class="citation">(Harrell 2015)</span>, but in some cases there appear an algorithmic requirement for the discretization. Moreover, there exist few algorithms, like <strong>Decision Trees</strong> <span class="citation">(Salzberg 1994)</span>, where continuous attributes are discretized during the learning process. Other reason for variable discretization include increasing the speed of induction algorithms <span class="citation">(Catlett 1991)</span>.</p>
 <p>Even though many categorization algorithms have been developed <span class="citation">(Holte 1993, <span class="citation">Chan, Batur, and Srinivasan (1991)</span>)</span>, in this article we focus on a recursive entropy minimization heuristic for categorization coupled with a <strong>Minimum Description Length (MDL)</strong> critetion <span class="citation">(Rissanen 1986)</span> that controls the number of intervals produced over the continuous space. This is motivated by the original usage of this algorithm in <strong>FSelector</strong> package, which is our baseline.</p>
 <p><span class="citation">(Dougherty, Kohavi, and Sahami 1995)</span> showed better performance of classification for discretized feature set on real-world datasets and states that the described method was found promising by the authors not only for the local discretization but also for global discretization <span class="citation">(Ting 1994)</span>.</p>
 </div>
@@ -198,7 +198,7 @@ bm_fsr_discretize &lt;-<span class="st"> </span><span class="kw">get_times</span
    |+++++++++++++                                     | 25% ~00s          
    |+++++++++++++++++++++++++                         | 50% ~00s          
    |++++++++++++++++++++++++++++++++++++++            | 75% ~00s          
-   |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 02s
+   |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 01s
 
    |++++++++++++++++++++++++++++++                    | 60% ~02s          
    |+++++++++++++                                     | 25% ~00s          
@@ -212,7 +212,7 @@ bm_fsr_discretize &lt;-<span class="st"> </span><span class="kw">get_times</span
    |++++++++++++++++++++++++++++++++++++++            | 75% ~00s          
    |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 02s
 
-   |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 08s</code></pre>
+   |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 07s</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bm_rwk_discretize &lt;-<span class="st"> </span><span class="kw">get_times</span>(<span class="dt">fun =</span> Discretize,
                                <span class="dt">vecRows =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">200</span>, <span class="dt">to =</span> <span class="dv">1000</span>, <span class="dt">by =</span> <span class="dv">200</span>),
                                <span class="dt">vecCols =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">1000</span>),
@@ -221,23 +221,23 @@ bm_fsr_discretize &lt;-<span class="st"> </span><span class="kw">get_times</span
    |+++++++++++++                                     | 25% ~02s          
    |+++++++++++++++++++++++++                         | 50% ~01s          
    |++++++++++++++++++++++++++++++++++++++            | 75% ~01s          
-   |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 04s
+   |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 03s
 
-   |++++++++++                                        | 20% ~15s          
-   |+++++++++++++                                     | 25% ~01s          
+   |++++++++++                                        | 20% ~14s          
+   |+++++++++++++                                     | 25% ~00s          
    |+++++++++++++++++++++++++                         | 50% ~00s          
    |++++++++++++++++++++++++++++++++++++++            | 75% ~00s          
    |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 03s
 
-   |++++++++++++++++++++                              | 40% ~11s          
-   |+++++++++++++                                     | 25% ~00s          
+   |++++++++++++++++++++                              | 40% ~10s          
+   |+++++++++++++                                     | 25% ~01s          
    |+++++++++++++++++++++++++                         | 50% ~00s          
    |++++++++++++++++++++++++++++++++++++++            | 75% ~01s          
    |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 04s
 
    |++++++++++++++++++++++++++++++                    | 60% ~07s          
-   |+++++++++++++                                     | 25% ~01s          
-   |+++++++++++++++++++++++++                         | 50% ~01s          
+   |+++++++++++++                                     | 25% ~00s          
+   |+++++++++++++++++++++++++                         | 50% ~00s          
    |++++++++++++++++++++++++++++++++++++++            | 75% ~01s          
    |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 05s
 
@@ -275,9 +275,9 @@ bm_plot_log &lt;-<span class="st"> </span><span class="kw">make_plot</span>(<spa
 <h2 class="hasAnchor">
 <html><body><a href="#plots" class="anchor"> </a></body></html>Plots</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bm_plot</code></pre></div>
-<p><img src="benchmarks_discretize_files/figure-html/unnamed-chunk-5-1.png" width="1152"></p>
+<p><img src="benchmarks_discretize_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bm_plot_log</code></pre></div>
-<p><img src="benchmarks_discretize_files/figure-html/unnamed-chunk-5-2.png" width="1152"></p>
+<p><img src="benchmarks_discretize_files/figure-html/unnamed-chunk-5-2.png" width="768"></p>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">

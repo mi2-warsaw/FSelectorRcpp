@@ -16,10 +16,10 @@ See Examples.}
 
 \item{data}{A data set for \code{fun} function (evaluator).}
 
-\item{mode}{A character that determines which search algorithm to perform.}
+\item{mode}{A character that determines which search algorithm to perform. Defualt is \code{"greedy"}.}
 
 \item{type}{Used when \code{mode = "greedy"} - whether to use the
-\code{backward} or the \code{forward} multiple-way search.}
+\code{backward} or the \code{forward} multiple-way search. Default is \code{"forward"}.}
 
 \item{sizes}{Used when \code{mode = "exhaustive"} - a vector of sizes
 of attributes subsets.}

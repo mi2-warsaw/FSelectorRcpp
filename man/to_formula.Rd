@@ -7,12 +7,12 @@
 to_formula(attr, class)
 }
 \arguments{
-\item{attr}{character vector with names of independent variables}
+\item{attr}{Character vector with names of independent variables.}
 
-\item{class}{single string with a dependent variable's name}
+\item{class}{Single string with a dependent variable's name.}
 }
 \description{
-Utility function to create a \link{formula} object.
+Utility function to create a \link{formula} object. Note that it may be very useful when you use pipes.
 }
 \examples{
 

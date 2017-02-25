@@ -96,7 +96,7 @@ entropy with a continous class attribute.</p>
       <dt>type</dt>
       <dd>Method name.</dd>
       <dt>threads</dt>
-      <dd>Number of threads for parallel backend</dd>
+      <dd>Number of threads for parallel backend.</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -107,19 +107,19 @@ their names as row names.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>type = &quot;infogain&quot;</code> is $$H(Class) + H(Attribute) - H(Class,
-Attribute)$$.</p>
+Attribute)$$</p>
     <p><code>type = &quot;gainratio&quot;</code> is $$\frac{H(Class) + H(Attribute) - H(Class,
 Attribute)}{H(Attribute)}$$</p>
     <p><code>type = &quot;symuncert&quot;</code> is $$2\frac{H(Class) + H(Attribute) - H(Class,
 Attribute)}{H(Attribute) + H(Class)}$$</p>
     <p>where H(X) is Shannon&#39;s Entropy for a variable X and H(X, Y) is a conditional
-Shannon&#39;s Entropy for a variable X with a condition to Y</p>
+Shannon&#39;s Entropy for a variable X with a condition to Y.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>irisX</span> <span class='kw'>=</span> <span class='no'>iris</span>[-<span class='fl'>5</span>]
-<span class='no'>y</span> <span class='kw'>=</span> <span class='no'>iris</span>$<span class='no'>Species</span>
+<span class='no'>irisX</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[-<span class='fl'>5</span>]
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>$<span class='no'>Species</span>
 
 <span class='co'>## data.frame interface</span>
 <span class='fu'>information_gain</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>irisX</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)</div><div class='output co'>#&gt;              importance
@@ -145,7 +145,7 @@ Shannon&#39;s Entropy for a variable X with a condition to Y</p>
 <span class='fu'>library</span>(<span class='no'>Matrix</span>)
 <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>3</span>:<span class='fl'>8</span>); <span class='no'>j</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>9</span>, <span class='fl'>6</span>:<span class='fl'>10</span>); <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>7</span> * (<span class='fl'>1</span>:<span class='fl'>7</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>sparseMatrix</span>(<span class='no'>i</span>, <span class='no'>j</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>)
-<span class='no'>y</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)
 
 <span class='fu'>information_gain</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)</div><div class='output co'>#&gt;    importance
 #&gt; 1  0.00000000
