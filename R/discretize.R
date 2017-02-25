@@ -13,7 +13,7 @@
 #' @param call Keep as \code{NULL}. Inner method parameter for consistency.
 #'
 #' @references U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
-#'   Continuous-Valued Attributes for Classi- fication Learning. In 13th
+#'   Continuous-Valued Attributes for Classification Learning. In 13th
 #'   International Joint Conference on Uncertainly in Artificial
 #'   Intelligence(IJCAI93), pages 1022-1029, 1993.
 #'
