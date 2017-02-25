@@ -6,7 +6,7 @@
 #' @details
 #'
 #' \code{type = "infogain"} is \deqn{H(Class) + H(Attribute) - H(Class,
-#' Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}.
+#' Attribute)}{H(Class) + H(Attribute) - H(Class, Attribute)}
 #'
 #' \code{type = "gainratio"} is \deqn{\frac{H(Class) + H(Attribute) - H(Class,
 #' Attribute)}{H(Attribute)}}{(H(Class) + H(Attribute) - H(Class, Attribute)) /
@@ -17,14 +17,14 @@
 #' Attribute)) / (H(Attribute) + H(Class))}
 #'
 #' where H(X) is Shannon's Entropy for a variable X and H(X, Y) is a conditional
-#' Shannon's Entropy for a variable X with a condition to Y
+#' Shannon's Entropy for a variable X with a condition to Y.
 #'
 #' @param formula An object of class \link{formula} with model description.
 #' @param data A \link{data.frame} accompanying formula.
 #' @param x A \link{data.frame} or sparse matrix with attributes.
 #' @param y A vector with response variable.
 #' @param type Method name.
-#' @param threads Number of threads for parallel backend
+#' @param threads Number of threads for parallel backend.
 #'
 #' @return data.frame containing the worth of attributes in the first column and
 #' their names as row names.
