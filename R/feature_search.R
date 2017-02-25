@@ -127,9 +127,9 @@ greedy_search <- function(attributes, fun, data,
 #' @param fun A function (evaluator) to be used to score features' sets at each iteration of the algorithm passed via \code{mode}.
 #' See Examples.
 #' @param data A data set for \code{fun} function (evaluator).
-#' @param mode A character that determines which search algorithm to perform.
+#' @param mode A character that determines which search algorithm to perform. Defualt is \code{"greedy"}.
 #' @param type Used when \code{mode = "greedy"} - whether to use the
-#' \code{backward} or the \code{forward} multiple-way search.
+#' \code{backward} or the \code{forward} multiple-way search. Default is \code{"forward"}.
 #' @param sizes Used when \code{mode = "exhaustive"} - a vector of sizes
 #' of attributes subsets.
 #' @param parallel Allow parallelization.
