@@ -33,8 +33,8 @@
 #'
 #' @examples
 #'
-#' irisX = iris[-5]
-#' y = iris$Species
+#' irisX <- iris[-5]
+#' y <- iris$Species
 #'
 #' ## data.frame interface
 #' information_gain(x = irisX, y = y)
@@ -48,7 +48,7 @@
 #' library(Matrix)
 #' i <- c(1, 3:8); j <- c(2, 9, 6:10); x <- 7 * (1:7)
 #' x <- sparseMatrix(i, j, x = x)
-#' y = c(1, 1, 1, 1, 2, 2, 2, 2)
+#' y <- c(1, 1, 1, 1, 2, 2, 2, 2)
 #'
 #' information_gain(x = x, y = y)
 #' information_gain(x = x, y = y, type = "gainratio")
