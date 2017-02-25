@@ -13,10 +13,10 @@ formula2names <- function(formula, data) {
 
 #' Create a formula Object
 #'
-#' Utility function to create a \link{formula} object.
+#' Utility function to create a \link{formula} object. Note that it may be very useful when you use pipes.
 #'
-#' @param attr character vector with names of independent variables
-#' @param class single string with a dependent variable's name
+#' @param attr Character vector with names of independent variables.
+#' @param class Single string with a dependent variable's name.
 #'
 #' @examples
 #'

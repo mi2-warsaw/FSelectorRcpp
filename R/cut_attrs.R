@@ -4,7 +4,7 @@
 #' by the percentage of the highest ranked attributes or by the number of the highest ranked attributes.
 #'
 #' @param attrs A \link{data.frame} with attributes' importance.
-#' @param k A numeric. For \code{k >= 1} it indicates how many attributes to
+#' @param k A numeric. For \code{k >= 1} it takes \code{floor(k)} and then it indicates how many attributes to
 #' take with the highest attribute rank (chooses k best attributes).
 #' For \code{0 < k < 1} it stands for the percent of top attributes to take
 #' (chooses best k * 100\% of attributes).
