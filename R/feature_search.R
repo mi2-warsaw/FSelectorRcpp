@@ -121,7 +121,8 @@ greedy_search <- function(attributes, fun, data,
 #' General Feature Searching Engine
 #'
 #' A convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that
-#' extract valuable attributes depending on the evaluation method (called evaluator).
+#' extract valuable attributes depending on the evaluation method (called evaluator). This function
+#' is a reimplementation of \pkg{FSelector}'s \link[FSelector]{exhaustive.search} and \link[FSelector]{greedy.search}.
 #'
 #' @param attributes A character vector with attributes' names to be used to extract the most valuable features.
 #' @param fun A function (evaluator) to be used to score features' sets at each iteration of the algorithm passed via \code{mode}.
