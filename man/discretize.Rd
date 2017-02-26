@@ -7,7 +7,7 @@
 \title{Discretization}
 \usage{
 discretize(x, y, control = list(mdlControl(), equalsizeControl()),
-  keepAll = FALSE, call = NULL)
+  all = FALSE, call = NULL)
 
 mdlControl()
 
@@ -21,8 +21,8 @@ equalsizeControl(k = 10)
 \item{control}{\code{discretizationControl} object containing the parameters for
 discretization algorithm. Possible inputs are \code{mdlControl} or \code{equalsizeControl}, so far. If passed as a list, the first element is used.}
 
-\item{keepAll}{Logical indicating if a returned \link{data.frame} should contain non
-discretized columns.}
+\item{all}{Logical indicating if a returned \link{data.frame} should contain factor features that were not discretize.
+(Example: should \code{Species} be returned, when you pass \code{iris} and discretize all continuous features.)}
 
 \item{call}{Keep as \code{NULL}. Inner method parameter for consistency.}
 
