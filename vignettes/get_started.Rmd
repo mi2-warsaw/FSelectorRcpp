@@ -31,7 +31,7 @@ opts_chunk$set(
 )
 ```
 
-[FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/) is an [Rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html) (free of Java/Weka) implementation of [FSelector](https://cran.r-project.org/web/packages/FSelector/index.html) entropy-based feature selection algorithms with a sparse matrix support. It is also equpied with a parallel backend.
+[FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/) is an [Rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html) (free of Java/Weka) implementation of [FSelector](https://cran.r-project.org/web/packages/FSelector/index.html) entropy-based feature selection algorithms with a sparse matrix support. It is also equipped with a parallel backend.
 
 ## Installation
 
@@ -58,10 +58,16 @@ In business applications there appear a need to provide a fast feature selection
 
 ```{r}
 library(magrittr)
-iris %>%                        # Take a dataset.
-  information_gain(             # Calculate the score for each attribute
+library(FSelectorRcpp)
+```
+
+
+A simple entropy based feature selection workflow.
+
+```{r}
+information_gain(               # Calculate the score for each attribute
     formula = Species ~ .,      # that is on the right side of the formula.
-    data = .,                   # Attributes must exist in the passed data.
+    data = iris,                # Attributes must exist in the passed data.
     type  = "infogain",         # Choose the type of a score to be calculated.
     threads = 2                 # Set number of threads in a parallel backend.
   ) %>%                          
@@ -79,6 +85,39 @@ iris %>%                        # Take a dataset.
   )
   
 ```
+
+Apply a complicated feature selection search engine, that checks combinations of subsets of the specified attributes' set, to score the currently considered subset, depending on the criterion passed with the `fun` parameter.
+
+```{r}
+evaluator_R2_lm <-    # Create a scorer function.
+  function(
+    attributes,       # That takes the currently considered subset of attributes
+    data,             # from a specified dataset.
+    dependent = 
+      names(data)[1]  # To find features that best describe the dependent variable.
+  ) {
+    summary(          # In this situation we take the r.squared statistic
+      lm(             # from the summary of a linear model object.
+        to_formula(   # This is the score to use to choose between considered 
+          attributes, # subsets of attributes.
+          dependent
+        ),
+        data = data)
+    )$r.squared
+  }
+
+feature_search(          # feature_search work in 2 modes - 'exhaustive' and 'greedy'
+  attributes = 
+    names(iris)[-1],     # It takes attribues and creates combinations of it's subsets.
+  fun = evaluator_R2_lm, # And it calculates the score of a subset that depends on the 
+  data = iris,           # evaluator function passed in the `fun` parameter.
+  mode = "exhaustive",   # exhaustive - means to check all possible 
+  sizes =                # attributes' subset combinations 
+    1:length(attributes) # of sizes passed in sizes.
+)$all
+```
+
+
 
 
 ## Use cases
