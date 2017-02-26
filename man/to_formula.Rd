@@ -4,10 +4,10 @@
 \alias{to_formula}
 \title{Create a formula Object}
 \usage{
-to_formula(attr, class)
+to_formula(attrs, class)
 }
 \arguments{
-\item{attr}{Character vector with names of independent variables.}
+\item{attrs}{Character vector with names of independent variables.}
 
 \item{class}{Single string with a dependent variable's name.}
 }
