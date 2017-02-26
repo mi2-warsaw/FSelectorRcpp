@@ -82,7 +82,7 @@ control. There is also available <code>equalsizeControl</code> method.</p>
     
 
     <pre><span class='fu'>discretize</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>mdlControl</span>(), <span class='fu'>equalsizeControl</span>()),
-  <span class='kw'>keepAll</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>mdlControl</span>()
 
@@ -97,9 +97,9 @@ control. There is also available <code>equalsizeControl</code> method.</p>
       <dt>control</dt>
       <dd><code>discretizationControl</code> object containing the parameters for
 discretization algorithm. Possible inputs are <code>mdlControl</code> or <code>equalsizeControl</code>, so far. If passed as a list, the first element is used.</dd>
-      <dt>keepAll</dt>
-      <dd>Logical indicating if a returned data.frame should contain non
-discretized columns.</dd>
+      <dt>all</dt>
+      <dd>Logical indicating if a returned data.frame should contain factor features that were not discretize.
+(Example: should <code>Species</code> be returned, when you pass <code>iris</code> and discretize all continuous features.)</dd>
       <dt>call</dt>
       <dd>Keep as <code>NULL</code>. Inner method parameter for consistency.</dd>
       <dt>k</dt>
@@ -109,7 +109,7 @@ discretized columns.</dd>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
-  Continuous-Valued Attributes for Classi- fication Learning. In 13th
+  Continuous-Valued Attributes for Classification Learning. In 13th
   International Joint Conference on Uncertainly in Artificial
   Intelligence(IJCAI93), pages 1022-1029, 1993.</p>
     
@@ -748,7 +748,7 @@ discretized columns.</dd>
 
     <h2>Author</h2>
     
-Zygmunt Zawadzki <a href='mailto:zygmunt.zawadzki@gmail.com'>zygmunt.zawadzki@gmail.com</a>
+Zygmunt Zawadzki <a href='mailto:zygmunt@zstat.pl'>zygmunt@zstat.pl</a>
 
   </div>
 </div>

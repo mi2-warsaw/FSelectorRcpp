@@ -53,7 +53,7 @@
     <div class="page-header toc-ignore">
       <h1>Motivation, Installation and Quick Workflow</h1>
             <h3 class="subtitle">
-<small> <a href="http://r-addict.com/About.html">Marcin Kosiński</a>   <a href="https://stackoverflow.com/users/3857701"><i class="fa fa-stack-overflow"></i></a>  <a href="https://r-addict.com"><i class="fa fa-comment"></i></a>  <a href="https://github.com/MarcinKosinski"><i class="fa fa-github"></i></a>  <a href="mailto:m.p.kosinski@gmail.com"><i class="fa fa-envelope-o"></i></a> <br><a href="http://www.zstat.pl/">Zygmunt Zawadzki</a>   <a href="http://www.zstat.pl/"><i class="fa fa-comment"></i></a>  <a href="https://github.com/zzawadz"><i class="fa fa-github"></i></a>  <a href="mailto:zygmunt.zawadzki@gmail.com"><i class="fa fa-envelope-o"></i></a></small><br>
+<small> <a href="http://r-addict.com/About.html">Marcin Kosiński</a>   <a href="https://stackoverflow.com/users/3857701"><i class="fa fa-stack-overflow"></i></a>  <a href="https://r-addict.com"><i class="fa fa-comment"></i></a>  <a href="https://github.com/MarcinKosinski"><i class="fa fa-github"></i></a>  <a href="mailto:m.p.kosinski@gmail.com"><i class="fa fa-envelope-o"></i></a> <br><a href="http://www.zstat.pl/">Zygmunt Zawadzki</a>   <a href="http://www.zstat.pl/"><i class="fa fa-comment"></i></a>  <a href="https://github.com/zzawadz"><i class="fa fa-github"></i></a>  <a href="mailto:zygmunt@zstat.pl"><i class="fa fa-envelope-o"></i></a></small><br>
 </h3>
             
           </div>
@@ -61,7 +61,7 @@
     
     
 <div class="contents">
-<p><a href="http://mi2-warsaw.github.io/FSelectorRcpp/">FSelectorRcpp</a> is an <a href="https://cran.r-project.org/web/packages/Rcpp/index.html">Rcpp</a> (free of Java/Weka) implementation of <a href="https://cran.r-project.org/web/packages/FSelector/index.html">FSelector</a> entropy-based feature selection algorithms with a sparse matrix support.</p>
+<p><a href="http://mi2-warsaw.github.io/FSelectorRcpp/">FSelectorRcpp</a> is an <a href="https://cran.r-project.org/web/packages/Rcpp/index.html">Rcpp</a> (free of Java/Weka) implementation of <a href="https://cran.r-project.org/web/packages/FSelector/index.html">FSelector</a> entropy-based feature selection algorithms with a sparse matrix support. It is also equipped with a parallel backend.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#installation" class="anchor"> </a></body></html>Installation</h2>
@@ -82,6 +82,80 @@ devtools::<span class="kw">install_github</span>(<span class="st">'mi2-warsaw/FS
 <div id="quick-workflow" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#quick-workflow" class="anchor"> </a></body></html>Quick Workflow</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+<span class="kw">library</span>(FSelectorRcpp)</code></pre></div>
+<p>A simple entropy based feature selection workflow. <strong>Information gain</strong> is an easy, linear algorithm that computes the entropy of a dependent and explanatory variables, and the conditional entropy of a dependent variable with a respect to each explanatory variable separately. This simple statistic enables to calculate the belief of the distribution of a dependent variable when we only know the distribution of a explanatory variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/information_gain.html">information_gain</a></span>(               <span class="co"># Calculate the score for each attribute</span>
+    <span class="dt">formula =</span> Species ~<span class="st"> </span>.,      <span class="co"># that is on the right side of the formula.</span>
+    <span class="dt">data =</span> iris,                <span class="co"># Attributes must exist in the passed data.</span>
+    <span class="dt">type  =</span> <span class="st">"infogain"</span>,         <span class="co"># Choose the type of a score to be calculated.</span>
+    <span class="dt">threads =</span> <span class="dv">2</span>                 <span class="co"># Set number of threads in a parallel backend.</span>
+  ) %&gt;%<span class="st">                          </span>
+<span class="st">  </span><span class="kw"><a href="../reference/cut_attrs.html">cut_attrs</a></span>(                    <span class="co"># Then take attributes with the highest rank.</span>
+    <span class="dt">k =</span> <span class="dv">2</span>                       <span class="co"># For example: 2 attrs with the higehst rank.</span>
+  ) %&gt;%<span class="st">                         </span>
+<span class="st">  </span><span class="kw"><a href="../reference/to_formula.html">to_formula</a></span>(                   <span class="co"># Create a new formula object with </span>
+    <span class="dt">attrs =</span> .,                  <span class="co"># the most influencial attrs.</span>
+    <span class="dt">class =</span> <span class="st">"Species"</span>           
+  ) %&gt;%
+<span class="st">  </span><span class="kw">glm</span>(
+    <span class="dt">formula =</span> .,                <span class="co"># Use that formula in any classification algorithm.</span>
+    <span class="dt">data =</span> iris,                
+    <span class="dt">family =</span> <span class="st">"binomial"</span>         
+  )</code></pre></div>
+<pre><code>
+Call:  glm(formula = ., family = "binomial", data = iris)
+
+Coefficients:
+ (Intercept)   Petal.Width  Petal.Length  
+      -69.45         33.89         17.60  
+
+Degrees of Freedom: 149 Total (i.e. Null);  147 Residual
+Null Deviance:      191 
+Residual Deviance: 5.17e-09     AIC: 6</code></pre>
+<p>Apply a complicated feature selection search engine, that checks combinations of subsets of the specified attributes’ set, to score the currently considered subset, depending on the criterion passed with the <code>fun</code> parameter.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">evaluator_R2_lm &lt;-<span class="st">    </span><span class="co"># Create a scorer function.</span>
+<span class="st">  </span>function(
+    attributes,       <span class="co"># That takes the currently considered subset of attributes</span>
+    data,             <span class="co"># from a specified dataset.</span>
+    <span class="dt">dependent =</span> 
+      <span class="kw">names</span>(data)[<span class="dv">1</span>]  <span class="co"># To find features that best describe the dependent variable.</span>
+  ) {
+    <span class="kw">summary</span>(          <span class="co"># In this situation we take the r.squared statistic</span>
+      <span class="kw">lm</span>(             <span class="co"># from the summary of a linear model object.</span>
+        <span class="kw"><a href="../reference/to_formula.html">to_formula</a></span>(   <span class="co"># This is the score to use to choose between considered </span>
+          attributes, <span class="co"># subsets of attributes.</span>
+          dependent
+        ),
+        <span class="dt">data =</span> data)
+    )$r.squared
+  }
+
+<span class="kw"><a href="../reference/feature_search.html">feature_search</a></span>(          <span class="co"># feature_search work in 2 modes - 'exhaustive' and 'greedy'</span>
+  <span class="dt">attributes =</span> 
+    <span class="kw">names</span>(iris)[-<span class="dv">1</span>],     <span class="co"># It takes attribues and creates combinations of it's subsets.</span>
+  <span class="dt">fun =</span> evaluator_R2_lm, <span class="co"># And it calculates the score of a subset that depends on the </span>
+  <span class="dt">data =</span> iris,           <span class="co"># evaluator function passed in the `fun` parameter.</span>
+  <span class="dt">mode =</span> <span class="st">"exhaustive"</span>,   <span class="co"># exhaustive - means to check all possible </span>
+  <span class="dt">sizes =</span>                <span class="co"># attributes' subset combinations </span>
+    <span class="dv">1</span>:<span class="kw">length</span>(attributes) <span class="co"># of sizes passed in sizes.</span>
+)$all</code></pre></div>
+<pre><code>   Sepal.Width Petal.Length Petal.Width Species     values
+1            1            0           0       0 0.01382265
+2            0            1           0       0  0.7599546
+3            0            0           1       0  0.6690277
+4            0            0           0       1  0.6187057
+5            1            1           0       0  0.8401778
+6            1            0           1       0  0.7072371
+7            1            0           0       1  0.7259066
+8            0            1           1       0  0.7662613
+9            0            1           0       1  0.8367238
+10           0            0           1       1  0.6693664
+11           1            1           1       0  0.8586117
+12           1            1           0       1  0.8633088
+13           1            0           1       1  0.7323845
+14           0            1           1       1  0.8367254
+15           1            1           1       1  0.8673123</code></pre>
 </div>
 <div id="use-cases" class="section level2">
 <h2 class="hasAnchor">
