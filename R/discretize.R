@@ -43,7 +43,7 @@
 #'
 #' }
 #'
-#' @author Zygmunt Zawadzki \email{zygmunt.zawadzki@@gmail.com}
+#' @author Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 #' @importFrom stats formula
 #' @export
 discretize <- function(x, y, control = list(mdlControl(), equalsizeControl()),

@@ -29,7 +29,7 @@
 #' @return data.frame containing the worth of attributes in the first column and
 #' their names as row names.
 #'
-#' @author Zygmunt Zawadzki \email{zygmunt.zawadzki@@gmail.com}
+#' @author Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 #'
 #' @examples
 #'

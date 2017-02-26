@@ -135,7 +135,7 @@ greedy_search <- function(attributes, fun, data,
 #' @param parallel Allow parallelization.
 #' @param \dots Other arguments passed to \link{foreach} function.
 #'
-#' @author Zygmunt Zawadzki \email{zygmunt.zawadzki@@gmail.com}
+#' @author Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 #' @author Krzysztof Slomczynski \email{krzysztofslomczynski@@gmail.com}
 #'
 #' @importFrom foreach foreach %dopar% %do% getDoParRegistered getDoParName
