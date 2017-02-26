@@ -66,16 +66,13 @@
 information_gain <- function(formula, data, x, y,
                              type = c("infogain", "gainratio", "symuncert"),
                              threads = 1) {
-  if (missing(x) && missing(y) && missing(formula) && missing(data)) {
-    stop(paste("Please specify `x = attributes, y = response`,",
-               "or use `formula = response ~ attributes, data = dataset"))
+  if (!xor(all(!missing(x), !missing(y)), all(!missing(formula), !missing(data)))) {
+    stop(paste("Please specify both `x = attributes, y = response`,",
+               "XOR use both `formula = response ~ attributes, data = dataset"))
   }
-
-  if (((!missing(x) && !missing(y)) && !missing(formula)) ||
-      ((!missing(x) || !missing(y)) && !missing(formula))) {
-    stop(paste("You cannot use both interfaces!",
-               "Please specify `x = attributes, y = response`,",
-               "or use `formula = response ~ attributes, data = dataset`."))
+  if (sum(!missing(x), !missing(y), !missing(formula), !missing(data)) > 2){
+    stop(paste("Please specify both `x = attributes, y = response`,",
+               "XOR use both `formula = response ~ attributes, data = dataset"))
   }
 
   if (!missing(x) && !missing(y)) {
@@ -84,8 +81,10 @@ information_gain <- function(formula, data, x, y,
                  "interface instead of `x = formula`."))
     }
     return(.information_gain(x, y, type, threads))
-  } else if (!missing(formula) && !missing(data)) {
-    .information_gain(formula, data, type, threads)
+  }
+
+  if (!missing(formula) && !missing(data)) {
+    return(.information_gain(formula, data, type, threads))
   }
 }
 
