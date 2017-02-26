@@ -8,8 +8,8 @@
 #' @param y Dependent variable for supervised discretization or a \link{data.frame} when \code{x} ia a \link{formula}.
 #' @param control \code{discretizationControl} object containing the parameters for
 #'   discretization algorithm. Possible inputs are \code{mdlControl} or \code{equalsizeControl}, so far. If passed as a list, the first element is used.
-#' @param keepAll Logical indicating if a returned \link{data.frame} should contain non
-#'   discretized columns.
+#' @param all Logical indicating if a returned \link{data.frame} should contain factor features that were not discretize.
+#' (Example: should \code{Species} be returned, when you pass \code{iris} and discretize all continuous features.)
 #' @param call Keep as \code{NULL}. Inner method parameter for consistency.
 #'
 #' @references U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
@@ -47,21 +47,21 @@
 #' @importFrom stats formula
 #' @export
 discretize <- function(x, y, control = list(mdlControl(), equalsizeControl()),
-                       keepAll = FALSE, call = NULL) {
+                       all = FALSE, call = NULL) {
   UseMethod("discretize", x)
 }
 
 #' @export
 discretize.default <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               keepAll = FALSE, call = NULL) {
+                               all = FALSE, call = NULL) {
   stop(sprintf("Object of class %s is not supported!", class(x)[1]))
 }
 
 #' @export
 discretize.formula <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               keepAll = FALSE, call = NULL) {
+                               all = FALSE, call = NULL) {
   formula <- formula2names(x, y)
   data <- y
   yy <- y[[formula$y]]
@@ -98,7 +98,7 @@ discretize.formula <- function(x, y,
     data[[col]] <- res
   }
 
-  if (!keepAll) {
+  if (!all) {
     data <- data[, c(columnsToDiscretize, formula$y)]
   }
 
@@ -109,7 +109,7 @@ discretize.formula <- function(x, y,
 discretize.data.frame <- function(x, y,
                                   control = list(mdlControl(),
                                                  equalsizeControl()),
-                                  keepAll = FALSE, call = match.call()) {
+                                  all = FALSE, call = match.call()) {
   if (!is.data.frame(y)) {
     y <- format_handler(call$y, y)
   }
@@ -123,12 +123,12 @@ discretize.data.frame <- function(x, y,
     control <- control[[1]]
   }
 
-  discretize.formula(x = x, y = y, control = control, keepAll = keepAll)
+  discretize.formula(x = x, y = y, control = control, all = all)
 }
 #' @export
 discretize.numeric <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               keepAll = FALSE, call = NULL) {
+                               all = FALSE, call = NULL) {
   call <- match.call()
   x <- format_handler(call$x, x)
 
@@ -137,7 +137,7 @@ discretize.numeric <- function(x, y,
   }
 
   discretize.data.frame(x = x, y = y, control = control,
-                        keepAll = keepAll, call = call)
+                        all = all, call = call)
 }
 
 #' @export
