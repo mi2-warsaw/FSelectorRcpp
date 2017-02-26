@@ -41,7 +41,8 @@ A list with following components
 }
 \description{
 A convenience wrapper for \code{greedy} and \code{exhaustive} feature selection algorithms that
-extract valuable attributes depending on the evaluation method (called evaluator).
+extract valuable attributes depending on the evaluation method (called evaluator). This function
+is a reimplementation of \pkg{FSelector}'s \link[FSelector]{exhaustive.search} and \link[FSelector]{greedy.search}.
 }
 \details{
 The evaluator function passed with \code{fun} is used to determine
