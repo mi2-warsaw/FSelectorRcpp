@@ -158,6 +158,8 @@ mdlControl <- function() {
 #' @param k Number of partitions.
 #' @export
 equalsizeControl <- function(k = 10) {
+  stopifnot(k > 0)
+  k <- floor(k)
   params <- list(method = "EQUAL_SIZE", k = k)
   attr(params, "class") <- c("equalsizeControl",
                              "discretizationControl",
