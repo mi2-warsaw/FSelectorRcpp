@@ -15,7 +15,7 @@ formula2names <- function(formula, data) {
 #'
 #' Utility function to create a \link{formula} object. Note that it may be very useful when you use pipes.
 #'
-#' @param attr Character vector with names of independent variables.
+#' @param attrs Character vector with names of independent variables.
 #' @param class Single string with a dependent variable's name.
 #'
 #' @examples
@@ -47,8 +47,8 @@ formula2names <- function(formula, data) {
 #'
 #' @importFrom stats as.formula
 #' @export
-to_formula <- function(attr, class) {
-  as.formula(paste(class, paste(attr, collapse = " + "), sep = " ~ "))
+to_formula <- function(attrs, class) {
+  as.formula(paste(class, paste(attrs, collapse = " + "), sep = " ~ "))
 }
 
 #' Get children
