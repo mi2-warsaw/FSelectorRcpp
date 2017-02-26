@@ -88,6 +88,31 @@ test_that("Interfaces errors", {
 
   xx <- data_frame(x = as.character(c(1, 2, 3)), y = as.character(c(1, 2, 3)))
   expect_error(information_gain(x = y ~ ., y = xx))
+
+
+})
+test_that("Incorrect interface parameter specification", {
+  irisX = iris[-5]
+  y = as.vector(iris$Species)
+  expect_error(information_gain(x = irisX))
+  expect_error(information_gain(formula = Species ~ .))
+  expect_error(information_gain(data = iris))
+  expect_error(information_gain(y = y))
+
+  expect_error(information_gain(x = irisX, data = iris))
+  expect_error(information_gain(y = y, data = iris))
+  expect_error(information_gain(x = irisX, data = iris))
+  expect_error(information_gain(x = irisX, formula = Species ~ .))
+  expect_error(information_gain(y = y, formula = Species ~ .))
+
+  expect_error(information_gain(y = y, x = irisX, data = iris))
+  expect_error(information_gain(y = y, formula = Species ~ ., data = iris))
+  expect_error(information_gain(x = irisX, formula = Species ~ ., data = iris))
+  expect_error(information_gain(y = y, x = irisX, formula = Species ~ .))
+
+  expect_error(information_gain(y = y, x = irisX, data = iris, formula = Species ~ .))
+
+
 })
 
 test_that("Warning when y is numeric", {
