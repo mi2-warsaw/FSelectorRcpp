@@ -1,6 +1,6 @@
-#' Formula to variables names
+#' Formula to Variables' Names
 #'
-#' Converts formula to character vector.
+#' Converts formula to a character vector.
 #'
 #' @noRd
 #'
@@ -119,7 +119,7 @@ get_children <- function(parent, direction = c("forward", "backward", "both"),
   }
 }
 
-#' Names for different classes
+#' Names for Different Classes
 #'
 #' Sets names of output based on call
 #'

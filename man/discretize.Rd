@@ -61,11 +61,11 @@ microbenchmark(FSelectorRcpp::discretize(Species ~ Sepal.Length, iris),
 
 }
 \author{
-Zygmunt Zawadzki \email{zygmunt.zawadzki@gmail.com}
+Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 }
 \references{
 U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
-  Continuous-Valued Attributes for Classi- fication Learning. In 13th
+  Continuous-Valued Attributes for Classification Learning. In 13th
   International Joint Conference on Uncertainly in Artificial
   Intelligence(IJCAI93), pages 1022-1029, 1993.
 }

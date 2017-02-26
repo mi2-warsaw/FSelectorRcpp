@@ -148,7 +148,7 @@ registerDoSEQ()
 
 }
 \author{
-Zygmunt Zawadzki \email{zygmunt.zawadzki@gmail.com}
+Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 
 Krzysztof Slomczynski \email{krzysztofslomczynski@gmail.com}
 }
