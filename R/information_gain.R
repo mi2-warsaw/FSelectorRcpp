@@ -1,7 +1,9 @@
 #' Entropy-based Filters
 #'
 #' Algorithms that find ranks of importance of discrete attributes, basing on their
-#' entropy with a continous class attribute.
+#' entropy with a continous class attribute. This function
+#' is a reimplementation of \pkg{FSelector}'s \link[FSelector]{information.gain},
+#' \link[FSelector]{gain.ratio} and \link[FSelector]{symmetrical.uncertainty}.
 #'
 #' @details
 #'
