@@ -61,8 +61,7 @@ library(magrittr)
 library(FSelectorRcpp)
 ```
 
-
-A simple entropy based feature selection workflow.
+A simple entropy based feature selection workflow. **Information gain** is an easy, linear algorithm that computes the entropy of a dependent and explanatory variables, and the conditional entropy of a dependent variable with a respect to each explanatory variable separately. This simple statistic enables to calculate the belief of the distribution of a dependent variable when we only know the distribution of a explanatory variable.
 
 ```{r}
 information_gain(               # Calculate the score for each attribute
