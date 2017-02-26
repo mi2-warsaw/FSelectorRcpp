@@ -16,6 +16,7 @@ r_packages:
  - covr
  - MASS
  - htmltools
+ - magrittr
 sudo: required
 warnings_are_errors: false
 

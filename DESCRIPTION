@@ -33,5 +33,6 @@ Suggests:
     MASS,
     covr,
     parallel,
-    htmltools
+    htmltools,
+    magrittr
 RoxygenNote: 5.0.1
