@@ -1,6 +1,6 @@
 ---
 title: "Motivation, Installation and Quick Workflow"
-subtitle: "<small> [Marcin Kosiński](http://r-addict.com/About.html) &nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='https://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a> <br> [Zygmunt Zawadzki](http://www.zstat.pl/) &nbsp;&nbsp;<a href='http://www.zstat.pl/'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/zzawadz'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:zygmunt.zawadzki@gmail.com'><i class='fa fa-envelope-o'></i></a></small><br>"
+subtitle: "<small> [Marcin Kosiński](http://r-addict.com/About.html) &nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='https://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a> <br> [Zygmunt Zawadzki](http://www.zstat.pl/) &nbsp;&nbsp;<a href='http://www.zstat.pl/'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/zzawadz'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:zygmunt@zstat.pl'><i class='fa fa-envelope-o'></i></a></small><br>"
 output:
   html_document:
     mathjax:  default
@@ -31,7 +31,7 @@ opts_chunk$set(
 )
 ```
 
-[FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/) is an [Rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html) (free of Java/Weka) implementation of [FSelector](https://cran.r-project.org/web/packages/FSelector/index.html) entropy-based feature selection algorithms with a sparse matrix support.
+[FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/) is an [Rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html) (free of Java/Weka) implementation of [FSelector](https://cran.r-project.org/web/packages/FSelector/index.html) entropy-based feature selection algorithms with a sparse matrix support. It is also equpied with a parallel backend.
 
 ## Installation
 
@@ -55,6 +55,31 @@ Few classification and regression models can reduce redundand variables during t
 In business applications there appear a need to provide a fast feature selection that is extremely easy to understand. For such demands easy methods are prefered. This motivates using simple techniques like **Entropy Based Feature Selection** [@Largeron:2011:EBF:1982185.1982389], where every feature can be checked independently so that computations can be performed in a parallel to shorter the procedure's time. For this approach we provide an R interface to **Rcpp** reimplementation [@Rcpp] of methods included in **FSelector** package which we also extended with parallel background and sparse matrix support. This has significant impact on computations time and can be used on greater datasets, comparing to **FSelector**. Additionally we avoided the Weka [@Hall:2009:WDM:1656274.1656278] dependency and we provided faster discretization implementations than those from **entropy** package, used originally in **FSelector**.
 
 ## Quick Workflow
+
+```{r}
+library(magrittr)
+iris %>%                        # Take a dataset.
+  information_gain(             # Calculate the score for each attribute
+    formula = Species ~ .,      # that is on the right side of the formula.
+    data = .,                   # Attributes must exist in the passed data.
+    type  = "infogain",         # Choose the type of a score to be calculated.
+    threads = 2                 # Set number of threads in a parallel backend.
+  ) %>%                          
+  cut_attrs(                    # Then take attributes with the highest rank.
+    k = 2                       # For example: 2 attrs with the higehst rank.
+  ) %>%                         
+  to_formula(                   # Create a new formula object with 
+    attrs = .,                  # the most influencial attrs.
+    class = "Species"           
+  ) %>%
+  glm(
+    formula = .,                # Use that formula in any classification algorithm.
+    data = iris,                
+    family = "binomial"         
+  )
+  
+```
+
 
 ## Use cases
 
