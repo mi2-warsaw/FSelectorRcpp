@@ -72,4 +72,3 @@ information_gain(x = x, y = y, type = "symuncert")
 \author{
 Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 }
-

@@ -28,4 +28,3 @@ cut_attrs(attrs = x, k = 1)
 Damian Skrzypiec \email{damian.j.skrzypiec@gmail.com} and
 Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 }
-

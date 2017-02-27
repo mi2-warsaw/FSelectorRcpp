@@ -42,4 +42,3 @@ names(fit$best)[fit$best == 1]
 to_formula(names(fit$best)[fit$best == 1], "Species")
 
 }
-

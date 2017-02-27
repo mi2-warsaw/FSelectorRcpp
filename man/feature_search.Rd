@@ -153,4 +153,3 @@ Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 
 Krzysztof Slomczynski \email{krzysztofslomczynski@gmail.com}
 }
-
