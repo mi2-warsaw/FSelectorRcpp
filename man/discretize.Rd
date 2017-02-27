@@ -2,8 +2,8 @@
 % Please edit documentation in R/discretize.R
 \name{discretize}
 \alias{discretize}
-\alias{equalsizeControl}
 \alias{mdlControl}
+\alias{equalsizeControl}
 \title{Discretization}
 \usage{
 discretize(x, y, control = list(mdlControl(), equalsizeControl()),
@@ -60,13 +60,12 @@ microbenchmark(FSelectorRcpp::discretize(Species ~ Sepal.Length, iris),
 }
 
 }
-\author{
-Zygmunt Zawadzki \email{zygmunt@zstat.pl}
-}
 \references{
 U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
   Continuous-Valued Attributes for Classification Learning. In 13th
   International Joint Conference on Uncertainly in Artificial
   Intelligence(IJCAI93), pages 1022-1029, 1993.
 }
-
+\author{
+Zygmunt Zawadzki \email{zygmunt@zstat.pl}
+}
