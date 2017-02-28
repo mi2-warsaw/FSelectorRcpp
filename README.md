@@ -1,4 +1,4 @@
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/FSelectorRcpp)](http://cran.r-project.org/web/packages/FSelectorRcpp)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/FSelectorRcpp)]( http://cran.rstudio.com/package=FSelectorRcpp)
 [![Downloads](http://cranlogs.r-pkg.org/badges/FSelectorRcpp)](http://cran.rstudio.com/package=FSelectorRcpp)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/FSelectorRcpp?color=orange)](http://cranlogs.r-pkg.org/badges/grand-total/FSelectorRcpp)
 [![Build status](https://ci.appveyor.com/api/projects/status/jv14pt787g7h26sn?svg=true)](https://ci.appveyor.com/project/MarcinKosinski/fselectorrcpp)[![Build Status](https://api.travis-ci.org/mi2-warsaw/FSelectorRcpp.png)](https://travis-ci.org/mi2-warsaw/FSelectorRcpp)
