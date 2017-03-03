@@ -2,7 +2,7 @@ Package: FSelectorRcpp
 Type: Package
 Title: 'Rcpp' Implementation of 'FSelector' Entropy-based Feature Selection Algorithms with a Sparse Matrix Support
 Version: 0.1.0
-Date: 2016-02-20
+Date: 2016-03-03
 Authors@R: c(
     person("Zygmunt", "Zawadzki", role = c("aut", "cre"), email = "zygmunt@zstat.pl"),
     person("Marcin", "Kosinski", role = c("aut"), email = "m.p.kosinski@gmail.com"),
@@ -35,6 +35,12 @@ Suggests:
     parallel,
     htmltools,
     magrittr,
-    knitr
+    knitr,
+    RTCGA.rnaseq,
+    ggplot2,
+    microbenchmark,
+    pbapply,
+    tibble,
+    rmarkdown
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
