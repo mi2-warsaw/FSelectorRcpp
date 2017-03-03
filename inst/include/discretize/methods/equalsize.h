@@ -40,7 +40,7 @@ template<class InputIterator, class VariableIterator, class OutputIterator> std:
   std::vector<typename std::iterator_traits<InputIterator>::value_type> splitValues;
 
 
-  std::vector<int> binSizes;
+  std::vector<size_t> binSizes;
 
   const long n = orderedIdx.size();
   const long binSize = n / k;

@@ -17,5 +17,5 @@ std::shared_ptr<DiscControl> control_builder(Rcpp::List params)
     return result;
   }
 
-  Rcpp::Rf_error("Selected method is not supported. Please use mdlControl() or equalsizeControl() function.");
+  Rcpp::stop("Selected method is not supported. Please use mdlControl() or equalsizeControl() function.");
 }

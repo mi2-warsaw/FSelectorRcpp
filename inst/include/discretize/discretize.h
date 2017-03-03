@@ -33,7 +33,8 @@ template<class InputIterator,
       break;
   }
 
-
+  FS_OUTPUT << "Selected method is not supported. MDL will be used instead.";
+  return mdl::discretize(itX, itXLast, itY, itResult);
 }
 
 
