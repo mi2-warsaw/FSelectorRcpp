@@ -16,4 +16,6 @@ std::shared_ptr<DiscControl> control_builder(Rcpp::List params)
     std::shared_ptr<DiscControl> result = std::make_shared<equalsize::DiscControlEqualSize>(method, k);
     return result;
   }
+
+  Rcpp::Rf_error("Selected method is not supported. Please use mdlControl() or equalsizeControl() function.");
 }
