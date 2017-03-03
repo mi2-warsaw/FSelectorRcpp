@@ -2,11 +2,10 @@
 ^\.Rproj\.user$
 .travis.yml
 staticdocs_build/
-doc/
+^docs$
 article/
 o_rly.png
 ^appveyor\.yml$
 ^codecov\.yml$
-docs/
 README.md
 NEWS.md
