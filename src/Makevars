@@ -1,2 +1,2 @@
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) `"${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e "RcppArmadillo:::CxxFlags()"` $(SHLIB_OPENMP_CXXFLAGS)
-PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I../inst/include -O2 -Wall
+PKG_CPPFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I../inst/include
