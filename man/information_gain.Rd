@@ -21,8 +21,11 @@ information_gain(formula, data, x, y, type = c("infogain", "gainratio",
 \item{threads}{Number of threads for parallel backend.}
 }
 \value{
-data.frame containing the worth of attributes in the first column and
-their names as row names.
+data.frame with the following columns:
+\itemize{
+ \item{attributes}{ - variables names.}
+ \item{importance}{ - worth of the attributes.}
+}
 }
 \description{
 Algorithms that find ranks of importance of discrete attributes, basing on their

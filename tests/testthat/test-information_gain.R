@@ -36,7 +36,7 @@ test_that("Test character table", {
   data <- dt
 
   expect_lt(sum(information.gain(z ~ ., data)[, 1]
-                - information_gain(formula = z ~ .,data = data)[, 1]), 1e-10)
+                - information_gain(formula = z ~ .,data = data)$importance), 1e-10)
 })
 
 test_that("Sparse matrix - basics", {
