@@ -28,8 +28,13 @@
 #' @param type Method name.
 #' @param threads Number of threads for parallel backend.
 #'
-#' @return data.frame containing the worth of attributes in the first column and
-#' their names as row names.
+#' @return
+#'
+#' data.frame with the following columns:
+#' \itemize{
+#'  \item{attributes}{ - variables names.}
+#'  \item{importance}{ - worth of the attributes.}
+#' }
 #'
 #' @author Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 #'
@@ -131,7 +136,7 @@ information_gain <- function(formula, data, x, y,
   classEntropy <- fs_entropy1d(y)
 
   results <- information_type(classEntropy, values, type)
-  data.frame(importance = results, row.names = colnames(x))
+  data.frame(attributes = colnames(x), importance = results, stringsAsFactors = FALSE)
 }
 
 .information_gain.formula <- function(x, y,
@@ -174,7 +179,7 @@ information_gain <- function(formula, data, x, y,
 
   results <- information_type(classEntropy, values, type)
 
-  data.frame(importance = results, row.names = formula$x)
+  data.frame(attributes = formula$x ,importance = results, stringsAsFactors = FALSE)
 }
 
 
@@ -190,7 +195,12 @@ information_gain <- function(formula, data, x, y,
 
   results <- information_type(classEntropy, values, type)
 
-  data.frame(importance = results, row.names = colnames(x))
+  attr <- colnames(x)
+  if(is.null(attr)) {
+    attr <- 1:ncol(x)
+  }
+
+  data.frame(attributes = attr, importance = results, stringsAsFactors = FALSE)
 }
 
 information_type <- function(classEntropy, values,

@@ -33,5 +33,5 @@ cut_attrs <- function(attrs, k = 0.5) {
   } else if (1 < k) {
     k <- floor(k)
   }
-  cutOff_k(rownames(attrs), attrs[[1]], k)
+  cutOff_k(attrs[[1]], attrs[[2]], k)
 }
