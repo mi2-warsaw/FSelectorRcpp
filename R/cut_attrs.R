@@ -23,7 +23,24 @@ cut_attrs <- function(attrs, k = 0.5) {
   if (!is.data.frame(attrs)) {
     stop("attrs must be a data.frame!")
   }
+  if (length(attrs) != 2) {
+    stop("attrs must have 2 columns!")
+  }
+
+  classes <- unname(sapply(attrs, class))
+
+  if (!("numeric" %in% classes)) {
+    stop("The class of importance column must be numeric!")
+  }
+  if ("factor" %in% classes) {
+    factorAttr <- which(classes == "factor")
+    attrs[factorAttr] <- as.character(attrs[factorAttr])
+  }
+
+  attributes <- which(classes == "character")
+  importance <- which(classes == "numeric")
   nAttrs <- nrow(attrs)
+
   if (k < 1/nAttrs) {
     warning("k is too small. Selecting one of the attributes.")
     k <- 1
@@ -33,5 +50,6 @@ cut_attrs <- function(attrs, k = 0.5) {
   } else if (1 < k) {
     k <- floor(k)
   }
-  cutOff_k(attrs[[1]], attrs[[2]], k)
+
+  cutOff_k(attrs[[attributes]], attrs[[importance]], k)
 }
