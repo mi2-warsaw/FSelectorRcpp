@@ -22,6 +22,7 @@ by the percentage of the highest ranked attributes or by the number of the highe
 
 x <- information_gain(Species ~ ., iris)
 cut_attrs(attrs = x)
+to_formula(cut_attrs(attrs = x), "Species")
 cut_attrs(attrs = x, k = 1)
 }
 \author{
