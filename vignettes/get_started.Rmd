@@ -31,7 +31,7 @@ opts_chunk$set(
 )
 ```
 
-[FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/) is an [Rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html) (free of Java/Weka) implementation of [FSelector](https://cran.r-project.org/web/packages/FSelector/index.html) entropy-based feature selection algorithms with a sparse matrix support. It is also equipped with a parallel backend.
+[FSelectorRcpp](http://mi2-warsaw.github.io/FSelectorRcpp/) is an [Rcpp](https://CRAN.R-project.org/package=Rcpp) (free of Java/Weka) implementation of [FSelector](https://CRAN.R-project.org/package=FSelector) entropy-based feature selection algorithms with a sparse matrix support. It is also equipped with a parallel backend.
 
 ## Installation
 
