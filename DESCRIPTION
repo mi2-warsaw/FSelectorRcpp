@@ -42,5 +42,7 @@ Suggests:
     pbapply,
     tibble,
     rmarkdown
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.0.1
+BugReports: https://github.com/mi2-warsaw/FSelectorRcpp/issues
+URL: http://mi2-warsaw.github.io/FSelectorRcpp/
 VignetteBuilder: knitr
