@@ -1,5 +1,14 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.1.1
+----------------------------------------------------------------
+
+Bug fixes
+
+- Skip benchmark if the `RTCGA.rnaseq` package is not available.
+- Fix plots in vignettes.
+
+
 FSelectorRcpp 0.1.0
 ----------------------------------------------------------------
 
