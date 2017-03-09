@@ -6,7 +6,7 @@ FSelectorRcpp 0.1.1
 Bug fixes
 
 - Skip benchmark if the `RTCGA.rnaseq` package is not available.
-- Fix plots in vignettes.
+- Minor fixes in vignettes.
 
 
 FSelectorRcpp 0.1.0
