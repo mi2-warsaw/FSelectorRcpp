@@ -2,7 +2,7 @@ Package: FSelectorRcpp
 Type: Package
 Title: 'Rcpp' Implementation of 'FSelector' Entropy-Based Feature Selection Algorithms with a Sparse Matrix Support
 Version: 0.1.1
-Date: 2017-03-03
+Date: 2017-03-09
 Authors@R: c(
     person("Zygmunt", "Zawadzki", role = c("aut", "cre"), email = "zygmunt@zstat.pl"),
     person("Marcin", "Kosinski", role = c("aut"), email = "m.p.kosinski@gmail.com"),
