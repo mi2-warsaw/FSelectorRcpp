@@ -13,6 +13,7 @@ install:
 # Adapt as necessary starting from here
 
 environment:
+  _R_CHECK_FORCE_SUGGESTS_: false
   global:
     R_ARCH: x64
 
