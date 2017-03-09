@@ -70,7 +70,14 @@ Specifies whether a sample came from tumour or healthy tissue. It is denoted by 
 
 It is mandatory to get rid of special signs from their names.
 
-```{r}
+```{r, echo=FALSE, message=TRUE}
+is.rtcga <- "RTCGA.rnaseq" %in% rownames(installed.packages())
+if(!is.rtcga) {
+  message("Plese install RTCGA.rnaseq to run benchmark.")
+}
+```
+
+```{r, eval=is.rtcga}
 library(RTCGA.rnaseq)
 BRCA.rnaseq <- RTCGA.rnaseq::BRCA.rnaseq
 BRCA.rnaseq$bcr_patient_barcode <- 
@@ -88,7 +95,7 @@ names(BRCA.rnaseq) <- gsub(pattern = "[[:punct:]]", replacement = "_",
 
 # Discretization Benchmarks
 
-```{r}
+```{r, eval=is.rtcga}
 library(ggplot2)
 library(pbapply)
 library(tibble)
@@ -187,7 +194,7 @@ bm_plot_log <- make_plot("log(time)")
 
 ## Plots
 
-```{r}
+```{r, eval=is.rtcga}
 bm_plot
 bm_plot_log
 ```
