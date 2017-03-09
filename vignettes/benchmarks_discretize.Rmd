@@ -14,6 +14,13 @@ vignette: >
   %\VignetteIndexEntry{Microbenchmarks of FSelectoRcpp and FSelector - discretization}
 ---
 
+```{r, echo=FALSE, message=TRUE}
+is.pkg <- all(c("RTCGA.rnaseq", "microbenchmark") %in% rownames(installed.packages()))
+if(!is.pkg) {
+  message("Please install all suggested packages to run benchmark.")
+}
+```
+
 ```{r setup, include = FALSE}
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 library(knitr)
@@ -31,7 +38,7 @@ opts_chunk$set(
 )
 ```
 
-```{r}
+```{r, eval=is.pkg}
 library(microbenchmark)
 library(FSelectorRcpp)
 library(RWeka)
@@ -70,14 +77,7 @@ Specifies whether a sample came from tumour or healthy tissue. It is denoted by 
 
 It is mandatory to get rid of special signs from their names.
 
-```{r, echo=FALSE, message=TRUE}
-is.rtcga <- "RTCGA.rnaseq" %in% rownames(installed.packages())
-if(!is.rtcga) {
-  message("Plese install RTCGA.rnaseq to run benchmark.")
-}
-```
-
-```{r, eval=is.rtcga}
+```{r, eval=is.pkg}
 library(RTCGA.rnaseq)
 BRCA.rnaseq <- RTCGA.rnaseq::BRCA.rnaseq
 BRCA.rnaseq$bcr_patient_barcode <- 
@@ -95,7 +95,7 @@ names(BRCA.rnaseq) <- gsub(pattern = "[[:punct:]]", replacement = "_",
 
 # Discretization Benchmarks
 
-```{r, eval=is.rtcga}
+```{r, eval=is.pkg}
 library(ggplot2)
 library(pbapply)
 library(tibble)
@@ -194,7 +194,7 @@ bm_plot_log <- make_plot("log(time)")
 
 ## Plots
 
-```{r, eval=is.rtcga}
+```{r, eval=is.pkg}
 bm_plot
 bm_plot_log
 ```
