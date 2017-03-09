@@ -1,6 +1,6 @@
 ---
 title: "Motivation, Installation and Quick Workflow"
-subtitle: "<small> [Marcin Kosinski](http://r-addict.com/About.html) &nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='https://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a> <br> [Zygmunt Zawadzki](http://www.zstat.pl/) &nbsp;&nbsp;<a href='http://www.zstat.pl/'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/zzawadz'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:zygmunt@zstat.pl'><i class='fa fa-envelope-o'></i></a></small><br>"
+subtitle: "<small> [Marcin Kosinski](http://r-addict.com/About.html) &nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='http://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a> <br> [Zygmunt Zawadzki](http://www.zstat.pl/) &nbsp;&nbsp;<a href='http://www.zstat.pl/'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/zzawadz'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:zygmunt@zstat.pl'><i class='fa fa-envelope-o'></i></a></small><br>"
 output:
   html_document:
     mathjax:  default
