@@ -1,5 +1,14 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.1.3
+----------------------------------------------------------------
+
+Bug fixes:
+
+- Export C++ routine for tests.
+- Use dontrun to hide problematic example (for CRAN).
+
+
 FSelectorRcpp 0.1.2
 ----------------------------------------------------------------
 
