@@ -17,6 +17,7 @@ extern SEXP FSelectorRcpp_fs_table_numeric2d(SEXP, SEXP);
 extern SEXP FSelectorRcpp_fs_table1d(SEXP);
 extern SEXP FSelectorRcpp_information_gain_cpp(SEXP, SEXP, SEXP);
 extern SEXP FSelectorRcpp_sparse_information_gain_cpp(SEXP, SEXP);
+extern void run_testthat_tests();
 
 static const R_CallMethodDef CallEntries[] = {
   {"FSelectorRcpp_cutOff_k",                    (DL_FUNC) &FSelectorRcpp_cutOff_k,                    3},
@@ -28,6 +29,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"FSelectorRcpp_fs_table1d",                  (DL_FUNC) &FSelectorRcpp_fs_table1d,                  1},
   {"FSelectorRcpp_information_gain_cpp",        (DL_FUNC) &FSelectorRcpp_information_gain_cpp,        3},
   {"FSelectorRcpp_sparse_information_gain_cpp", (DL_FUNC) &FSelectorRcpp_sparse_information_gain_cpp, 2},
+  {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
   {NULL, NULL, 0}
 };
 
