@@ -58,10 +58,15 @@ Note that score depends on the evaluator you provide in the \code{fun} parameter
 \examples{
 
 # Enable parallelization in examples
+\dontrun{
+ # doSnow has an option for the progress bar.
+ # However it may cause problems on some systems.
+ # That's why this code has a dontrun clausure.
+ # Feel free to try it on your machine.
  library(doSNOW) # doSNOW has an option for progress bar
  cl <- makeCluster(2)
  registerDoSNOW(cl)
-
+}
 # Close at the end
 # stopCluster(cl)
 # registerDoSEQ()
@@ -144,9 +149,10 @@ feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"),
                mode = "exhaustive")
 
 # Close parallelization
+\dontrun{
 stopCluster(cl)
 registerDoSEQ()
-
+}
 }
 \author{
 Zygmunt Zawadzki \email{zygmunt@zstat.pl}
