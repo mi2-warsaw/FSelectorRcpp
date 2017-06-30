@@ -135,7 +135,7 @@ call2names <- function(vecCall) {
     if (grepl(pattern = "^[[:digit:]]*$", x = charCall[3])) {
       names(get(charCall[2]))[as.integer(charCall[3])]
     } else {
-      names(get(charCall[2]))[charCall[3]]
+      charCall[3]
     }
   } else {
     toSub <- charCall[-1]
