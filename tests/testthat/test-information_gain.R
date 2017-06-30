@@ -1,5 +1,3 @@
-# nocov start
-
 library(dplyr)
 library(FSelector)
 library(FSelectorRcpp)
@@ -126,5 +124,3 @@ test_that("Warning when y is numeric", {
   expect_warning(information_gain(y ~ x, dt))
   expect_warning(information_gain(dt, z))
 })
-
-# nocov end
