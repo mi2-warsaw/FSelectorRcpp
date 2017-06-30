@@ -1,7 +1,6 @@
 context("C++ tests:")
 
-library(entropy)
-
 test_that("Catch unit tests pass", {
-    expect_cpp_tests_pass("FSelectorRcpp")
+  library(entropy)
+  expect_cpp_tests_pass("FSelectorRcpp")
 })

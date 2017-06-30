@@ -1,6 +1,5 @@
 library(testthat)
 library(FSelectorRcpp)
-library(FSelector)
 library(Matrix)
 library(Rcpp)
 library(RcppArmadillo)
