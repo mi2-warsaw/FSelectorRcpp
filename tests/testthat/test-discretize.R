@@ -11,7 +11,6 @@ test_that("Data frame output", {
                   class = "data.frame")
 })
 
-# nocov start
 test_that("Discretization - basic", {
   dt <- lapply(1:5, function(xx) {
     x <- rnorm(1000, mean = 10 * xx)
@@ -68,8 +67,6 @@ test_that("Discretization - not implemented for data.frame", {
   dt <- cbind(iris, b = "a")
   expect_error(discretize(dt))
 })
-
-# nocov end
 
 test_that("Discretization - equalsize - ordered.", {
   x <- 1:6
