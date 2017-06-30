@@ -35,7 +35,8 @@ cut_attrs <- function(attrs, k = 0.5) {
   }
   if ("factor" %in% classes) {
     factorAttr <- which(classes == "factor")
-    attrs[factorAttr] <- as.character(attrs[factorAttr])
+    classes[factorAttr] <- "character"
+    attrs[[factorAttr]] <- as.character(attrs[[factorAttr]])
   }
 
   attributes <- which(classes == "character")
