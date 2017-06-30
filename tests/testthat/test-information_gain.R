@@ -60,6 +60,14 @@ test_that("Sparse matrix - basics", {
   expect_equal(information_gain(x, species, type = "symuncert")$importance,
                information_gain(formula = Species ~ ., data = iris,
                                 type = "symuncert")$importance)
+
+  # When there's no column names just indexes will be used
+  colnames(x) <- NULL
+  expect_equal(
+    information_gain(x, species, type = "symuncert")$attributes,
+    1:4
+  )
+
 })
 
 test_that("Removing NAs in formula (order)", {
@@ -113,7 +121,7 @@ test_that("Incorrect interface parameter specification", {
   expect_error(information_gain(
     y = y, x = irisX, data = iris,
     formula = Species ~ .))
-
+  expect_error(information_gain(formula = x ~ 1, data = 1:10))
 
 })
 
@@ -123,4 +131,13 @@ test_that("Warning when y is numeric", {
 
   expect_warning(information_gain(y ~ x, dt))
   expect_warning(information_gain(dt, z))
+})
+
+test_that("Compare interfaces - formula vs x,y", {
+
+  expect_equal(
+    information_gain(Species ~ ., iris),
+    information_gain(x = iris[, -5], y = iris$Species)
+  )
+
 })
