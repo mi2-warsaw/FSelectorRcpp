@@ -41,7 +41,8 @@ Suggests:
     microbenchmark,
     pbapply,
     tibble,
-    rmarkdown
+    rmarkdown,
+    lintr
 RoxygenNote: 6.0.1
 BugReports: https://github.com/mi2-warsaw/FSelectorRcpp/issues
 URL: http://mi2-warsaw.github.io/FSelectorRcpp/
