@@ -43,7 +43,7 @@ cut_attrs <- function(attrs, k = 0.5) {
   importance <- which(classes == "numeric")
   nAttrs <- nrow(attrs)
 
-  if (k < 1/nAttrs) {
+  if (k < 1 / nAttrs) {
     warning("k is too small. Selecting one of the attributes.")
     k <- 1
   } else if (k > nAttrs) {

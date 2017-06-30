@@ -29,7 +29,7 @@ test_that("Discretization - basic", {
 
   expect_equal(weka, fs)
 
-  weka <- RWeka::Discretize(z ~ x, dt)[,1]
+  weka <- RWeka::Discretize(z ~ x, dt)[, 1]
   fs <- discretize(dt$x, dt$z)[[1]]
   levels(weka)
   levels(fs)
@@ -128,5 +128,5 @@ test_that("Zero split points", {
   x <- rep(0, 10)
   y <- rep(0, 10)
 
-  expect_warning(discretize(x,y))
+  expect_warning(discretize(x, y))
 })

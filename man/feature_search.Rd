@@ -68,8 +68,8 @@ Note that score depends on the evaluator you provide in the \code{fun} parameter
  registerDoSNOW(cl)
 }
 # Close at the end
-# stopCluster(cl)
-# registerDoSEQ()
+# stopCluster(cl) #nolint
+# registerDoSEQ() #nolint
 
 # 1) Evaluator from FSelector package.
 evaluator <- function(subset, data, dependent = names(iris)[5]) {

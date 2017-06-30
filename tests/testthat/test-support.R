@@ -20,8 +20,7 @@ test_that("Test numeric table", {
   expect_equal(as.integer(stTable), as.integer(fsTable))
 })
 
-test_that("Test integer table",
-{
+test_that("Test integer table", {
   x <- c(31:1, 31:1)
   stTable <- table(x)
 
@@ -38,7 +37,7 @@ test_that("Test factor table", {
   stTable <- table(x)
 
   fsTable <- fs_table1d(x)
-  fsTable <- fsTable[order((names(fsTable)))]
+  fsTable <- fsTable[order(names(fsTable))]
 
   expect_equal(names(stTable), names(fsTable))
   expect_equal(as.integer(stTable), as.integer(fsTable))
@@ -72,7 +71,7 @@ test_that("Test order levels", {
 test_that("Test order levels", {
   xNum <- c(12, 23, 0.3)
   xChar <- c("C", "A", "A", "B")
-  xFac <- factor(xChar, levels = c("A","B","C"), ordered = TRUE)
+  xFac <- factor(xChar, levels = c("A", "B", "C"), ordered = TRUE)
 
   expect_equal(FSelectorRcpp:::fs_entropy1d(xNum), entropy(table(xNum)))
   expect_equal(FSelectorRcpp:::fs_entropy1d(xChar), entropy(table(xChar)))
