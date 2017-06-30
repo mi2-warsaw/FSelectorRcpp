@@ -9,3 +9,4 @@ o_rly.png
 ^codecov\.yml$
 README.md
 NEWS.md
+.lintr
