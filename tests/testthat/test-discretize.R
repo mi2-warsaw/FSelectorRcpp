@@ -127,3 +127,16 @@ test_that("Zero split points", {
 
   expect_warning(discretize(x, y))
 })
+
+test_that("Interfaces", {
+  expect_equal(
+    colnames(discretize(iris$Sepal.Length, iris[["Species"]])),
+    c("Sepal.Length", "Species")
+  )
+
+  expect_equal(
+    colnames(discretize(iris$Sepal.Length, iris[[5]])),
+    c("Sepal.Length", "Species")
+  )
+
+})
