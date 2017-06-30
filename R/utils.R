@@ -6,7 +6,7 @@
 #'
 formula2names <- function(formula, data) {
   y <- formula[[2]]
-  x <- attr(stats::terms(formula, data = data), "term.labels")
+  x <- gsub("`", "", attr(stats::terms(formula, data = data), "term.labels"))
 
   list(y = as.character(y), x = x)
 }
