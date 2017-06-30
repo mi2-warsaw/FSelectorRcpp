@@ -111,9 +111,9 @@ names_by <- function(nameBy, vecBy) {
 get_times <- function(fun, vecRows, vecCols, nTimes) {
   forRows <- pblapply(vecRows, function(nRows) {
     forCols <- pblapply(vecCols + 1, function(nCols) {
-      microbenchmark(fun(bcr_patient_barcode ~ .,
+      suppressWarnings(microbenchmark(fun(bcr_patient_barcode ~ .,
                          BRCA.rnaseq[1:nRows, 1:nCols]),
-                     times = nTimes)
+                     times = nTimes))
     })
     colsNames <- names_by(nameBy = "columns_", vecBy = vecCols)
     setNames(forCols, colsNames)
