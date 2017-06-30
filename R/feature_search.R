@@ -176,8 +176,8 @@ greedy_search <- function(attributes, fun, data,
 #'  registerDoSNOW(cl)
 #' }
 #' # Close at the end
-#' # stopCluster(cl)
-#' # registerDoSEQ()
+#' # stopCluster(cl) #nolint
+#' # registerDoSEQ() #nolint
 #'
 #' # 1) Evaluator from FSelector package.
 #' evaluator <- function(subset, data, dependent = names(iris)[5]) {

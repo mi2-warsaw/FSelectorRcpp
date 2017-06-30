@@ -36,7 +36,9 @@ test_that("Test character table", {
   data <- dt
 
   expect_lt(sum(information.gain(z ~ ., data)[, 1]
-                - information_gain(formula = z ~ .,data = data)$importance), 1e-10)
+                - information_gain(
+                      formula = z ~ ., data = data)$importance),
+            1e-10)
 })
 
 test_that("Sparse matrix - basics", {
@@ -92,8 +94,8 @@ test_that("Interfaces errors", {
 
 })
 test_that("Incorrect interface parameter specification", {
-  irisX = iris[-5]
-  y = as.vector(iris$Species)
+  irisX <- iris[-5]
+  y <- as.vector(iris$Species)
   expect_error(information_gain(x = irisX))
   expect_error(information_gain(formula = Species ~ .))
   expect_error(information_gain(data = iris))
@@ -110,7 +112,9 @@ test_that("Incorrect interface parameter specification", {
   expect_error(information_gain(x = irisX, formula = Species ~ ., data = iris))
   expect_error(information_gain(y = y, x = irisX, formula = Species ~ .))
 
-  expect_error(information_gain(y = y, x = irisX, data = iris, formula = Species ~ .))
+  expect_error(information_gain(
+    y = y, x = irisX, data = iris,
+    formula = Species ~ .))
 
 
 })

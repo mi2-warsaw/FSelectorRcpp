@@ -89,10 +89,10 @@ discretize.formula <- function(x, y,
   for (col in columnsToDiscretize) {
     res <- discretize_cpp(data[[col]], yy, control)
 
-    if (!is.null(attr(res,"SplitValues"))) {
+    if (!is.null(attr(res, "SplitValues"))) {
       # ini case of no split points
       splitVals <- attr(res, "SplitValues")
-      levels(res) <- levels(cut(splitVals,splitVals))
+      levels(res) <- levels(cut(splitVals, splitVals))
     }
 
     data[[col]] <- res
@@ -117,7 +117,7 @@ discretize.data.frame <- function(x, y,
   if (any(table(colnames(y)) != 1)) {
     stop("Duplicated columns!")
   }
-  x <- formula(paste0(colnames(y)[1], "~."))
+  x <- formula(paste0(colnames(y)[1], "~.")) #nolint
 
   if (!("discretizationControl" %in% class(control))) {
     control <- control[[1]]

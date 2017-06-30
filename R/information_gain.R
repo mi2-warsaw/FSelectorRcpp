@@ -1,7 +1,6 @@
 #' Entropy-based Filters
 #'
-#' Algorithms that find ranks of importance of discrete attributes, basing on their
-#' entropy with a continous class attribute. This function
+#' Algorithms that find ranks of importance of discrete attributes, basing on their entropy with a continous class attribute. This function
 #' is a reimplementation of \pkg{FSelector}'s \link[FSelector]{information.gain},
 #' \link[FSelector]{gain.ratio} and \link[FSelector]{symmetrical.uncertainty}.
 #'
@@ -71,7 +70,9 @@
 information_gain <- function(formula, data, x, y,
                              type = c("infogain", "gainratio", "symuncert"),
                              threads = 1) {
-  if (!xor(all(!missing(x), !missing(y)), all(!missing(formula), !missing(data)))) {
+  if (!xor(
+          all(!missing(x), !missing(y)),
+          all(!missing(formula), !missing(data)))) {
     stop(paste("Please specify both `x = attributes, y = response`,",
                "XOR use both `formula = response ~ attributes, data = dataset"))
   }
@@ -118,7 +119,7 @@ information_gain <- function(formula, data, x, y,
     warning(paste("There are missing values in your data.",
                   "information_gain will remove them."))
     idx <- complete.cases(x, y)
-    x <- x[idx,]
+    x <- x[idx, ]
     y <- y[idx]
   }
 
@@ -136,7 +137,9 @@ information_gain <- function(formula, data, x, y,
   classEntropy <- fs_entropy1d(y)
 
   results <- information_type(classEntropy, values, type)
-  data.frame(attributes = colnames(x), importance = results, stringsAsFactors = FALSE)
+  data.frame(
+    attributes = colnames(x),
+    importance = results, stringsAsFactors = FALSE)
 }
 
 .information_gain.formula <- function(x, y,
@@ -179,7 +182,9 @@ information_gain <- function(formula, data, x, y,
 
   results <- information_type(classEntropy, values, type)
 
-  data.frame(attributes = formula$x ,importance = results, stringsAsFactors = FALSE)
+  data.frame(
+    attributes = formula$x,
+    importance = results, stringsAsFactors = FALSE)
 }
 
 
@@ -196,7 +201,7 @@ information_gain <- function(formula, data, x, y,
   results <- information_type(classEntropy, values, type)
 
   attr <- colnames(x)
-  if(is.null(attr)) {
+  if (is.null(attr)) {
     attr <- 1:ncol(x)
   }
 
@@ -213,7 +218,7 @@ information_type <- function(classEntropy, values,
   if (type == "gainratio") {
     results <- results / attrEntropy
   } else if (type == "symuncert") {
-    results <- 2 * results / (attrEntropy	+ classEntropy)
+    results <- 2 * results / (attrEntropy + classEntropy)
   }
 
   results

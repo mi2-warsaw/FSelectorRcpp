@@ -11,7 +11,7 @@ test_that("Cutoff - test", {
   x <- cut_attrs(testDataFrame, k = 1894)
 
   # Testing regular FSelector
-  x2 <- FSelector::cutoff.k(testDataFrame[,2, drop = FALSE], 1894)
+  x2 <- FSelector::cutoff.k(testDataFrame[, 2, drop = FALSE], 1894)
 
   expect_equal(x, x2)
 })

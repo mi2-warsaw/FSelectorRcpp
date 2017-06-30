@@ -80,7 +80,7 @@ get_children <- function(parent, direction = c("forward", "backward", "both"),
       m1 <- matrix(parent, ncol = cols, nrow = rows, byrow = TRUE)
       CurrRow <- 1
       CurrCol <- 1
-      while(CurrCol <= cols && CurrRow <= rows) {
+      while (CurrCol <= cols && CurrRow <= rows) {
         if (m1[CurrRow, CurrCol] == 0) {
           m1[CurrRow, CurrCol] <- 1
           CurrRow <- CurrRow + 1
@@ -96,7 +96,7 @@ get_children <- function(parent, direction = c("forward", "backward", "both"),
       m2 <- matrix(parent, ncol = cols, nrow = rows, byrow = TRUE)
       CurrRow <- 1
       CurrCol <- 1
-      while(CurrCol <= cols && CurrRow <= rows) {
+      while (CurrCol <= cols && CurrRow <= rows) {
         if (m2[CurrRow, CurrCol] == 1) {
           m2[CurrRow, CurrCol] <- 0
           CurrRow <- CurrRow + 1
@@ -113,7 +113,7 @@ get_children <- function(parent, direction = c("forward", "backward", "both"),
 
   if (!is.null(omit.func)) {
     RowToOmit <- apply(m, 1, omit.func)
-    return(m[!RowToOmit, , drop = FALSE])
+    return(m[!RowToOmit, , drop = FALSE]) #nolint
   } else {
     return(m)
   }
