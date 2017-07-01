@@ -119,6 +119,19 @@ get_children <- function(parent, direction = c("forward", "backward", "both"),
   }
 }
 
+#' Colnames from different calls
+#'
+#' Convenience function for extracting colnames
+#' @noRd
+#'
+get_colname <- function(dataCol) {
+  if (grepl(pattern = "^[[:digit:]]+$", x = dataCol[2])) {
+    names(get(dataCol[1]))[as.integer(dataCol[2])]
+  } else {
+    dataCol[2]
+  }
+}
+
 #' Names for Different Classes
 #'
 #' Sets names of output based on call
@@ -131,12 +144,8 @@ call2names <- function(vecCall) {
     charCall
   } else if (charCall[1] == "$") {
     charCall[3]
-  } else if (grepl(pattern = "[[", x = charCall[1], fixed = TRUE)) {
-    if (grepl(pattern = "^[[:digit:]]*$", x = charCall[3])) {
-      names(get(charCall[2]))[as.integer(charCall[3])]
-    } else {
-      charCall[3]
-    }
+  } else if (charCall[1] == "[[") {
+    get_colname(charCall[-1])
   } else {
     toSub <- charCall[-1]
     withBrackets <- grep(pattern = "[[", x = toSub, fixed = TRUE)
@@ -144,13 +153,7 @@ call2names <- function(vecCall) {
                                 x = toSub[withBrackets])
     toSub[withBrackets] <- strsplit(x = toSub[withBrackets], split = "[[",
                                     fixed = TRUE)
-    toSub[withBrackets] <- lapply(toSub[withBrackets], function(x) {
-      if (grepl(pattern = "^[[:digit:]]*$", x = x[2])) {
-        names(get(x[1]))[as.integer(x[2])]
-      } else {
-        names(get(x[1]))[x[2]]
-      }
-    })
+    toSub[withBrackets] <- lapply(toSub[withBrackets], get_colname)
     toSub[-withBrackets] <- gsub(pattern = ".*\\$", replacement = "",
                                  x = toSub[-withBrackets])
     unlist(toSub)
