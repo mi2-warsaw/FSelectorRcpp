@@ -20,38 +20,38 @@
 #'
 #' @noRd
 cutOff_k <- function(x1, x2, k) {
-    .Call('FSelectorRcpp_cutOff_k', PACKAGE = 'FSelectorRcpp', x1, x2, k)
+    .Call('_FSelectorRcpp_cutOff_k', PACKAGE = 'FSelectorRcpp', x1, x2, k)
 }
 
 discretize_cpp <- function(x, y, discControl) {
-    .Call('FSelectorRcpp_discretize_cpp', PACKAGE = 'FSelectorRcpp', x, y, discControl)
+    .Call('_FSelectorRcpp_discretize_cpp', PACKAGE = 'FSelectorRcpp', x, y, discControl)
 }
 
 information_gain_cpp <- function(xx, y, threads = 1L) {
-    .Call('FSelectorRcpp_information_gain_cpp', PACKAGE = 'FSelectorRcpp', xx, y, threads)
+    .Call('_FSelectorRcpp_information_gain_cpp', PACKAGE = 'FSelectorRcpp', xx, y, threads)
 }
 
 sparse_information_gain_cpp <- function(x, y) {
-    .Call('FSelectorRcpp_sparse_information_gain_cpp', PACKAGE = 'FSelectorRcpp', x, y)
+    .Call('_FSelectorRcpp_sparse_information_gain_cpp', PACKAGE = 'FSelectorRcpp', x, y)
 }
 
 fs_count_levels <- function(x) {
-    .Call('FSelectorRcpp_fs_count_levels', PACKAGE = 'FSelectorRcpp', x)
+    .Call('_FSelectorRcpp_fs_count_levels', PACKAGE = 'FSelectorRcpp', x)
 }
 
 fs_order <- function(x) {
-    .Call('FSelectorRcpp_fs_order', PACKAGE = 'FSelectorRcpp', x)
+    .Call('_FSelectorRcpp_fs_order', PACKAGE = 'FSelectorRcpp', x)
 }
 
 fs_entropy1d <- function(x) {
-    .Call('FSelectorRcpp_fs_entropy1d', PACKAGE = 'FSelectorRcpp', x)
+    .Call('_FSelectorRcpp_fs_entropy1d', PACKAGE = 'FSelectorRcpp', x)
 }
 
 fs_table1d <- function(x) {
-    .Call('FSelectorRcpp_fs_table1d', PACKAGE = 'FSelectorRcpp', x)
+    .Call('_FSelectorRcpp_fs_table1d', PACKAGE = 'FSelectorRcpp', x)
 }
 
 fs_table_numeric2d <- function(x, y) {
-    .Call('FSelectorRcpp_fs_table_numeric2d', PACKAGE = 'FSelectorRcpp', x, y)
+    .Call('_FSelectorRcpp_fs_table_numeric2d', PACKAGE = 'FSelectorRcpp', x, y)
 }
 

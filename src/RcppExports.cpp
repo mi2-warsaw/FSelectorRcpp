@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // cutOff_k
 std::vector< std::string > cutOff_k(std::vector< std::string >& x1, std::vector<double>& x2, double k);
-RcppExport SEXP FSelectorRcpp_cutOff_k(SEXP x1SEXP, SEXP x2SEXP, SEXP kSEXP) {
+RcppExport SEXP _FSelectorRcpp_cutOff_k(SEXP x1SEXP, SEXP x2SEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,7 +21,7 @@ END_RCPP
 }
 // discretize_cpp
 IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y, const List& discControl);
-RcppExport SEXP FSelectorRcpp_discretize_cpp(SEXP xSEXP, SEXP ySEXP, SEXP discControlSEXP) {
+RcppExport SEXP _FSelectorRcpp_discretize_cpp(SEXP xSEXP, SEXP ySEXP, SEXP discControlSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -34,7 +34,7 @@ END_RCPP
 }
 // information_gain_cpp
 List information_gain_cpp(List xx, IntegerVector y, int threads);
-RcppExport SEXP FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP, SEXP threadsSEXP) {
+RcppExport SEXP _FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -47,7 +47,7 @@ END_RCPP
 }
 // sparse_information_gain_cpp
 List sparse_information_gain_cpp(arma::sp_mat x, IntegerVector y);
-RcppExport SEXP FSelectorRcpp_sparse_information_gain_cpp(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _FSelectorRcpp_sparse_information_gain_cpp(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -59,7 +59,7 @@ END_RCPP
 }
 // fs_count_levels
 int fs_count_levels(SEXP x);
-RcppExport SEXP FSelectorRcpp_fs_count_levels(SEXP xSEXP) {
+RcppExport SEXP _FSelectorRcpp_fs_count_levels(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -70,7 +70,7 @@ END_RCPP
 }
 // fs_order
 IntegerVector fs_order(SEXP x);
-RcppExport SEXP FSelectorRcpp_fs_order(SEXP xSEXP) {
+RcppExport SEXP _FSelectorRcpp_fs_order(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -81,7 +81,7 @@ END_RCPP
 }
 // fs_entropy1d
 double fs_entropy1d(SEXP x);
-RcppExport SEXP FSelectorRcpp_fs_entropy1d(SEXP xSEXP) {
+RcppExport SEXP _FSelectorRcpp_fs_entropy1d(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -92,7 +92,7 @@ END_RCPP
 }
 // fs_table1d
 IntegerVector fs_table1d(SEXP& x);
-RcppExport SEXP FSelectorRcpp_fs_table1d(SEXP xSEXP) {
+RcppExport SEXP _FSelectorRcpp_fs_table1d(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -103,7 +103,7 @@ END_RCPP
 }
 // fs_table_numeric2d
 std::vector<int> fs_table_numeric2d(NumericVector& x, NumericVector& y);
-RcppExport SEXP FSelectorRcpp_fs_table_numeric2d(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _FSelectorRcpp_fs_table_numeric2d(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
