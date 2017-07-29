@@ -156,7 +156,7 @@ call2names <- function(vecCall) {
     toSub[withBrackets] <- lapply(toSub[withBrackets], get_colname)
     toSub[-withBrackets] <- gsub(pattern = ".*\\$", replacement = "",
                                  x = toSub[-withBrackets])
-    unlist(toSub)
+    gsub(pattern = "\"", replacement = "", x = unlist(toSub))
   }
 }
 
