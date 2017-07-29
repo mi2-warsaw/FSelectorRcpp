@@ -139,4 +139,17 @@ test_that("Interfaces", {
     c("Sepal.Length", "Species")
   )
 
+  expect_equal(
+    colnames(discretize(list(iris$Sepal.Length, iris[[2]],
+                             iris[["Petal.Length"]]), iris$Species)),
+    colnames(discretize(Species ~ . - Petal.Width, iris)),
+    c("Sepal.Length", "Sepal.Width", "Petal.Length", "Species")
+  )
+
+  expect_equal(
+    colnames(discretize(list(iris_plus$"Sepal+Length", iris_plus[[2]],
+                             iris_plus[["Petal+Length"]]), iris_plus$Species)),
+    colnames(discretize(Species ~ . - `Petal+Width`, iris_plus)),
+    c("Sepal+Length", "Sepal+Width", "Petal+Length", "Species")
+  )
 })
