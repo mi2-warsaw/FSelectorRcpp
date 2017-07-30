@@ -75,7 +75,7 @@ discretize.formula <- function(x, y,
 
   if (all(!colClasses)) {
     stop("No columns of numeric classes!")
-  } else if (!all(colClasses)) {
+  } else if (any(!colClasses) && !all) {
     warning(paste("Columns with classes other than numeric will be skipped!\n",
                   "\n",
                   " Skipped columns:",
@@ -99,7 +99,7 @@ discretize.formula <- function(x, y,
   }
 
   if (!all) {
-    data <- data[, c(columnsToDiscretize, formula$y)]
+    data <- data[, c(formula$y, columnsToDiscretize)]
   }
 
   return(data)
