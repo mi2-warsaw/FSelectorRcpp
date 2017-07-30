@@ -281,7 +281,7 @@ feature_search <- function(attributes, fun, data,
                                 parallel = parallel, ...)
   }
 
-  output <- c(output, call = call, mode = mode, data = data)
+  output <- c(output, call = call, mode = mode, data = list(data))
 
   return(output)
 }
