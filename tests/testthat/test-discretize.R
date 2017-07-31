@@ -2,6 +2,12 @@ library(dplyr)
 library(FSelector)
 library(FSelectorRcpp)
 
+iris_plus <- setNames(iris, gsub(
+  pattern = "\\.",
+  replacement = "+",
+  x = colnames(iris)
+))
+
 test_that("Data frame output", {
   expect_s3_class(discretize(Species ~ ., iris),
                   class = "data.frame")
