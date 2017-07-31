@@ -7,10 +7,4 @@ library(dplyr)
 library(entropy)
 library(lintr)
 
-iris_plus <- setNames(iris, gsub(
-  pattern = "\\.",
-  replacement = "+",
-  x = colnames(iris)
-))
-
 test_check("FSelectorRcpp")

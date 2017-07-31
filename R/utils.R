@@ -126,7 +126,8 @@ get_children <- function(parent, direction = c("forward", "backward", "both"),
 #'
 get_colname <- function(dataCol) {
   if (grepl(pattern = "^[[:digit:]]+$", x = dataCol[2])) {
-    names(get(dataCol[1]))[as.integer(dataCol[2])]
+    fnc <- ifelse(exists(dataCol[1]), get, dynGet)
+    names(fnc(dataCol[1]))[as.integer(dataCol[2])]
   } else {
     dataCol[2]
   }
