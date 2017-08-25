@@ -45,20 +45,21 @@ test_that("Sparse matrix - basics", {
   mode(x) <- "integer"
   x <- Matrix(x, sparse = TRUE)
 
-  mode(iris$Sepal.Length) <- "integer"
-  mode(iris$Sepal.Width) <- "integer"
-  mode(iris$Petal.Length) <- "integer"
-  mode(iris$Petal.Width) <- "integer"
+  iris2 <- iris
+  mode(iris2$Sepal.Length) <- "integer"
+  mode(iris2$Sepal.Width) <- "integer"
+  mode(iris2$Petal.Length) <- "integer"
+  mode(iris2$Petal.Width) <- "integer"
 
   expect_equal(information_gain(x, species)$importance,
-               information_gain(formula = Species ~ ., data = iris)$importance)
+               information_gain(formula = Species ~ ., data = iris2)$importance)
 
   expect_equal(information_gain(x, species, type = "gainratio")$importance,
-               information_gain(formula = Species ~ ., data = iris,
+               information_gain(formula = Species ~ ., data = iris2,
                                 type = "gainratio")$importance)
 
   expect_equal(information_gain(x, species, type = "symuncert")$importance,
-               information_gain(formula = Species ~ ., data = iris,
+               information_gain(formula = Species ~ ., data = iris2,
                                 type = "symuncert")$importance)
 
   # When there's no column names just indexes will be used
