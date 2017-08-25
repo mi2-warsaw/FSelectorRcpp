@@ -1,5 +1,12 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.1.4
+----------------------------------------------------------------
+
+Bug fixes:
+- Fixed build using Rcpp 0.12.12
+- feature_search now returns proper structure.
+
 FSelectorRcpp 0.1.3
 ----------------------------------------------------------------
 
