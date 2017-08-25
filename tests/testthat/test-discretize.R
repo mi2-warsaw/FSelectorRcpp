@@ -2,6 +2,12 @@ library(dplyr)
 library(FSelector)
 library(FSelectorRcpp)
 
+iris_plus <- setNames(iris, gsub(
+  pattern = "\\.",
+  replacement = "+",
+  x = colnames(iris)
+))
+
 test_that("Data frame output", {
   expect_s3_class(discretize(Species ~ ., iris),
                   class = "data.frame")
@@ -128,6 +134,18 @@ test_that("Zero split points", {
   expect_warning(discretize(x, y))
 })
 
+test_that("List interface inside function", {
+  fnc <- function(xx) {
+    discretize(list(xx$"Sepal+Length", xx[[2]],
+                    xx[["Petal+Length"]]), xx$Species)
+
+  }
+
+  expect_equal(
+    colnames(fnc(iris_plus)),
+    c("Species", "Sepal+Length", "Sepal+Width", "Petal+Length"))
+})
+
 test_that("Interfaces", {
   expect_equal(
     colnames(discretize(iris$Sepal.Length, iris[["Species"]])),
@@ -142,14 +160,12 @@ test_that("Interfaces", {
   expect_equal(
     colnames(discretize(list(iris$Sepal.Length, iris[[2]],
                              iris[["Petal.Length"]]), iris$Species)),
-    colnames(discretize(Species ~ . - Petal.Width, iris)),
-    c("Sepal.Length", "Sepal.Width", "Petal.Length", "Species")
+    colnames(discretize(Species ~ . - Petal.Width, iris))
   )
 
   expect_equal(
     colnames(discretize(list(iris_plus$"Sepal+Length", iris_plus[[2]],
                              iris_plus[["Petal+Length"]]), iris_plus$Species)),
-    colnames(discretize(Species ~ . - `Petal+Width`, iris_plus)),
-    c("Sepal+Length", "Sepal+Width", "Petal+Length", "Species")
+    c("Species", "Sepal+Length", "Sepal+Width", "Petal+Length")
   )
 })
