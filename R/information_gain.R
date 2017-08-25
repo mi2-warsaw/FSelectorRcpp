@@ -63,7 +63,7 @@
 #' @importFrom Rcpp evalCpp
 #' @importFrom stats na.omit
 #' @importFrom stats complete.cases
-#' @useDynLib FSelectorRcpp
+#' @useDynLib FSelectorRcpp, .registration = TRUE
 #' @rdname information_gain
 #' @export
 #'
