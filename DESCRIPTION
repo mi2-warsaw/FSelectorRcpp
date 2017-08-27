@@ -27,7 +27,6 @@ Suggests:
     entropy,
     FSelector,
     randomForest,
-    doSNOW,
     doParallel,
     rpart,
     MASS,
