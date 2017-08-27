@@ -122,7 +122,7 @@ greedy_search <- function(attributes, fun, data,
 #' @importFrom foreach foreach %dopar% %do% getDoParRegistered getDoParName
 #' @importFrom iterators iter
 #' @importFrom stats setNames
-#' @importFrom utils setTxtProgressBar txtProgressBar tail
+#' @importFrom utils tail
 #'
 #' @details The evaluator function passed with \code{fun} is used to determine
 #' the importance score of current features' subset.
