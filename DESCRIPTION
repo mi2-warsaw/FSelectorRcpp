@@ -9,7 +9,7 @@ Authors@R: c(
     person("Krzysztof", "Slomczynski", role = c("ctb"), email = "krzysztofslomczynski@gmail.com")
     )
 Description: 'Rcpp' (free of 'Java'/'Weka') implementation of 'FSelector' entropy-based feature selection 
- algorithms (Largeron et al. 2011) with a sparse matrix support. It is also equipped with a parallel backend.
+ algorithms based on an MDL discretization (Largeron et al. 2011) with a sparse matrix support. It is also equipped with a parallel backend.
 Depends: R (>= 3.3.2)
 License: GPL-2
 LazyData: TRUE
