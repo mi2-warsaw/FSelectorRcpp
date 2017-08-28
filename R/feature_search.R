@@ -23,21 +23,11 @@ exhaustive_search <- function(attributes, fun, data,
 
   if (parallel && getDoParRegistered()) {
     `%op%` <- `%dopar%`
-    if (getDoParName() == "doSNOW") {
-      tpb <- txtProgressBar(max = matIter$length, style = 3)
-      progress <- function(n) {
-        setTxtProgressBar(pb = tpb, value = n)
-      }
-      opts <- list(progress = progress)
-    } else {
-      opts <- NULL
-    }
   } else {
     `%op%` <- `%do%`
-    opts <- NULL
   }
 
-  result <- foreach(it = matIter, .options.snow = opts, ...) %op% {
+  result <- foreach(it = matIter, ...) %op% {
     fun(attributes[as.logical(as.numeric(it))], data)
   }
 
@@ -79,21 +69,11 @@ greedy_search <- function(attributes, fun, data,
 
     if (parallel && getDoParRegistered()) {
       `%op%` <- `%dopar%`
-      if (getDoParName() == "doSNOW") {
-        tpb <- txtProgressBar(max = iterChild$length, style = 3)
-        progress <- function(n) {
-          setTxtProgressBar(pb = tpb, value = n)
-        }
-        opts <- list(progress = progress)
-      } else {
-        opts <- NULL
-      }
     } else {
       `%op%` <- `%do%`
-      opts <- NULL
     }
 
-    childrenResults <- foreach(it = iterChild, .options.snow = opts, ...) %op% {
+    childrenResults <- foreach(it = iterChild, ...) %op% {
       fun(attributes[as.logical(as.numeric(it))], data)
     }
 
@@ -142,7 +122,7 @@ greedy_search <- function(attributes, fun, data,
 #' @importFrom foreach foreach %dopar% %do% getDoParRegistered getDoParName
 #' @importFrom iterators iter
 #' @importFrom stats setNames
-#' @importFrom utils setTxtProgressBar txtProgressBar tail
+#' @importFrom utils tail
 #'
 #' @details The evaluator function passed with \code{fun} is used to determine
 #' the importance score of current features' subset.
@@ -167,13 +147,9 @@ greedy_search <- function(attributes, fun, data,
 #'
 #' # Enable parallelization in examples
 #' \dontrun{
-#'  # doSnow has an option for the progress bar.
-#'  # However it may cause problems on some systems.
-#'  # That's why this code has a dontrun clausure.
-#'  # Feel free to try it on your machine.
-#'  library(doSNOW) # doSNOW has an option for progress bar
+#'  library(doParallel)
 #'  cl <- makeCluster(2)
-#'  registerDoSNOW(cl)
+#'  registerDoParallel(cl)
 #' }
 #' # Close at the end
 #' # stopCluster(cl) #nolint

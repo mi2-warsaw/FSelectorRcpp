@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Feature Searching Engine — feature_search • FSelectorRcpp</title>
+<title>General Feature Searching Engine � feature_search • FSelectorRcpp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,14 +23,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -49,10 +52,28 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/benchmarks_discretize.html">Benchmarks: discretize()</a>
+    </li>
+    <li>
+      <a href="../articles/get_started.html">Motivation, Installation and Quick Workflow</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -78,62 +99,73 @@
     
     <p>A convenience wrapper for <code>greedy</code> and <code>exhaustive</code> feature selection algorithms that
 extract valuable attributes depending on the evaluation method (called evaluator). This function
-is a reimplementation of <span class="pkg">FSelector</span>&#39;s <a href='http://www.rdocumentation.org/packages/FSelector/topics/exhaustive.search'>exhaustive.search</a> and greedy.search.</p>
+is a reimplementation of <span class="pkg">FSelector</span>'s <a href='http://www.rdocumentation.org/packages/FSelector/topics/exhaustive.search'>exhaustive.search</a> and greedy.search.</p>
     
 
-    <pre><span class='fu'>feature_search</span>(<span class='no'>attributes</span>, <span class='no'>fun</span>, <span class='no'>data</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"greedy"</span>, <span class='st'>"exhaustive"</span>),
+    <pre class="usage"><span class='fu'>feature_search</span>(<span class='no'>attributes</span>, <span class='no'>fun</span>, <span class='no'>data</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"greedy"</span>, <span class='st'>"exhaustive"</span>),
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"forward"</span>, <span class='st'>"backward"</span>), <span class='kw'>sizes</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fu'>length</span>(<span class='no'>attributes</span>),
   <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>attributes</dt>
-      <dd>A character vector with attributes&#39; names to be used to extract the most valuable features.</dd>
-      <dt>fun</dt>
-      <dd>A function (evaluator) to be used to score features&#39; sets at each iteration of the algorithm passed via <code>mode</code>.
-See Examples.</dd>
-      <dt>data</dt>
-      <dd>A data set for <code>fun</code> function (evaluator).</dd>
-      <dt>mode</dt>
-      <dd>A character that determines which search algorithm to perform. Defualt is <code>&quot;greedy&quot;</code>.</dd>
-      <dt>type</dt>
-      <dd>Used when <code>mode = &quot;greedy&quot;</code> - whether to use the
-<code>backward</code> or the <code>forward</code> multiple-way search. Default is <code>&quot;forward&quot;</code>.</dd>
-      <dt>sizes</dt>
-      <dd>Used when <code>mode = &quot;exhaustive&quot;</code> - a vector of sizes
-of attributes subsets.</dd>
-      <dt>parallel</dt>
-      <dd>Allow parallelization.</dd>
-      <dt>&#8230;</dt>
-      <dd>Other arguments passed to foreach function.</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>attributes</th>
+      <td><p>A character vector with attributes' names to be used to extract the most valuable features.</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p>A function (evaluator) to be used to score features' sets at each iteration of the algorithm passed via <code>mode</code>.
+See Examples.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>A data set for <code>fun</code> function (evaluator).</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>A character that determines which search algorithm to perform. Defualt is <code>"greedy"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>Used when <code>mode = "greedy"</code> - whether to use the
+<code>backward</code> or the <code>forward</code> multiple-way search. Default is <code>"forward"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>sizes</th>
+      <td><p>Used when <code>mode = "exhaustive"</code> - a vector of sizes
+of attributes subsets.</p></td>
+    </tr>
+    <tr>
+      <th>parallel</th>
+      <td><p>Allow parallelization.</p></td>
+    </tr>
+    <tr>
+      <th>&#8230;</th>
+      <td><p>Other arguments passed to foreach function.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list with following components
-<ul>
-<li> best - a data.frame with the best subset and it&#39;s score (1 - feature used, 0 - feature not used),
-  </li>
-<li> all - a data.frame with all checked features&#39; subsets and their score (1 - feature used, 0 - feature not used),
-  </li>
-<li> data - the data used in the feature selection,
-  </li>
-<li> fun - the evaluator used to compute the score of importance for features&#39; subsets,
-  </li>
-<li> call - an origin call of the <code>feature_search</code>,
-  </li>
-<li> mode - the mode used in the call.
-</li>
-</ul></p>
+    <p>A list with following components</p><ul>
+<li><p>best - a data.frame with the best subset and it's score (1 - feature used, 0 - feature not used),</p></li>
+<li><p>all - a data.frame with all checked features' subsets and their score (1 - feature used, 0 - feature not used),</p></li>
+<li><p>data - the data used in the feature selection,</p></li>
+<li><p>fun - the evaluator used to compute the score of importance for features' subsets,</p></li>
+<li><p>call - an origin call of the <code>feature_search</code>,</p></li>
+<li><p>mode - the mode used in the call.</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The evaluator function passed with <code>fun</code> is used to determine
-the importance score of current features&#39; subset.
+the importance score of current features' subset.
 The score is used in a multiple-way (backward or forward) <code>greedy</code>
 algorithm as a stopping moment or as a selection criterion
 in the <code>exhaustive</code> search that checks all possible
-attributes&#39; subset combinations (of sizes passed in <code>sizes</code>).</p>
+attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -142,15 +174,14 @@ attributes&#39; subset combinations (of sizes passed in <code>sizes</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># Enable parallelization in examples</span>
- <span class='fu'>library</span>(<span class='no'>doSNOW</span>) <span class='co'># doSNOW has an option for progress bar</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: foreach</span></div><div class='output co'>#&gt; <span class='message'>foreach: simple, scalable parallel programming from Revolution Analytics</span>
-#&gt; <span class='message'>Use Revolution R for scalability, fault tolerance and more.</span>
-#&gt; <span class='message'>http://www.revolutionanalytics.com</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: iterators</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: snow</span></div><div class='input'> <span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='fu'>makeCluster</span>(<span class='fl'>2</span>)
- <span class='fu'>registerDoSNOW</span>(<span class='no'>cl</span>)
-
-<span class='co'># Close at the end</span>
-<span class='co'># stopCluster(cl)</span>
-<span class='co'># registerDoSEQ()</span>
+# Enable parallelization in examples
+</div><span class='co'># NOT RUN {</span>
+ <span class='fu'>library</span>(<span class='no'>doParallel</span>)
+ <span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='fu'>makeCluster</span>(<span class='fl'>2</span>)
+ <span class='fu'><a href='http://www.rdocumentation.org/packages/doParallel/topics/registerDoParallel'>registerDoParallel</a></span>(<span class='no'>cl</span>)
+<span class='co'># }</span><div class='input'><span class='co'># Close at the end</span>
+<span class='co'># stopCluster(cl) #nolint</span>
+<span class='co'># registerDoSEQ() #nolint</span>
 
 <span class='co'># 1) Evaluator from FSelector package.</span>
 <span class='no'>evaluator</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>subset</span>, <span class='no'>data</span>, <span class='no'>dependent</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[<span class='fl'>5</span>]) {
@@ -162,7 +193,7 @@ attributes&#39; subset combinations (of sizes passed in <code>sizes</code>).</p>
     <span class='no'>train.idx</span> <span class='kw'>&lt;-</span> !<span class='no'>test.idx</span>
     <span class='no'>test</span> <span class='kw'>&lt;-</span> <span class='no'>data</span>[<span class='no'>test.idx</span>, , <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]
     <span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='no'>data</span>[<span class='no'>train.idx</span>, , <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]
-    <span class='no'>tree</span> <span class='kw'>&lt;-</span> <span class='fu'>rpart</span>(<span class='fu'><a href='to_formula.html'>to_formula</a></span>(<span class='no'>subset</span>, <span class='no'>dependent</span>), <span class='no'>train</span>)
+    <span class='no'>tree</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/rpart/topics/rpart'>rpart</a></span>(<span class='fu'><a href='to_formula.html'>to_formula</a></span>(<span class='no'>subset</span>, <span class='no'>dependent</span>), <span class='no'>train</span>)
     <span class='no'>error.rate</span> <span class='kw'>&lt;-</span> <span class='fu'>sum</span>(<span class='no'>test</span><span class='kw'>[[</span><span class='no'>dependent</span>]] <span class='kw'>!=</span> <span class='fu'>predict</span>(<span class='no'>tree</span>, <span class='no'>test</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"c"</span>)) /
     <span class='fu'>nrow</span>(<span class='no'>test</span>)
     <span class='fu'>return</span>(<span class='fl'>1</span> - <span class='no'>error.rate</span>)
@@ -175,29 +206,29 @@ attributes&#39; subset combinations (of sizes passed in <code>sizes</code>).</p>
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
-)</div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%  |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.030   0.006   0.366 </div><div class='input'><span class='fu'>system.time</span>(
+)</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;    0.26    0.02    0.28 </div><div class='input'><span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.189   0.000   0.184 </div><div class='input'>
+#&gt;    0.22    0.00    0.22 </div><div class='input'>
 <span class='co'># Optional exhaustive search.</span>
 <span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>)
-)</div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=====                                                                 |   7%  |                                                                              |=========                                                             |  13%  |                                                                              |==============                                                        |  20%  |                                                                              |===================                                                   |  27%  |                                                                              |=======================                                               |  33%  |                                                                              |============================                                          |  40%  |                                                                              |=================================                                     |  47%  |                                                                              |=====================================                                 |  53%  |                                                                              |==========================================                            |  60%  |                                                                              |===============================================                       |  67%  |                                                                              |===================================================                   |  73%  |                                                                              |========================================================              |  80%  |                                                                              |=============================================================         |  87%  |                                                                              |=================================================================     |  93%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.012   0.000   0.215 </div><div class='input'><span class='fu'>system.time</span>(
+)</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;    0.36    0.00    0.36 </div><div class='input'><span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>,
                  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.304   0.000   0.298 </div><div class='input'>
+#&gt;    0.37    0.01    0.39 </div><div class='input'>
 <span class='co'># 2) Maximize R^2 statistics in the linear regression model/problem.</span>
 
 <span class='no'>evaluator_R2_lm</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>attributes</span>, <span class='no'>data</span>, <span class='no'>dependent</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[<span class='fl'>1</span>]) {
@@ -208,7 +239,7 @@ attributes&#39; subset combinations (of sizes passed in <code>sizes</code>).</p>
 
 <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>1</span>],
                <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator_R2_lm</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
-               <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>)</div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=====                                                                 |   7%  |                                                                              |=========                                                             |  13%  |                                                                              |==============                                                        |  20%  |                                                                              |===================                                                   |  27%  |                                                                              |=======================                                               |  33%  |                                                                              |============================                                          |  40%  |                                                                              |=================================                                     |  47%  |                                                                              |=====================================                                 |  53%  |                                                                              |==========================================                            |  60%  |                                                                              |===============================================                       |  67%  |                                                                              |===================================================                   |  73%  |                                                                              |========================================================              |  80%  |                                                                              |=============================================================         |  87%  |                                                                              |=================================================================     |  93%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; $best
+               <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>)</div><div class='output co'>#&gt; $best
 #&gt;    Sepal.Width Petal.Length Petal.Width Species    values
 #&gt; 15           1            1           1       1 0.8673123
 #&gt; 
@@ -235,92 +266,173 @@ attributes&#39; subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt; {
 #&gt;     summary(lm(to_formula(attributes, dependent), data = data))$r.squared
 #&gt; }
-#&gt; &lt;environment: 0x4857700&gt;
+#&gt; &lt;environment: 0x000000000dd134a8&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, 
-#&gt;     data = iris, mode = &quot;exhaustive&quot;)
+#&gt;     data = iris, mode = "exhaustive")
 #&gt; 
 #&gt; $mode
-#&gt; [1] &quot;exhaustive&quot;
+#&gt; [1] "exhaustive"
 #&gt; 
-#&gt; $data.Sepal.Length
-#&gt;   [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
-#&gt;  [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
-#&gt;  [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
-#&gt;  [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
-#&gt;  [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
-#&gt;  [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
-#&gt; [109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
-#&gt; [127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
-#&gt; [145] 6.7 6.7 6.3 6.5 6.2 5.9
-#&gt; 
-#&gt; $data.Sepal.Width
-#&gt;   [1] 3.5 3.0 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 3.4 3.0 3.0 4.0 4.4 3.9 3.5
-#&gt;  [19] 3.8 3.8 3.4 3.7 3.6 3.3 3.4 3.0 3.4 3.5 3.4 3.2 3.1 3.4 4.1 4.2 3.1 3.2
-#&gt;  [37] 3.5 3.6 3.0 3.4 3.5 2.3 3.2 3.5 3.8 3.0 3.8 3.2 3.7 3.3 3.2 3.2 3.1 2.3
-#&gt;  [55] 2.8 2.8 3.3 2.4 2.9 2.7 2.0 3.0 2.2 2.9 2.9 3.1 3.0 2.7 2.2 2.5 3.2 2.8
-#&gt;  [73] 2.5 2.8 2.9 3.0 2.8 3.0 2.9 2.6 2.4 2.4 2.7 2.7 3.0 3.4 3.1 2.3 3.0 2.5
-#&gt;  [91] 2.6 3.0 2.6 2.3 2.7 3.0 2.9 2.9 2.5 2.8 3.3 2.7 3.0 2.9 3.0 3.0 2.5 2.9
-#&gt; [109] 2.5 3.6 3.2 2.7 3.0 2.5 2.8 3.2 3.0 3.8 2.6 2.2 3.2 2.8 2.8 2.7 3.3 3.2
-#&gt; [127] 2.8 3.0 2.8 3.0 2.8 3.8 2.8 2.8 2.6 3.0 3.4 3.1 3.0 3.1 3.1 3.1 2.7 3.2
-#&gt; [145] 3.3 3.0 2.5 3.0 3.4 3.0
-#&gt; 
-#&gt; $data.Petal.Length
-#&gt;   [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4
-#&gt;  [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2
-#&gt;  [37] 1.3 1.4 1.3 1.5 1.3 1.3 1.3 1.6 1.9 1.4 1.6 1.4 1.5 1.4 4.7 4.5 4.9 4.0
-#&gt;  [55] 4.6 4.5 4.7 3.3 4.6 3.9 3.5 4.2 4.0 4.7 3.6 4.4 4.5 4.1 4.5 3.9 4.8 4.0
-#&gt;  [73] 4.9 4.7 4.3 4.4 4.8 5.0 4.5 3.5 3.8 3.7 3.9 5.1 4.5 4.5 4.7 4.4 4.1 4.0
-#&gt;  [91] 4.4 4.6 4.0 3.3 4.2 4.2 4.2 4.3 3.0 4.1 6.0 5.1 5.9 5.6 5.8 6.6 4.5 6.3
-#&gt; [109] 5.8 6.1 5.1 5.3 5.5 5.0 5.1 5.3 5.5 6.7 6.9 5.0 5.7 4.9 6.7 4.9 5.7 6.0
-#&gt; [127] 4.8 4.9 5.6 5.8 6.1 6.4 5.6 5.1 5.6 6.1 5.6 5.5 4.8 5.4 5.6 5.1 5.1 5.9
-#&gt; [145] 5.7 5.2 5.0 5.2 5.4 5.1
-#&gt; 
-#&gt; $data.Petal.Width
-#&gt;   [1] 0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 0.2 0.2 0.1 0.1 0.2 0.4 0.4 0.3
-#&gt;  [19] 0.3 0.3 0.2 0.4 0.2 0.5 0.2 0.2 0.4 0.2 0.2 0.2 0.2 0.4 0.1 0.2 0.2 0.2
-#&gt;  [37] 0.2 0.1 0.2 0.2 0.3 0.3 0.2 0.6 0.4 0.3 0.2 0.2 0.2 0.2 1.4 1.5 1.5 1.3
-#&gt;  [55] 1.5 1.3 1.6 1.0 1.3 1.4 1.0 1.5 1.0 1.4 1.3 1.4 1.5 1.0 1.5 1.1 1.8 1.3
-#&gt;  [73] 1.5 1.2 1.3 1.4 1.4 1.7 1.5 1.0 1.1 1.0 1.2 1.6 1.5 1.6 1.5 1.3 1.3 1.3
-#&gt;  [91] 1.2 1.4 1.2 1.0 1.3 1.2 1.3 1.3 1.1 1.3 2.5 1.9 2.1 1.8 2.2 2.1 1.7 1.8
-#&gt; [109] 1.8 2.5 2.0 1.9 2.1 2.0 2.4 2.3 1.8 2.2 2.3 1.5 2.3 2.0 2.0 1.8 2.1 1.8
-#&gt; [127] 1.8 1.8 2.1 1.6 1.9 2.0 2.2 1.5 1.4 2.3 2.4 1.8 1.8 2.1 2.4 2.3 1.9 2.3
-#&gt; [145] 2.5 2.3 1.9 2.0 2.3 1.8
-#&gt; 
-#&gt; $data.Species
-#&gt;   [1] setosa     setosa     setosa     setosa     setosa     setosa    
-#&gt;   [7] setosa     setosa     setosa     setosa     setosa     setosa    
-#&gt;  [13] setosa     setosa     setosa     setosa     setosa     setosa    
-#&gt;  [19] setosa     setosa     setosa     setosa     setosa     setosa    
-#&gt;  [25] setosa     setosa     setosa     setosa     setosa     setosa    
-#&gt;  [31] setosa     setosa     setosa     setosa     setosa     setosa    
-#&gt;  [37] setosa     setosa     setosa     setosa     setosa     setosa    
-#&gt;  [43] setosa     setosa     setosa     setosa     setosa     setosa    
-#&gt;  [49] setosa     setosa     versicolor versicolor versicolor versicolor
-#&gt;  [55] versicolor versicolor versicolor versicolor versicolor versicolor
-#&gt;  [61] versicolor versicolor versicolor versicolor versicolor versicolor
-#&gt;  [67] versicolor versicolor versicolor versicolor versicolor versicolor
-#&gt;  [73] versicolor versicolor versicolor versicolor versicolor versicolor
-#&gt;  [79] versicolor versicolor versicolor versicolor versicolor versicolor
-#&gt;  [85] versicolor versicolor versicolor versicolor versicolor versicolor
-#&gt;  [91] versicolor versicolor versicolor versicolor versicolor versicolor
-#&gt;  [97] versicolor versicolor versicolor versicolor virginica  virginica 
-#&gt; [103] virginica  virginica  virginica  virginica  virginica  virginica 
-#&gt; [109] virginica  virginica  virginica  virginica  virginica  virginica 
-#&gt; [115] virginica  virginica  virginica  virginica  virginica  virginica 
-#&gt; [121] virginica  virginica  virginica  virginica  virginica  virginica 
-#&gt; [127] virginica  virginica  virginica  virginica  virginica  virginica 
-#&gt; [133] virginica  virginica  virginica  virginica  virginica  virginica 
-#&gt; [139] virginica  virginica  virginica  virginica  virginica  virginica 
-#&gt; [145] virginica  virginica  virginica  virginica  virginica  virginica 
-#&gt; Levels: setosa versicolor virginica
+#&gt; $data
+#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+#&gt; 1            5.1         3.5          1.4         0.2     setosa
+#&gt; 2            4.9         3.0          1.4         0.2     setosa
+#&gt; 3            4.7         3.2          1.3         0.2     setosa
+#&gt; 4            4.6         3.1          1.5         0.2     setosa
+#&gt; 5            5.0         3.6          1.4         0.2     setosa
+#&gt; 6            5.4         3.9          1.7         0.4     setosa
+#&gt; 7            4.6         3.4          1.4         0.3     setosa
+#&gt; 8            5.0         3.4          1.5         0.2     setosa
+#&gt; 9            4.4         2.9          1.4         0.2     setosa
+#&gt; 10           4.9         3.1          1.5         0.1     setosa
+#&gt; 11           5.4         3.7          1.5         0.2     setosa
+#&gt; 12           4.8         3.4          1.6         0.2     setosa
+#&gt; 13           4.8         3.0          1.4         0.1     setosa
+#&gt; 14           4.3         3.0          1.1         0.1     setosa
+#&gt; 15           5.8         4.0          1.2         0.2     setosa
+#&gt; 16           5.7         4.4          1.5         0.4     setosa
+#&gt; 17           5.4         3.9          1.3         0.4     setosa
+#&gt; 18           5.1         3.5          1.4         0.3     setosa
+#&gt; 19           5.7         3.8          1.7         0.3     setosa
+#&gt; 20           5.1         3.8          1.5         0.3     setosa
+#&gt; 21           5.4         3.4          1.7         0.2     setosa
+#&gt; 22           5.1         3.7          1.5         0.4     setosa
+#&gt; 23           4.6         3.6          1.0         0.2     setosa
+#&gt; 24           5.1         3.3          1.7         0.5     setosa
+#&gt; 25           4.8         3.4          1.9         0.2     setosa
+#&gt; 26           5.0         3.0          1.6         0.2     setosa
+#&gt; 27           5.0         3.4          1.6         0.4     setosa
+#&gt; 28           5.2         3.5          1.5         0.2     setosa
+#&gt; 29           5.2         3.4          1.4         0.2     setosa
+#&gt; 30           4.7         3.2          1.6         0.2     setosa
+#&gt; 31           4.8         3.1          1.6         0.2     setosa
+#&gt; 32           5.4         3.4          1.5         0.4     setosa
+#&gt; 33           5.2         4.1          1.5         0.1     setosa
+#&gt; 34           5.5         4.2          1.4         0.2     setosa
+#&gt; 35           4.9         3.1          1.5         0.2     setosa
+#&gt; 36           5.0         3.2          1.2         0.2     setosa
+#&gt; 37           5.5         3.5          1.3         0.2     setosa
+#&gt; 38           4.9         3.6          1.4         0.1     setosa
+#&gt; 39           4.4         3.0          1.3         0.2     setosa
+#&gt; 40           5.1         3.4          1.5         0.2     setosa
+#&gt; 41           5.0         3.5          1.3         0.3     setosa
+#&gt; 42           4.5         2.3          1.3         0.3     setosa
+#&gt; 43           4.4         3.2          1.3         0.2     setosa
+#&gt; 44           5.0         3.5          1.6         0.6     setosa
+#&gt; 45           5.1         3.8          1.9         0.4     setosa
+#&gt; 46           4.8         3.0          1.4         0.3     setosa
+#&gt; 47           5.1         3.8          1.6         0.2     setosa
+#&gt; 48           4.6         3.2          1.4         0.2     setosa
+#&gt; 49           5.3         3.7          1.5         0.2     setosa
+#&gt; 50           5.0         3.3          1.4         0.2     setosa
+#&gt; 51           7.0         3.2          4.7         1.4 versicolor
+#&gt; 52           6.4         3.2          4.5         1.5 versicolor
+#&gt; 53           6.9         3.1          4.9         1.5 versicolor
+#&gt; 54           5.5         2.3          4.0         1.3 versicolor
+#&gt; 55           6.5         2.8          4.6         1.5 versicolor
+#&gt; 56           5.7         2.8          4.5         1.3 versicolor
+#&gt; 57           6.3         3.3          4.7         1.6 versicolor
+#&gt; 58           4.9         2.4          3.3         1.0 versicolor
+#&gt; 59           6.6         2.9          4.6         1.3 versicolor
+#&gt; 60           5.2         2.7          3.9         1.4 versicolor
+#&gt; 61           5.0         2.0          3.5         1.0 versicolor
+#&gt; 62           5.9         3.0          4.2         1.5 versicolor
+#&gt; 63           6.0         2.2          4.0         1.0 versicolor
+#&gt; 64           6.1         2.9          4.7         1.4 versicolor
+#&gt; 65           5.6         2.9          3.6         1.3 versicolor
+#&gt; 66           6.7         3.1          4.4         1.4 versicolor
+#&gt; 67           5.6         3.0          4.5         1.5 versicolor
+#&gt; 68           5.8         2.7          4.1         1.0 versicolor
+#&gt; 69           6.2         2.2          4.5         1.5 versicolor
+#&gt; 70           5.6         2.5          3.9         1.1 versicolor
+#&gt; 71           5.9         3.2          4.8         1.8 versicolor
+#&gt; 72           6.1         2.8          4.0         1.3 versicolor
+#&gt; 73           6.3         2.5          4.9         1.5 versicolor
+#&gt; 74           6.1         2.8          4.7         1.2 versicolor
+#&gt; 75           6.4         2.9          4.3         1.3 versicolor
+#&gt; 76           6.6         3.0          4.4         1.4 versicolor
+#&gt; 77           6.8         2.8          4.8         1.4 versicolor
+#&gt; 78           6.7         3.0          5.0         1.7 versicolor
+#&gt; 79           6.0         2.9          4.5         1.5 versicolor
+#&gt; 80           5.7         2.6          3.5         1.0 versicolor
+#&gt; 81           5.5         2.4          3.8         1.1 versicolor
+#&gt; 82           5.5         2.4          3.7         1.0 versicolor
+#&gt; 83           5.8         2.7          3.9         1.2 versicolor
+#&gt; 84           6.0         2.7          5.1         1.6 versicolor
+#&gt; 85           5.4         3.0          4.5         1.5 versicolor
+#&gt; 86           6.0         3.4          4.5         1.6 versicolor
+#&gt; 87           6.7         3.1          4.7         1.5 versicolor
+#&gt; 88           6.3         2.3          4.4         1.3 versicolor
+#&gt; 89           5.6         3.0          4.1         1.3 versicolor
+#&gt; 90           5.5         2.5          4.0         1.3 versicolor
+#&gt; 91           5.5         2.6          4.4         1.2 versicolor
+#&gt; 92           6.1         3.0          4.6         1.4 versicolor
+#&gt; 93           5.8         2.6          4.0         1.2 versicolor
+#&gt; 94           5.0         2.3          3.3         1.0 versicolor
+#&gt; 95           5.6         2.7          4.2         1.3 versicolor
+#&gt; 96           5.7         3.0          4.2         1.2 versicolor
+#&gt; 97           5.7         2.9          4.2         1.3 versicolor
+#&gt; 98           6.2         2.9          4.3         1.3 versicolor
+#&gt; 99           5.1         2.5          3.0         1.1 versicolor
+#&gt; 100          5.7         2.8          4.1         1.3 versicolor
+#&gt; 101          6.3         3.3          6.0         2.5  virginica
+#&gt; 102          5.8         2.7          5.1         1.9  virginica
+#&gt; 103          7.1         3.0          5.9         2.1  virginica
+#&gt; 104          6.3         2.9          5.6         1.8  virginica
+#&gt; 105          6.5         3.0          5.8         2.2  virginica
+#&gt; 106          7.6         3.0          6.6         2.1  virginica
+#&gt; 107          4.9         2.5          4.5         1.7  virginica
+#&gt; 108          7.3         2.9          6.3         1.8  virginica
+#&gt; 109          6.7         2.5          5.8         1.8  virginica
+#&gt; 110          7.2         3.6          6.1         2.5  virginica
+#&gt; 111          6.5         3.2          5.1         2.0  virginica
+#&gt; 112          6.4         2.7          5.3         1.9  virginica
+#&gt; 113          6.8         3.0          5.5         2.1  virginica
+#&gt; 114          5.7         2.5          5.0         2.0  virginica
+#&gt; 115          5.8         2.8          5.1         2.4  virginica
+#&gt; 116          6.4         3.2          5.3         2.3  virginica
+#&gt; 117          6.5         3.0          5.5         1.8  virginica
+#&gt; 118          7.7         3.8          6.7         2.2  virginica
+#&gt; 119          7.7         2.6          6.9         2.3  virginica
+#&gt; 120          6.0         2.2          5.0         1.5  virginica
+#&gt; 121          6.9         3.2          5.7         2.3  virginica
+#&gt; 122          5.6         2.8          4.9         2.0  virginica
+#&gt; 123          7.7         2.8          6.7         2.0  virginica
+#&gt; 124          6.3         2.7          4.9         1.8  virginica
+#&gt; 125          6.7         3.3          5.7         2.1  virginica
+#&gt; 126          7.2         3.2          6.0         1.8  virginica
+#&gt; 127          6.2         2.8          4.8         1.8  virginica
+#&gt; 128          6.1         3.0          4.9         1.8  virginica
+#&gt; 129          6.4         2.8          5.6         2.1  virginica
+#&gt; 130          7.2         3.0          5.8         1.6  virginica
+#&gt; 131          7.4         2.8          6.1         1.9  virginica
+#&gt; 132          7.9         3.8          6.4         2.0  virginica
+#&gt; 133          6.4         2.8          5.6         2.2  virginica
+#&gt; 134          6.3         2.8          5.1         1.5  virginica
+#&gt; 135          6.1         2.6          5.6         1.4  virginica
+#&gt; 136          7.7         3.0          6.1         2.3  virginica
+#&gt; 137          6.3         3.4          5.6         2.4  virginica
+#&gt; 138          6.4         3.1          5.5         1.8  virginica
+#&gt; 139          6.0         3.0          4.8         1.8  virginica
+#&gt; 140          6.9         3.1          5.4         2.1  virginica
+#&gt; 141          6.7         3.1          5.6         2.4  virginica
+#&gt; 142          6.9         3.1          5.1         2.3  virginica
+#&gt; 143          5.8         2.7          5.1         1.9  virginica
+#&gt; 144          6.8         3.2          5.9         2.3  virginica
+#&gt; 145          6.7         3.3          5.7         2.5  virginica
+#&gt; 146          6.7         3.0          5.2         2.3  virginica
+#&gt; 147          6.3         2.5          5.0         1.9  virginica
+#&gt; 148          6.5         3.0          5.2         2.0  virginica
+#&gt; 149          6.2         3.4          5.4         2.3  virginica
+#&gt; 150          5.9         3.0          5.1         1.8  virginica
 #&gt; </div><div class='input'>
 <span class='co'># 3) Optimize BIC crietion in generalized linear model.</span>
 <span class='co'># Aim of Bayesian approach it to identify the model with the highest</span>
 <span class='co'># probability of being the true model. - Kuha 2004</span>
 
-<span class='kw'>utils</span><span class='kw'>::</span><span class='fu'>data</span>(<span class='no'>anorexia</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"MASS"</span>)
+<span class='kw pkg'>utils</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>anorexia</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"MASS"</span>)
 
 <span class='no'>evaluator_BIC_glm</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>attributes</span>, <span class='no'>data</span>, <span class='no'>dependent</span> <span class='kw'>=</span> <span class='st'>"Postwt"</span>) {
   <span class='fu'>extractAIC</span>(
@@ -333,7 +445,7 @@ attributes&#39; subset combinations (of sizes passed in <code>sizes</code>).</p>
 <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Prewt"</span>, <span class='st'>"Treat"</span>, <span class='st'>"offset(Prewt)"</span>),
                <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator_BIC_glm</span>,
                <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>anorexia</span>,
-               <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>)</div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |==========                                                            |  14%  |                                                                              |====================                                                  |  29%  |                                                                              |==============================                                        |  43%  |                                                                              |========================================                              |  57%  |                                                                              |==================================================                    |  71%  |                                                                              |============================================================          |  86%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; $best
+               <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>)</div><div class='output co'>#&gt; $best
 #&gt;   Prewt Treat offset(Prewt)   values
 #&gt; 3     0     0             1 508.7408
 #&gt; 
@@ -348,46 +460,100 @@ attributes&#39; subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt; 7     1     1             1   499.08
 #&gt; 
 #&gt; $fun
-#&gt; function (attributes, data, dependent = &quot;Postwt&quot;) 
+#&gt; function (attributes, data, dependent = "Postwt") 
 #&gt; {
 #&gt;     extractAIC(fit = glm(to_formula(attributes, dependent), family = gaussian, 
 #&gt;         data = data), k = log(nrow(data)))[2]
 #&gt; }
-#&gt; &lt;environment: 0x4857700&gt;
+#&gt; &lt;environment: 0x000000000dd134a8&gt;
 #&gt; 
 #&gt; $call
-#&gt; feature_search(attributes = c(&quot;Prewt&quot;, &quot;Treat&quot;, &quot;offset(Prewt)&quot;), 
-#&gt;     fun = evaluator_BIC_glm, data = anorexia, mode = &quot;exhaustive&quot;)
+#&gt; feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"), 
+#&gt;     fun = evaluator_BIC_glm, data = anorexia, mode = "exhaustive")
 #&gt; 
 #&gt; $mode
-#&gt; [1] &quot;exhaustive&quot;
+#&gt; [1] "exhaustive"
 #&gt; 
-#&gt; $data.Treat
-#&gt;  [1] Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont
-#&gt; [16] Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont Cont CBT  CBT  CBT  CBT 
-#&gt; [31] CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT 
-#&gt; [46] CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  CBT  FT   FT   FT   FT   FT  
-#&gt; [61] FT   FT   FT   FT   FT   FT   FT   FT   FT   FT   FT   FT  
-#&gt; Levels: CBT Cont FT
-#&gt; 
-#&gt; $data.Prewt
-#&gt;  [1] 80.7 89.4 91.8 74.0 78.1 88.3 87.3 75.1 80.6 78.4 77.6 88.7 81.3 78.1 70.5
-#&gt; [16] 77.3 85.2 86.0 84.1 79.7 85.5 84.4 79.6 77.5 72.3 89.0 80.5 84.9 81.5 82.6
-#&gt; [31] 79.9 88.7 94.9 76.3 81.0 80.5 85.0 89.2 81.3 76.5 70.0 80.4 83.3 83.0 87.7
-#&gt; [46] 84.2 86.4 76.5 80.2 87.8 83.3 79.7 84.5 80.8 87.4 83.8 83.3 86.0 82.5 86.7
-#&gt; [61] 79.6 76.9 94.2 73.4 80.5 81.6 82.1 77.6 83.5 89.9 86.0 87.3
-#&gt; 
-#&gt; $data.Postwt
-#&gt;  [1]  80.2  80.1  86.4  86.3  76.1  78.1  75.1  86.7  73.5  84.6  77.4  79.5
-#&gt; [13]  89.6  81.4  81.8  77.3  84.2  75.4  79.5  73.0  88.3  84.7  81.4  81.2
-#&gt; [25]  88.2  78.8  82.2  85.6  81.4  81.9  76.4 103.6  98.4  93.4  73.4  82.1
-#&gt; [37]  96.7  95.3  82.4  72.5  90.9  71.3  85.4  81.6  89.1  83.9  82.7  75.7
-#&gt; [49]  82.6 100.4  85.2  83.6  84.6  96.2  86.7  95.2  94.3  91.5  91.9 100.3
-#&gt; [61]  76.7  76.8 101.6  94.9  75.2  77.8  95.5  90.7  92.5  93.8  91.7  98.0
+#&gt; $data
+#&gt;    Treat Prewt Postwt
+#&gt; 1   Cont  80.7   80.2
+#&gt; 2   Cont  89.4   80.1
+#&gt; 3   Cont  91.8   86.4
+#&gt; 4   Cont  74.0   86.3
+#&gt; 5   Cont  78.1   76.1
+#&gt; 6   Cont  88.3   78.1
+#&gt; 7   Cont  87.3   75.1
+#&gt; 8   Cont  75.1   86.7
+#&gt; 9   Cont  80.6   73.5
+#&gt; 10  Cont  78.4   84.6
+#&gt; 11  Cont  77.6   77.4
+#&gt; 12  Cont  88.7   79.5
+#&gt; 13  Cont  81.3   89.6
+#&gt; 14  Cont  78.1   81.4
+#&gt; 15  Cont  70.5   81.8
+#&gt; 16  Cont  77.3   77.3
+#&gt; 17  Cont  85.2   84.2
+#&gt; 18  Cont  86.0   75.4
+#&gt; 19  Cont  84.1   79.5
+#&gt; 20  Cont  79.7   73.0
+#&gt; 21  Cont  85.5   88.3
+#&gt; 22  Cont  84.4   84.7
+#&gt; 23  Cont  79.6   81.4
+#&gt; 24  Cont  77.5   81.2
+#&gt; 25  Cont  72.3   88.2
+#&gt; 26  Cont  89.0   78.8
+#&gt; 27   CBT  80.5   82.2
+#&gt; 28   CBT  84.9   85.6
+#&gt; 29   CBT  81.5   81.4
+#&gt; 30   CBT  82.6   81.9
+#&gt; 31   CBT  79.9   76.4
+#&gt; 32   CBT  88.7  103.6
+#&gt; 33   CBT  94.9   98.4
+#&gt; 34   CBT  76.3   93.4
+#&gt; 35   CBT  81.0   73.4
+#&gt; 36   CBT  80.5   82.1
+#&gt; 37   CBT  85.0   96.7
+#&gt; 38   CBT  89.2   95.3
+#&gt; 39   CBT  81.3   82.4
+#&gt; 40   CBT  76.5   72.5
+#&gt; 41   CBT  70.0   90.9
+#&gt; 42   CBT  80.4   71.3
+#&gt; 43   CBT  83.3   85.4
+#&gt; 44   CBT  83.0   81.6
+#&gt; 45   CBT  87.7   89.1
+#&gt; 46   CBT  84.2   83.9
+#&gt; 47   CBT  86.4   82.7
+#&gt; 48   CBT  76.5   75.7
+#&gt; 49   CBT  80.2   82.6
+#&gt; 50   CBT  87.8  100.4
+#&gt; 51   CBT  83.3   85.2
+#&gt; 52   CBT  79.7   83.6
+#&gt; 53   CBT  84.5   84.6
+#&gt; 54   CBT  80.8   96.2
+#&gt; 55   CBT  87.4   86.7
+#&gt; 56    FT  83.8   95.2
+#&gt; 57    FT  83.3   94.3
+#&gt; 58    FT  86.0   91.5
+#&gt; 59    FT  82.5   91.9
+#&gt; 60    FT  86.7  100.3
+#&gt; 61    FT  79.6   76.7
+#&gt; 62    FT  76.9   76.8
+#&gt; 63    FT  94.2  101.6
+#&gt; 64    FT  73.4   94.9
+#&gt; 65    FT  80.5   75.2
+#&gt; 66    FT  81.6   77.8
+#&gt; 67    FT  82.1   95.5
+#&gt; 68    FT  77.6   90.7
+#&gt; 69    FT  83.5   92.5
+#&gt; 70    FT  89.9   93.8
+#&gt; 71    FT  86.0   91.7
+#&gt; 72    FT  87.3   98.0
 #&gt; </div><div class='input'>
-<span class='co'># Close parallelization</span>
+# Close parallelization
+</div><span class='co'># NOT RUN {</span>
 <span class='fu'>stopCluster</span>(<span class='no'>cl</span>)
-<span class='fu'>registerDoSEQ</span>()</div></pre>
+<span class='fu'>registerDoSEQ</span>()
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

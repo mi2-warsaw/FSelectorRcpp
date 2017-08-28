@@ -59,13 +59,9 @@ Note that score depends on the evaluator you provide in the \code{fun} parameter
 
 # Enable parallelization in examples
 \dontrun{
- # doSnow has an option for the progress bar.
- # However it may cause problems on some systems.
- # That's why this code has a dontrun clausure.
- # Feel free to try it on your machine.
- library(doSNOW) # doSNOW has an option for progress bar
+ library(doParallel)
  cl <- makeCluster(2)
- registerDoSNOW(cl)
+ registerDoParallel(cl)
 }
 # Close at the end
 # stopCluster(cl) #nolint
