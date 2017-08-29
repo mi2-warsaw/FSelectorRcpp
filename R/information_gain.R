@@ -154,37 +154,14 @@ information_gain <- function(formula, data, x, y,
   formula <- x
   data <- y
 
+  names_from_formula <- formula2names(formula, data)
+
+  x <- data[, names_from_formula$x]
+  y <- data[, names_from_formula$y]
+
   type <- match.arg(type)
 
-  formula <- formula2names(formula, data)
-  data <- data[c(formula$x, formula$y)]
-
-  if (anyNA(data)) {
-    warning(paste("There are missing values in your data.",
-                  "information_gain will remove them with na.omit()."))
-    data <- na.omit(data)
-  }
-
-  y <- data[[formula$y]]
-
-  if (is.numeric(y)) {
-    warning(paste("Dependent variable is a numeric! It will be converted",
-                  "to factor with simple factor(y). We do not discretize",
-                  "dependent variable in FSelectorRcpp by default!"))
-  }
-
-  if (!is.factor(y)) {
-    y <- factor(y)
-  }
-
-  values <- information_gain_cpp(data[formula$x], y, threads = threads)
-  classEntropy <- fs_entropy1d(y)
-
-  results <- information_type(classEntropy, values, type)
-
-  data.frame(
-    attributes = formula$x,
-    importance = results, stringsAsFactors = FALSE)
+  .information_gain.data.frame(x = x, y = y, type = type, threads = threads)
 }
 
 
