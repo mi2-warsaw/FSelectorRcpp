@@ -9,7 +9,7 @@ Authors@R: c(
     person("Krzysztof", "Slomczynski", role = c("ctb"), email = "krzysztofslomczynski@gmail.com")
     )
 Description: 'Rcpp' (free of 'Java'/'Weka') implementation of 'FSelector' entropy-based feature selection 
- algorithms based on an MDL discretization (Fayyad U. M., Irani K. B.: Multi-Interval Discretization of Continuous-Valued Attributes for Classification Learning. In 13’th International Joint Conference on Uncertainly in Artificial Intelligence (IJCAI93), pages 1022-1029, Chambery, France, 1993. ) with a sparse matrix support. It is also equipped with a parallel backend.
+ algorithms based on an MDL discretization (Fayyad U. M., Irani K. B.: Multi-Interval Discretization of Continuous-Valued Attributes for Classification Learning. In 13'th International Joint Conference on Uncertainly in Artificial Intelligence (IJCAI93), pages 1022-1029, Chambery, France, 1993. ) with a sparse matrix support. It is also equipped with a parallel backend.
 Depends: R (>= 3.3.2)
 License: GPL-2
 LazyData: TRUE
