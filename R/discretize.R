@@ -171,3 +171,40 @@ equalsizeControl <- function(k = 10) {
                              "list")
   params
 }
+
+#' Discretize numeric dependent variable
+#'
+#' Returns discretized dependent variable
+#'
+#' The observations are segregated into bins in a way that every bin has the
+#' same number of them. This function is based on the original one from
+#' FSelector package.
+#'
+#' @noRd
+equal_freq_bin <- function(data, bins) {
+  bins <- as.integer(bins)
+
+  if (!is.numeric(data)) {
+    stop("Data must be numeric!")
+  }
+
+  if (bins < 1) {
+    stop("Number of bins must be greater than 1!")
+  }
+
+  complete <- complete.cases(data)
+  ord <- order(data)
+  len <- length(data[complete])
+  blen <- len/bins
+  new_data <- data
+  p1 <- 0
+  p2 <- 0
+
+  for (i in 1:bins) {
+    p1 <- p2 + 1
+    p2 <- round(i * blen)
+    new_data[ord[p1:min(p2, len)]] <- i
+  }
+
+  new_data
+}
