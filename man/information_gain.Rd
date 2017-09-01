@@ -5,7 +5,7 @@
 \title{Entropy-based Filters}
 \usage{
 information_gain(formula, data, x, y, type = c("infogain", "gainratio",
-  "symuncert"), threads = 1)
+  "symuncert"), equal = FALSE, threads = 1)
 }
 \arguments{
 \item{formula}{An object of class \link{formula} with model description.}
@@ -17,6 +17,9 @@ information_gain(formula, data, x, y, type = c("infogain", "gainratio",
 \item{y}{A vector with response variable.}
 
 \item{type}{Method name.}
+
+\item{equal}{A logical. Whether to discretize dependent variable with the
+\code{equal frequency binning discretization} or not.}
 
 \item{threads}{Number of threads for parallel backend.}
 }
