@@ -25,6 +25,9 @@
 #' @param x A \link{data.frame} or sparse matrix with attributes.
 #' @param y A vector with response variable.
 #' @param type Method name.
+#' @param equal A logical – whether to discretize dependent variable with the
+#' \code{equal frequency binning discretization} or whether to not provide
+#' discretization for the dependent variable.
 #' @param threads Number of threads for parallel backend.
 #'
 #' @return
@@ -96,6 +99,7 @@ information_gain <- function(formula, data, x, y,
 
 .information_gain <- function(x, y,
                               type = c("infogain", "gainratio", "symuncert"),
+                              equal = FALSE,
                               threads = 1) {
   UseMethod(".information_gain", x)
 }
@@ -104,6 +108,7 @@ information_gain <- function(formula, data, x, y,
                                       type = c("infogain",
                                                "gainratio",
                                                "symuncert"),
+                                      equal = FALSE,
                                       threads = 1) {
   stop("Unsupported data type.")
 }
@@ -112,6 +117,7 @@ information_gain <- function(formula, data, x, y,
                                          type = c("infogain",
                                                   "gainratio",
                                                   "symuncert"),
+                                         equal = FALSE,
                                          threads = 1) {
   type <- match.arg(type)
 
@@ -146,6 +152,7 @@ information_gain <- function(formula, data, x, y,
                                       type = c("infogain",
                                                "gainratio",
                                                "symuncert"),
+                                      equal = FALSE,
                                       threads = 1) {
   if (!is.data.frame(y)) {
     stop("y must be a data.frame!")
@@ -169,6 +176,7 @@ information_gain <- function(formula, data, x, y,
                                         type = c("infogain",
                                                  "gainratio",
                                                  "symuncert"),
+                                        equal = FALSE,
                                         threads = 1) {
   type <- match.arg(type)
 
