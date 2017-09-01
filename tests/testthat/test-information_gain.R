@@ -75,7 +75,7 @@ test_that("Removing NAs in formula (order)", {
   xx <- data_frame(x = as.character(c(1, 2, 3)), y = as.character(c(1, 2, 3)),
                    na = c(NA, NA, 1))
 
-  expect_equal(information_gain(xx[, "x", drop = FALSE], xx$y)$importance,
+  expect_equal(information_gain(xx[, "x"], xx$y)$importance,
                information_gain(y ~ x, xx)$importance)
 })
 
@@ -141,4 +141,12 @@ test_that("Compare interfaces - formula vs x,y", {
     information_gain(x = iris[, -5], y = iris$Species)
   )
 
+})
+
+test_that("Equal bin discretization", {
+  fs <- information.gain(formula = Sepal.Length ~ ., data = iris)
+  fsrcpp <- information_gain(formula = Sepal.Length ~ ., data = iris,
+                             equal = TRUE)
+
+  expect_equal(fs$attr_importance, fsrcpp$importance)
 })
