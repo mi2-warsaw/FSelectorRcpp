@@ -25,9 +25,8 @@
 #' @param x A \link{data.frame} or sparse matrix with attributes.
 #' @param y A vector with response variable.
 #' @param type Method name.
-#' @param equal A logical – whether to discretize dependent variable with the
-#' \code{equal frequency binning discretization} or whether to not provide
-#' discretization for the dependent variable.
+#' @param equal A logical. Whether to discretize dependent variable with the
+#' \code{equal frequency binning discretization} or not.
 #' @param threads Number of threads for parallel backend.
 #'
 #' @return
@@ -72,6 +71,7 @@
 #'
 information_gain <- function(formula, data, x, y,
                              type = c("infogain", "gainratio", "symuncert"),
+                             equal = FALSE,
                              threads = 1) {
   if (!xor(
           all(!missing(x), !missing(y)),
@@ -89,11 +89,11 @@ information_gain <- function(formula, data, x, y,
       stop(paste("Please use `formula = response ~ attributes, data = dataset`",
                  "interface instead of `x = formula`."))
     }
-    return(.information_gain(x, y, type, threads))
+    return(.information_gain(x, y, type, equal, threads))
   }
 
   if (!missing(formula) && !missing(data)) {
-    return(.information_gain(formula, data, type, threads))
+    return(.information_gain(formula, data, type, equal, threads))
   }
 }
 
@@ -125,14 +125,22 @@ information_gain <- function(formula, data, x, y,
     warning(paste("There are missing values in your data.",
                   "information_gain will remove them."))
     idx <- complete.cases(x, y)
-    x <- x[idx, ]
+    x <- x[idx, , drop = FALSE]
     y <- y[idx]
   }
 
   if (is.numeric(y)) {
-    warning(paste("Dependent variable is a numeric! It will be converted",
-                  "to factor with simple factor(y). We do not discretize",
-                  "dependent variable in FSelectorRcpp by default!"))
+
+    if (!equal) {
+      warning(paste("Dependent variable is a numeric! It will be converted",
+                    "to factor with simple factor(y). We do not discretize",
+                    "dependent variable in FSelectorRcpp by default! You can",
+                    "choose equal frequency binning discretization by setting",
+                    "equal argument to TRUE."))
+    } else {
+      y <- equal_freq_bin(y, 5)
+    }
+
   }
 
   if (!is.factor(y)) {
@@ -163,12 +171,13 @@ information_gain <- function(formula, data, x, y,
 
   names_from_formula <- formula2names(formula, data)
 
-  x <- data[, names_from_formula$x]
-  y <- data[, names_from_formula$y]
+  x <- data[, names_from_formula$x, drop = FALSE]
+  y <- unname(unlist(data[, names_from_formula$y]))
 
   type <- match.arg(type)
 
-  .information_gain.data.frame(x = x, y = y, type = type, threads = threads)
+  .information_gain.data.frame(x = x, y = y, type = type, equal = equal,
+                               threads = threads)
 }
 
 
