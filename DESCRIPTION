@@ -1,48 +1,50 @@
 Package: FSelectorRcpp
 Type: Package
 Title: 'Rcpp' Implementation of 'FSelector' Entropy-Based Feature Selection Algorithms with a Sparse Matrix Support
-Version: 0.1.5
-Date: 2017-08-28
+Version: 0.1.7
+Date: 2017-09-04
 Authors@R: c(
-    person("Zygmunt", "Zawadzki", role = c("aut", "cre"), email = "zygmunt@zstat.pl"),
-    person("Marcin", "Kosinski", role = c("aut"), email = "m.p.kosinski@gmail.com"),
-    person("Krzysztof", "Slomczynski", role = c("ctb"), email = "krzysztofslomczynski@gmail.com")
-    )
+ person("Zygmunt", "Zawadzki", role = c("aut", "cre"), email = "zygmunt@zstat.pl"),
+ person("Marcin", "Kosinski", role = c("aut"), email = "m.p.kosinski@gmail.com"),
+ person("Krzysztof", "Slomczynski", role = c("ctb"), email = "krzysztofslomczynski@gmail.com"),
+ person("Damian", "Skrzypiec", role = c("ctb"), email = "damian.j.skrzypiec@@gmail.comm")
+ )
 Description: 'Rcpp' (free of 'Java'/'Weka') implementation of 'FSelector' entropy-based feature selection 
- algorithms based on an MDL discretization (Fayyad U. M., Irani K. B.: Multi-Interval Discretization of Continuous-Valued Attributes for Classification Learning. In 13'th International Joint Conference on Uncertainly in Artificial Intelligence (IJCAI93), pages 1022-1029, Chambery, France, 1993. ) with a sparse matrix support. It is also equipped with a parallel backend.
+ algorithms based on an MDL discretization (Fayyad U. M., Irani K. B.: Multi-Interval Discretization of Continuous-Valued Attributes for Classification Learning. In 13'th International Joint Conference on Uncertainly in Artificial Intelligence (IJCAI93), pages 1022-1029, Chambery, France, 1993.)
+ with a sparse matrix support. It is also equipped with a parallel backend.
 Depends: R (>= 3.3.2)
 License: GPL-2
 LazyData: TRUE
 SystemRequirements: C++11
 Imports:
-    Rcpp (>= 0.12.12),
-    foreach,
-    iterators
+ Rcpp (>= 0.12.12),
+ foreach,
+ iterators
 LinkingTo: Rcpp, BH, RcppArmadillo, testthat
 Suggests:
-    testthat,
-    Matrix,
-    RcppArmadillo,
-    dplyr,
-    RWeka,
-    entropy,
-    FSelector,
-    randomForest,
-    doParallel,
-    rpart,
-    MASS,
-    covr,
-    parallel,
-    htmltools,
-    magrittr,
-    knitr,
-    RTCGA.rnaseq,
-    ggplot2,
-    microbenchmark,
-    pbapply,
-    tibble,
-    rmarkdown,
-    lintr
+ testthat,
+ Matrix,
+ RcppArmadillo,
+ dplyr,
+ RWeka,
+ entropy,
+ FSelector,
+ randomForest,
+ doParallel,
+ rpart,
+ MASS,
+ covr,
+ parallel,
+ htmltools,
+ magrittr,
+ knitr,
+ RTCGA.rnaseq,
+ ggplot2,
+ microbenchmark,
+ pbapply,
+ tibble,
+ rmarkdown,
+ lintr
 RoxygenNote: 6.0.1
 BugReports: https://github.com/mi2-warsaw/FSelectorRcpp/issues
 URL: http://mi2-warsaw.github.io/FSelectorRcpp/
