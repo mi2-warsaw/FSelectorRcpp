@@ -4,6 +4,11 @@
 #include "support/support.h"
 #include "support/table.h"
 #include "entropy/entropy.h"
+#include <cmath>
+
+bool is_eps_equal(double x, double y) {
+  return std::abs(x - y) < 0.00001;
+}
 
 context("Entropy tests") {
 
@@ -12,7 +17,7 @@ context("Entropy tests") {
     std::vector<int> x = {1, 1, 2};
     double entr = fselector::entropy::entropy1d(x.begin(), x.end());
 
-    expect_true(std::fabs(entr - 0.6365142) < 0.00001);
+    expect_true(is_eps_equal(entr, 0.6365142));
   }
 
   test_that("Numeric entropy") {
@@ -20,7 +25,7 @@ context("Entropy tests") {
     std::vector<int> x = {1, 1, 2};
     double entr = fselector::entropy::numeric_entropy(x.begin(), x.end());
 
-    expect_true(std::fabs(entr - 1.039721) < 0.00001);
+    expect_true(is_eps_equal(entr, 1.039721));
   }
 
   test_that("Numeric entropy - comparsion with entropy package") {
@@ -30,7 +35,10 @@ context("Entropy tests") {
     Rcpp::NumericVector x     = {1.0,2.0,3.0};
     Rcpp::NumericVector entrR = entropyFnc(x);
 
-    expect_true(entrR[0] == fselector::entropy::numeric_entropy(x.begin(), x.end()));
+    expect_true(
+      is_eps_equal(
+        entrR[0], fselector::entropy::numeric_entropy(x.begin(), x.end()
+    )));
   }
 
   test_that("Table entropy - comparsion with entropy package") {
@@ -42,7 +50,9 @@ context("Entropy tests") {
 
     std::vector<int> xx = {1,2,2,3,3,3};
 
-    expect_true(entrR[0] == fselector::entropy::entropy1d(xx.begin(), xx.end()));
+    expect_true(
+      is_eps_equal(
+        entrR[0], fselector::entropy::entropy1d(xx.begin(), xx.end())));
   }
 
 }
