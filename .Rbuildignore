@@ -10,3 +10,4 @@ o_rly.png
 README.md
 NEWS.md
 .lintr
+^\.travis\.yml$

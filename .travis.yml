@@ -1,27 +1,16 @@
-language: r
-dist: trusty
-assert: false
-r_packages:
- - Rcpp
- - testthat
- - BH
- - RcppArmadillo
- - FSelector
- - foreach
- - dplyr
- - RWeka
- - entropy
- - doParallel
- - rpart
- - iterators
- - covr
- - MASS
- - htmltools
- - magrittr
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+sudo: false
+cache: packages
+
 bioc_packages:
  - RTCGA.rnaseq
-sudo: required
-warnings_are_errors: false
+
+r:
+  - oldrel
+  - release
+  - devel
 
 after_success:
   - Rscript -e 'covr::codecov()'
