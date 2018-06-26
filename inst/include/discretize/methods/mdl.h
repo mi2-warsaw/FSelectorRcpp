@@ -202,7 +202,7 @@ template<class InputIterator, class VariableIterator, class OutputIterator> std:
     {
       if(std::isnan(*(itX+i)))
       {
-        *(itResult + i) = *(itX+i);
+        *(itResult + i) = -1;
       }
       else if(*(itX+i) > x[sp])
       {
