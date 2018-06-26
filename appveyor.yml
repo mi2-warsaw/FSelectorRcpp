@@ -19,6 +19,7 @@ platform: x64
 environment:
   _R_CHECK_FORCE_SUGGESTS_: false
   R_ARCH: x64
+  R_CHECK_ARGS: --as-cran --no-manual --no-multiarch
 
 build_script:
   - travis-tool.sh install_deps
