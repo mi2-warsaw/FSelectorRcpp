@@ -125,7 +125,7 @@ information_gain <- function(formula, data, x, y,
     warning(paste("There are missing values in your data.",
                   "information_gain will remove them."))
     idx <- complete.cases(x, y)
-    x <- x[idx, , drop = FALSE]
+    x <- x[idx, , drop = FALSE] #nolint
     y <- y[idx]
   }
 

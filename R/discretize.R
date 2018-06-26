@@ -195,7 +195,7 @@ equal_freq_bin <- function(data, bins) {
   complete <- complete.cases(data)
   ord <- order(data)
   len <- length(data[complete])
-  blen <- len/bins
+  blen <- len / bins
   new_data <- data
   p1 <- 0
   p2 <- 0
