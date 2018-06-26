@@ -17,11 +17,11 @@ cache:
 platform: x64
 
 environment:
+  _R_CHECK_FORCE_SUGGESTS_: false
   R_ARCH: x64
 
 build_script:
   - travis-tool.sh install_deps
-  - travis-tool.sh install_bioc RTCGA.rnaseq
 
 test_script:
   - travis-tool.sh run_tests
