@@ -51,7 +51,7 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y, con
   splitValues.push_front(R_NegInf);
   splitValues.push_back(R_PosInf);
 
-  result.attr("class") = cl;
+  //result.attr("class") = cl;
   result.attr("SplitValues") = splitValues;
 
   return result;

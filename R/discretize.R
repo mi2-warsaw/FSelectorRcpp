@@ -94,6 +94,11 @@ discretize.formula <- function(x, y,
   for (col in columnsToDiscretize) {
     res <- discretize_cpp(data[[col]], yy, control)
 
+    if (anyNA(data[[col]])) {
+      res[res == 0] <- NA
+    }
+    class(res) <- c("ordered", "factor")
+
     if (!is.null(attr(res, "SplitValues"))) {
       # ini case of no split points
       splitVals <- attr(res, "SplitValues")

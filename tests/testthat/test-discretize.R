@@ -48,7 +48,8 @@ test_that("Discretization - single NA (independent variable)", {
                                        data = iris)[, 1])
   Weka <- c(Weka[1:2], NA, tail(Weka, -2))
 
-  fs <- as.numeric(discretize(iris$Sepal.Length, iris$Species)[[2]])
+  fs <- as.numeric(FSelectorRcpp::discretize(
+          iris$Sepal.Length, iris$Species)[[2]])
 
   expect_equal(Weka, fs)
 })
