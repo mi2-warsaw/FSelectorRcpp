@@ -75,6 +75,12 @@ test_that("Discretization - not implemented for data.frame", {
   expect_error(discretize(dt))
 })
 
+test_that("Discretization - not supported method", {
+  expect_error(discretize(Species ~ ., iris, control = list(method = "test")))
+  control <- structure(list(method = "test"), class = "discretizationControl")
+  expect_error(discretize(Species ~ ., iris, control = control))
+})
+
 test_that("Discretization - equalsize - ordered.", {
   x <- 1:6
   y <- 1:6

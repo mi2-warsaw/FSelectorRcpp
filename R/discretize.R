@@ -68,6 +68,12 @@ discretize.formula <- function(x, y,
 
   if (!("discretizationControl" %in% class(control))) {
     control <- control[[1]]
+
+    if (!"discretizationControl" %in% class(control)) {
+      stop(paste("control is not a subclass of discretizationControl.",
+                 "  Please use mdlControl() or equalsizeControl() functions.",
+                 sep = "\n"))
+    }
   }
 
   colClasses <- sapply(data, is.numeric)
