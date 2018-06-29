@@ -46,3 +46,18 @@ test_that("Exhaustive search", {
   stopCluster(cl)
   registerDoSEQ()
 })
+
+# get_children
+
+test_that("get_children works as expected.", {
+  x <- FSelectorRcpp:::get_children(c(1, 1, 0, 0), "forward")
+  expF <- rbind(c(1, 1, 1, 0), c(1, 1, 0, 1))
+  expect_equal(x, expF)
+
+  x <- FSelectorRcpp:::get_children(c(1, 1, 0, 0), "backward")
+  expB <- rbind(c(0, 1, 0, 0), c(1, 0, 0, 0))
+  expect_equal(x, expB)
+
+  x <- FSelectorRcpp:::get_children(c(1, 1, 0, 0), "both")
+  expect_equal(x, rbind(expF, expB))
+})
