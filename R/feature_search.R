@@ -245,6 +245,8 @@ feature_search <- function(attributes, fun, data,
                            sizes = 1:length(attributes), parallel = TRUE,
                            ...) {
 
+  stopifnot(length(attributes) > 0)
+
   call <- match.call()
   mode <- match.arg(mode)
   if (mode == "greedy") {

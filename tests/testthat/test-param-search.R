@@ -3,6 +3,13 @@ library(FSelectorRcpp)
 context("Param search")
 
 test_that("Exhaustive search", {
+
+  skip_on_cran()
+
+  library(doParallel)
+  cl <- makeCluster(2)
+  registerDoParallel(cl)
+
   evaluator <- function(subset, data, dependent = names(iris)[5]) {
     library(rpart)
     k <- 5
@@ -31,8 +38,11 @@ test_that("Exhaustive search", {
     fun = evaluator, data = iris,
     mode = "exhaustive", parallel = FALSE)
 
-  expect_error(f_search(
+  expect_error(feature_search(
     attributes = character(),
     fun = evaluator, data = iris,
     mode = "exhaustive"))
+
+  stopCluster(cl)
+  registerDoSEQ()
 })
