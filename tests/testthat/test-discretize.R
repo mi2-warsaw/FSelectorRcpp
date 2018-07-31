@@ -65,9 +65,9 @@ test_that("Discretization - formula returns data.frame.", {
 })
 
 test_that("Discretization - expect warning when there is non numeric column in
-          formula.", {
+          formula and all=FALSE.", {
   dt <- cbind(iris, b = "a")
-  expect_warning(discretize(Species ~ ., dt))
+  expect_warning(discretize(Species ~ ., dt, all = FALSE))
 })
 
 test_that("Discretization - not implemented for data.frame", {
@@ -167,7 +167,7 @@ test_that("Interfaces", {
   expect_equal(
     colnames(discretize(list(iris$Sepal.Length, iris[[2]],
                              iris[["Petal.Length"]]), iris$Species)),
-    colnames(discretize(Species ~ . - Petal.Width, iris))
+    colnames(discretize(Species ~ . - Petal.Width, iris, all = FALSE))
   )
 
   expect_equal(

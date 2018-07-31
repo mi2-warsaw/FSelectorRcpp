@@ -4,14 +4,17 @@
 \alias{discretize}
 \alias{mdlControl}
 \alias{equalsizeControl}
+\alias{customBreaksControl}
 \title{Discretization}
 \usage{
 discretize(x, y, control = list(mdlControl(), equalsizeControl()),
-  all = FALSE, call = NULL)
+  all = TRUE, call = NULL)
 
 mdlControl()
 
 equalsizeControl(k = 10)
+
+customBreaksControl(breaks)
 }
 \arguments{
 \item{x}{Explanatory continuous variables to be discretized or a \link{formula}.}
@@ -21,12 +24,14 @@ equalsizeControl(k = 10)
 \item{control}{\code{discretizationControl} object containing the parameters for
 discretization algorithm. Possible inputs are \code{mdlControl} or \code{equalsizeControl}, so far. If passed as a list, the first element is used.}
 
-\item{all}{Logical indicating if a returned \link{data.frame} should contain factor features that were not discretize.
-(Example: should \code{Species} be returned, when you pass \code{iris} and discretize all continuous features.)}
+\item{all}{Logical indicating if a returned \link{data.frame} should contain other features that were not discretized.
+(Example: should \code{Sepal.Width} be returned, when you pass \code{iris} and discretize \code{Sepal.Length, Petal.Length, Petal.Width}.)}
 
 \item{call}{Keep as \code{NULL}. Inner method parameter for consistency.}
 
 \item{k}{Number of partitions.}
+
+\item{breaks}{custom breaks used for partitioning.}
 }
 \description{
 Discretize a range of numeric attributes in the dataset into nominal
@@ -44,6 +49,17 @@ discretize(x = list(iris[[1]], iris$Sepal.Width), y = iris$Species)
 # formula input
 discretize(x = Species ~ ., y = iris)
 discretize(Species ~ ., iris)
+
+# use diffrent methods for specific columns
+ir1 <- discretize(Species ~ Sepal.Length, iris)
+ir2 <- discretize(Species ~ Sepal.Width, ir1, control = equalsizeControl(3))
+ir3 <- discretize(Species ~ Petal.Length, ir2, control = equalsizeControl(5))
+head(ir3)
+
+# custom breaks
+ir <- discretize(Species ~ Sepal.Length, iris,
+  control = customBreaksControl(breaks = c(0, 2, 5, 7.5, 10)))
+head(ir)
 
 \dontrun{
 # Same results

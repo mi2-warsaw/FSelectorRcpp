@@ -35,6 +35,11 @@
 #' ir3 <- discretize(Species ~ Petal.Length, ir2, control = equalsizeControl(5))
 #' head(ir3)
 #'
+#' # custom breaks
+#' ir <- discretize(Species ~ Sepal.Length, iris,
+#'   control = customBreaksControl(breaks = c(0, 2, 5, 7.5, 10)))
+#' head(ir)
+#'
 #' \dontrun{
 #' # Same results
 #' library(RWeka)
@@ -77,7 +82,8 @@ discretize.formula <- function(x, y,
 
     if (!"discretizationControl" %in% class(control)) {
       stop(paste("control is not a subclass of discretizationControl.",
-                 "  Please use mdlControl() or equalsizeControl() functions.",
+        paste("  Please use mdlControl(), customBreaksControl()",
+        "or equalsizeControl() functions."),
                  sep = "\n"))
     }
   }
@@ -106,7 +112,14 @@ discretize.formula <- function(x, y,
   splitPointsList <- list()
 
   for (col in columnsToDiscretize) {
-    res <- discretize_cpp(data[[col]], yy, control)
+
+    if (class(control)[1] == "customBreaksControl") {
+      res <- cut(data[[col]], control$breaks, ordered_result = TRUE)
+      attr(res, "SplitValues") <- control$breaks
+
+    } else {
+      res <- discretize_cpp(data[[col]], yy, control)
+    }
 
     if (anyNA(data[[col]])) {
       res[res == 0] <- NA
@@ -197,6 +210,18 @@ equalsizeControl <- function(k = 10) {
   k <- floor(k)
   params <- list(method = "EQUAL_SIZE", k = k)
   attr(params, "class") <- c("equalsizeControl",
+                             "discretizationControl",
+                             "list")
+  params
+}
+
+#' @rdname discretize
+#' @param breaks custom breaks used for partitioning.
+#' @export
+customBreaksControl <- function(breaks) {
+  stopifnot(is.numeric(breaks))
+  params <- list(method = "CUSTOM_BREAKS", breaks = breaks)
+  attr(params, "class") <- c("customBreaksControl",
                              "discretizationControl",
                              "list")
   params
