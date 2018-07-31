@@ -30,16 +30,16 @@
 #'
 discretize_transform <- function(disc, data, dropColumns = NA) {
 
-  splitPoints <- attr(disc, 'fsSplitPointsList')
+  splitPoints <- attr(disc, "fsSplitPointsList")
   cols <- names(splitPoints)[names(splitPoints) %in% names(data)]
 
-  for(nm in cols) {
+  for (nm in cols) {
 
     sp <- splitPoints[[nm]]
-    if(!anyNA(sp)) {
+    if (!anyNA(sp)) {
       data[[nm]] <- cut(data[[nm]], sp, ordered_result = TRUE)
     } else {
-      if(is.na(dropColumns) || dropColumns) {
+      if (is.na(dropColumns) || dropColumns) {
         data[[nm]] <- NULL
       } else {
         data[[nm]] <- NA
@@ -47,9 +47,9 @@ discretize_transform <- function(disc, data, dropColumns = NA) {
     }
   }
 
-  attr(data, 'fsSplitPointsList') <- splitPoints
+  attr(data, "fsSplitPointsList") <- splitPoints
 
-  if(isTRUE(dropColumns)) {
+  if (isTRUE(dropColumns)) {
     data <- data[intersect(colnames(disc), colnames(data))]
   }
 
