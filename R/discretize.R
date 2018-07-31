@@ -158,20 +158,25 @@ discretize.data.frame <- function(x, y,
                                   control = list(mdlControl(),
                                                  equalsizeControl()),
                                   all = TRUE, call = match.call()) {
-  if (!is.data.frame(y)) {
-    y <- format_handler(call$y, y)
-  }
-  y <- cbind(y, x)
-  if (any(table(colnames(y)) != 1)) {
-    stop("Duplicated columns!")
-  }
-  x <- formula(paste0(colnames(y)[1], "~.")) #nolint
 
-  if (!("discretizationControl" %in% class(control))) {
-    control <- control[[1]]
-  }
+  if(class(y)[[1]] == "formula") {
+    discretize.formula(x = y, y = x, control = control, all = all)
+  } else {
+    if (!is.data.frame(y)) {
+      y <- format_handler(call$y, y)
+    }
+    y <- cbind(y, x)
+    if (any(table(colnames(y)) != 1)) {
+      stop("Duplicated columns!")
+    }
+    x <- formula(paste0(colnames(y)[1], "~.")) #nolint
 
-  discretize.formula(x = x, y = y, control = control, all = all)
+    if (!("discretizationControl" %in% class(control))) {
+      control <- control[[1]]
+    }
+
+    discretize.formula(x = x, y = y, control = control, all = all)
+  }
 }
 #' @export
 discretize.numeric <- function(x, y,
