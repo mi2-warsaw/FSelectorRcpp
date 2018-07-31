@@ -29,6 +29,12 @@
 #' discretize(x = Species ~ ., y = iris)
 #' discretize(Species ~ ., iris)
 #'
+#' # use diffrent methods for specific columns
+#' ir1 <- discretize(Species ~ Sepal.Length, iris)
+#' ir2 <- discretize(Species ~ Sepal.Width, ir1, control = equalsizeControl(3))
+#' ir3 <- discretize(Species ~ Petal.Length, ir2, control = equalsizeControl(5))
+#' head(ir3)
+#'
 #' \dontrun{
 #' # Same results
 #' library(RWeka)
