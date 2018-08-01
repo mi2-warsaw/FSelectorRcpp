@@ -10,6 +10,7 @@
 #' from the result of discretize function.
 #'
 #' @export
+#' @rdname discretize_transform
 #'
 #' @examples
 #'
@@ -28,9 +29,24 @@
 #' ## note that Petal.Width is untouched:
 #' head(discretize_transform(ir3, iris2))
 #'
+#' ## extract_discretize_transformer
+#' discObj <- extract_discretize_transformer(ir3)
+#' head(discretize_transform(discObj, iris2))
+#'
 discretize_transform <- function(disc, data, dropColumns = NA) {
+  UseMethod("discretize_transform", disc)
+}
 
-  splitPoints <- attr(disc, "fsSplitPointsList")
+#' @export
+discretize_transform.data.frame <- function(disc, data, dropColumns = NA) {
+  x <- extract_discretize_transformer(disc)
+  discretize_transform(x, data, dropColumns = dropColumns)
+}
+
+#' @export
+discretize_transform.FsDiscretizeTransformer <- function(disc, data, dropColumns = NA) {
+
+  splitPoints <- disc$fsSplitPointsList
   cols <- names(splitPoints)[names(splitPoints) %in% names(data)]
 
   for (nm in cols) {
@@ -50,8 +66,47 @@ discretize_transform <- function(disc, data, dropColumns = NA) {
   attr(data, "fsSplitPointsList") <- splitPoints
 
   if (isTRUE(dropColumns)) {
-    data <- data[intersect(colnames(disc), colnames(data))]
+    data <- data[intersect(disc$colNames, colnames(data))]
   }
 
   data
+}
+
+#' @export
+#' @rdname discretize_transform
+extract_discretize_transformer <- function(disc) {
+  x <- list(
+    colNames = colnames(disc),
+    fsSplitPointsList = attr(disc, "fsSplitPointsList")
+  )
+
+  class(x) <- c("FsDiscretizeTransformer", "list")
+  x
+}
+
+#' @export
+print.FsDiscretizeTransformer <- function(x, ...) {
+
+  maxWidth <- round(pmax(getOption("width") * 0.7, 30))
+
+  cutpoints <-
+    mapply(
+      function(x, y)
+        paste(x, paste(y, collapse = ", "), sep = ": "),
+      names(x$fsSplitPointsList),
+      x$fsSplitPointsList
+    )
+
+  cutpoints <- ifelse(nchar(cutpoints) < maxWidth, cutpoints, paste(substr(cutpoints, 1, maxWidth - 3), "...", sep = ""))
+  cutpoints <- paste("  ", cutpoints, "\n", sep = "")
+  cat("FsDiscretizeTransformer\n\nCutpoints:\n", sep = "")
+  cat(cutpoints, sep = "")
+
+  info <- paste("FsDiscretizeTransformer allows to",
+                "discretize data using",
+                "discretize_transform(disc, newData) function.",
+                sep = " ")
+
+  info <- paste(strwrap(info, maxWidth), collapse = "\n")
+  cat("\n", info, sep = "")
 }

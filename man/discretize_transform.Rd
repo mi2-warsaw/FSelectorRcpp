@@ -2,9 +2,12 @@
 % Please edit documentation in R/discretize_transform.R
 \name{discretize_transform}
 \alias{discretize_transform}
+\alias{extract_discretize_transformer}
 \title{Transform a data.frame using split points returned by discretize function.}
 \usage{
 discretize_transform(disc, data, dropColumns = NA)
+
+extract_discretize_transformer(disc)
 }
 \arguments{
 \item{disc}{a result of the \code{\link{discretize}} function.}
@@ -36,5 +39,8 @@ ir3 <- discretize(Species ~ Petal.Length, ir2, control = equalsizeControl(5))
 
 ## note that Petal.Width is untouched:
 head(discretize_transform(ir3, iris2))
+
+## extract_discretize_transformer
+discObj <- extract_discretize_transformer(ir3)
 
 }
