@@ -159,7 +159,7 @@ discretize.data.frame <- function(x, y,
                                                  equalsizeControl()),
                                   all = TRUE, call = match.call()) {
 
-  if(class(y)[[1]] == "formula") {
+  if (class(y)[[1]] == "formula") {
     discretize.formula(x = y, y = x, control = control, all = all)
   } else {
     if (!is.data.frame(y)) {

@@ -44,7 +44,9 @@ discretize_transform.data.frame <- function(disc, data, dropColumns = NA) {
 }
 
 #' @export
-discretize_transform.FsDiscretizeTransformer <- function(disc, data, dropColumns = NA) {
+discretize_transform.FsDiscretizeTransformer <-
+  function(disc, data, dropColumns = NA) {
+
 
   splitPoints <- disc$fsSplitPointsList
   cols <- names(splitPoints)[names(splitPoints) %in% names(data)]
@@ -97,7 +99,10 @@ print.FsDiscretizeTransformer <- function(x, ...) {
       x$fsSplitPointsList
     )
 
-  cutpoints <- ifelse(nchar(cutpoints) < maxWidth, cutpoints, paste(substr(cutpoints, 1, maxWidth - 3), "...", sep = ""))
+  cutpoints <-
+    ifelse(nchar(cutpoints) < maxWidth,
+           cutpoints,
+           paste(substr(cutpoints, 1, maxWidth - 3), "...", sep = ""))
   cutpoints <- paste("  ", cutpoints, "\n", sep = "")
   cat("FsDiscretizeTransformer\n\nCutpoints:\n", sep = "")
   cat(cutpoints, sep = "")

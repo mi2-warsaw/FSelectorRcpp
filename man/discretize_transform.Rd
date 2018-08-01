@@ -42,5 +42,6 @@ head(discretize_transform(ir3, iris2))
 
 ## extract_discretize_transformer
 discObj <- extract_discretize_transformer(ir3)
+head(discretize_transform(discObj, iris2))
 
 }
