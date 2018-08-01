@@ -114,4 +114,5 @@ print.FsDiscretizeTransformer <- function(x, ...) {
 
   info <- paste(strwrap(info, maxWidth), collapse = "\n")
   cat("\n", info, sep = "")
+  x
 }

@@ -1,8 +1,10 @@
+context("Support functions")
+
 test_that("Test character table", {
   x <- c("bb", "aa", "cc", "aa")
   stTable <- table(x)
 
-  fsTable <- fs_table1d(x)
+  fsTable <- FSelectorRcpp:::fs_table1d(x)
   fsTable <- fsTable[order(names(fsTable))]
 
   expect_equal(names(stTable), names(fsTable))
@@ -13,7 +15,7 @@ test_that("Test numeric table", {
   x <- c(5.0, 12.14, 5.0, 17)
   stTable <- table(x)
 
-  fsTable <- fs_table1d(x)
+  fsTable <- FSelectorRcpp:::fs_table1d(x)
   fsTable <- fsTable[order(as.numeric(names(fsTable)))]
 
   expect_equal(names(stTable), names(fsTable))
@@ -24,7 +26,7 @@ test_that("Test integer table", {
   x <- c(31:1, 31:1)
   stTable <- table(x)
 
-  fsTable <- fs_table1d(x)
+  fsTable <- FSelectorRcpp:::fs_table1d(x)
   fsTable <- fsTable[order(as.numeric(names(fsTable)))]
 
   expect_equal(names(stTable), names(fsTable))
@@ -36,7 +38,7 @@ test_that("Test factor table", {
   x <- as.factor(x)
   stTable <- table(x)
 
-  fsTable <- fs_table1d(x)
+  fsTable <- FSelectorRcpp:::fs_table1d(x)
   fsTable <- fsTable[order(names(fsTable))]
 
   expect_equal(names(stTable), names(fsTable))
@@ -44,7 +46,9 @@ test_that("Test factor table", {
 })
 
 test_that("Test numeric 2d table", {
-  expect_equal(fs_table_numeric2d(c(10, 10, 20), c(10, 10, 11)), 2:1)
+  expect_equal(
+    FSelectorRcpp:::fs_table_numeric2d(c(10, 10, 20), c(10, 10, 11)),
+    2:1)
 })
 
 test_that("Test count levels", {
@@ -78,4 +82,17 @@ test_that("Test order levels", {
   expect_equal(FSelectorRcpp:::fs_entropy1d(xFac), entropy(table(xFac)))
 
   expect_error(FSelectorRcpp:::fs_entropy1d(list()))
+})
+
+test_that("equal_freq_bin - errors", {
+  expect_error(FSelectorRcpp:::equal_freq_bin(c("a", "b"), 2))
+  expect_error(FSelectorRcpp:::equal_freq_bin(c(1, 2), 0))
+})
+
+
+test_that("Formula test", {
+  fm <- to_formula(colnames(iris)[-5], "Species")
+  fm2 <- Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width
+
+  expect_equal(fm, fm2)
 })

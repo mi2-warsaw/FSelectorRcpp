@@ -134,6 +134,11 @@ discretize.formula <- function(x, y,
 
       splitPointsList[[col]] <- splitVals
     } else {
+      warning(paste(
+        sprintf("Cannot find any split points for `%s`.", col),
+        "Drops this column.",
+        sep = " "
+      ))
       res <- NULL
       splitPointsList[[col]] <- NA
     }

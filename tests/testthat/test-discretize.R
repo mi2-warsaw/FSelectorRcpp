@@ -60,6 +60,10 @@ test_that("Discretization - not supported data type - throw error.", {
   expect_error(discretize(x, y))
 })
 
+test_that("Discretization - formula works both ways.", {
+  expect_equal(discretize(Species ~ ., iris), discretize(iris, Species ~ .))
+})
+
 test_that("Discretization - formula returns data.frame.", {
   expect_s3_class(discretize(Species ~ ., iris), "data.frame")
 })
@@ -175,4 +179,27 @@ test_that("Interfaces", {
                              iris_plus[["Petal+Length"]]), iris_plus$Species)),
     c("Species", "Sepal+Length", "Sepal+Width", "Petal+Length")
   )
+
+  expect_s3_class(discretize(iris[-5], iris$Species), "data.frame")
+})
+
+test_that("Custom breaks", {
+  breaks <- c(0, 2, 4, 6, 8, 20, Inf)
+  disc <- discretize(iris, Species ~ Sepal.Length, customBreaksControl(breaks))
+
+  cc <- cut(iris$Sepal.Length, breaks = breaks, ordered_result = TRUE)
+  expect_true(all(disc$Sepal.Length == cc))
+
+  expect_error(customBreaksControl(c("A")))
+})
+
+test_that("Throw error for duplicated columns", {
+  x <- iris
+  colnames(x)[1:2] <- "X"
+  expect_error(discretize(Species ~ ., x))
+  expect_error(discretize(iris, iris$Species))
+})
+
+test_that("Throw an error when there's no numeric columns", {
+  expect_error(discretize(discretize(Species ~ ., iris), Species ~ .))
 })

@@ -32,8 +32,7 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y, con
 
   if(splitPoints.empty())
   {
-    Rcpp::warning("Cannot find any split points. Returns NAs.");
-    IntegerVector x(y.size(),IntegerVector::get_na());
+    IntegerVector x(1, IntegerVector::get_na());
     return x;
   }
 
