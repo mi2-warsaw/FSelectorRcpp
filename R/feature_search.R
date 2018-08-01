@@ -53,11 +53,12 @@ greedy_search <- function(attributes, fun, data,
   isForward <- type == "forward"
   best <- list(result = -Inf, attrs = rep(as.numeric(!isForward), len))
 
+  allResults <- NULL
+
   if (!isForward) {
     best$result <- fun(attributes[as.logical(best$attrs)], data)
+    allResults <- rbind(allResults, c(best$attrs, best$result))
   }
-
-  allResults <- NULL
 
   repeat {
     children <- get_children(best$attrs, type)

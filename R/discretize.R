@@ -8,8 +8,8 @@
 #' @param y Dependent variable for supervised discretization or a \link{data.frame} when \code{x} ia a \link{formula}.
 #' @param control \code{discretizationControl} object containing the parameters for
 #'   discretization algorithm. Possible inputs are \code{mdlControl} or \code{equalsizeControl}, so far. If passed as a list, the first element is used.
-#' @param all Logical indicating if a returned \link{data.frame} should contain factor features that were not discretize.
-#' (Example: should \code{Species} be returned, when you pass \code{iris} and discretize all continuous features.)
+#' @param all Logical indicating if a returned \link{data.frame} should contain other features that were not discretized.
+#' (Example: should \code{Sepal.Width} be returned, when you pass \code{iris} and discretize \code{Sepal.Length, Petal.Length, Petal.Width}.)
 #' @param call Keep as \code{NULL}. Inner method parameter for consistency.
 #'
 #' @references U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
@@ -29,6 +29,17 @@
 #' discretize(x = Species ~ ., y = iris)
 #' discretize(Species ~ ., iris)
 #'
+#' # use different methods for specific columns
+#' ir1 <- discretize(Species ~ Sepal.Length, iris)
+#' ir2 <- discretize(Species ~ Sepal.Width, ir1, control = equalsizeControl(3))
+#' ir3 <- discretize(Species ~ Petal.Length, ir2, control = equalsizeControl(5))
+#' head(ir3)
+#'
+#' # custom breaks
+#' ir <- discretize(Species ~ Sepal.Length, iris,
+#'   control = customBreaksControl(breaks = c(0, 2, 5, 7.5, 10)))
+#' head(ir)
+#'
 #' \dontrun{
 #' # Same results
 #' library(RWeka)
@@ -47,21 +58,21 @@
 #' @importFrom stats formula
 #' @export
 discretize <- function(x, y, control = list(mdlControl(), equalsizeControl()),
-                       all = FALSE, call = NULL) {
+                       all = TRUE, call = NULL) {
   UseMethod("discretize", x)
 }
 
 #' @export
 discretize.default <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               all = FALSE, call = NULL) {
+                               all = TRUE, call = NULL) {
   stop(sprintf("Object of class %s is not supported!", class(x)[1]))
 }
 
 #' @export
 discretize.formula <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               all = FALSE, call = NULL) {
+                               all = TRUE, call = NULL) {
   formula <- formula2names(x, y)
   data <- y
   yy <- y[[formula$y]]
@@ -71,7 +82,8 @@ discretize.formula <- function(x, y,
 
     if (!"discretizationControl" %in% class(control)) {
       stop(paste("control is not a subclass of discretizationControl.",
-                 "  Please use mdlControl() or equalsizeControl() functions.",
+        paste("  Please use mdlControl(), customBreaksControl()",
+        "or equalsizeControl() functions."),
                  sep = "\n"))
     }
   }
@@ -97,8 +109,17 @@ discretize.formula <- function(x, y,
 
   columnsToDiscretize <- names(colClasses)
 
+  splitPointsList <- list()
+
   for (col in columnsToDiscretize) {
-    res <- discretize_cpp(data[[col]], yy, control)
+
+    if (class(control)[1] == "customBreaksControl") {
+      res <- cut(data[[col]], control$breaks, ordered_result = TRUE)
+      attr(res, "SplitValues") <- control$breaks
+
+    } else {
+      res <- discretize_cpp(data[[col]], yy, control)
+    }
 
     if (anyNA(data[[col]])) {
       res[res == 0] <- NA
@@ -106,9 +127,20 @@ discretize.formula <- function(x, y,
     class(res) <- c("ordered", "factor")
 
     if (!is.null(attr(res, "SplitValues"))) {
-      # ini case of no split points
+      # in case of no split points
+
       splitVals <- attr(res, "SplitValues")
       levels(res) <- levels(cut(splitVals, splitVals))
+
+      splitPointsList[[col]] <- splitVals
+    } else {
+      warning(paste(
+        sprintf("Cannot find any split points for `%s`.", col),
+        "Drops this column.",
+        sep = " "
+      ))
+      res <- NULL
+      splitPointsList[[col]] <- NA
     }
 
     data[[col]] <- res
@@ -118,6 +150,11 @@ discretize.formula <- function(x, y,
     data <- data[, c(formula$y, columnsToDiscretize)]
   }
 
+  attr(data, "fsSplitPointsList") <- c(
+    attr(data, "fsSplitPointsList"),
+    splitPointsList
+  )
+
   return(data)
 }
 
@@ -125,26 +162,31 @@ discretize.formula <- function(x, y,
 discretize.data.frame <- function(x, y,
                                   control = list(mdlControl(),
                                                  equalsizeControl()),
-                                  all = FALSE, call = match.call()) {
-  if (!is.data.frame(y)) {
-    y <- format_handler(call$y, y)
-  }
-  y <- cbind(y, x)
-  if (any(table(colnames(y)) != 1)) {
-    stop("Duplicated columns!")
-  }
-  x <- formula(paste0(colnames(y)[1], "~.")) #nolint
+                                  all = TRUE, call = match.call()) {
 
-  if (!("discretizationControl" %in% class(control))) {
-    control <- control[[1]]
-  }
+  if (class(y)[[1]] == "formula") {
+    discretize.formula(x = y, y = x, control = control, all = all)
+  } else {
+    if (!is.data.frame(y)) {
+      y <- format_handler(call$y, y)
+    }
+    y <- cbind(y, x)
+    if (any(table(colnames(y)) != 1)) {
+      stop("Duplicated columns!")
+    }
+    x <- formula(paste0(colnames(y)[1], "~.")) #nolint
 
-  discretize.formula(x = x, y = y, control = control, all = all)
+    if (!("discretizationControl" %in% class(control))) {
+      control <- control[[1]]
+    }
+
+    discretize.formula(x = x, y = y, control = control, all = all)
+  }
 }
 #' @export
 discretize.numeric <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               all = FALSE, call = NULL) {
+                               all = TRUE, call = NULL) {
   call <- match.call()
   x <- format_handler(call$x, x)
 
@@ -178,6 +220,18 @@ equalsizeControl <- function(k = 10) {
   k <- floor(k)
   params <- list(method = "EQUAL_SIZE", k = k)
   attr(params, "class") <- c("equalsizeControl",
+                             "discretizationControl",
+                             "list")
+  params
+}
+
+#' @rdname discretize
+#' @param breaks custom breaks used for partitioning.
+#' @export
+customBreaksControl <- function(breaks) {
+  stopifnot(is.numeric(breaks))
+  params <- list(method = "CUSTOM_BREAKS", breaks = breaks)
+  attr(params, "class") <- c("customBreaksControl",
                              "discretizationControl",
                              "list")
   params

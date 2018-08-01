@@ -1,5 +1,16 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.2.0
+
+- Changed `discretize` argument `all` to `TRUE`.
+- Added `customBreaksControl` for creating custom breaks in `discretize` function.
+- `discretize` can be now evaluated with data as a first argument in the formula interface
+  - You can now use `discretize(iris, Species ~ .)` or `discretize(Species ~ ., iris)`.
+  - `discretize(iris, Species ~ .)` seems to be more pipe friendly.
+- `discretize_transform` allows applying the discretization cut points to the new data set.
+- `extract_discretize_transformer` produces small object containing all cutpoints. It can be also used to transform the new data set.
+  - `extract_discretize_transformer` can be useful in ML pipelines where the training data needs to be discarded to save memory.
+
 FSelectorRcpp 0.1.8
 ----------------------------------------------------------------
 
