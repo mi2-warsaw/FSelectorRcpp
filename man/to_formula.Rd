@@ -34,6 +34,7 @@ evaluator <- function(subset, data, dependent = names(iris)[5]) {
   return(mean(results))
 }
 
+set.seed(123)
 fit <- feature_search(attributes = names(iris)[-5], fun = evaluator, data = iris,
                 mode = "exhaustive", parallel = FALSE)
 fit$best

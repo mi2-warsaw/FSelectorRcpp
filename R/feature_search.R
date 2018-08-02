@@ -174,6 +174,7 @@ greedy_search <- function(attributes, fun, data,
 #'   return(mean(results))
 #' }
 #'
+#' set.seed(123)
 #' # Default greedy search.
 #' system.time(
 #'   feature_search(attributes = names(iris)[-5],

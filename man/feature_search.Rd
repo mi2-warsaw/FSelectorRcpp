@@ -85,6 +85,7 @@ evaluator <- function(subset, data, dependent = names(iris)[5]) {
   return(mean(results))
 }
 
+set.seed(123)
 # Default greedy search.
 system.time(
   feature_search(attributes = names(iris)[-5],

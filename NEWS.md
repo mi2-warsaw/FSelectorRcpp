@@ -1,6 +1,7 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
 FSelectorRcpp 0.2.0
+----------------------------------------------------------------
 
 - Changed `discretize` argument `all` to `TRUE`.
 - Added `customBreaksControl` for creating custom breaks in `discretize` function.
