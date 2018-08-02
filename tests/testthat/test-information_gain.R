@@ -1,43 +1,56 @@
 library(dplyr)
-library(FSelector)
 library(FSelectorRcpp)
 library(Matrix)
 
-test_that("Comparsion with FSelector", {
-  expect_equal(information.gain(Species ~ ., data = iris)$attr_importance,
-               information_gain(formula = Species ~ ., data = iris)$importance)
+if (require("FSelector")) {
 
-  expect_equal(gain.ratio(Species ~ ., data = iris)$attr_importance,
-               information_gain(formula = Species ~ ., data = iris,
-                                type = "gainratio")$importance)
+  test_that("Comparsion with FSelector", {
+    expect_equal(
+      information.gain(Species ~ ., data = iris)$attr_importance,
+      information_gain(formula = Species ~ ., data = iris)$importance
+    )
 
-  expect_equal(symmetrical.uncertainty(Species ~ .,
-                                       data = iris)$attr_importance,
-               information_gain(formula = Species ~ ., data = iris,
-                                type = "symuncert")$importance)
-})
+    expect_equal(gain.ratio(Species ~ ., data = iris)$attr_importance,
+                 information_gain(formula = Species ~ ., data = iris,
+                                  type = "gainratio")$importance)
 
-test_that("Test character table", {
-  set.seed(500)
-
-  dt <- lapply(1:50, function(xx) {
-    x <- rnorm(1000, mean = 10 * xx)
-    y <- rnorm(1000, mean = 0.5 * xx)
-    z <- 10 * xx + 0.5 * sqrt(xx)
-    data.frame(x, y, z)
+    expect_equal(symmetrical.uncertainty(Species ~ .,
+                                         data = iris)$attr_importance,
+                 information_gain(formula = Species ~ ., data = iris,
+                                  type = "symuncert")$importance)
   })
 
-  dt <- Reduce(rbind, dt)
-  dt$z <- as.factor(as.integer(round(dt$z)))
+  test_that("Test character table", {
+    set.seed(500)
 
-  formula <- z ~ .
-  data <- dt
+    dt <- lapply(1:50, function(xx) {
+      x <- rnorm(1000, mean = 10 * xx)
+      y <- rnorm(1000, mean = 0.5 * xx)
+      z <- 10 * xx + 0.5 * sqrt(xx)
+      data.frame(x, y, z)
+    })
 
-  expect_lt(sum(information.gain(z ~ ., data)[, 1]
-                - information_gain(
-                      formula = z ~ ., data = data)$importance),
-            1e-10)
-})
+    dt <- Reduce(rbind, dt)
+    dt$z <- as.factor(as.integer(round(dt$z)))
+
+    formula <- z ~ .
+    data <- dt
+
+    expect_lt(sum(information.gain(z ~ ., data)[, 1]
+                  - information_gain(
+                    formula = z ~ ., data = data)$importance),
+              1e-10)
+  })
+
+  test_that("Equal bin discretization", {
+    fs <- information.gain(formula = Sepal.Length ~ ., data = iris)
+    fsrcpp <- information_gain(formula = Sepal.Length ~ ., data = iris,
+                               equal = TRUE)
+
+    expect_equal(fs$attr_importance, fsrcpp$importance)
+  })
+}
+
 
 test_that("Sparse matrix - basics", {
   species <- iris$Species
@@ -141,12 +154,4 @@ test_that("Compare interfaces - formula vs x,y", {
     information_gain(x = iris[, -5], y = iris$Species)
   )
 
-})
-
-test_that("Equal bin discretization", {
-  fs <- information.gain(formula = Sepal.Length ~ ., data = iris)
-  fsrcpp <- information_gain(formula = Sepal.Length ~ ., data = iris,
-                             equal = TRUE)
-
-  expect_equal(fs$attr_importance, fsrcpp$importance)
 })

@@ -1,5 +1,4 @@
 library(dplyr)
-library(FSelector)
 library(FSelectorRcpp)
 
 iris_plus <- setNames(iris, gsub(
@@ -17,42 +16,46 @@ test_that("Data frame output", {
                   class = "data.frame")
 })
 
-test_that("Discretization - basic", {
-  dt <- lapply(1:5, function(xx) {
-    x <- rnorm(1000, mean = 10 * xx)
-    y <- rnorm(1000, mean = 0.5 * xx)
-    z <- 10 * xx + 0.5 * sqrt(xx)
-    data.frame(x, y, z)
+if (require("FSelector") && require("RWeka")) {
+  test_that("Discretization - basic", {
+    dt <- lapply(1:5, function(xx) {
+      x <- rnorm(1000, mean = 10 * xx)
+      y <- rnorm(1000, mean = 0.5 * xx)
+      z <- 10 * xx + 0.5 * sqrt(xx)
+      data.frame(x, y, z)
+    })
+
+    dt <- do.call(bind_rows, dt)
+
+    dt$z <- as.factor(as.integer(round(dt$z)))
+
+    weka <- as.numeric(RWeka::Discretize(z ~ x, dt)[, 1])
+    fs <- as.numeric(discretize(dt$x, dt$z)[[1]])
+
+    expect_equal(weka, fs)
+
+    weka <- RWeka::Discretize(z ~ x, dt)[, 1]
+    fs <- discretize(dt$x, dt$z)[[1]]
+    levels(weka)
+    levels(fs)
   })
 
-  dt <- do.call(bind_rows, dt)
 
-  dt$z <- as.factor(as.integer(round(dt$z)))
+  test_that("Discretization - single NA (independent variable)", {
+    iris$Sepal.Length[3] <- NA
 
-  weka <- as.numeric(RWeka::Discretize(z ~ x, dt)[, 1])
-  fs <- as.numeric(discretize(dt$x, dt$z)[[1]])
+    Weka <- as.numeric(RWeka::Discretize(Species ~ Sepal.Length,
+                                         data = iris)[, 1])
+    Weka <- c(Weka[1:2], NA, tail(Weka, -2))
 
-  expect_equal(weka, fs)
+    fs <- as.numeric(FSelectorRcpp::discretize(
+      iris$Sepal.Length, iris$Species)[[2]])
 
-  weka <- RWeka::Discretize(z ~ x, dt)[, 1]
-  fs <- discretize(dt$x, dt$z)[[1]]
-  levels(weka)
-  levels(fs)
-})
+    expect_equal(Weka, fs)
+  })
+}
 
 
-test_that("Discretization - single NA (independent variable)", {
-  iris$Sepal.Length[3] <- NA
-
-  Weka <- as.numeric(RWeka::Discretize(Species ~ Sepal.Length,
-                                       data = iris)[, 1])
-  Weka <- c(Weka[1:2], NA, tail(Weka, -2))
-
-  fs <- as.numeric(FSelectorRcpp::discretize(
-          iris$Sepal.Length, iris$Species)[[2]])
-
-  expect_equal(Weka, fs)
-})
 
 test_that("Discretization - not supported data type - throw error.", {
   x <- "a"

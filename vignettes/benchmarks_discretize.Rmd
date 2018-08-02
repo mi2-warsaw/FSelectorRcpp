@@ -15,7 +15,7 @@ vignette: >
 ---
 
 ```{r, echo=FALSE, message=TRUE}
-is.pkg <- all(c("RTCGA.rnaseq", "microbenchmark") %in% rownames(installed.packages()))
+is.pkg <- all(c("RTCGA.rnaseq", "microbenchmark", "RWeka") %in% rownames(installed.packages()))
 if(!is.pkg) {
   message("Please install all suggested packages to run benchmark.")
 }
