@@ -194,7 +194,7 @@ bm_plot_log <- make_plot("log(time)")
 
 ## Plots
 
-```{r, eval=is.pkg}
+```{r plots, eval=is.pkg}
 bm_plot
 bm_plot_log
 ```

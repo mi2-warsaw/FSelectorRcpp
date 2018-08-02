@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Discretization � discretize • FSelectorRcpp</title>
+<title>Discretization — discretize • FSelectorRcpp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,27 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Discretization — discretize" />
+
+<meta property="og:description" content="Discretize a range of numeric attributes in the dataset into nominal
+attributes. Minimum Description Length (MDL) method is set as the default
+control. There is also available equalsizeControl method." />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +61,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FSelectorRcpp</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -76,13 +94,14 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -90,26 +109,32 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Discretization</h1>
+    
+    <div class="hidden name"><code>discretize.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Discretize a range of numeric attributes in the dataset into nominal
 attributes. <code>Minimum Description Length</code> (MDL) method is set as the default
 control. There is also available <code>equalsizeControl</code> method.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>discretize</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>mdlControl</span>(), <span class='fu'>equalsizeControl</span>()),
-  <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>mdlControl</span>()
 
-<span class='fu'>equalsizeControl</span>(<span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+<span class='fu'>equalsizeControl</span>(<span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+
+<span class='fu'>customBreaksControl</span>(<span class='no'>breaks</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -127,8 +152,8 @@ discretization algorithm. Possible inputs are <code>mdlControl</code> or <code>e
     </tr>
     <tr>
       <th>all</th>
-      <td><p>Logical indicating if a returned data.frame should contain factor features that were not discretize.
-(Example: should <code>Species</code> be returned, when you pass <code>iris</code> and discretize all continuous features.)</p></td>
+      <td><p>Logical indicating if a returned data.frame should contain other features that were not discretized.
+(Example: should <code>Sepal.Width</code> be returned, when you pass <code>iris</code> and discretize <code>Sepal.Length, Petal.Length, Petal.Width</code>.)</p></td>
     </tr>
     <tr>
       <th>call</th>
@@ -137,6 +162,10 @@ discretization algorithm. Possible inputs are <code>mdlControl</code> or <code>e
     <tr>
       <th>k</th>
       <td><p>Number of partitions.</p></td>
+    </tr>
+    <tr>
+      <th>breaks</th>
+      <td><p>custom breaks used for partitioning.</p></td>
     </tr>
     </table>
     
@@ -303,459 +332,48 @@ discretization algorithm. Possible inputs are <code>mdlControl</code> or <code>e
 #&gt; 149  virginica  (6.15, Inf]
 #&gt; 150  virginica  (5.55,6.15]</div><div class='input'>
 <span class='co'># list and vector</span>
-<span class='fu'>discretize</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>iris</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>iris</span>$<span class='no'>Sepal.Width</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='output co'>#&gt;        Species Sepal.Length Sepal.Width
-#&gt; 1       setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 2       setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 3       setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 4       setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 5       setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 6       setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 7       setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 8       setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 9       setosa  (-Inf,5.55] (-Inf,2.95]
-#&gt; 10      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 11      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 12      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 13      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 14      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 15      setosa  (5.55,6.15] (3.35, Inf]
-#&gt; 16      setosa  (5.55,6.15] (3.35, Inf]
-#&gt; 17      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 18      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 19      setosa  (5.55,6.15] (3.35, Inf]
-#&gt; 20      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 21      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 22      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 23      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 24      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 25      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 26      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 27      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 28      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 29      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 30      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 31      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 32      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 33      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 34      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 35      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 36      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 37      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 38      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 39      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 40      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 41      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 42      setosa  (-Inf,5.55] (-Inf,2.95]
-#&gt; 43      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 44      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 45      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 46      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 47      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 48      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 49      setosa  (-Inf,5.55] (3.35, Inf]
-#&gt; 50      setosa  (-Inf,5.55] (2.95,3.35]
-#&gt; 51  versicolor  (6.15, Inf] (2.95,3.35]
-#&gt; 52  versicolor  (6.15, Inf] (2.95,3.35]
-#&gt; 53  versicolor  (6.15, Inf] (2.95,3.35]
-#&gt; 54  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 55  versicolor  (6.15, Inf] (-Inf,2.95]
-#&gt; 56  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 57  versicolor  (6.15, Inf] (2.95,3.35]
-#&gt; 58  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 59  versicolor  (6.15, Inf] (-Inf,2.95]
-#&gt; 60  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 61  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 62  versicolor  (5.55,6.15] (2.95,3.35]
-#&gt; 63  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 64  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 65  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 66  versicolor  (6.15, Inf] (2.95,3.35]
-#&gt; 67  versicolor  (5.55,6.15] (2.95,3.35]
-#&gt; 68  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 69  versicolor  (6.15, Inf] (-Inf,2.95]
-#&gt; 70  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 71  versicolor  (5.55,6.15] (2.95,3.35]
-#&gt; 72  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 73  versicolor  (6.15, Inf] (-Inf,2.95]
-#&gt; 74  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 75  versicolor  (6.15, Inf] (-Inf,2.95]
-#&gt; 76  versicolor  (6.15, Inf] (2.95,3.35]
-#&gt; 77  versicolor  (6.15, Inf] (-Inf,2.95]
-#&gt; 78  versicolor  (6.15, Inf] (2.95,3.35]
-#&gt; 79  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 80  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 81  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 82  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 83  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 84  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 85  versicolor  (-Inf,5.55] (2.95,3.35]
-#&gt; 86  versicolor  (5.55,6.15] (3.35, Inf]
-#&gt; 87  versicolor  (6.15, Inf] (2.95,3.35]
-#&gt; 88  versicolor  (6.15, Inf] (-Inf,2.95]
-#&gt; 89  versicolor  (5.55,6.15] (2.95,3.35]
-#&gt; 90  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 91  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 92  versicolor  (5.55,6.15] (2.95,3.35]
-#&gt; 93  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 94  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 95  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 96  versicolor  (5.55,6.15] (2.95,3.35]
-#&gt; 97  versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 98  versicolor  (6.15, Inf] (-Inf,2.95]
-#&gt; 99  versicolor  (-Inf,5.55] (-Inf,2.95]
-#&gt; 100 versicolor  (5.55,6.15] (-Inf,2.95]
-#&gt; 101  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 102  virginica  (5.55,6.15] (-Inf,2.95]
-#&gt; 103  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 104  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 105  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 106  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 107  virginica  (-Inf,5.55] (-Inf,2.95]
-#&gt; 108  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 109  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 110  virginica  (6.15, Inf] (3.35, Inf]
-#&gt; 111  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 112  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 113  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 114  virginica  (5.55,6.15] (-Inf,2.95]
-#&gt; 115  virginica  (5.55,6.15] (-Inf,2.95]
-#&gt; 116  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 117  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 118  virginica  (6.15, Inf] (3.35, Inf]
-#&gt; 119  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 120  virginica  (5.55,6.15] (-Inf,2.95]
-#&gt; 121  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 122  virginica  (5.55,6.15] (-Inf,2.95]
-#&gt; 123  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 124  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 125  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 126  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 127  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 128  virginica  (5.55,6.15] (2.95,3.35]
-#&gt; 129  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 130  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 131  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 132  virginica  (6.15, Inf] (3.35, Inf]
-#&gt; 133  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 134  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 135  virginica  (5.55,6.15] (-Inf,2.95]
-#&gt; 136  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 137  virginica  (6.15, Inf] (3.35, Inf]
-#&gt; 138  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 139  virginica  (5.55,6.15] (2.95,3.35]
-#&gt; 140  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 141  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 142  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 143  virginica  (5.55,6.15] (-Inf,2.95]
-#&gt; 144  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 145  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 146  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 147  virginica  (6.15, Inf] (-Inf,2.95]
-#&gt; 148  virginica  (6.15, Inf] (2.95,3.35]
-#&gt; 149  virginica  (6.15, Inf] (3.35, Inf]
-#&gt; 150  virginica  (5.55,6.15] (2.95,3.35]</div><div class='input'>
+<span class='fu'>head</span>(<span class='fu'>discretize</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>iris</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>iris</span>$<span class='no'>Sepal.Width</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>iris</span>$<span class='no'>Species</span>))</div><div class='output co'>#&gt;   Species Sepal.Length Sepal.Width
+#&gt; 1  setosa  (-Inf,5.55] (3.35, Inf]
+#&gt; 2  setosa  (-Inf,5.55] (2.95,3.35]
+#&gt; 3  setosa  (-Inf,5.55] (2.95,3.35]
+#&gt; 4  setosa  (-Inf,5.55] (2.95,3.35]
+#&gt; 5  setosa  (-Inf,5.55] (3.35, Inf]
+#&gt; 6  setosa  (-Inf,5.55] (3.35, Inf]</div><div class='input'>
 <span class='co'># formula input</span>
-<span class='fu'>discretize</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt;        Species Sepal.Length Sepal.Width Petal.Length Petal.Width
-#&gt; 1       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 2       setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 3       setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 4       setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 5       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 6       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 7       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 8       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 9       setosa  (-Inf,5.55] (-Inf,2.95]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 10      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 11      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 12      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 13      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 14      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 15      setosa  (5.55,6.15] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 16      setosa  (5.55,6.15] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 17      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 18      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 19      setosa  (5.55,6.15] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 20      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 21      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 22      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 23      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 24      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 25      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 26      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 27      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 28      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 29      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 30      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 31      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 32      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 33      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 34      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 35      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 36      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 37      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 38      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 39      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 40      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 41      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 42      setosa  (-Inf,5.55] (-Inf,2.95]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 43      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 44      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 45      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 46      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 47      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 48      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 49      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 50      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 51  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 52  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 53  versicolor  (6.15, Inf] (2.95,3.35]  (4.75, Inf]  (0.8,1.75]
-#&gt; 54  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 55  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 56  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 57  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 58  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 59  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 60  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 61  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 62  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 63  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 64  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 65  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 66  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 67  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 68  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 69  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 70  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 71  versicolor  (5.55,6.15] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 72  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 73  versicolor  (6.15, Inf] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 74  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 75  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 76  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 77  versicolor  (6.15, Inf] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 78  versicolor  (6.15, Inf] (2.95,3.35]  (4.75, Inf]  (0.8,1.75]
-#&gt; 79  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 80  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 81  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 82  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 83  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 84  versicolor  (5.55,6.15] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 85  versicolor  (-Inf,5.55] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 86  versicolor  (5.55,6.15] (3.35, Inf]  (2.45,4.75]  (0.8,1.75]
-#&gt; 87  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 88  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 89  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 90  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 91  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 92  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 93  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 94  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 95  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 96  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 97  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 98  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 99  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 100 versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 101  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 102  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 103  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 104  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 105  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 106  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 107  virginica  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 108  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 109  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 110  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 111  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 112  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 113  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 114  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 115  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 116  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 117  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 118  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 119  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 120  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 121  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 122  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 123  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 124  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 125  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 126  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 127  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 128  virginica  (5.55,6.15] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 129  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 130  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf]  (0.8,1.75]
-#&gt; 131  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 132  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 133  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 134  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 135  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 136  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 137  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 138  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 139  virginica  (5.55,6.15] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 140  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 141  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 142  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 143  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 144  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 145  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 146  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 147  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 148  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 149  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 150  virginica  (5.55,6.15] (2.95,3.35]  (4.75, Inf] (1.75, Inf]</div><div class='input'><span class='fu'>discretize</span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='no'>iris</span>)</div><div class='output co'>#&gt;        Species Sepal.Length Sepal.Width Petal.Length Petal.Width
-#&gt; 1       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 2       setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 3       setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 4       setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 5       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 6       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 7       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 8       setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 9       setosa  (-Inf,5.55] (-Inf,2.95]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 10      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 11      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 12      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 13      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 14      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 15      setosa  (5.55,6.15] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 16      setosa  (5.55,6.15] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 17      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 18      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 19      setosa  (5.55,6.15] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 20      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 21      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 22      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 23      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 24      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 25      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 26      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 27      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 28      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 29      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 30      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 31      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 32      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 33      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 34      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 35      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 36      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 37      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 38      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 39      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 40      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 41      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 42      setosa  (-Inf,5.55] (-Inf,2.95]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 43      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 44      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 45      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 46      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 47      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 48      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 49      setosa  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 50      setosa  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]
-#&gt; 51  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 52  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 53  versicolor  (6.15, Inf] (2.95,3.35]  (4.75, Inf]  (0.8,1.75]
-#&gt; 54  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 55  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 56  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 57  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 58  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 59  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 60  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 61  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 62  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 63  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 64  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 65  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 66  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 67  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 68  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 69  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 70  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 71  versicolor  (5.55,6.15] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 72  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 73  versicolor  (6.15, Inf] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 74  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 75  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 76  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 77  versicolor  (6.15, Inf] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 78  versicolor  (6.15, Inf] (2.95,3.35]  (4.75, Inf]  (0.8,1.75]
-#&gt; 79  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 80  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 81  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 82  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 83  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 84  versicolor  (5.55,6.15] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 85  versicolor  (-Inf,5.55] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 86  versicolor  (5.55,6.15] (3.35, Inf]  (2.45,4.75]  (0.8,1.75]
-#&gt; 87  versicolor  (6.15, Inf] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 88  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 89  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 90  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 91  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 92  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 93  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 94  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 95  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 96  versicolor  (5.55,6.15] (2.95,3.35]  (2.45,4.75]  (0.8,1.75]
-#&gt; 97  versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 98  versicolor  (6.15, Inf] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 99  versicolor  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 100 versicolor  (5.55,6.15] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 101  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 102  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 103  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 104  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 105  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 106  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 107  virginica  (-Inf,5.55] (-Inf,2.95]  (2.45,4.75]  (0.8,1.75]
-#&gt; 108  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 109  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 110  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 111  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 112  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 113  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 114  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 115  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 116  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 117  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 118  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 119  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 120  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 121  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 122  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 123  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 124  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 125  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 126  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 127  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 128  virginica  (5.55,6.15] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 129  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 130  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf]  (0.8,1.75]
-#&gt; 131  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 132  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 133  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 134  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 135  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf]  (0.8,1.75]
-#&gt; 136  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 137  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 138  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 139  virginica  (5.55,6.15] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 140  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 141  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 142  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 143  virginica  (5.55,6.15] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 144  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 145  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 146  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 147  virginica  (6.15, Inf] (-Inf,2.95]  (4.75, Inf] (1.75, Inf]
-#&gt; 148  virginica  (6.15, Inf] (2.95,3.35]  (4.75, Inf] (1.75, Inf]
-#&gt; 149  virginica  (6.15, Inf] (3.35, Inf]  (4.75, Inf] (1.75, Inf]
-#&gt; 150  virginica  (5.55,6.15] (2.95,3.35]  (4.75, Inf] (1.75, Inf]</div><div class='input'>
+<span class='fu'>head</span>(<span class='fu'>discretize</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 2  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 3  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 4  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 5  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 6  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]  setosa</div><div class='input'><span class='fu'>head</span>(<span class='fu'>discretize</span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='no'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 2  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 3  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 4  (-Inf,5.55] (2.95,3.35]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 5  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]  setosa
+#&gt; 6  (-Inf,5.55] (3.35, Inf]  (-Inf,2.45]  (-Inf,0.8]  setosa</div><div class='input'>
+<span class='co'># use different methods for specific columns</span>
+<span class='no'>ir1</span> <span class='kw'>&lt;-</span> <span class='fu'>discretize</span>(<span class='no'>Species</span> ~ <span class='no'>Sepal.Length</span>, <span class='no'>iris</span>)
+<span class='no'>ir2</span> <span class='kw'>&lt;-</span> <span class='fu'>discretize</span>(<span class='no'>Species</span> ~ <span class='no'>Sepal.Width</span>, <span class='no'>ir1</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>equalsizeControl</span>(<span class='fl'>3</span>))
+<span class='no'>ir3</span> <span class='kw'>&lt;-</span> <span class='fu'>discretize</span>(<span class='no'>Species</span> ~ <span class='no'>Petal.Length</span>, <span class='no'>ir2</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>equalsizeControl</span>(<span class='fl'>5</span>))
+<span class='fu'>head</span>(<span class='no'>ir3</span>)</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1  (-Inf,5.55]  (3.2, Inf]   (-Inf,1.5]         0.2  setosa
+#&gt; 2  (-Inf,5.55]   (2.9,3.2]   (-Inf,1.5]         0.2  setosa
+#&gt; 3  (-Inf,5.55]  (3.2, Inf]   (-Inf,1.5]         0.2  setosa
+#&gt; 4  (-Inf,5.55]   (2.9,3.2]   (-Inf,1.5]         0.2  setosa
+#&gt; 5  (-Inf,5.55]  (3.2, Inf]   (-Inf,1.5]         0.2  setosa
+#&gt; 6  (-Inf,5.55]  (3.2, Inf]    (1.5,3.9]         0.4  setosa</div><div class='input'>
+<span class='co'># custom breaks</span>
+<span class='no'>ir</span> <span class='kw'>&lt;-</span> <span class='fu'>discretize</span>(<span class='no'>Species</span> ~ <span class='no'>Sepal.Length</span>, <span class='no'>iris</span>,
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>customBreaksControl</span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>10</span>)))
+<span class='fu'>head</span>(<span class='no'>ir</span>)</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1      (5,7.5]         3.5          1.4         0.2  setosa
+#&gt; 2        (2,5]         3.0          1.4         0.2  setosa
+#&gt; 3        (2,5]         3.2          1.3         0.2  setosa
+#&gt; 4        (2,5]         3.1          1.5         0.2  setosa
+#&gt; 5        (2,5]         3.6          1.4         0.2  setosa
+#&gt; 6      (5,7.5]         3.9          1.7         0.4  setosa</div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'># Same results</span>
 <span class='fu'>library</span>(<span class='no'>RWeka</span>)
@@ -794,11 +412,14 @@ Zygmunt Zawadzki <a href='mailto:zygmunt@zstat.pl'>zygmunt@zstat.pl</a>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

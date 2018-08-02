@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Feature Searching Engine � feature_search • FSelectorRcpp</title>
+<title>General Feature Searching Engine — feature_search • FSelectorRcpp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,27 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="General Feature Searching Engine — feature_search" />
+
+<meta property="og:description" content="A convenience wrapper for greedy and exhaustive feature selection algorithms that
+extract valuable attributes depending on the evaluation method (called evaluator). This function
+is a reimplementation of FSelector's exhaustive.search and greedy.search." />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +61,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FSelectorRcpp</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -76,13 +94,14 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -90,23 +109,27 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>General Feature Searching Engine</h1>
+    
+    <div class="hidden name"><code>feature_search.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A convenience wrapper for <code>greedy</code> and <code>exhaustive</code> feature selection algorithms that
 extract valuable attributes depending on the evaluation method (called evaluator). This function
 is a reimplementation of <span class="pkg">FSelector</span>'s <a href='http://www.rdocumentation.org/packages/FSelector/topics/exhaustive.search'>exhaustive.search</a> and greedy.search.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>feature_search</span>(<span class='no'>attributes</span>, <span class='no'>fun</span>, <span class='no'>data</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"greedy"</span>, <span class='st'>"exhaustive"</span>),
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"forward"</span>, <span class='st'>"backward"</span>), <span class='kw'>sizes</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fu'>length</span>(<span class='no'>attributes</span>),
   <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -201,19 +224,20 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
   <span class='fu'>return</span>(<span class='fu'>mean</span>(<span class='no'>results</span>))
 }
 
+<span class='fu'>set.seed</span>(<span class='fl'>123</span>)
 <span class='co'># Default greedy search.</span>
 <span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;    0.26    0.02    0.28 </div><div class='input'><span class='fu'>system.time</span>(
+#&gt;   0.169   0.000   0.170 </div><div class='input'><span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;    0.22    0.00    0.22 </div><div class='input'>
+#&gt;   0.163   0.000   0.163 </div><div class='input'>
 <span class='co'># Optional exhaustive search.</span>
 <span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
@@ -221,14 +245,14 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;    0.36    0.00    0.36 </div><div class='input'><span class='fu'>system.time</span>(
+#&gt;   0.253   0.000   0.253 </div><div class='input'><span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>,
                  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;    0.37    0.01    0.39 </div><div class='input'>
+#&gt;   0.267   0.000   0.267 </div><div class='input'>
 <span class='co'># 2) Maximize R^2 statistics in the linear regression model/problem.</span>
 
 <span class='no'>evaluator_R2_lm</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>attributes</span>, <span class='no'>data</span>, <span class='no'>dependent</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[<span class='fl'>1</span>]) {
@@ -266,7 +290,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt; {
 #&gt;     summary(lm(to_formula(attributes, dependent), data = data))$r.squared
 #&gt; }
-#&gt; &lt;environment: 0x000000000dd134a8&gt;
+#&gt; &lt;environment: 0x561423af3548&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, 
@@ -465,7 +489,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt;     extractAIC(fit = glm(to_formula(attributes, dependent), family = gaussian, 
 #&gt;         data = data), k = log(nrow(data)))[2]
 #&gt; }
-#&gt; &lt;environment: 0x000000000dd134a8&gt;
+#&gt; &lt;environment: 0x561423af3548&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"), 
@@ -584,11 +608,14 @@ Krzysztof Slomczynski <a href='mailto:krzysztofslomczynski@gmail.com'>krzysztofs
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

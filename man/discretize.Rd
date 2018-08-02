@@ -44,11 +44,11 @@ control. There is also available \code{equalsizeControl} method.
 discretize(x = iris[[1]], y = iris[[5]])
 
 # list and vector
-discretize(x = list(iris[[1]], iris$Sepal.Width), y = iris$Species)
+head(discretize(x = list(iris[[1]], iris$Sepal.Width), y = iris$Species))
 
 # formula input
-discretize(x = Species ~ ., y = iris)
-discretize(Species ~ ., iris)
+head(discretize(x = Species ~ ., y = iris))
+head(discretize(Species ~ ., iris))
 
 # use different methods for specific columns
 ir1 <- discretize(Species ~ Sepal.Length, iris)
