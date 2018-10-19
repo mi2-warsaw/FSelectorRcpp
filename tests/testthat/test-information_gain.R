@@ -155,3 +155,34 @@ test_that("Compare interfaces - formula vs x,y", {
   )
 
 })
+
+test_that("Information gain - integer column - discIntegers", {
+
+  dt <- data_frame(
+    y = iris$Species,
+    x = as.integer(iris$Sepal.Length),
+    z = as.numeric(as.integer(iris$Sepal.Length))
+  )
+
+  # discretize integer value
+  result <- information_gain(y ~ ., dt, discIntegers = TRUE)
+  expect_equal(length(unique(result$importance)), 1)
+
+  set.seed(123)
+  x <- as.integer(runif(1000, 1, 100))
+  dt1 <- data.frame(
+    y = as.integer(runif(1000, 1, 100)),
+    x = x, # int
+    z = as.numeric(x), # numeric
+    fc = factor(x) # factor
+  )
+
+  # discretize integer
+  r1 <- information_gain(y ~ ., dt1, discIntegers = TRUE)
+  expect_equal(r1[[2]][[1]], r1[[2]][[2]]) # int == numeric
+
+  # do not discretize integer column
+  r2 <- information_gain(y ~ ., dt1)
+  expect_equal(r2[[2]][[1]], r2[[2]][[3]]) # int == factor
+
+})
