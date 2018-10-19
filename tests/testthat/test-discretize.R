@@ -89,7 +89,7 @@ test_that("Discretization - not supported method", {
 })
 
 test_that("Discretization - equalsize - ordered.", {
-  x <- 1:6
+  x <- as.numeric(1:6)
   y <- 1:6
 
   d <- discretize(x, y, control = equalsizeControl(k = 2))[[2]]
@@ -106,7 +106,7 @@ test_that("Discretization - equalsize - ordered.", {
 })
 
 test_that("Discretization - equalsize - reverse order", {
-  x <- 6:1
+  x <- as.numeric(6:1)
   y <- 1:6
 
   d <- discretize(x, y, control = equalsizeControl(k = 2))[[2]]
@@ -208,10 +208,10 @@ test_that("Throw an error when there's no numeric columns", {
 })
 
 
-iris_num <- iris[,c(1,5)]
+iris_num <- iris[, c(1, 5)]
 iris_num[["SepLenInteger"]] <- as.integer(iris_num$Sepal.Length)
 iris_num[["SepLenNumeric"]] <- as.numeric(as.integer(iris_num$Sepal.Length))
-iris_num <- iris_num[,-1] # remove Sepal.Length column
+iris_num <- iris_num[, -1] # remove Sepal.Length column
 
 
 test_that("By default integer columns are not discretized", {
@@ -227,7 +227,7 @@ test_that("By default integer columns are not discretized", {
   )
 
   expect_equal(
-    discretize(iris_num[,2:3], iris_num$Species)[["SepLenInteger"]],
+    discretize(iris_num[, 2:3], iris_num$Species)[["SepLenInteger"]],
     iris_num[["SepLenInteger"]]
   )
 })
@@ -246,7 +246,7 @@ test_that("integer columns are discretized if discIntegers = TRUE", {
     res[["SepLenNumeric"]]
   )
 
-  res <- discretize(iris_num[,2:3], iris_num$Species, discIntegers = TRUE)
+  res <- discretize(iris_num[, 2:3], iris_num$Species, discIntegers = TRUE)
   expect_equal(
     res[["SepLenInteger"]],
     res[["SepLenNumeric"]]
