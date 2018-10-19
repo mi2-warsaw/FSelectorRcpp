@@ -2,6 +2,8 @@ library(FSelectorRcpp)
 
 context("Param search")
 
+if (require("doParallel")) {
+
 test_that("Exhaustive search", {
 
   skip_on_cran()
@@ -76,6 +78,8 @@ test_that("Exhaustive search", {
   stopCluster(cl)
   registerDoSEQ()
 })
+
+}
 
 # get_children
 

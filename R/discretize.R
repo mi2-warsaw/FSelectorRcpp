@@ -92,13 +92,12 @@ discretize.formula <- function(x, y,
     }
   }
 
-
-  fnc <- if(discIntegers) is.numeric else is.double
+  fnc <- if (discIntegers) is.numeric else is.double
   colClasses <- sapply(data, fnc)
   colClasses <- colClasses[formula$x]
 
   if (all(!colClasses)) {
-    if(discIntegers) {
+    if (discIntegers) {
       stop(
         "There are no columns that contain the numeric values."
       )

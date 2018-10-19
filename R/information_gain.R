@@ -89,11 +89,13 @@ information_gain <- function(formula, data, x, y,
       stop(paste("Please use `formula = response ~ attributes, data = dataset`",
                  "interface instead of `x = formula`."))
     }
-    return(.information_gain(x, y, type, equal, threads, discIntegers = discIntegers))
+    return(.information_gain(x, y, type, equal,
+              threads, discIntegers = discIntegers))
   }
 
   if (!missing(formula) && !missing(data)) {
-    return(.information_gain(formula, data, type, equal, threads, discIntegers = discIntegers))
+    return(.information_gain(formula, data,
+              type, equal, threads, discIntegers = discIntegers))
   }
 }
 
@@ -150,7 +152,8 @@ information_gain <- function(formula, data, x, y,
     y <- factor(y)
   }
 
-  values <- information_gain_cpp(x, y, threads = threads, discIntegers = discIntegers)
+  values <- information_gain_cpp(x, y,
+                threads = threads, discIntegers = discIntegers)
   classEntropy <- fs_entropy1d(y)
 
   results <- information_type(classEntropy, values, type)
