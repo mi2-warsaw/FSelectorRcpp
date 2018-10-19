@@ -27,6 +27,9 @@
 #' @param type Method name.
 #' @param equal A logical. Whether to discretize dependent variable with the
 #' \code{equal frequency binning discretization} or not.
+#' #' @param discIntegers logical value.
+#' If true, then integers are treated as numeric vectors and they are discretized.
+#' If false (default) integers are treated as factors and they are left as is.
 #' @param threads Number of threads for parallel backend.
 #'
 #' @return
