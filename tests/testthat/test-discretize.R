@@ -232,24 +232,23 @@ test_that("By default integer columns are not discretized", {
   )
 })
 
-test_that("integer columns are discretized if integer2numeric = TRUE", {
+test_that("integer columns are discretized if discIntegers = TRUE", {
 
-  res <- discretize(Species ~ ., iris_num, integer2numeric = TRUE)
+  res <- discretize(Species ~ ., iris_num, discIntegers = TRUE)
   expect_equal(
     res[["SepLenInteger"]],
     res[["SepLenNumeric"]]
   )
 
-  res <- discretize(iris_num, Species ~ ., integer2numeric = TRUE)
+  res <- discretize(iris_num, Species ~ ., discIntegers = TRUE)
   expect_equal(
     res[["SepLenInteger"]],
     res[["SepLenNumeric"]]
   )
 
-  res <- discretize(iris_num[,2:3], iris_num$Species, integer2numeric = TRUE)
+  res <- discretize(iris_num[,2:3], iris_num$Species, discIntegers = TRUE)
   expect_equal(
     res[["SepLenInteger"]],
     res[["SepLenNumeric"]]
   )
 })
-
