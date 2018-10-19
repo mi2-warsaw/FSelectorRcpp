@@ -8,7 +8,7 @@
 \title{Discretization}
 \usage{
 discretize(x, y, control = list(mdlControl(), equalsizeControl()),
-  all = TRUE, call = NULL)
+  all = TRUE, discIntegers = FALSE, call = NULL)
 
 mdlControl()
 
@@ -26,6 +26,10 @@ discretization algorithm. Possible inputs are \code{mdlControl} or \code{equalsi
 
 \item{all}{Logical indicating if a returned \link{data.frame} should contain other features that were not discretized.
 (Example: should \code{Sepal.Width} be returned, when you pass \code{iris} and discretize \code{Sepal.Length, Petal.Length, Petal.Width}.)}
+
+\item{discIntegers}{logical value.
+If true, then integers are treated as numeric vectors and they are discretized.
+If false (default) integers are treated as factors and they are left as is.}
 
 \item{call}{Keep as \code{NULL}. Inner method parameter for consistency.}
 
