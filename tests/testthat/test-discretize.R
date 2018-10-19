@@ -206,3 +206,50 @@ test_that("Throw error for duplicated columns", {
 test_that("Throw an error when there's no numeric columns", {
   expect_error(discretize(discretize(Species ~ ., iris), Species ~ .))
 })
+
+
+iris_num <- iris[,c(1,5)]
+iris_num[["SepLenInteger"]] <- as.integer(iris_num$Sepal.Length)
+iris_num[["SepLenNumeric"]] <- as.numeric(as.integer(iris_num$Sepal.Length))
+iris_num <- iris_num[,-1] # remove Sepal.Length column
+
+
+test_that("By default integer columns are not discretized", {
+
+  expect_equal(
+    discretize(Species ~ ., iris_num)[["SepLenInteger"]],
+    iris_num[["SepLenInteger"]]
+  )
+
+  expect_equal(
+    discretize(iris_num, Species ~ .)[["SepLenInteger"]],
+    iris_num[["SepLenInteger"]]
+  )
+
+  expect_equal(
+    discretize(iris_num[,2:3], iris_num$Species)[["SepLenInteger"]],
+    iris_num[["SepLenInteger"]]
+  )
+})
+
+test_that("integer columns are discretized if integer2numeric = TRUE", {
+
+  res <- discretize(Species ~ ., iris_num, integer2numeric = TRUE)
+  expect_equal(
+    res[["SepLenInteger"]],
+    res[["SepLenNumeric"]]
+  )
+
+  res <- discretize(iris_num, Species ~ ., integer2numeric = TRUE)
+  expect_equal(
+    res[["SepLenInteger"]],
+    res[["SepLenNumeric"]]
+  )
+
+  res <- discretize(iris_num[,2:3], iris_num$Species, integer2numeric = TRUE)
+  expect_equal(
+    res[["SepLenInteger"]],
+    res[["SepLenNumeric"]]
+  )
+})
+
