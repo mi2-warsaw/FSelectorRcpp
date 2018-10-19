@@ -58,21 +58,22 @@
 #' @importFrom stats formula
 #' @export
 discretize <- function(x, y, control = list(mdlControl(), equalsizeControl()),
-                       all = TRUE, call = NULL) {
+                       all = TRUE, integer2numeric = FALSE, call = NULL) {
   UseMethod("discretize", x)
 }
 
 #' @export
 discretize.default <- function(x, y,
-                               control = list(mdlControl(), equalsizeControl()),
-                               all = TRUE, call = NULL) {
+  control = list(mdlControl(), equalsizeControl()),
+  all = TRUE, integer2numeric = FALSE, call = NULL) {
+
   stop(sprintf("Object of class %s is not supported!", class(x)[1]))
 }
 
 #' @export
 discretize.formula <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               all = TRUE, call = NULL) {
+                               all = TRUE, integer2numeric = FALSE, call = NULL) {
   formula <- formula2names(x, y)
   data <- y
   yy <- y[[formula$y]]
@@ -88,11 +89,23 @@ discretize.formula <- function(x, y,
     }
   }
 
-  colClasses <- sapply(data, is.numeric)
+
+  fnc <- if(integer2numeric) is.numeric else is.double
+  colClasses <- sapply(data, fnc)
   colClasses <- colClasses[formula$x]
 
   if (all(!colClasses)) {
-    stop("No columns of numeric classes!")
+    if(integer2numeric) {
+      stop(
+        "There are no columns that contain the numeric values."
+      )
+    } else {
+      stop(
+        "There are no columns that contain the double values.\n",
+        "Note that integer2numeric is set to FALSE, so all columns ",
+        "that contain the integers are not discretized."
+        )
+    }
   } else if (any(!colClasses)) {
 
     if (!all) {
@@ -160,12 +173,13 @@ discretize.formula <- function(x, y,
 
 #' @export
 discretize.data.frame <- function(x, y,
-                                  control = list(mdlControl(),
-                                                 equalsizeControl()),
-                                  all = TRUE, call = match.call()) {
+  control = list(mdlControl(), equalsizeControl()),
+  all = TRUE, integer2numeric = FALSE, call = match.call()) {
 
   if (class(y)[[1]] == "formula") {
-    discretize.formula(x = y, y = x, control = control, all = all)
+    discretize.formula(
+      x = y, y = x, control = control, all = all,
+      call = call, integer2numeric = integer2numeric)
   } else {
     if (!is.data.frame(y)) {
       y <- format_handler(call$y, y)
@@ -180,13 +194,16 @@ discretize.data.frame <- function(x, y,
       control <- control[[1]]
     }
 
-    discretize.formula(x = x, y = y, control = control, all = all)
+    discretize.formula(
+      x = x, y = y, control = control,
+      all = all, integer2numeric = integer2numeric,
+      call = call)
   }
 }
 #' @export
 discretize.numeric <- function(x, y,
-                               control = list(mdlControl(), equalsizeControl()),
-                               all = TRUE, call = NULL) {
+  control = list(mdlControl(), equalsizeControl()),
+  all = TRUE, integer2numeric = FALSE, call = NULL) {
   call <- match.call()
   x <- format_handler(call$x, x)
 
@@ -194,8 +211,10 @@ discretize.numeric <- function(x, y,
     control <- control[[1]]
   }
 
-  discretize.data.frame(x = x, y = y, control = control,
-                        all = all, call = call)
+  discretize.data.frame(
+    x = x, y = y, control = control,
+    all = all, call = call,
+    integer2numeric = integer2numeric)
 }
 
 #' @export
