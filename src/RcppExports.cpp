@@ -33,15 +33,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // information_gain_cpp
-List information_gain_cpp(List xx, IntegerVector y, int threads);
-RcppExport SEXP _FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP, SEXP threadsSEXP) {
+List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threads);
+RcppExport SEXP _FSelectorRcpp_information_gain_cpp(SEXP xxSEXP, SEXP ySEXP, SEXP discIntegersSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type xx(xxSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< bool >::type discIntegers(discIntegersSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(information_gain_cpp(xx, y, threads));
+    rcpp_result_gen = Rcpp::wrap(information_gain_cpp(xx, y, discIntegers, threads));
     return rcpp_result_gen;
 END_RCPP
 }
