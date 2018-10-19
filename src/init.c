@@ -27,7 +27,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"_FSelectorRcpp_fs_order",                    (DL_FUNC) &_FSelectorRcpp_fs_order,                    1},
   {"_FSelectorRcpp_fs_table_numeric2d",          (DL_FUNC) &_FSelectorRcpp_fs_table_numeric2d,          2},
   {"_FSelectorRcpp_fs_table1d",                  (DL_FUNC) &_FSelectorRcpp_fs_table1d,                  1},
-  {"_FSelectorRcpp_information_gain_cpp",        (DL_FUNC) &_FSelectorRcpp_information_gain_cpp,        3},
+  {"_FSelectorRcpp_information_gain_cpp",        (DL_FUNC) &_FSelectorRcpp_information_gain_cpp,        4},
   {"_FSelectorRcpp_sparse_information_gain_cpp", (DL_FUNC) &_FSelectorRcpp_sparse_information_gain_cpp, 2},
   {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
   {NULL, NULL, 0}
