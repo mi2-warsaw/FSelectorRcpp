@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The information_gain and discretize functions are the two most important functions in the `FSelectorRcpp` package. Usually, there are easy to use, and the user should not worry about anything. However, there's one case when some user intervention may be required.
+The information_gain and discretize functions are the two most important functions in the `FSelectorRcpp` package. Usually, there are easy to use, and the user should not worry about anything. However, there's one case where the user intervention may be required.
 
 By default `information_gain` and `discretize` discretizes numeric columns, and leaves other ones as is. In the example below the `x` column is left untouched:
 
@@ -50,7 +50,7 @@ discretize(data, y ~ ., discIntegers = TRUE)
 ```
 
 
-There might be a case that you have both types of integer columns in your data, and you can't directly use `discIntegers`. In this case, you need to manually convert the columns which should be discretized into `numeric` type.
+There might be a case that you have both types of integer columns in your data, and you can't directly use `discIntegers`. In this case, you need to manually convert to `numeric` the columns which should be discretized.
 
 The code below shows a simple approach to convert the columns to numeric if they contain a lot of distinct values:
 
