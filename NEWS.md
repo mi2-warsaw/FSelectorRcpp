@@ -1,5 +1,11 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.2.2
+----------------------------------------------------------------
+
+- `information_gain` and `discretize` get new parameter `discIntegers` to control if integer columns should be discretized. Default value is `FALSE`, so it means that they're treated like more like a factors. For more information please refer to `vignette("integer-variables", package = "FSelectorRcpp")`.
+
+
 FSelectorRcpp 0.2.0
 ----------------------------------------------------------------
 
