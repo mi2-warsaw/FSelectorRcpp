@@ -63,7 +63,7 @@ control. There is also available equalsizeControl method." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -90,6 +90,9 @@ control. There is also available equalsizeControl method." />
     </li>
     <li>
       <a href="../articles/get_started.html">Motivation, Installation and Quick Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/integer-variables.html">Integer variables.</a>
     </li>
   </ul>
 </li>
@@ -126,7 +129,7 @@ control. There is also available <code>equalsizeControl</code> method.</p>
     </div>
 
     <pre class="usage"><span class='fu'>discretize</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>mdlControl</span>(), <span class='fu'>equalsizeControl</span>()),
-  <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>discIntegers</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>mdlControl</span>()
 
@@ -154,6 +157,12 @@ discretization algorithm. Possible inputs are <code>mdlControl</code> or <code>e
       <th>all</th>
       <td><p>Logical indicating if a returned data.frame should contain other features that were not discretized.
 (Example: should <code>Sepal.Width</code> be returned, when you pass <code>iris</code> and discretize <code>Sepal.Length, Petal.Length, Petal.Width</code>.)</p></td>
+    </tr>
+    <tr>
+      <th>discIntegers</th>
+      <td><p>logical value.
+If true, then integers are treated as numeric vectors and they are discretized.
+If false (default) integers are treated as factors and they are left as is.</p></td>
     </tr>
     <tr>
       <th>call</th>

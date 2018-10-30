@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -56,6 +56,9 @@
     </li>
     <li>
       <a href="../articles/get_started.html">Motivation, Installation and Quick Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/integer-variables.html">Integer variables.</a>
     </li>
   </ul>
 </li>
@@ -224,15 +227,15 @@
 <a class="sourceLine" id="cb4-78" data-line-number="78">                <span class="dt">replacement =</span> <span class="st">"s"</span>,</a>
 <a class="sourceLine" id="cb4-79" data-line-number="79">                <span class="dt">x =</span> y)</a>
 <a class="sourceLine" id="cb4-80" data-line-number="80">  </a>
-<a class="sourceLine" id="cb4-81" data-line-number="81">  <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> bm_df, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes_">aes_string</a></span>(<span class="dt">x =</span> <span class="st">"rows"</span>, <span class="dt">y =</span> y, <span class="dt">color =</span> <span class="st">"package"</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-82" data-line-number="82"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(columns <span class="op">~</span><span class="st"> </span>., <span class="dt">labeller =</span> label_both) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-83" data-line-number="83"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-84" data-line-number="84"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">xlab</a></span>(<span class="st">"Number of rows [-]"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-85" data-line-number="85"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="kw">paste0</span>(<span class="st">"Elapsed time ["</span>, yUnit, <span class="st">"]"</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-86" data-line-number="86"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="dt">label =</span> <span class="st">"Microbenchmark: discretization function comparison"</span>,</a>
+<a class="sourceLine" id="cb4-81" data-line-number="81">  <span class="kw"><a href="ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="dt">data =</span> bm_df, <span class="kw"><a href="ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span>(<span class="dt">x =</span> <span class="st">"rows"</span>, <span class="dt">y =</span> y, <span class="dt">color =</span> <span class="st">"package"</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-82" data-line-number="82"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(columns <span class="op">~</span><span class="st"> </span>., <span class="dt">labeller =</span> label_both) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-83" data-line-number="83"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-84" data-line-number="84"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/labs.html">xlab</a></span>(<span class="st">"Number of rows [-]"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-85" data-line-number="85"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="kw">paste0</span>(<span class="st">"Elapsed time ["</span>, yUnit, <span class="st">"]"</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-86" data-line-number="86"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="dt">label =</span> <span class="st">"Microbenchmark: discretization function comparison"</span>,</a>
 <a class="sourceLine" id="cb4-87" data-line-number="87">          <span class="dt">subtitle =</span> <span class="st">"for different sizes of data sets"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-88" data-line-number="88"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">plot.title =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>),</a>
-<a class="sourceLine" id="cb4-89" data-line-number="89">        <span class="dt">plot.subtitle =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb4-88" data-line-number="88"><span class="st">  </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">plot.title =</span> <span class="kw"><a href="ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb4-89" data-line-number="89">        <span class="dt">plot.subtitle =</span> <span class="kw"><a href="ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>),</a>
 <a class="sourceLine" id="cb4-90" data-line-number="90">        <span class="dt">legend.position =</span> <span class="st">"top"</span>)</a>
 <a class="sourceLine" id="cb4-91" data-line-number="91">}</a>
 <a class="sourceLine" id="cb4-92" data-line-number="92"></a>
