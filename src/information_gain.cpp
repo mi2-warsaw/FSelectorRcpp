@@ -6,8 +6,14 @@
 
 using namespace Rcpp;
 
+template<class T1, class T2> void get_entr(double& entr, double& joint, const T1& x, const T2& y) {
+  entr = fselector::entropy::entropy1d(x.begin(), x.end());
+  auto map = fselector::support::table2d(x.begin(), x.end(), y.begin());
+  joint = fselector::entropy::freq_entropy(map.begin(), map.end());
+}
+
 // [[Rcpp::export]]
-List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
+List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threads = 1)
 {
   IntegerVector result;
 
@@ -33,25 +39,16 @@ List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
       case REALSXP:
       {
         NumericVector xx = as<NumericVector>(x);
-
-        std::vector<int> disX(y.size()); //discretized x
+        std::vector<int> disX(y.size());
         fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin(), control);
-
-        entr = fselector::entropy::entropy1d(disX.begin(), disX.end());
-
-        auto map = fselector::support::table2d(disX.begin(),disX.end(), y.begin());
-        joint = fselector::entropy::freq_entropy(map.begin(), map.end());
-
+        get_entr(entr, joint, disX, y);
         break;
       }
 
       case STRSXP:
       {
         CharacterVector xx = as<CharacterVector>(x);
-        entr = fselector::entropy::entropy1d(xx.begin(), xx.end());
-
-        auto map = fselector::support::table2d(xx.begin(), xx.end(), y.begin());
-        joint = fselector::entropy::freq_entropy(map.begin(), map.end());
+        get_entr(entr, joint, xx, y);
         break;
       }
 
@@ -59,10 +56,16 @@ List information_gain_cpp(List xx, IntegerVector y, int threads = 1)
       {
         IntegerVector xx = as<IntegerVector>(x);
 
-        entr = fselector::entropy::entropy1d(xx.begin(), xx.end());
+        if(discIntegers && (!Rf_inherits(x, "factor"))) {
+          std::vector<int> disX(y.size());
+          std::vector<double> xdouble(xx.begin(), xx.end());
+          fselector::discretize::discretize(
+            xdouble.begin(), xdouble.end(), y.begin(), disX.begin(), control);
+          get_entr(entr, joint, disX, y);
 
-        auto map = fselector::support::table2d(xx.begin(), xx.end(), y.begin());
-        joint = fselector::entropy::freq_entropy(map.begin(), map.end());
+        } else {
+          get_entr(entr, joint, xx, y);
+        }
         break;
       }
     }

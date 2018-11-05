@@ -5,7 +5,7 @@
 \title{Entropy-based Filters}
 \usage{
 information_gain(formula, data, x, y, type = c("infogain", "gainratio",
-  "symuncert"), equal = FALSE, threads = 1)
+  "symuncert"), equal = FALSE, discIntegers = FALSE, threads = 1)
 }
 \arguments{
 \item{formula}{An object of class \link{formula} with model description.}
@@ -20,6 +20,10 @@ information_gain(formula, data, x, y, type = c("infogain", "gainratio",
 
 \item{equal}{A logical. Whether to discretize dependent variable with the
 \code{equal frequency binning discretization} or not.}
+
+\item{discIntegers}{logical value.
+If true, then integers are treated as numeric vectors and they are discretized.
+If false (default) integers are treated as factors and they are left as is.}
 
 \item{threads}{Number of threads for parallel backend.}
 }

@@ -4,4 +4,5 @@ pkgdown_sha: ~
 articles:
   benchmarks_discretize: benchmarks_discretize.html
   get_started: get_started.html
+  integer-variables: integer-variables.html
 

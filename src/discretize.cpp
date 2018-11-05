@@ -41,23 +41,12 @@ IntegerVector discretize_cpp(const NumericVector& x, const IntegerVector& y, con
 
   result.attr("levels") = splitVals;
 
-  CharacterVector cl(2);
-  cl[0] = "ordered";
-  cl[1] = "factor";
-
-
   Rcpp::NumericVector splitValues(splitPoints.begin(), splitPoints.end());
   splitValues.push_front(R_NegInf);
   splitValues.push_back(R_PosInf);
 
-  //result.attr("class") = cl;
   result.attr("SplitValues") = splitValues;
 
   return result;
 
 }
-
-
-/*** R
-
-  */

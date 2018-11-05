@@ -77,9 +77,12 @@ test_that("Test order levels", {
   xChar <- c("C", "A", "A", "B")
   xFac <- factor(xChar, levels = c("A", "B", "C"), ordered = TRUE)
 
-  expect_equal(FSelectorRcpp:::fs_entropy1d(xNum), entropy(table(xNum)))
-  expect_equal(FSelectorRcpp:::fs_entropy1d(xChar), entropy(table(xChar)))
-  expect_equal(FSelectorRcpp:::fs_entropy1d(xFac), entropy(table(xFac)))
+  expect_equal(FSelectorRcpp:::fs_entropy1d(xNum),
+               entropy::entropy(table(xNum)))
+  expect_equal(FSelectorRcpp:::fs_entropy1d(xChar),
+               entropy::entropy(table(xChar)))
+  expect_equal(FSelectorRcpp:::fs_entropy1d(xFac),
+               entropy::entropy(table(xFac)))
 
   expect_error(FSelectorRcpp:::fs_entropy1d(list()))
 })

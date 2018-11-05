@@ -27,6 +27,9 @@
 #' @param type Method name.
 #' @param equal A logical. Whether to discretize dependent variable with the
 #' \code{equal frequency binning discretization} or not.
+#' @param discIntegers logical value.
+#' If true, then integers are treated as numeric vectors and they are discretized.
+#' If false (default) integers are treated as factors and they are left as is.
 #' @param threads Number of threads for parallel backend.
 #'
 #' @return
@@ -71,7 +74,7 @@
 #'
 information_gain <- function(formula, data, x, y,
                              type = c("infogain", "gainratio", "symuncert"),
-                             equal = FALSE,
+                             equal = FALSE, discIntegers = FALSE,
                              threads = 1) {
   if (!xor(
           all(!missing(x), !missing(y)),
@@ -89,17 +92,20 @@ information_gain <- function(formula, data, x, y,
       stop(paste("Please use `formula = response ~ attributes, data = dataset`",
                  "interface instead of `x = formula`."))
     }
-    return(.information_gain(x, y, type, equal, threads))
+    return(.information_gain(x, y, type, equal,
+              threads, discIntegers = discIntegers))
   }
 
   if (!missing(formula) && !missing(data)) {
-    return(.information_gain(formula, data, type, equal, threads))
+    return(.information_gain(formula, data,
+              type, equal, threads, discIntegers = discIntegers))
   }
 }
 
 .information_gain <- function(x, y,
                               type = c("infogain", "gainratio", "symuncert"),
                               equal = FALSE,
+                              discIntegers = FALSE,
                               threads = 1) {
   UseMethod(".information_gain", x)
 }
@@ -109,6 +115,7 @@ information_gain <- function(formula, data, x, y,
                                                "gainratio",
                                                "symuncert"),
                                       equal = FALSE,
+                                      discIntegers = FALSE,
                                       threads = 1) {
   stop("Unsupported data type.")
 }
@@ -118,6 +125,7 @@ information_gain <- function(formula, data, x, y,
                                                   "gainratio",
                                                   "symuncert"),
                                          equal = FALSE,
+                                         discIntegers = FALSE,
                                          threads = 1) {
   type <- match.arg(type)
 
@@ -129,7 +137,7 @@ information_gain <- function(formula, data, x, y,
     y <- y[idx]
   }
 
-  if (is.numeric(y)) {
+  if (is.double(y)) {
 
     if (!equal) {
       warning(paste("Dependent variable is a numeric! It will be converted",
@@ -147,7 +155,8 @@ information_gain <- function(formula, data, x, y,
     y <- factor(y)
   }
 
-  values <- information_gain_cpp(x, y, threads = threads)
+  values <- information_gain_cpp(x, y,
+                threads = threads, discIntegers = discIntegers)
   classEntropy <- fs_entropy1d(y)
 
   results <- information_type(classEntropy, values, type)
@@ -161,6 +170,7 @@ information_gain <- function(formula, data, x, y,
                                                "gainratio",
                                                "symuncert"),
                                       equal = FALSE,
+                                      discIntegers = FALSE,
                                       threads = 1) {
   if (!is.data.frame(y)) {
     stop("y must be a data.frame!")
@@ -176,8 +186,10 @@ information_gain <- function(formula, data, x, y,
 
   type <- match.arg(type)
 
-  .information_gain.data.frame(x = x, y = y, type = type, equal = equal,
-                               threads = threads)
+  .information_gain.data.frame(
+    x = x, y = y, type = type, equal = equal,
+    discIntegers = discIntegers,
+    threads = threads)
 }
 
 
@@ -186,6 +198,7 @@ information_gain <- function(formula, data, x, y,
                                                  "gainratio",
                                                  "symuncert"),
                                         equal = FALSE,
+                                        discIntegers = FALSE,
                                         threads = 1) {
   type <- match.arg(type)
 

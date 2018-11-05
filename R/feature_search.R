@@ -19,15 +19,15 @@ exhaustive_search <- function(attributes, fun, data,
                        }))
   }
 
-  matIter <- iter(childComb, by = "column")
+  matIter <- iterators::iter(childComb, by = "column")
 
   if (parallel && getDoParRegistered()) {
-    `%op%` <- `%dopar%`
+    `%op%` <- foreach::`%dopar%`
   } else {
-    `%op%` <- `%do%`
+    `%op%` <- foreach::`%do%`
   }
 
-  result <- foreach(it = matIter, ...) %op% {
+  result <- foreach::foreach(it = matIter, ...) %op% {
     fun(attributes[as.logical(as.numeric(it))], data)
   }
 

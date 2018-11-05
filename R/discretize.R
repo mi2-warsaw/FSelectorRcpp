@@ -10,6 +10,9 @@
 #'   discretization algorithm. Possible inputs are \code{mdlControl} or \code{equalsizeControl}, so far. If passed as a list, the first element is used.
 #' @param all Logical indicating if a returned \link{data.frame} should contain other features that were not discretized.
 #' (Example: should \code{Sepal.Width} be returned, when you pass \code{iris} and discretize \code{Sepal.Length, Petal.Length, Petal.Width}.)
+#' @param discIntegers logical value.
+#' If true, then integers are treated as numeric vectors and they are discretized.
+#' If false (default) integers are treated as factors and they are left as is.
 #' @param call Keep as \code{NULL}. Inner method parameter for consistency.
 #'
 #' @references U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
@@ -58,21 +61,22 @@
 #' @importFrom stats formula
 #' @export
 discretize <- function(x, y, control = list(mdlControl(), equalsizeControl()),
-                       all = TRUE, call = NULL) {
+                       all = TRUE, discIntegers = FALSE, call = NULL) {
   UseMethod("discretize", x)
 }
 
 #' @export
 discretize.default <- function(x, y,
-                               control = list(mdlControl(), equalsizeControl()),
-                               all = TRUE, call = NULL) {
+  control = list(mdlControl(), equalsizeControl()),
+  all = TRUE, discIntegers = FALSE, call = NULL) {
+
   stop(sprintf("Object of class %s is not supported!", class(x)[1]))
 }
 
 #' @export
 discretize.formula <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               all = TRUE, call = NULL) {
+                               all = TRUE, discIntegers = FALSE, call = NULL) {
   formula <- formula2names(x, y)
   data <- y
   yy <- y[[formula$y]]
@@ -88,11 +92,22 @@ discretize.formula <- function(x, y,
     }
   }
 
-  colClasses <- sapply(data, is.numeric)
+  fnc <- if (discIntegers) is.numeric else is.double
+  colClasses <- sapply(data, fnc)
   colClasses <- colClasses[formula$x]
 
   if (all(!colClasses)) {
-    stop("No columns of numeric classes!")
+    if (discIntegers) {
+      stop(
+        "There are no columns that contain the numeric values."
+      )
+    } else {
+      stop(
+        "There are no columns that contain the double values.\n",
+        "Note that discIntegers is set to FALSE, so all columns ",
+        "that contain the integers are not discretized."
+        )
+    }
   } else if (any(!colClasses)) {
 
     if (!all) {
@@ -160,12 +175,13 @@ discretize.formula <- function(x, y,
 
 #' @export
 discretize.data.frame <- function(x, y,
-                                  control = list(mdlControl(),
-                                                 equalsizeControl()),
-                                  all = TRUE, call = match.call()) {
+  control = list(mdlControl(), equalsizeControl()),
+  all = TRUE, discIntegers = FALSE, call = match.call()) {
 
   if (class(y)[[1]] == "formula") {
-    discretize.formula(x = y, y = x, control = control, all = all)
+    discretize.formula(
+      x = y, y = x, control = control, all = all,
+      call = call, discIntegers = discIntegers)
   } else {
     if (!is.data.frame(y)) {
       y <- format_handler(call$y, y)
@@ -180,13 +196,16 @@ discretize.data.frame <- function(x, y,
       control <- control[[1]]
     }
 
-    discretize.formula(x = x, y = y, control = control, all = all)
+    discretize.formula(
+      x = x, y = y, control = control,
+      all = all, discIntegers = discIntegers,
+      call = call)
   }
 }
 #' @export
 discretize.numeric <- function(x, y,
-                               control = list(mdlControl(), equalsizeControl()),
-                               all = TRUE, call = NULL) {
+  control = list(mdlControl(), equalsizeControl()),
+  all = TRUE, discIntegers = FALSE, call = NULL) {
   call <- match.call()
   x <- format_handler(call$x, x)
 
@@ -194,8 +213,10 @@ discretize.numeric <- function(x, y,
     control <- control[[1]]
   }
 
-  discretize.data.frame(x = x, y = y, control = control,
-                        all = all, call = call)
+  discretize.data.frame(
+    x = x, y = y, control = control,
+    all = all, call = call,
+    discIntegers = discIntegers)
 }
 
 #' @export

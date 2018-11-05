@@ -18,3 +18,4 @@ vignettes/*.R
 staticdocs_build/staticdocs/
 FSelectorRcpp-Ex.timings
 FSelectorRcpp-Ex.pdf
+inst/doc
