@@ -186,4 +186,3 @@ test_that("Information gain - integer column - discIntegers", {
   expect_equal(r2[[2]][[1]], r2[[2]][[3]]) # int is equal to factor
 
 })
-
