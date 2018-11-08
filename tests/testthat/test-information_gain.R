@@ -67,6 +67,15 @@ test_that("Sparse matrix - basics", {
   expect_equal(information_gain(x, species)$importance,
                information_gain(formula = Species ~ ., data = iris2)$importance)
 
+  expect_equal(
+    information_gain(x, species, discIntegers = FALSE)$importance,
+    information_gain(
+      formula = Species ~ ., data = iris2,
+      discIntegers = FALSE
+    )$importance
+  )
+
+
   expect_equal(information_gain(x, species, type = "gainratio")$importance,
                information_gain(formula = Species ~ ., data = iris2,
                                 type = "gainratio")$importance)
