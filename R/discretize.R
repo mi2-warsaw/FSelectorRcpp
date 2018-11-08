@@ -11,8 +11,8 @@
 #' @param all Logical indicating if a returned \link{data.frame} should contain other features that were not discretized.
 #' (Example: should \code{Sepal.Width} be returned, when you pass \code{iris} and discretize \code{Sepal.Length, Petal.Length, Petal.Width}.)
 #' @param discIntegers logical value.
-#' If true, then integers are treated as numeric vectors and they are discretized.
-#' If false (default) integers are treated as factors and they are left as is.
+#' If true (default), then integers are treated as numeric vectors and they are discretized.
+#' If false integers are treated as factors and they are left as is.
 #' @param call Keep as \code{NULL}. Inner method parameter for consistency.
 #'
 #' @references U. M. Fayyad and K. B. Irani. Multi-Interval Discretization of
@@ -61,14 +61,14 @@
 #' @importFrom stats formula
 #' @export
 discretize <- function(x, y, control = list(mdlControl(), equalsizeControl()),
-                       all = TRUE, discIntegers = FALSE, call = NULL) {
+                       all = TRUE, discIntegers = TRUE, call = NULL) {
   UseMethod("discretize", x)
 }
 
 #' @export
 discretize.default <- function(x, y,
   control = list(mdlControl(), equalsizeControl()),
-  all = TRUE, discIntegers = FALSE, call = NULL) {
+  all = TRUE, discIntegers = TRUE, call = NULL) {
 
   stop(sprintf("Object of class %s is not supported!", class(x)[1]))
 }
@@ -76,7 +76,7 @@ discretize.default <- function(x, y,
 #' @export
 discretize.formula <- function(x, y,
                                control = list(mdlControl(), equalsizeControl()),
-                               all = TRUE, discIntegers = FALSE, call = NULL) {
+                               all = TRUE, discIntegers = TRUE, call = NULL) {
   formula <- formula2names(x, y)
   data <- y
   yy <- y[[formula$y]]
@@ -182,7 +182,7 @@ discretize.formula <- function(x, y,
 #' @export
 discretize.data.frame <- function(x, y,
   control = list(mdlControl(), equalsizeControl()),
-  all = TRUE, discIntegers = FALSE, call = match.call()) {
+  all = TRUE, discIntegers = TRUE, call = match.call()) {
 
   if (class(y)[[1]] == "formula") {
     discretize.formula(
@@ -211,7 +211,7 @@ discretize.data.frame <- function(x, y,
 #' @export
 discretize.numeric <- function(x, y,
   control = list(mdlControl(), equalsizeControl()),
-  all = TRUE, discIntegers = FALSE, call = NULL) {
+  all = TRUE, discIntegers = TRUE, call = NULL) {
   call <- match.call()
   x <- format_handler(call$x, x)
 
