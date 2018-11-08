@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 The information_gain and discretize functions are the two most important functions in the `FSelectorRcpp` package. Usually, there are easy to use, and the user should not worry about anything. However, there's one case where the user intervention may be required.
 
-By default `information_gain` and `discretize` discretizes numeric columns, and leaves other ones as is. In the example below the `x` column is left untouched:
+By default `information_gain` and `discretize` discretizes numeric and integer columns, and leaves other ones as is. In the example below the `x` column is discretized:
 
 ```{r}
 library(FSelectorRcpp)
@@ -32,7 +32,7 @@ discretize(data, y ~ .)
 
 So far, so good. However, there is a problem when the column is of a type integer. Because integers might be used to encode levels of a factor, e.g., a number of a day in a week (0-6, 1-7), id from some mapping (e.g., `1 - Poland, 2 - USA, 3 - Germany`), and probably many other (gender and so on), possibly any variable that is going to be one-hot encoded in the final model. In such cases, discretizing those values don't make any sense, because they're already discrete. On the other hand, some variables might be encoded as integers, but they could be discretized. E.g., age, income, height, weight, and so on.
 
-It would be tough for FSelectorRcpp to guess if the integer encoded variable should be discretized because it depends heavily on the context. So we (as the authors of the `FSelectorRcpp`) decided that by default the integers columns will be treated like factors, and they won't be discretized. However, the user can control this behavior by using `discIntegers` parameter.
+It would be tough for FSelectorRcpp to guess if the integer encoded variable should be discretized because it depends heavily on the context. So we (as the authors of the `FSelectorRcpp`) decided that by default the integers columns will be treated like numerics, and they will be discretized. However, the user can control this behavior by using `discIntegers` parameter.
 
 See the example below to get some idea about the behavior of the `discretize` function when integers columns are present:
 
@@ -45,8 +45,12 @@ data <- data.frame(
   int = as.integer(c(1, 1, 1, 2, 2, 1)),
   uniqueInt = as.integer(c(10, 20, 11, 22, 25, 11)),
   stringsAsFactors = FALSE)
+
+# default (integers are discretized)
 discretize(data, y ~ .)
-discretize(data, y ~ ., discIntegers = TRUE)
+
+# discIntegers is set to FALSE - integers are left as is.
+discretize(data, y ~ ., discIntegers = FALSE)
 ```
 
 
