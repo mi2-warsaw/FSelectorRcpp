@@ -202,7 +202,7 @@ information_gain <- function(formula, data, x, y,
                                         threads = 1) {
   type <- match.arg(type)
 
-  values <- sparse_information_gain_cpp(x, y)
+  values <- sparse_information_gain_cpp(x, y, discIntegers = discIntegers)
   classEntropy <- fs_entropy1d(y)
 
   results <- information_type(classEntropy, values, type)

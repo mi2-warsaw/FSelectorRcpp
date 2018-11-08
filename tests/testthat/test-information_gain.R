@@ -178,11 +178,12 @@ test_that("Information gain - integer column - discIntegers", {
   )
 
   # discretize integer
-  r1 <- information_gain(y ~ ., dt1, discIntegers = TRUE)
+  r1 <- information_gain(y ~ ., dt1)
   expect_equal(r1[[2]][[1]], r1[[2]][[2]]) # int is equal to numeric
 
   # do not discretize integer column
-  r2 <- information_gain(y ~ ., dt1)
+  r2 <- information_gain(y ~ ., dt1, discIntegers = FALSE)
   expect_equal(r2[[2]][[1]], r2[[2]][[3]]) # int is equal to factor
 
 })
+

@@ -29,8 +29,8 @@ information_gain_cpp <- function(xx, y, discIntegers, threads = 1L) {
     .Call(`_FSelectorRcpp_information_gain_cpp`, xx, y, discIntegers, threads)
 }
 
-sparse_information_gain_cpp <- function(x, y) {
-    .Call(`_FSelectorRcpp_sparse_information_gain_cpp`, x, y)
+sparse_information_gain_cpp <- function(x, y, discIntegers) {
+    .Call(`_FSelectorRcpp_sparse_information_gain_cpp`, x, y, discIntegers)
 }
 
 fs_count_levels <- function(x) {

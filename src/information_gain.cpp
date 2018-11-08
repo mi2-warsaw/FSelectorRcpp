@@ -81,7 +81,7 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
 
 
 // [[Rcpp::export]]
-List sparse_information_gain_cpp(arma::sp_mat x, IntegerVector y)
+List sparse_information_gain_cpp(arma::sp_mat x, IntegerVector y, bool discIntegers)
 {
 
   IntegerVector result;
@@ -90,20 +90,31 @@ List sparse_information_gain_cpp(arma::sp_mat x, IntegerVector y)
   NumericVector varEntropy(n);
   NumericVector jointEntropy(n);
 
+  std::shared_ptr<fselector::discretize::DiscControl> control =
+    std::make_shared<fselector::discretize::mdl::DiscControlMdl>();
+
   for(size_t i =0 ; i < n; i++)
   {
     const auto sp = x.col(i);
 
     arma::vec xx(sp);
 
-    //IntegerVector disX(y.size()); //discretized x
-    //fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin());
+    if(discIntegers) {
+      IntegerVector disX(y.size()); //discretized x
+      fselector::discretize::discretize(
+        xx.begin(), xx.end(), y.begin(), disX.begin(), control);
 
-    varEntropy[i] = fselector::entropy::entropy1d(xx.begin(), xx.end());
+      varEntropy[i] = fselector::entropy::entropy1d(disX.begin(), disX.end());
+      auto map = fselector::support::table2d(disX.begin(), disX.end(), y.begin());
+      jointEntropy[i] = fselector::entropy::freq_entropy(map.begin(), map.end());
 
-    auto map = fselector::support::table2d(xx.begin(), xx.end(), y.begin());
+    } else {
 
-    jointEntropy[i] = fselector::entropy::freq_entropy(map.begin(), map.end());
+      varEntropy[i] = fselector::entropy::entropy1d(xx.begin(), xx.end());
+      auto map = fselector::support::table2d(xx.begin(), xx.end(), y.begin());
+      jointEntropy[i] = fselector::entropy::freq_entropy(map.begin(), map.end());
+    }
+
   }
 
 

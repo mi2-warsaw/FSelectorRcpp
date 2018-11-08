@@ -311,7 +311,7 @@ get_signif_digits <- function(x) {
   after_dot <- vapply(
     strsplit(charx, split = "\\."), "", FUN = "[[", 2)
   after_dot <- nchar(after_dot)
-  if(length(after_dot) == 0) after_dot <- 0
+  if (length(after_dot) == 0) after_dot <- 0
 
-  before_dot + min(pmax(after_dot,0), 6)
+  before_dot + min(pmax(after_dot, 0), 6)
 }

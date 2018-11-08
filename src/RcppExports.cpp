@@ -47,14 +47,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // sparse_information_gain_cpp
-List sparse_information_gain_cpp(arma::sp_mat x, IntegerVector y);
-RcppExport SEXP _FSelectorRcpp_sparse_information_gain_cpp(SEXP xSEXP, SEXP ySEXP) {
+List sparse_information_gain_cpp(arma::sp_mat x, IntegerVector y, bool discIntegers);
+RcppExport SEXP _FSelectorRcpp_sparse_information_gain_cpp(SEXP xSEXP, SEXP ySEXP, SEXP discIntegersSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::sp_mat >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(sparse_information_gain_cpp(x, y));
+    Rcpp::traits::input_parameter< bool >::type discIntegers(discIntegersSEXP);
+    rcpp_result_gen = Rcpp::wrap(sparse_information_gain_cpp(x, y, discIntegers));
     return rcpp_result_gen;
 END_RCPP
 }
