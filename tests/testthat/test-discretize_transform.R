@@ -1,5 +1,7 @@
 test_that("Discretize transformer returns the same result on the same set", {
 
+  iris$extra <- iris$Sepal.Length +
+    runif(nrow(iris), min = 0, max = 0.1)
   disc <- discretize(Species ~ ., iris)
   x <- discretize_transform(disc, iris)
   expect_true(all(mapply(function(x, y) x == y, disc, x)))
