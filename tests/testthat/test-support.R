@@ -112,7 +112,4 @@ test_that("get_signif_digits", {
   expect_equal(FSelectorRcpp:::get_signif_digits(1e7 + 0.123456), 8 + 6)
   expect_equal(FSelectorRcpp:::get_signif_digits(1e7 + 0.1234567), 8 + 6)
 
-  # very big number
-  expect_equal(FSelectorRcpp:::get_signif_digits(2.1 ^ 40), 19)
-
 })
