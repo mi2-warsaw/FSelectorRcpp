@@ -81,7 +81,7 @@
       <h1>Integer variables.</h1>
                         <h4 class="author">Zygmunt Zawadzki</h4>
             
-            <h4 class="date">2018-10-30</h4>
+            <h4 class="date">2018-11-08</h4>
       
       
       <div class="hidden name"><code>integer-variables.Rmd</code></div>
@@ -91,7 +91,7 @@
     
     
 <p>The information_gain and discretize functions are the two most important functions in the <code>FSelectorRcpp</code> package. Usually, there are easy to use, and the user should not worry about anything. However, there’s one case where the user intervention may be required.</p>
-<p>By default <code>information_gain</code> and <code>discretize</code> discretizes numeric columns, and leaves other ones as is. In the example below the <code>x</code> column is left untouched:</p>
+<p>By default <code>information_gain</code> and <code>discretize</code> discretizes numeric and integer columns, and leaves other ones as is. In the example below the <code>x</code> column is discretized:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(FSelectorRcpp)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="dt">y =</span> <span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>)),</a>
@@ -107,7 +107,7 @@
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; 5 B (5.7, Inf] y</span></a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; 6 A (-Inf,5.7] x</span></a></code></pre></div>
 <p>So far, so good. However, there is a problem when the column is of a type integer. Because integers might be used to encode levels of a factor, e.g., a number of a day in a week (0-6, 1-7), id from some mapping (e.g., <code>1 - Poland, 2 - USA, 3 - Germany</code>), and probably many other (gender and so on), possibly any variable that is going to be one-hot encoded in the final model. In such cases, discretizing those values don’t make any sense, because they’re already discrete. On the other hand, some variables might be encoded as integers, but they could be discretized. E.g., age, income, height, weight, and so on.</p>
-<p>It would be tough for FSelectorRcpp to guess if the integer encoded variable should be discretized because it depends heavily on the context. So we (as the authors of the <code>FSelectorRcpp</code>) decided that by default the integers columns will be treated like factors, and they won’t be discretized. However, the user can control this behavior by using <code>discIntegers</code> parameter.</p>
+<p>It would be tough for FSelectorRcpp to guess if the integer encoded variable should be discretized because it depends heavily on the context. So we (as the authors of the <code>FSelectorRcpp</code>) decided that by default the integers columns will be treated like numerics, and they will be discretized. However, the user can control this behavior by using <code>discIntegers</code> parameter.</p>
 <p>See the example below to get some idea about the behavior of the <code>discretize</code> function when integers columns are present:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(FSelectorRcpp)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
@@ -117,22 +117,26 @@
 <a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="dt">int =</span> <span class="kw">as.integer</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)),</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="dt">uniqueInt =</span> <span class="kw">as.integer</span>(<span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">11</span>)),</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw"><a href="../reference/discretize.html">discretize</a></span>(data, y <span class="op">~</span><span class="st"> </span>.)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;   y          x z int uniqueInt</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; 1 A (-Inf,5.7] x   1        10</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; 2 A (-Inf,5.7] x   1        20</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; 3 A (-Inf,5.7] y   1        11</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 4 B (5.7, Inf] y   2        22</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 5 B (5.7, Inf] y   2        25</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 6 A (-Inf,5.7] x   1        11</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="kw"><a href="../reference/discretize.html">discretize</a></span>(data, y <span class="op">~</span><span class="st"> </span>., <span class="dt">discIntegers =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;   y          x z        int uniqueInt</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; 1 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; 2 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; 3 A (-Inf,5.7] y (-Inf,1.5] (-Inf,21]</span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; 4 B (5.7, Inf] y (1.5, Inf] (21, Inf]</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; 5 B (5.7, Inf] y (1.5, Inf] (21, Inf]</span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; 6 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co"># default (integers are discretized)</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw"><a href="../reference/discretize.html">discretize</a></span>(data, y <span class="op">~</span><span class="st"> </span>.)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;   y          x z        int uniqueInt</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; 1 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 2 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 3 A (-Inf,5.7] y (-Inf,1.5] (-Inf,21]</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 4 B (5.7, Inf] y (1.5, Inf] (21, Inf]</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 5 B (5.7, Inf] y (1.5, Inf] (21, Inf]</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; 6 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co"># discIntegers is set to FALSE - integers are left as is.</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="kw"><a href="../reference/discretize.html">discretize</a></span>(data, y <span class="op">~</span><span class="st"> </span>., <span class="dt">discIntegers =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;   y          x z int uniqueInt</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; 1 A (-Inf,5.7] x   1        10</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; 2 A (-Inf,5.7] x   1        20</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; 3 A (-Inf,5.7] y   1        11</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; 4 B (5.7, Inf] y   2        22</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; 5 B (5.7, Inf] y   2        25</span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; 6 A (-Inf,5.7] x   1        11</span></a></code></pre></div>
 <p>There might be a case that you have both types of integer columns in your data, and you can’t directly use <code>discIntegers</code>. In this case, you need to manually convert to <code>numeric</code> the columns which should be discretized.</p>
 <p>The code below shows a simple approach to convert the columns to numeric if they contain a lot of distinct values:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">can_discretize &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">treshold =</span> <span class="fl">0.9</span>) {</a>

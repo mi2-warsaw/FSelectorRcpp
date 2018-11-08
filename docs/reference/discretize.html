@@ -129,7 +129,7 @@ control. There is also available <code>equalsizeControl</code> method.</p>
     </div>
 
     <pre class="usage"><span class='fu'>discretize</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>mdlControl</span>(), <span class='fu'>equalsizeControl</span>()),
-  <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>discIntegers</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>discIntegers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>mdlControl</span>()
 
@@ -161,8 +161,8 @@ discretization algorithm. Possible inputs are <code>mdlControl</code> or <code>e
     <tr>
       <th>discIntegers</th>
       <td><p>logical value.
-If true, then integers are treated as numeric vectors and they are discretized.
-If false (default) integers are treated as factors and they are left as is.</p></td>
+If true (default), then integers are treated as numeric vectors and they are discretized.
+If false integers are treated as factors and they are left as is.</p></td>
     </tr>
     <tr>
       <th>call</th>
