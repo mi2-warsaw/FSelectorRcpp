@@ -258,3 +258,8 @@ test_that("By default integer columns are discretized", {
     res[["SepLenNumeric"]]
   )
 })
+
+test_that("no double values error when discIntegers = FALSE", {
+  dt <- data.frame(y = c("A", "A"), x = c("A", "B"), z = 1:2)
+  expect_error(discretize(y~., dt, discIntegers = FALSE))
+})
