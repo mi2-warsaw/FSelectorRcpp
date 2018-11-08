@@ -129,7 +129,10 @@ discretize.formula <- function(x, y,
   for (col in columnsToDiscretize) {
 
     if (class(control)[1] == "customBreaksControl") {
-      res <- cut(data[[col]], control$breaks, ordered_result = TRUE)
+
+      signifDigits <- get_signif_digits(control$breaks)
+      res <- cut(data[[col]], control$breaks,
+                 ordered_result = TRUE, dig.lab = signifDigits)
       attr(res, "SplitValues") <- control$breaks
 
     } else {
@@ -142,13 +145,16 @@ discretize.formula <- function(x, y,
     class(res) <- c("ordered", "factor")
 
     if (!is.null(attr(res, "SplitValues"))) {
-      # in case of no split points
 
       splitVals <- attr(res, "SplitValues")
-      levels(res) <- levels(cut(splitVals, splitVals))
+      signifDigits <- get_signif_digits(splitVals)
+      levels(res) <- levels(cut(
+        splitVals, splitVals,
+        dig.lab = signifDigits, ordered_result = TRUE))
 
       splitPointsList[[col]] <- splitVals
     } else {
+      # in case of no split points
       warning(paste(
         sprintf("Cannot find any split points for `%s`.", col),
         "Drops this column.",
@@ -293,4 +299,16 @@ equal_freq_bin <- function(data, bins) {
   }
 
   new_data
+}
+
+
+get_signif_digits <- function(x) {
+  x <- x[!is.infinite(x)]
+  before_dot <- max(nchar(as.character(round(x))))
+
+  charx <- as.character(x)
+  charx <- charx[grep(x, pattern = "\\.")]
+  after_dot <- vapply(
+    strsplit(charx, split = "\\."), "", FUN = "[[", 2)
+  before_dot + min(max(nchar(after_dot)), 6)
 }

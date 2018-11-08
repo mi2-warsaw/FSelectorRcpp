@@ -55,7 +55,10 @@ discretize_transform.FsDiscretizeTransformer <-
 
     sp <- splitPoints[[nm]]
     if (!anyNA(sp)) {
-      data[[nm]] <- cut(data[[nm]], sp, ordered_result = TRUE)
+      signifDigits <- get_signif_digits(sp)
+      data[[nm]] <- cut(
+        data[[nm]], sp,
+        ordered_result = TRUE, dig.lab = signifDigits)
     } else {
       if (is.na(dropColumns) || dropColumns) {
         data[[nm]] <- NULL
