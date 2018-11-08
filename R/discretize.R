@@ -304,11 +304,14 @@ equal_freq_bin <- function(data, bins) {
 
 get_signif_digits <- function(x) {
   x <- x[!is.infinite(x)]
-  before_dot <- max(nchar(as.character(round(x))))
+  before_dot <- max(nchar(format(round(x), scientific = FALSE)))
 
-  charx <- as.character(x)
+  charx <- format(x, scientific = FALSE, digits = before_dot + 7)
   charx <- charx[grep(x, pattern = "\\.")]
   after_dot <- vapply(
     strsplit(charx, split = "\\."), "", FUN = "[[", 2)
-  before_dot + min(max(nchar(after_dot)), 6)
+  after_dot <- nchar(after_dot)
+  if(length(after_dot) == 0) after_dot <- 0
+
+  before_dot + min(pmax(after_dot,0), 6)
 }
