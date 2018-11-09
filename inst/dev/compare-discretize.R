@@ -1,8 +1,7 @@
-dt <- MASS::mvrnorm(
-  300, Sigma = cbind(c(30, 20), c(30,20)), mu = c(150,150))
+dt <- MASS::mvrnorm(300, Sigma = cbind(c(30, 20), c(30, 20)), mu = c(150, 150))
 
 dt <- as.data.frame(dt)
-dt[,1] <- as.factor(round(dt[,1], -1))
+dt[, 1] <- as.factor(round(dt[, 1], -1))
 
 
 discFSRcpp <- discretize(V1 ~ ., dt)
@@ -23,6 +22,3 @@ sort(x)
 sort(splitPoints)
 
 testthat::expect_equal(fs$attr_importance, fsrcpp$importance)
-
-
-

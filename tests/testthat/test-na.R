@@ -1,6 +1,6 @@
 context("NA handling")
 
-if(require("FSelector", quietly = TRUE)) {
+if (require("FSelector", quietly = TRUE)) {
 
   library(FSelector)
 
@@ -8,9 +8,9 @@ if(require("FSelector", quietly = TRUE)) {
 
     dtIris <- iris
 
-    dtIris[1,1] <- NA
-    dtIris[2,2] <- NA
-    dtIris[3,5] <- NA
+    dtIris[1, 1] <- NA
+    dtIris[2, 2] <- NA
+    dtIris[3, 5] <- NA
 
     fs <- FSelector::information.gain(Species ~ ., dtIris)
     fsrcpp <- suppressWarnings(FSelectorRcpp::information_gain(
