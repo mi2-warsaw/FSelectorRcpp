@@ -120,6 +120,7 @@
 <ul>
 <li>
 <code>information_gain</code> and <code>discretize</code> get new parameter <code>discIntegers</code> to control if integer columns should be discretized. Default value is <code>TRUE</code>, so it means that they’re treated like numerics. For more information please refer to <code><a href="../articles/integer-variables.html">vignette("integer-variables", package = "FSelectorRcpp")</a></code>.</li>
+<li>FSelectorRcpp tries to mimic the behavior of the FSelector when there are NAs in the dependent variable passed to <code>information_gain</code> (remove only those rows which contain NAs dependent variable, NAs in independents variables are removed column-wise).</li>
 </ul>
 </div>
     <div id="fselectorrcpp-0-2-0" class="section level2">
