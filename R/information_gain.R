@@ -129,10 +129,10 @@ information_gain <- function(formula, data, x, y,
                                          threads = 1) {
   type <- match.arg(type)
 
-  if (anyNA(x) || anyNA(y)) {
-    warning(paste("There are missing values in your data.",
+  if (anyNA(y)) {
+    warning(paste("There are missing values in the dependent variable",
                   "information_gain will remove them."))
-    idx <- complete.cases(x, y)
+    idx <- complete.cases(y)
     x <- x[idx, , drop = FALSE] #nolint
     y <- y[idx]
   }
