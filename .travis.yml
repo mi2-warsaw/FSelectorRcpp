@@ -4,9 +4,6 @@ language: R
 sudo: true
 cache: packages
 
-repos:
-  CRAN: http://cran.rstudio.com
-
 bioc_packages:
  - RTCGA.rnaseq
 

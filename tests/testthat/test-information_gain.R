@@ -101,13 +101,6 @@ test_that("Removing NAs in formula (order)", {
                information_gain(y ~ x, xx)$importance)
 })
 
-test_that("Removing NAs in formula", {
-  xx <- data_frame(x = as.character(c(1, 2, 3)), y = as.character(c(1, 2, 3)),
-                   na = c(NA, NA, 1))
-
-  expect_warning(information_gain(xx[, c("x", "na")], xx$y))
-  expect_warning(information_gain(y ~ ., data = xx))
-})
 
 test_that("Interfaces errors", {
   expect_error(information_gain())

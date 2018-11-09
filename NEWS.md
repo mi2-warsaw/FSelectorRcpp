@@ -4,7 +4,7 @@ FSelectorRcpp 0.2.2
 ----------------------------------------------------------------
 
 - `information_gain` and `discretize` get new parameter `discIntegers` to control if integer columns should be discretized. Default value is `TRUE`, so it means that they're treated like numerics. For more information please refer to `vignette("integer-variables", package = "FSelectorRcpp")`.
-
+- FSelectorRcpp tries to mimic the behavior of the FSelector when there are NAs in the dependent variable passed to `information_gain` (remove only those rows which contain NAs dependent variable, NAs in independents variables are removed column-wise).
 
 FSelectorRcpp 0.2.0
 ----------------------------------------------------------------
