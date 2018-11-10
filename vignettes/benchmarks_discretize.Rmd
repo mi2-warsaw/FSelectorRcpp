@@ -8,7 +8,6 @@ output:
     toc: true
     section_numbering: true
     css: ggsci.css
-    self_contained: false
 bibliography: RJreferences.bib
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
