@@ -22,7 +22,7 @@ if(!is.pkg) {
 
 if(!pkgdown::in_pkgdown()) {
   is.pkg <- FALSE
-  cat("## Benchmark is not available here",
+  cat("### Benchmark is not available here",
   "(we don't want to run this code on the CRAN server).",
   "Please visit the ",
     paste(sep = "", 
@@ -34,7 +34,6 @@ if(!pkgdown::in_pkgdown()) {
 ```
 
 ```{r setup, include = FALSE}
-htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 library(knitr)
 
 fig.path <- if(pkgdown::in_pkgdown()) {
