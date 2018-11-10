@@ -2,12 +2,13 @@
 title: "Benchmarks: discretize()"
 subtitle: "<small>[Marcin Kosinski](http://r-addict.com/About.html)&nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='http://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a><br>Krzysztof Slomczynski&nbsp;&nbsp;<a href='https://github.com/krzyslom'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:krzysztofslomczynski@gmail.com'><i class='fa fa-envelope-o'></i></a></small><br>"
 output:
-  html_document:
+  rmarkdown::html_vignette:
     mathjax:  default
     fig_caption:  true
     toc: true
     section_numbering: true
     css: ggsci.css
+    self_contained: false
 bibliography: RJreferences.bib
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
@@ -24,9 +25,17 @@ if(!is.pkg) {
 ```{r setup, include = FALSE}
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 library(knitr)
+
+fig.path <- if(pkgdown::in_pkgdown()) {
+  "benchmarks_discretize_files/figure-html/"
+} else {
+  "bench-figs/bench-"
+}
+
 opts_chunk$set(
     comment = "",
     fig.width = 8, 
+    fig.height = 8,
     message = FALSE,
     warning = FALSE,
     tidy.opts = list(
@@ -34,7 +43,8 @@ opts_chunk$set(
         width.cutoff = 150
         ),
     options(width = 150),
-    eval = TRUE
+    eval = TRUE,
+    fig.path = fig.path
 )
 ```
 

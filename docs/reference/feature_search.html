@@ -234,13 +234,13 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.239   0.000   0.240 </div><div class='input'><span class='fu'>system.time</span>(
+#&gt;   0.226   0.000   0.226 </div><div class='input'><span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.247   0.000   0.248 </div><div class='input'>
+#&gt;   0.225   0.000   0.225 </div><div class='input'>
 <span class='co'># Optional exhaustive search.</span>
 <span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
@@ -248,14 +248,14 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.350   0.001   0.352 </div><div class='input'><span class='fu'>system.time</span>(
+#&gt;   0.330   0.000   0.331 </div><div class='input'><span class='fu'>system.time</span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>,
                  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.359   0.000   0.361 </div><div class='input'>
+#&gt;   0.345   0.000   0.346 </div><div class='input'>
 <span class='co'># 2) Maximize R^2 statistics in the linear regression model/problem.</span>
 
 <span class='no'>evaluator_R2_lm</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>attributes</span>, <span class='no'>data</span>, <span class='no'>dependent</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>iris</span>)[<span class='fl'>1</span>]) {
@@ -293,7 +293,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt; {
 #&gt;     summary(lm(to_formula(attributes, dependent), data = data))$r.squared
 #&gt; }
-#&gt; &lt;environment: 0x564bb2ada680&gt;
+#&gt; &lt;environment: 0x561e1d9b19d8&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, 
@@ -492,7 +492,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt;     extractAIC(fit = glm(to_formula(attributes, dependent), family = gaussian, 
 #&gt;         data = data), k = log(nrow(data)))[2]
 #&gt; }
-#&gt; &lt;environment: 0x564bb2ada680&gt;
+#&gt; &lt;environment: 0x561e1d9b19d8&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"), 

@@ -44,7 +44,8 @@ Suggests:
  pbapply,
  tibble,
  rmarkdown,
- lintr
+ lintr,
+ pkgdown
 RoxygenNote: 6.1.0
 Encoding: UTF-8
 BugReports: https://github.com/mi2-warsaw/FSelectorRcpp/issues
