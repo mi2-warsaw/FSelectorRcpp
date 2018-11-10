@@ -1,7 +1,9 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
-FSelectorRcpp 0.2.2
+FSelectorRcpp 0.3.0
 ----------------------------------------------------------------
+
+The purpose of this release is to make more compatible with `FSelector` package. We changed some of the default behaviors, so the results might be different between version `2.*` and `3.0`.
 
 - `information_gain` and `discretize` get new parameter `discIntegers` to control if integer columns should be discretized. Default value is `TRUE`, so it means that they're treated like numerics. For more information please refer to `vignette("integer-variables", package = "FSelectorRcpp")`.
 - FSelectorRcpp tries to mimic the behavior of the FSelector when there are NAs in the dependent variable passed to `information_gain` (remove only those rows which contain NAs dependent variable, NAs in independents variables are removed column-wise).
