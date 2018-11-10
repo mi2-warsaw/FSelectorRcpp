@@ -14,11 +14,23 @@ vignette: >
   %\VignetteIndexEntry{Microbenchmarks of FSelectoRcpp and FSelector - discretization}
 ---
 
-```{r, echo=FALSE, message=TRUE}
+```{r, echo=FALSE, message=TRUE, results='asis'}
 is.pkg <- all(c("RTCGA.rnaseq", "microbenchmark", "RWeka") %in% rownames(installed.packages()))
 if(!is.pkg) {
   message("Please install all suggested packages to run benchmark.")
 }
+
+if(!pkgdown::in_pkgdown()) {
+  is.pkg <- FALSE
+  cat("## Benchmark is not available here",
+  "(we don't want to run this code on the CRAN server).",
+  "Please visit the ",
+    paste(sep = "", 
+        "http://mi2-warsaw.github.io/FSelectorRcpp/",
+        "articles/benchmarks_discretize.html")
+  )
+}
+
 ```
 
 ```{r setup, include = FALSE}
@@ -40,7 +52,7 @@ opts_chunk$set(
     tidy.opts = list(
         keep.blank.line = TRUE,
         width.cutoff = 150
-        ),
+    ),
     options(width = 150),
     eval = TRUE,
     fig.path = fig.path
@@ -203,7 +215,7 @@ bm_plot_log <- make_plot("log(time)")
 
 ## Plots
 
-```{r plots, eval=is.pkg}
+```{r plots, eval=is.pkg, echo=FALSE}
 bm_plot
 bm_plot_log
 ```
