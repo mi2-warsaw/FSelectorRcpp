@@ -1,5 +1,10 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.3.1
+----------------------------------------------------------------
+
+- remove strip debug info.
+
 FSelectorRcpp 0.3.0
 ----------------------------------------------------------------
 

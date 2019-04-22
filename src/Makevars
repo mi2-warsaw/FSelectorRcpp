@@ -1,12 +1,2 @@
-PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) `"${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e "RcppArmadillo:::CxxFlags()"` $(SHLIB_OPENMP_CXXFLAGS)
+PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS)
 PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -I../inst/include
-
-
-
-# Reduce the size of the compiled library by removing unneeded debug information
-# Need to check if we are on Linux and if strip is installed
-# http://dirk.eddelbuettel.com/blog/2017/08/14/#009_compact_shared_libraries
-strippedLib: $(SHLIB)
-		if test -e "/usr/bin/strip" && test -e "/bin/uname" && [[ `uname` == "Linux" ]] ; then /usr/bin/strip --strip-debug $(SHLIB); fi
-
-.phony: strippedLib
