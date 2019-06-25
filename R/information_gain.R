@@ -27,6 +27,7 @@
 #' @param type Method name.
 #' @param equal A logical. Whether to discretize dependent variable with the
 #' \code{equal frequency binning discretization} or not.
+#' @param nbins Number of bins used for discretization. Only used if `equal = TRUE` and the response is numeric.
 #' @param discIntegers logical value.
 #' If true (default), then integers are treated as numeric vectors and they are discretized.
 #' If false  integers are treated as factors and they are left as is.
@@ -74,7 +75,7 @@
 #'
 information_gain <- function(formula, data, x, y,
                              type = c("infogain", "gainratio", "symuncert"),
-                             equal = FALSE, discIntegers = TRUE,
+                             equal = FALSE, discIntegers = TRUE, nbins = 5,
                              threads = 1) {
   if (!xor(
           all(!missing(x), !missing(y)),
@@ -92,19 +93,21 @@ information_gain <- function(formula, data, x, y,
       stop(paste("Please use `formula = response ~ attributes, data = dataset`",
                  "interface instead of `x = formula`."))
     }
-    return(.information_gain(x, y, type, equal,
-              threads, discIntegers = discIntegers))
+    return(.information_gain(x = x, y = y, type = type,
+                             equal = equal, nbins = nbins, threads = threads,
+                             discIntegers = discIntegers))
   }
 
   if (!missing(formula) && !missing(data)) {
-    return(.information_gain(formula, data,
-              type, equal, threads, discIntegers = discIntegers))
+    return(.information_gain(formula, data, type, equal, nbins,
+                             threads, discIntegers = discIntegers))
   }
 }
 
 .information_gain <- function(x, y,
                               type = c("infogain", "gainratio", "symuncert"),
                               equal = FALSE,
+                              nbins = 5,
                               discIntegers = TRUE,
                               threads = 1) {
   UseMethod(".information_gain", x)
@@ -126,6 +129,7 @@ information_gain <- function(formula, data, x, y,
                                                   "symuncert"),
                                          equal = FALSE,
                                          discIntegers = TRUE,
+                                         nbins = 5,
                                          threads = 1) {
   type <- match.arg(type)
 
@@ -146,7 +150,7 @@ information_gain <- function(formula, data, x, y,
                     "choose equal frequency binning discretization by setting",
                     "equal argument to TRUE."))
     } else {
-      y <- equal_freq_bin(y, 5)
+      y <- equal_freq_bin(y, nbins)
     }
 
   }
@@ -170,6 +174,7 @@ information_gain <- function(formula, data, x, y,
                                                "gainratio",
                                                "symuncert"),
                                       equal = FALSE,
+                                      nbins = 5,
                                       discIntegers = TRUE,
                                       threads = 1) {
   if (!is.data.frame(y)) {
@@ -187,7 +192,7 @@ information_gain <- function(formula, data, x, y,
   type <- match.arg(type)
 
   .information_gain.data.frame(
-    x = x, y = y, type = type, equal = equal,
+    x = x, y = y, type = type, equal = equal, nbins = nbins,
     discIntegers = discIntegers,
     threads = threads)
 }
@@ -198,6 +203,7 @@ information_gain <- function(formula, data, x, y,
                                                  "gainratio",
                                                  "symuncert"),
                                         equal = FALSE,
+                                        nbins = 5,
                                         discIntegers = TRUE,
                                         threads = 1) {
   type <- match.arg(type)

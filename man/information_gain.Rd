@@ -5,7 +5,8 @@
 \title{Entropy-based Filters}
 \usage{
 information_gain(formula, data, x, y, type = c("infogain", "gainratio",
-  "symuncert"), equal = FALSE, discIntegers = TRUE, threads = 1)
+  "symuncert"), equal = FALSE, discIntegers = TRUE, nbins = 5,
+  threads = 1)
 }
 \arguments{
 \item{formula}{An object of class \link{formula} with model description.}
@@ -24,6 +25,8 @@ information_gain(formula, data, x, y, type = c("infogain", "gainratio",
 \item{discIntegers}{logical value.
 If true (default), then integers are treated as numeric vectors and they are discretized.
 If false  integers are treated as factors and they are left as is.}
+
+\item{nbins}{Number of bins used for discretization. Only used if `equal = TRUE` and the response is numeric.}
 
 \item{threads}{Number of threads for parallel backend.}
 }
