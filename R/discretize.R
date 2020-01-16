@@ -59,6 +59,7 @@
 #'
 #' @author Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 #' @importFrom stats formula
+#' @importFrom RcppParallel RcppParallelLibs
 #' @export
 discretize <- function(x, y, control = list(mdlControl(), equalsizeControl()),
                        all = TRUE, discIntegers = TRUE, call = NULL) {

@@ -1,8 +1,10 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
+#include <RcppParallel.h>
 #include "FSelector.h"
 #include "support/table.h"
 #include "discretize/discretize.h"
+#include "boost/variant.hpp"
 
 using namespace Rcpp;
 
@@ -12,9 +14,25 @@ template<class T1, class T2> void get_entr(double& entr, double& joint, const T1
   joint = fselector::entropy::freq_entropy(map.begin(), map.end());
 }
 
+
+class BaseWrp {
+  public:
+    virtual ~BaseWrp() = default;
+};
+
+template<class Y>
+class Wrp : public BaseWrp
+{
+  public:
+  Y ptr;
+
+  Wrp(Y x): ptr(x) {}
+};
+
 // [[Rcpp::export]]
 List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threads = 1)
 {
+  RcppParallel::RVector<int> yy(y);
   IntegerVector result;
 
   std::vector<double> varEntropy(xx.length());
@@ -24,6 +42,42 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
 
   std::shared_ptr<fselector::discretize::DiscControl> control =
     std::make_shared<fselector::discretize::mdl::DiscControlMdl>();
+
+  //RcppParallel::RVector<std::string>, RcppParallel::RVector<double>, RcppParallel::RVector<int>>
+  std::vector<std::shared_ptr<BaseWrp>> safePtr;
+
+  for(int i = 0; i < xx.size(); i++) {
+    SEXP x = xx[i];
+
+    switch(TYPEOF(x))
+    {
+      case REALSXP:
+      {
+        //https://en.cppreference.com/w/cpp/memory/shared_ptr/pointer_cast
+        RcppParallel::RVector<double> rptr(as<NumericVector>(x));
+        std::shared_ptr<BaseWrp> ptr = std::make_shared<Wrp<RcppParallel::RVector<double>>>(rptr);
+        safePtr.push_back(ptr);
+        break;
+      }
+
+      case STRSXP:
+      {
+        //RcppParallel::RVector<std::string> rptr(as<CharacterVector>(x));
+        //std::shared_ptr<BaseWrp> ptr = std::make_shared<Wrp<RcppParallel::RVector<std::string>>>(rptr);
+        //safePtr.push_back(ptr);
+        break;
+      }
+
+      case INTSXP:
+      {
+        RcppParallel::RVector<int> rptr(as<IntegerVector>(x));
+        std::shared_ptr<BaseWrp> ptr = std::make_shared<Wrp<RcppParallel::RVector<int>>>(rptr);
+        safePtr.push_back(ptr);
+        break;
+      }
+    }
+  }
+
 
   #pragma omp parallel for shared(xx, varEntropy, jointEntropy, y, control) num_threads(threads) schedule(dynamic)
   for(int i = 0; i < xx.size(); i++)
@@ -38,10 +92,13 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
     {
       case REALSXP:
       {
-        NumericVector xx = as<NumericVector>(x);
         std::vector<int> disX(y.size());
-        fselector::discretize::discretize(xx.begin(), xx.end(), y.begin(), disX.begin(), control);
-        get_entr(entr, joint, disX, y);
+
+        std::shared_ptr<Wrp<RcppParallel::RVector<double>>> sp =
+          std::dynamic_pointer_cast<Wrp<RcppParallel::RVector<double>>>(safePtr.at(i));
+
+        fselector::discretize::discretize(sp->ptr.begin(), sp->ptr.end(), yy.begin(), disX.begin(), control);
+        get_entr(entr, joint, disX, yy);
         break;
       }
 
@@ -54,9 +111,12 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
 
       case INTSXP:
       {
-        IntegerVector xx = as<IntegerVector>(x);
+        std::shared_ptr<Wrp<RcppParallel::RVector<int>>> sp =
+          std::dynamic_pointer_cast<Wrp<RcppParallel::RVector<int>>>(safePtr.at(i));
 
-        if(discIntegers && (!Rf_inherits(x, "factor"))) {
+        RcppParallel::RVector<int> xx = sp->ptr;
+
+        if(discIntegers ) {//&& (!Rf_inherits(xx, "factor"))) {
           std::vector<int> disX(y.size());
           std::vector<double> xdouble(xx.begin(), xx.end());
           fselector::discretize::discretize(

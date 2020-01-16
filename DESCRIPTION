@@ -19,8 +19,9 @@ SystemRequirements: C++11
 Imports:
  Rcpp (>= 0.12.12),
  foreach,
- iterators
-LinkingTo: Rcpp, BH, RcppArmadillo, testthat
+ iterators,
+ RcppParallel
+LinkingTo: Rcpp, RcppParallel, BH, RcppArmadillo, testthat
 Suggests:
  testthat,
  Matrix,
@@ -46,7 +47,7 @@ Suggests:
  rmarkdown,
  lintr,
  pkgdown
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Encoding: UTF-8
 BugReports: https://github.com/mi2-warsaw/FSelectorRcpp/issues
 URL: http://mi2-warsaw.github.io/FSelectorRcpp/
