@@ -1,5 +1,10 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.3.2
+----------------------------------------------------------------
+
+- fix segfault when using multicores in information_gain (#82)
+
 FSelectorRcpp 0.3.1
 ----------------------------------------------------------------
 
