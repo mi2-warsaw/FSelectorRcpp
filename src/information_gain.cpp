@@ -116,7 +116,7 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
 
         RcppParallel::RVector<int> xx = sp->ptr;
 
-        if(discIntegers ) {//&& (!Rf_inherits(xx, "factor"))) {
+        if(discIntegers && (!Rf_inherits(x, "factor"))) {
           std::vector<int> disX(y.size());
           std::vector<double> xdouble(xx.begin(), xx.end());
           fselector::discretize::discretize(
