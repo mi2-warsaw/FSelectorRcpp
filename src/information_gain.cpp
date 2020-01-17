@@ -29,6 +29,25 @@ class Wrp : public BaseWrp
   Wrp(Y x): ptr(x) {}
 };
 
+//// https://gallery.rcpp.org/articles/fast-factor-generation/
+template <int RTYPE>
+IntegerVector fast_factor_template( const Vector<RTYPE>& x ) {
+  Vector<RTYPE> levs = sort_unique(x);
+  IntegerVector out = match(x, levs);
+  out.attr("levels") = as<CharacterVector>(levs);
+  out.attr("class") = "factor";
+  return out;
+}
+
+SEXP fast_factor( SEXP x ) {
+  switch( TYPEOF(x) ) {
+  case INTSXP: return fast_factor_template<INTSXP>(x);
+  case REALSXP: return fast_factor_template<REALSXP>(x);
+  case STRSXP: return fast_factor_template<STRSXP>(x);
+  }
+  return R_NilValue;
+}
+
 // [[Rcpp::export]]
 List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threads = 1)
 {
@@ -62,9 +81,9 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
 
       case STRSXP:
       {
-        //RcppParallel::RVector<std::string> rptr(as<CharacterVector>(x));
-        //std::shared_ptr<BaseWrp> ptr = std::make_shared<Wrp<RcppParallel::RVector<std::string>>>(rptr);
-        //safePtr.push_back(ptr);
+        RcppParallel::RVector<int> rptr(as<IntegerVector>(fast_factor(x)));
+        std::shared_ptr<BaseWrp> ptr = std::make_shared<Wrp<RcppParallel::RVector<int>>>(rptr);
+        safePtr.push_back(ptr);
         break;
       }
 
@@ -104,7 +123,10 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
 
       case STRSXP:
       {
-        CharacterVector xx = as<CharacterVector>(x);
+        std::shared_ptr<Wrp<RcppParallel::RVector<int>>> sp =
+          std::dynamic_pointer_cast<Wrp<RcppParallel::RVector<int>>>(safePtr.at(i));
+
+        RcppParallel::RVector<int> xx = sp->ptr;
         get_entr(entr, joint, xx, y);
         break;
       }
