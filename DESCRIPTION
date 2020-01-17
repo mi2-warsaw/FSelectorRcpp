@@ -47,7 +47,7 @@ Suggests:
  rmarkdown,
  lintr,
  pkgdown
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Encoding: UTF-8
 BugReports: https://github.com/mi2-warsaw/FSelectorRcpp/issues
 URL: http://mi2-warsaw.github.io/FSelectorRcpp/

@@ -4,8 +4,16 @@
 \alias{information_gain}
 \title{Entropy-based Filters}
 \usage{
-information_gain(formula, data, x, y, type = c("infogain", "gainratio",
-  "symuncert"), equal = FALSE, discIntegers = TRUE, threads = 1)
+information_gain(
+  formula,
+  data,
+  x,
+  y,
+  type = c("infogain", "gainratio", "symuncert"),
+  equal = FALSE,
+  discIntegers = TRUE,
+  threads = 1
+)
 }
 \arguments{
 \item{formula}{An object of class \link{formula} with model description.}
