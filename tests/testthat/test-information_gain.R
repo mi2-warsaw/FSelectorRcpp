@@ -192,22 +192,20 @@ test_that("Information gain - integer column - discIntegers", {
 test_that("Information gain - character column", {
 
   dt <- tibble(
-    y = iris$Species,
-    x = as.character(as.integer(iris$Sepal.Length)),
-    z = as.character(as.integer(iris$Sepal.Width))
+    y = datasets::iris$Species,
+    x = as.character(as.integer(datasets::iris$Sepal.Length)),
+    z = as.character(as.integer(datasets::iris$Sepal.Width))
   )
 
-  expected <-
-    structure(
-      list(
-        attributes = c("x", "z"),
-        importance = c(0.282997748216621,
-                       0.253604614501761)
-      ),
-      class = "data.frame",
-      row.names = c(NA,-2L)
-    )
-
+  expected <- structure(
+    list(
+      attributes = c("x", "z"),
+      importance = c(0.392253286074497,
+                     0.190561000237304)
+    ),
+    class = "data.frame",
+    row.names = c(NA,-2L)
+  )
 
   expect_equal(information_gain(y ~ ., dt), expected)
 })
