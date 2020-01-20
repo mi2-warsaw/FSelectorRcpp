@@ -30,7 +30,7 @@
 #' @param discIntegers logical value.
 #' If true (default), then integers are treated as numeric vectors and they are discretized.
 #' If false  integers are treated as factors and they are left as is.
-#' @param threads Number of threads for parallel backend.
+#' @param threads defunct. Number of threads for parallel backend - now turned off because of safety reasons.
 #'
 #' @return
 #'
@@ -76,6 +76,7 @@ information_gain <- function(formula, data, x, y,
                              type = c("infogain", "gainratio", "symuncert"),
                              equal = FALSE, discIntegers = TRUE,
                              threads = 1) {
+
   if (!xor(
           all(!missing(x), !missing(y)),
           all(!missing(formula), !missing(data)))) {

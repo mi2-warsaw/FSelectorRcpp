@@ -3,6 +3,12 @@ If something is missing or not clear - please chat with us on our [slack](https:
 FSelectorRcpp 0.3.1
 ----------------------------------------------------------------
 
+- turned off the OpenMP parallel backend in information_gain function - I could cause segfault sometimes. Better safe than sorry.
+
+
+FSelectorRcpp 0.3.1
+----------------------------------------------------------------
+
 - remove strip debug info.
 
 FSelectorRcpp 0.3.0
