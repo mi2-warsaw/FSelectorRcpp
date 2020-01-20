@@ -188,3 +188,41 @@ test_that("Information gain - integer column - discIntegers", {
   expect_equal(r2[[2]][[1]], r2[[2]][[3]]) # int is equal to factor
 
 })
+
+test_that("Information gain - character column", {
+
+  dt <- tibble(
+    y = datasets::iris$Species,
+    x = as.character(as.integer(datasets::iris$Sepal.Length)),
+    z = as.character(as.integer(datasets::iris$Sepal.Width))
+  )
+
+  expected <- structure(
+    list(
+      attributes = c("x", "z"),
+      importance = c(0.392253286074497,
+                     0.190561000237304)
+    ),
+    class = "data.frame",
+    row.names = c(NA,-2L)
+  )
+
+  expect_equal(information_gain(y ~ ., dt), expected)
+
+  dt2 <- dt
+  dt2[[2]][10:20] <- NA
+  dt2[[3]][15:25] <- NA
+
+  expectedNA <- structure(
+    list(
+      attributes = c("x", "z"),
+      importance = c(0.431330813628601,
+                     0.236289962850477)
+    ),
+    class = "data.frame",
+    row.names = c(NA,-2L)
+  )
+
+  expect_equal(information_gain(y ~ ., dt2), expectedNA)
+
+})
