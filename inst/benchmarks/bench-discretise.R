@@ -27,3 +27,4 @@ x <- sort(x)
 fs_cut_index(x, y)
 
 plot(fs_discretize(x, y))
+
