@@ -4,8 +4,16 @@
 \alias{information_gain}
 \title{Entropy-based Filters}
 \usage{
-information_gain(formula, data, x, y, type = c("infogain", "gainratio",
-  "symuncert"), equal = FALSE, discIntegers = TRUE, threads = 1)
+information_gain(
+  formula,
+  data,
+  x,
+  y,
+  type = c("infogain", "gainratio", "symuncert"),
+  equal = FALSE,
+  discIntegers = TRUE,
+  threads = 1
+)
 }
 \arguments{
 \item{formula}{An object of class \link{formula} with model description.}
@@ -25,7 +33,7 @@ information_gain(formula, data, x, y, type = c("infogain", "gainratio",
 If true (default), then integers are treated as numeric vectors and they are discretized.
 If false  integers are treated as factors and they are left as is.}
 
-\item{threads}{Number of threads for parallel backend.}
+\item{threads}{defunct. Number of threads for parallel backend - now turned off because of safety reasons.}
 }
 \value{
 data.frame with the following columns:
