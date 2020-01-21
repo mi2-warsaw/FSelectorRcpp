@@ -20,12 +20,9 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
   std::vector<double> varEntropy(xx.length());
   std::vector<double> jointEntropy(xx.length());
 
-  if(threads < 1) threads = omp_get_max_threads();
-
   std::shared_ptr<fselector::discretize::DiscControl> control =
     std::make_shared<fselector::discretize::mdl::DiscControlMdl>();
 
-  #pragma omp parallel for shared(xx, varEntropy, jointEntropy, y, control) num_threads(threads) schedule(dynamic)
   for(int i = 0; i < xx.size(); i++)
   {
     SEXP x = xx[i];
