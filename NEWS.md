@@ -1,10 +1,10 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
-FSelectorRcpp 0.3.1
+FSelectorRcpp 0.3.3
 ----------------------------------------------------------------
 
 - turned off the OpenMP parallel backend in information_gain function - I could cause segfault sometimes. Better safe than sorry.
-
+- fix parameters mismatch in init.c
 
 FSelectorRcpp 0.3.1
 ----------------------------------------------------------------
