@@ -65,6 +65,10 @@ List information_gain_cpp(List xx, IntegerVector y, bool discIntegers, int threa
         }
         break;
       }
+
+      default:
+        break;
+
     }
 
     varEntropy[i] = entr;

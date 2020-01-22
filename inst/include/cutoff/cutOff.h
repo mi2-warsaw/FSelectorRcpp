@@ -74,7 +74,7 @@ namespace cutoff
 		}
 
 		return final_result;
-	};
+	}
 
 
 	}

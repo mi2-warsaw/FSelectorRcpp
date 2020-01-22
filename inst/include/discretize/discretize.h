@@ -23,13 +23,16 @@ template<class InputIterator,
 
   switch(method)
   {
-    case DISCRETIZE_METHOD::MDL:
-      return mdl::discretize(itX, itXLast, itY, itResult);
-      break;
-
-    case DISCRETIZE_METHOD::EQUAL_SIZE:
-      std::shared_ptr<equalsize::DiscControlEqualSize> controlEqual = std::static_pointer_cast<equalsize::DiscControlEqualSize>(control);
-      return equalsize::discretize(itX, itXLast, itY, itResult, *controlEqual);
+    case DISCRETIZE_METHOD::MDL: {
+        return mdl::discretize(itX, itXLast, itY, itResult);
+        break;
+    }
+    case DISCRETIZE_METHOD::EQUAL_SIZE: {
+        std::shared_ptr<equalsize::DiscControlEqualSize> controlEqual = std::static_pointer_cast<equalsize::DiscControlEqualSize>(control);
+        return equalsize::discretize(itX, itXLast, itY, itResult, *controlEqual);
+        break;
+    }
+    default:
       break;
   }
 

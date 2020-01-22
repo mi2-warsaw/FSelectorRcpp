@@ -4,8 +4,8 @@
 #include <R_ext/Rdynload.h>
 
 /* FIXME:
-Check these declarations against the C/Fortran source code.
-*/
+ Check these declarations against the C/Fortran source code.
+ */
 
 /* .Call calls */
 extern SEXP _FSelectorRcpp_cutOff_k(SEXP, SEXP, SEXP);
@@ -15,8 +15,8 @@ extern SEXP _FSelectorRcpp_fs_entropy1d(SEXP);
 extern SEXP _FSelectorRcpp_fs_order(SEXP);
 extern SEXP _FSelectorRcpp_fs_table_numeric2d(SEXP, SEXP);
 extern SEXP _FSelectorRcpp_fs_table1d(SEXP);
-extern SEXP _FSelectorRcpp_information_gain_cpp(SEXP, SEXP, SEXP);
-extern SEXP _FSelectorRcpp_sparse_information_gain_cpp(SEXP, SEXP);
+extern SEXP _FSelectorRcpp_information_gain_cpp(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _FSelectorRcpp_sparse_information_gain_cpp(SEXP, SEXP, SEXP);
 extern void run_testthat_tests();
 
 static const R_CallMethodDef CallEntries[] = {

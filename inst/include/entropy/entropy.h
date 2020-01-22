@@ -110,7 +110,7 @@ template<typename T> class RollEntropy
 
       _sizeLog = std::log(_size);
 
-    };
+    }
 
 
     void add_sample(const T& val)
@@ -184,7 +184,7 @@ public:
       add_sample(*first);
       _size++;
     }
-  };
+  }
 
 
   void add_sample(const int& val)
