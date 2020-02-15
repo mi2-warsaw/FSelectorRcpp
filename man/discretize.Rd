@@ -7,8 +7,14 @@
 \alias{customBreaksControl}
 \title{Discretization}
 \usage{
-discretize(x, y, control = list(mdlControl(), equalsizeControl()),
-  all = TRUE, discIntegers = TRUE, call = NULL)
+discretize(
+  x,
+  y,
+  control = list(mdlControl(), equalsizeControl()),
+  all = TRUE,
+  discIntegers = TRUE,
+  call = NULL
+)
 
 mdlControl()
 

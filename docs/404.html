@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Select Attributes by Score Depending on the Cutoff — cut_attrs • FSelectorRcpp</title>
+<title>Page not found (404) • FSelectorRcpp</title>
 
 
 <!-- jquery -->
@@ -29,16 +29,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Select Attributes by Score Depending on the Cutoff — cut_attrs" />
-<meta property="og:description" content="Select attributes by their score/rank/weights, depending on the cutoff that may be specified
-by the percentage of the highest ranked attributes or by the number of the highest ranked attributes." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Page not found (404)" />
 
 
 
@@ -57,7 +54,7 @@ by the percentage of the highest ranked attributes or by the number of the highe
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -69,7 +66,7 @@ by the percentage of the highest ranked attributes or by the number of the highe
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
+        <a class="navbar-link" href="index.html">FSelectorRcpp</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
@@ -77,13 +74,13 @@ by the percentage of the highest ranked attributes or by the number of the highe
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -93,18 +90,18 @@ by the percentage of the highest ranked attributes or by the number of the highe
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/benchmarks_discretize.html">Benchmarks: discretize()</a>
+      <a href="articles/benchmarks_discretize.html">Benchmarks: discretize()</a>
     </li>
     <li>
-      <a href="../articles/get_started.html">Motivation, Installation and Quick Workflow</a>
+      <a href="articles/get_started.html">Motivation, Installation and Quick Workflow</a>
     </li>
     <li>
-      <a href="../articles/integer-variables.html">Integer variables.</a>
+      <a href="articles/integer-variables.html">Integer variables.</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -120,55 +117,17 @@ by the percentage of the highest ranked attributes or by the number of the highe
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Select Attributes by Score Depending on the Cutoff</h1>
-    
-    <div class="hidden name"><code>cut_attrs.Rd</code></div>
+      <h1>Page not found (404)</h1>
     </div>
 
-    <div class="ref-description">
-    <p>Select attributes by their score/rank/weights, depending on the cutoff that may be specified
-by the percentage of the highest ranked attributes or by the number of the highest ranked attributes.</p>
-    </div>
+Content not found. Please use links in the navbar.
 
-    <pre class="usage"><span class='fu'>cut_attrs</span>(<span class='no'>attrs</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>attrs</th>
-      <td><p>A <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with attributes' importance.</p></td>
-    </tr>
-    <tr>
-      <th>k</th>
-      <td><p>A numeric. For <code>k &gt;= 1</code> it takes <code><a href='https://rdrr.io/r/base/Round.html'>floor(k)</a></code> and then it indicates how many attributes to
-take with the highest attribute rank (chooses k best attributes).
-For <code>0 &lt; k &lt; 1</code> it stands for the percent of top attributes to take
-(chooses best k * 100% of attributes).</p></td>
-    </tr>
-    </table>
-
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='information_gain.html'>information_gain</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='no'>iris</span>)
-<span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "Petal.Width"  "Petal.Length"</div><div class='input'><span class='fu'><a href='to_formula.html'>to_formula</a></span>(<span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>), <span class='st'>"Species"</span>)</div><div class='output co'>#&gt; Species ~ Petal.Width + Petal.Length
-#&gt; &lt;environment: 0x561ff0200800&gt;</div><div class='input'><span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "Petal.Width"</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
 
-    <h2>Author</h2>
-    <p>Damian Skrzypiec <a href='mailto:damian.j.skrzypiec@gmail.com'>damian.j.skrzypiec@gmail.com</a> and
-Zygmunt Zawadzki <a href='mailto:zygmunt@zstat.pl'>zygmunt@zstat.pl</a></p>
-  </div>
 </div>
+
 
 
       <footer>

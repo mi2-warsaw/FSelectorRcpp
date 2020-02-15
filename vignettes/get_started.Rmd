@@ -66,8 +66,7 @@ A simple entropy based feature selection workflow. **Information gain** is an ea
 information_gain(               # Calculate the score for each attribute
     formula = Species ~ .,      # that is on the right side of the formula.
     data = iris,                # Attributes must exist in the passed data.
-    type  = "infogain",         # Choose the type of a score to be calculated.
-    threads = 2                 # Set number of threads in a parallel backend.
+    type  = "infogain"          # Choose the type of a score to be calculated.
   ) %>%                          
   cut_attrs(                    # Then take attributes with the highest rank.
     k = 2                       # For example: 2 attrs with the higehst rank.
