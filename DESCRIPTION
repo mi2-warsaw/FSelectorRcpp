@@ -6,7 +6,8 @@ Authors@R: c(
  person("Zygmunt", "Zawadzki", role = c("aut", "cre"), email = "zygmunt@zstat.pl"),
  person("Marcin", "Kosinski", role = c("aut"), email = "m.p.kosinski@gmail.com"),
  person("Krzysztof", "Slomczynski", role = c("ctb"), email = "krzysztofslomczynski@gmail.com"),
- person("Damian", "Skrzypiec", role = c("ctb"), email = "damian.j.skrzypiec@@gmail.comm")
+ person("Damian", "Skrzypiec", role = c("ctb"), email = "damian.j.skrzypiec@@gmail.comm"),
+ person(given = "Patrick", family = "Schratz", role = c("ctb"), email = "patrick.schratz@gmail.com", comment = c(ORCID = "0000-0003-0748-6624"))
  )
 Description: 'Rcpp' (free of 'Java'/'Weka') implementation of 'FSelector' entropy-based feature selection 
  algorithms based on an MDL discretization (Fayyad U. M., Irani K. B.: Multi-Interval Discretization of Continuous-Valued Attributes for Classification Learning.
@@ -49,5 +50,5 @@ Suggests:
 RoxygenNote: 7.0.2
 Encoding: UTF-8
 BugReports: https://github.com/mi2-warsaw/FSelectorRcpp/issues
-URL: http://mi2-warsaw.github.io/FSelectorRcpp/
+URL: https://github.com/mi2-warsaw/FSelectorRcpp
 VignetteBuilder: knitr
