@@ -17,7 +17,7 @@
 #' Attribute)}{H(Attribute) + H(Class)}}{2 * (H(Class) + H(Attribute) - H(Class,
 #' Attribute)) / (H(Attribute) + H(Class))}
 #'
-#' where H(X) is Shannon's Entropy for a variable X and H(X, Y) is a conditional
+#' where H(X) is Shannon's Entropy for a variable X and H(X, Y) is a joint
 #' Shannon's Entropy for a variable X with a condition to Y.
 #'
 #' @param formula An object of class \link{formula} with model description.
