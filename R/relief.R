@@ -11,7 +11,7 @@
 #' @param neighbours.count number of neighbours to find for every sampled instance
 #' @param sample.size number of instances to sample
 #'
-#' @description The algorithm finds weights of continous and discrete attributes basing on a distance between instances.
+#' @description The algorithm finds weights of continuous and discrete attributes basing on a distance between instances.
 #'
 #' @return a data.frame containing the worth of attributes in the first column and their names as row names
 #'
