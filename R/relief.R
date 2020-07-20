@@ -4,6 +4,35 @@
 # classification and regression
 # continous and discrete data
 
+#' RReliefF filter
+#'
+#' @param formula a symbolic description of a model
+#' @param data data to process
+#' @param neighbours.count number of neighbours to find for every sampled instance
+#' @param sample.size number of instances to sample
+#'
+#' @description The algorithm finds weights of continous and discrete attributes basing on a distance between instances.
+#'
+#' @return a data.frame containing the worth of attributes in the first column and their names as row names
+#'
+#' @references
+#' \item{-}{Igor Kononenko: Estimating Attributes: Analysis and Extensions of RELIEF. In: European Conference on Machine Learning, 171-182, 1994.}
+#' \item{-}{Marko Robnik-Sikonja, Igor Kononenko: An adaptation of Relief for attribute estimation in regression. In: Fourteenth International Conference on Machine Learning, 296-304, 1997.}
+#'
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#' data(iris)
+#'
+#' weights <- relief(Species~., iris, neighbours.count = 5, sample.size = 20)
+#' print(weights)
+#' subset <- cutoff.k(weights, 2)
+#' f <- as.simple.formula(subset, "Species")
+#' print(f)
+#'
 relief <- function(formula, data, neighbours.count = 5, sample.size = 10) {
   # uses parent.env
   find_neighbours <- function(instance_idx) {
