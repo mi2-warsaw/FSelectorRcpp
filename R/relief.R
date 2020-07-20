@@ -191,7 +191,7 @@ relief <- function(formula, data, neighbours.count = 5, sample.size = 10) {
   }
 
   new_data = FSelector:::get.data.frame.from.formula(formula, data)
-  new_data = FSelector:::normalize.min.max(new_data)
+  new_data <- normalize_minmax(new_data)
 
   # for discrete classes
   class_vector = NULL
@@ -302,4 +302,24 @@ relief <- function(formula, data, neighbours.count = 5, sample.size = 10) {
     return(results)
   }
 
+}
+
+## adopted from https://github.com/larskotthoff/fselector/blob/master/R/normalize.R
+normalize_minmax <- function(data) {
+  attr_count = dim(data)[2]
+  if (attr_count == 0)
+    return(data)
+  for (i in 1:attr_count) {
+    if (!is.numeric(data[, i]))
+      (next)()
+    if (!any(complete.cases(data[, i])))
+      (next)()
+    mm = range(data[, i], na.rm = TRUE)
+    minimum = mm[1]
+    maximum = mm[2]
+    if (minimum == maximum)
+      data[, i] = data[, i]/minimum
+    else data[, i] = (data[, i] - minimum)/(maximum - minimum)
+  }
+  return(data)
 }
