@@ -33,7 +33,7 @@
 #' weights <- relief(Species~., iris, neighboursCount = 5, sampleSize = 20)
 #' print(weights)
 #' subset <- cut_attrs(weights, 2)
-#' f <- as.simple.formula(subset, "Species")
+#' f <- to_formula(subset, "Species")
 #' print(f)
 #'
 relief <- function(formula, data, x, y, neighboursCount = 5, sampleSize = 10) {
