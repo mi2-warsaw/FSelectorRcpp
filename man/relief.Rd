@@ -31,9 +31,9 @@ The algorithm finds weights of continuous and discrete attributes basing on a di
 
 data(iris)
 
-weights <- relief(Species~., iris, neighbours.count = 5, sample.size = 20)
+weights <- relief(Species~., iris, neighboursCount = 5, sampleSize = 20)
 print(weights)
-subset <- cutoff.k(weights, 2)
+subset <- cut_attrs(weights, 2)
 f <- as.simple.formula(subset, "Species")
 print(f)
 

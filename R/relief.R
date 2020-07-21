@@ -30,9 +30,9 @@
 #'
 #' data(iris)
 #'
-#' weights <- relief(Species~., iris, neighbours.count = 5, sample.size = 20)
+#' weights <- relief(Species~., iris, neighboursCount = 5, sampleSize = 20)
 #' print(weights)
-#' subset <- cutoff.k(weights, 2)
+#' subset <- cut_attrs(weights, 2)
 #' f <- as.simple.formula(subset, "Species")
 #' print(f)
 #'
@@ -330,13 +330,14 @@ relief <- function(formula, data, x, y, neighboursCount = 5, sampleSize = 10) {
 
   if(classification) {
     results = results / sample.size
-    return(data.frame(attr_importance = results, row.names = attr_names))
+    return(data.frame(attributes = attr_names, importance = results, stringsAsFactors = FALSE))
   } else {
     results = ndcda / ndc - ((nda - ndcda) / (sample.size - ndc))
-    results = data.frame(attr_importance = results, row.names = attr_names)
+    results = data.frame(attributes = attr_names, importance = results)
     #results = normalize.min.max(results)
     return(results)
   }
+
 
 }
 
