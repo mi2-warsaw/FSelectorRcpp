@@ -4,16 +4,20 @@
 \alias{relief}
 \title{RReliefF filter}
 \usage{
-relief(formula, data, neighbours.count = 5, sample.size = 10)
+relief(formula, data, x, y, neighboursCount = 5, sampleSize = 10)
 }
 \arguments{
-\item{formula}{a symbolic description of a model}
+\item{formula}{An object of class \link{formula} with model description.}
 
-\item{data}{data to process}
+\item{data}{A \link{data.frame} accompanying formula.}
 
-\item{neighbours.count}{number of neighbours to find for every sampled instance}
+\item{x}{A \link{data.frame} with attributes.}
 
-\item{sample.size}{number of instances to sample}
+\item{y}{A vector with response variable.}
+
+\item{neighboursCount}{number of neighbours to find for every sampled instance}
+
+\item{sampleSize}{number of instances to sample}
 }
 \value{
 a data.frame containing the worth of attributes in the first column and their names as row names

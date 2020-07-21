@@ -6,10 +6,12 @@
 
 #' RReliefF filter
 #'
-#' @param formula a symbolic description of a model
-#' @param data data to process
-#' @param neighbours.count number of neighbours to find for every sampled instance
-#' @param sample.size number of instances to sample
+#' @param formula An object of class \link{formula} with model description.
+#' @param data A \link{data.frame} accompanying formula.
+#' @param x A \link{data.frame} with attributes.
+#' @param y A vector with response variable.
+#' @param neighboursCount number of neighbours to find for every sampled instance
+#' @param sampleSize number of instances to sample
 #'
 #' @description The algorithm finds weights of continuous and discrete attributes basing on a distance between instances.
 #'
@@ -34,7 +36,38 @@
 #' f <- as.simple.formula(subset, "Species")
 #' print(f)
 #'
-relief <- function(formula, data, neighbours.count = 5, sample.size = 10) {
+relief <- function(formula, data, x, y, neighboursCount = 5, sampleSize = 10) {
+
+  if (!xor(
+    all(!missing(x), !missing(y)),
+    all(!missing(formula), !missing(data)))) {
+    stop(paste("Please specify both `x = attributes, y = response`,",
+               "XOR use both `formula = response ~ attributes, data = dataset"))
+  }
+  if (sum(!missing(x), !missing(y), !missing(formula), !missing(data)) > 2){
+    stop(paste("Please specify both `x = attributes, y = response`,",
+               "XOR use both `formula = response ~ attributes, data = dataset"))
+  }
+
+  if (!missing(x) && !missing(y)) {
+    if (class(x) == "formula") {
+      stop(paste("Please use `formula = response ~ attributes, data = dataset`",
+                 "interface instead of `x = formula`."))
+    }
+
+    data <- cbind(ReliefResponseVariable = y, x)
+    formula <- ReliefResponseVariable ~ .
+    return(.relief(formula, data, neighboursCount, sampleSize))
+  }
+
+  if (!missing(formula) && !missing(data)) {
+    return(.relief(formula, data, neighboursCount, sampleSize))
+  }
+
+}
+
+
+.relief <- function(formula, data, neighbours.count = 5, sample.size = 10) {
   # uses parent.env
   find_neighbours <- function(instance_idx) {
     instance = new_data[instance_idx,, drop = FALSE]
