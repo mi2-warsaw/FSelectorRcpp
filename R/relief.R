@@ -191,7 +191,9 @@ relief <- function(formula, data, neighbours.count = 5, sample.size = 10) {
     }
   }
 
-  new_data = FSelector:::get.data.frame.from.formula(formula, data)
+
+  modelDesc <- formula2names(formula, data)
+  new_data  <- data[, c(modelDesc$y, modelDesc$x), drop = FALSE]
   new_data <- normalize_minmax(new_data)
 
   # for discrete classes
