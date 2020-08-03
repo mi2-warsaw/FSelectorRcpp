@@ -1,5 +1,9 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.3.5
+----------------------------------------------------------------
+- copied RreliefF scoring algorithm from FSelector [#78](https://github.com/mi2-warsaw/FSelectorRcpp/issues/78) [#86](https://github.com/mi2-warsaw/FSelectorRcpp/issues/86)
+
 FSelectorRcpp 0.3.4
 ----------------------------------------------------------------
 - fixed conditional/joint distribution confusion in the documentation of information_gain
