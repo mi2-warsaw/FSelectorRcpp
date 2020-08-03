@@ -21,8 +21,6 @@ relief(formula, data, x, y, neighboursCount = 5, sampleSize = 10)
 }
 \value{
 a data.frame containing the worth of attributes in the first column and their names as row names
-
-
 }
 \description{
 The algorithm finds weights of continuous and discrete attributes basing on a distance between instances.
@@ -41,7 +39,6 @@ print(weights)
 subset <- cut_attrs(weights, 2)
 f <- to_formula(subset, "Species")
 print(f)
-
 }
 \references{
 Igor Kononenko: Estimating Attributes: Analysis and Extensions of RELIEF. In: European Conference on Machine Learning, 171-182, 1994.

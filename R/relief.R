@@ -27,9 +27,6 @@
 #' R package version 0.31. https://CRAN.R-project.org/package=FSelector
 #'
 #'
-#' @return
-#' @export
-#'
 #' @examples
 #'
 #' data(iris)
@@ -39,7 +36,7 @@
 #' subset <- cut_attrs(weights, 2)
 #' f <- to_formula(subset, "Species")
 #' print(f)
-#'
+#' @export
 relief <- function(formula, data, x, y, neighboursCount = 5, sampleSize = 10) {
 
   stopifnot(neighboursCount >= 1)
