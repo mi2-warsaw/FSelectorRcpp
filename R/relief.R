@@ -42,6 +42,9 @@
 #'
 relief <- function(formula, data, x, y, neighboursCount = 5, sampleSize = 10) {
 
+  stopifnot(neighboursCount >= 1)
+  stopifnot(sampleSize >= 1)
+
   if (!xor(
     all(!missing(x), !missing(y)),
     all(!missing(formula), !missing(data)))) {
