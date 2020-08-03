@@ -22,6 +22,10 @@
 #'
 #' Marko Robnik-Sikonja, Igor Kononenko: An adaptation of Relief for attribute estimation in regression. In: Fourteenth International Conference on Machine Learning, 296-304, 1997.
 #'
+#' @details The function and it's manual page taken directly from \pkg{FSelector}:
+#' Piotr Romanski and Lars Kotthoff (2018). FSelector: Selecting Attributes.
+#' R package version 0.31. https://CRAN.R-project.org/package=FSelector
+#'
 #'
 #' @return
 #' @export

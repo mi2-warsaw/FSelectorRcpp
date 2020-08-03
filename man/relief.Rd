@@ -27,6 +27,11 @@ a data.frame containing the worth of attributes in the first column and their na
 \description{
 The algorithm finds weights of continuous and discrete attributes basing on a distance between instances.
 }
+\details{
+The function and it's manual page taken directly from \pkg{FSelector}:
+Piotr Romanski and Lars Kotthoff (2018). FSelector: Selecting Attributes.
+R package version 0.31. https://CRAN.R-project.org/package=FSelector
+}
 \examples{
 
 data(iris)
