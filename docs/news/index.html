@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -105,7 +109,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/mi2-warsaw/FSelectorRcpp/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -119,28 +128,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/mi2-warsaw/FSelectorRcpp/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="fselectorrcpp-0-3-3" class="section level2">
+    <div id="fselectorrcpp-035" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-3-3" class="anchor"></a>FSelectorRcpp 0.3.3</h2>
+<a href="#fselectorrcpp-035" class="anchor"></a>FSelectorRcpp 0.3.5</h2>
+<ul>
+<li>copied RreliefF scoring algorithm from FSelector <a href="https://github.com/mi2-warsaw/FSelectorRcpp/issues/78"><a href='https://github.com/mi2-warsaw/FSelectorRcpp/issues/78'>#78</a></a> <a href="https://github.com/mi2-warsaw/FSelectorRcpp/issues/86"><a href='https://github.com/mi2-warsaw/FSelectorRcpp/issues/86'>#86</a></a>
+</li>
+</ul>
+</div>
+    <div id="fselectorrcpp-034" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fselectorrcpp-034" class="anchor"></a>FSelectorRcpp 0.3.4</h2>
+<ul>
+<li>fixed conditional/joint distribution confusion in the documentation of information_gain <a href="https://github.com/mi2-warsaw/FSelectorRcpp/issues/85"><a href='https://github.com/mi2-warsaw/FSelectorRcpp/issues/85'>#85</a></a>
+</li>
+</ul>
+</div>
+    <div id="fselectorrcpp-033" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fselectorrcpp-033" class="anchor"></a>FSelectorRcpp 0.3.3</h2>
 <ul>
 <li>turned off the OpenMP parallel backend in information_gain function - I could cause segfault sometimes. Better safe than sorry.</li>
 <li>fix parameters mismatch in init.c</li>
 </ul>
 </div>
-    <div id="fselectorrcpp-0-3-1" class="section level2">
+    <div id="fselectorrcpp-031" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-3-1" class="anchor"></a>FSelectorRcpp 0.3.1</h2>
+<a href="#fselectorrcpp-031" class="anchor"></a>FSelectorRcpp 0.3.1</h2>
 <ul>
 <li>remove strip debug info.</li>
 </ul>
 </div>
-    <div id="fselectorrcpp-0-3-0" class="section level2">
+    <div id="fselectorrcpp-030" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-3-0" class="anchor"></a>FSelectorRcpp 0.3.0</h2>
+<a href="#fselectorrcpp-030" class="anchor"></a>FSelectorRcpp 0.3.0</h2>
 <p>The purpose of this release is to make more compatible with <code>FSelector</code> package. We changed some of the default behaviors, so the results might be different between version <code>2.*</code> and <code>3.0</code>.</p>
 <ul>
 <li>
@@ -148,9 +173,9 @@
 <li>FSelectorRcpp tries to mimic the behavior of the FSelector when there are NAs in the dependent variable passed to <code>information_gain</code> (remove only those rows which contain NAs dependent variable, NAs in independents variables are removed column-wise).</li>
 </ul>
 </div>
-    <div id="fselectorrcpp-0-2-0" class="section level2">
+    <div id="fselectorrcpp-020" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-2-0" class="anchor"></a>FSelectorRcpp 0.2.0</h2>
+<a href="#fselectorrcpp-020" class="anchor"></a>FSelectorRcpp 0.2.0</h2>
 <ul>
 <li>Changed <code>discretize</code> argument <code>all</code> to <code>TRUE</code>.</li>
 <li>Added <code>customBreaksControl</code> for creating custom breaks in <code>discretize</code> function.</li>
@@ -173,9 +198,9 @@
 </li>
 </ul>
 </div>
-    <div id="fselectorrcpp-0-1-8" class="section level2">
+    <div id="fselectorrcpp-018" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-1-8" class="anchor"></a>FSelectorRcpp 0.1.8</h2>
+<a href="#fselectorrcpp-018" class="anchor"></a>FSelectorRcpp 0.1.8</h2>
 <ul>
 <li>Removed support for the doSnow progress bar. We now use doParallel in our examples, which is more recommended than doSnow.</li>
 </ul>
@@ -185,35 +210,35 @@
 <li>feature_search now returns proper structure.</li>
 </ul>
 </div>
-    <div id="fselectorrcpp-0-1-3" class="section level2">
+    <div id="fselectorrcpp-013" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-1-3" class="anchor"></a>FSelectorRcpp 0.1.3</h2>
+<a href="#fselectorrcpp-013" class="anchor"></a>FSelectorRcpp 0.1.3</h2>
 <p>Bug fixes:</p>
 <ul>
 <li>Export C++ routine for tests.</li>
 <li>Use dontrun to hide problematic example (for CRAN).</li>
 </ul>
 </div>
-    <div id="fselectorrcpp-0-1-2" class="section level2">
+    <div id="fselectorrcpp-012" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-1-2" class="anchor"></a>FSelectorRcpp 0.1.2</h2>
+<a href="#fselectorrcpp-012" class="anchor"></a>FSelectorRcpp 0.1.2</h2>
 <p>Bug fixes:</p>
 <ul>
 <li>Removed problematic links in vignettes.</li>
 </ul>
 </div>
-    <div id="fselectorrcpp-0-1-1" class="section level2">
+    <div id="fselectorrcpp-011" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-1-1" class="anchor"></a>FSelectorRcpp 0.1.1</h2>
+<a href="#fselectorrcpp-011" class="anchor"></a>FSelectorRcpp 0.1.1</h2>
 <p>Bug fixes:</p>
 <ul>
 <li>Skip benchmark if the <code>RTCGA.rnaseq</code> package is not available.</li>
 <li>Minor fixes in vignettes.</li>
 </ul>
 </div>
-    <div id="fselectorrcpp-0-1-0" class="section level2">
+    <div id="fselectorrcpp-010" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fselectorrcpp-0-1-0" class="anchor"></a>FSelectorRcpp 0.1.0</h2>
+<a href="#fselectorrcpp-010" class="anchor"></a>FSelectorRcpp 0.1.0</h2>
 <p>Rcpp (free of Java/Weka) implementation of <a href="https://cran.r-project.org/web/packages/FSelector/index.html">FSelector</a> entropy-based feature selection algorithms with sparse matrix support.</p>
 <p>Provided functions</p>
 <ul>
@@ -231,21 +256,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#fselectorrcpp-0-3-3">0.3.3</a></li>
-        <li><a href="#fselectorrcpp-0-3-1">0.3.1</a></li>
-        <li><a href="#fselectorrcpp-0-3-0">0.3.0</a></li>
-        <li><a href="#fselectorrcpp-0-2-0">0.2.0</a></li>
-        <li><a href="#fselectorrcpp-0-1-8">0.1.8</a></li>
-        <li><a href="#fselectorrcpp-0-1-3">0.1.3</a></li>
-        <li><a href="#fselectorrcpp-0-1-2">0.1.2</a></li>
-        <li><a href="#fselectorrcpp-0-1-1">0.1.1</a></li>
-        <li><a href="#fselectorrcpp-0-1-0">0.1.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -257,7 +271,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
