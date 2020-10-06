@@ -15,12 +15,12 @@ vignette: >
 ---
 
 ```{r, echo=FALSE, message=TRUE, results='asis'}
-is.pkg <- all(c("RTCGA.rnaseq", "microbenchmark", "RWeka") %in% rownames(installed.packages()))
+is.pkg <- all(c("RTCGA.rnaseq", "microbenchmark", "RWeka", "pkgdown") %in% rownames(installed.packages()))
 if(!is.pkg) {
   message("Please install all suggested packages to run benchmark.")
 }
 
-if(!pkgdown::in_pkgdown()) {
+if(is.pkg && !pkgdown::in_pkgdown()) {
   is.pkg <- FALSE
   cat("### Benchmark is not available here",
   "(we don't want to run this code on the CRAN server).",
@@ -33,7 +33,7 @@ if(!pkgdown::in_pkgdown()) {
 
 ```
 
-```{r setup, include = FALSE}
+```{r setup, eval=is.pkg, include = FALSE}
 library(knitr)
 
 fig.path <- if(pkgdown::in_pkgdown()) {
