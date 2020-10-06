@@ -138,7 +138,7 @@
     <p>The algorithm finds weights of continuous and discrete attributes basing on a distance between instances.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>relief</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>neighboursCount</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sampleSize</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    <pre class="usage"><span class='fu'>relief</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, neighboursCount <span class='op'>=</span> <span class='fl'>5</span>, sampleSize <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,17 +184,19 @@ R package version 0.31. https://CRAN.R-project.org/package=FSelector</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>iris</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>
 
-<span class='no'>weights</span> <span class='kw'>&lt;-</span> <span class='fu'>relief</span>(<span class='no'>Species</span>~<span class='no'>.</span>, <span class='no'>iris</span>, <span class='kw'>neighboursCount</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sampleSize</span> <span class='kw'>=</span> <span class='fl'>20</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>weights</span>)</div><div class='output co'>#&gt;     attributes importance
+<span class='va'>weights</span> <span class='op'>&lt;-</span> <span class='fu'>relief</span><span class='op'>(</span><span class='va'>Species</span><span class='op'>~</span><span class='va'>.</span>, <span class='va'>iris</span>, neighboursCount <span class='op'>=</span> <span class='fl'>5</span>, sampleSize <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>weights</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     attributes importance
 #&gt; 1 Sepal.Length  0.1413889
 #&gt; 2  Sepal.Width  0.1095833
 #&gt; 3 Petal.Length  0.3222034
-#&gt; 4  Petal.Width  0.3585417</div><div class='input'><span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cut_attrs.html'>cut_attrs</a></span>(<span class='no'>weights</span>, <span class='fl'>2</span>)
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='to_formula.html'>to_formula</a></span>(<span class='no'>subset</span>, <span class='st'>"Species"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>f</span>)</div><div class='output co'>#&gt; Species ~ Petal.Width + Petal.Length
-#&gt; &lt;environment: 0x555b97a979f0&gt;</div></pre>
+#&gt; 4  Petal.Width  0.3585417</div><div class='input'><span class='va'>subset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cut_attrs.html'>cut_attrs</a></span><span class='op'>(</span><span class='va'>weights</span>, <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='to_formula.html'>to_formula</a></span><span class='op'>(</span><span class='va'>subset</span>, <span class='st'>"Species"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Species ~ Petal.Width + Petal.Length
+#&gt; &lt;environment: 0x561980193258&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -210,7 +212,7 @@ R package version 0.31. https://CRAN.R-project.org/package=FSelector</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

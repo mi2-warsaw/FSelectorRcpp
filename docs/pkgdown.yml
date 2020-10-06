@@ -1,9 +1,9 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   benchmarks_discretize: benchmarks_discretize.html
   get_started: get_started.html
   integer-variables: integer-variables.html
-last_built: 2020-10-06T18:49Z
+last_built: 2020-10-06T19:17Z
 

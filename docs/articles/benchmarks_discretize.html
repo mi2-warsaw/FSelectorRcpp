@@ -90,7 +90,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Benchmarks: discretize()</h1>
             <h3 class="subtitle">
-<small><a href="http://r-addict.com/About.html">Marcin Kosinski</a>  <a href="https://stackoverflow.com/users/3857701"><i class="fa fa-stack-overflow"></i></a>  <a href="https://r-addict.com"><i class="fa fa-comment"></i></a>  <a href="https://github.com/MarcinKosinski"><i class="fa fa-github"></i></a>  <a href="mailto:m.p.kosinski@gmail.com"><i class="fa fa-envelope-o"></i></a><br>Krzysztof Slomczynski  <a href="https://github.com/krzyslom"><i class="fa fa-github"></i></a>  <a href="mailto:krzysztofslomczynski@gmail.com"><i class="fa fa-envelope-o"></i></a></small><br>
+<small><a href="http://r-addict.com/About.html">Marcin Kosinski</a>  <a href="https://stackoverflow.com/users/3857701"><i class="fa fa-stack-overflow"></i></a>  <a href="http://r-addict.com"><i class="fa fa-comment"></i></a>  <a href="https://github.com/MarcinKosinski"><i class="fa fa-github"></i></a>  <a href="mailto:m.p.kosinski@gmail.com"><i class="fa fa-envelope-o"></i></a><br>Krzysztof Slomczynski  <a href="https://github.com/krzyslom"><i class="fa fa-github"></i></a>  <a href="mailto:krzysztofslomczynski@gmail.com"><i class="fa fa-envelope-o"></i></a></small><br>
 </h3>
             
       
@@ -101,9 +101,10 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">microbenchmark</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">FSelectorRcpp</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">RWeka</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RWeka</span><span class="op">)</span></pre></div>
 <div id="about-discretization" class="section level1">
 <h1 class="hasAnchor">
 <a href="#about-discretization" class="anchor"></a>About discretization</h1>
@@ -122,9 +123,10 @@
 </blockquote>
 <p><a href="https://github.com/orgs/RTCGA/people">RTCGA team</a> converted selected datasets from this study into few separate packages that are hosted on Bioconductor. These R packages make selected datasets easier to access and manage. Data sets in RTCGA packages are large and cover complex relations between clinical outcomes and genetic background.</p>
 <p>To use RTCGA install package with instructions from it’s <a href="https://www.bioconductor.org/packages/RTCGA/">Bioconductor home page</a></p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co">## try https:// if https:// URLs are not supported</span>
-<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
-<span class="fu">biocLite</span>(<span class="st">"RTCGA"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co">## try https:// if https:// URLs are not supported</span>
+<span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://bioconductor.org/biocLite.R"</span><span class="op">)</span>
+<span class="fu">biocLite</span><span class="op">(</span><span class="st">"RTCGA"</span><span class="op">)</span></pre></div>
 </div>
 <div id="dependent-variable" class="section level2">
 <h2 class="hasAnchor">
@@ -135,14 +137,15 @@
 <h2 class="hasAnchor">
 <a href="#independent-variables" class="anchor"></a>Independent variables</h2>
 <p>It is mandatory to get rid of special signs from their names.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">RTCGA.rnaseq</span>)
-<span class="no">BRCA.rnaseq</span> <span class="kw">&lt;-</span> <span class="kw pkg">RTCGA.rnaseq</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/RTCGA.rnaseq/man/rnaseq.html">BRCA.rnaseq</a></span>
-<span class="no">BRCA.rnaseq</span>$<span class="no">bcr_patient_barcode</span> <span class="kw">&lt;-</span>
-   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span>(<span class="no">BRCA.rnaseq</span>$<span class="no">bcr_patient_barcode</span>, <span class="fl">14</span>, <span class="fl">14</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">BRCA.rnaseq</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="kw">pattern</span> <span class="kw">=</span> <span class="st">"?"</span>, <span class="kw">replacement</span> <span class="kw">=</span> <span class="st">"q"</span>,
-                           <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">BRCA.rnaseq</span>), <span class="kw">fixed</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">BRCA.rnaseq</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="kw">pattern</span> <span class="kw">=</span> <span class="st">"[[:punct:]]"</span>, <span class="kw">replacement</span> <span class="kw">=</span> <span class="st">"_"</span>,
-                           <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">BRCA.rnaseq</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RTCGA.rnaseq</span><span class="op">)</span>
+<span class="va">BRCA.rnaseq</span> <span class="op">&lt;-</span> <span class="fu">RTCGA.rnaseq</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/RTCGA.rnaseq/man/rnaseq.html">BRCA.rnaseq</a></span>
+<span class="va">BRCA.rnaseq</span><span class="op">$</span><span class="va">bcr_patient_barcode</span> <span class="op">&lt;-</span> 
+   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">$</span><span class="va">bcr_patient_barcode</span>, <span class="fl">14</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"?"</span>, replacement <span class="op">=</span> <span class="st">"q"</span>,
+                           x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"[[:punct:]]"</span>, replacement <span class="op">=</span> <span class="st">"_"</span>,
+                           x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span><span class="op">)</span></pre></div>
 </div>
 <div id="more" class="section level2">
 <h2 class="hasAnchor">
@@ -156,100 +159,101 @@
 <div id="discretization-benchmarks" class="section level1">
 <h1 class="hasAnchor">
 <a href="#discretization-benchmarks" class="anchor"></a>Discretization Benchmarks</h1>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">pbapply</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tibble</span>)
-<span class="no">names_by</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">nameBy</span>, <span class="no">vecBy</span>) {
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">nameBy</span>,
-           <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span>(<span class="no">vecBy</span>)) - <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span>(<span class="no">vecBy</span>),
-                  <span class="kw">function</span>(<span class="no">zeros</span>) {
-                    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>, <span class="no">zeros</span>), <span class="kw">collapse</span> <span class="kw">=</span> <span class="st">""</span>)
-                  }),
-                  <span class="no">vecBy</span>))
-}
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/psolymos/pbapply">pbapply</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
+<span class="va">names_by</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nameBy</span>, <span class="va">vecBy</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">nameBy</span>,
+           <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">vecBy</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">vecBy</span><span class="op">)</span>,
+                  <span class="kw">function</span><span class="op">(</span><span class="va">zeros</span><span class="op">)</span> <span class="op">{</span>
+                    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">zeros</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+                  <span class="op">}</span><span class="op">)</span>, 
+                  <span class="va">vecBy</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
 
-<span class="no">get_times</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">fun</span>, <span class="no">vecRows</span>, <span class="no">vecCols</span>, <span class="no">nTimes</span>) {
-  <span class="no">forRows</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pbapply/man/pbapply.html">pblapply</a></span>(<span class="no">vecRows</span>, <span class="kw">function</span>(<span class="no">nRows</span>) {
-    <span class="no">forCols</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pbapply/man/pbapply.html">pblapply</a></span>(<span class="no">vecCols</span> + <span class="fl">1</span>, <span class="kw">function</span>(<span class="no">nCols</span>) {
-      <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(<span class="fu">fun</span>(<span class="no">bcr_patient_barcode</span> ~ <span class="no">.</span>,
-                         <span class="no">BRCA.rnaseq</span>[<span class="fl">1</span>:<span class="no">nRows</span>, <span class="fl">1</span>:<span class="no">nCols</span>]),
-                     <span class="kw">times</span> <span class="kw">=</span> <span class="no">nTimes</span>))
-    })
-    <span class="no">colsNames</span> <span class="kw">&lt;-</span> <span class="fu">names_by</span>(<span class="kw">nameBy</span> <span class="kw">=</span> <span class="st">"columns_"</span>, <span class="kw">vecBy</span> <span class="kw">=</span> <span class="no">vecCols</span>)
-    <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="no">forCols</span>, <span class="no">colsNames</span>)
-  })
-  <span class="no">rowsNames</span> <span class="kw">&lt;-</span> <span class="fu">names_by</span>(<span class="kw">nameBy</span> <span class="kw">=</span> <span class="st">"rows_"</span>, <span class="kw">vecBy</span> <span class="kw">=</span> <span class="no">vecRows</span>)
-  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span>(<span class="no">forRows</span>, <span class="no">rowsNames</span>)
-}
+<span class="va">get_times</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fun</span>, <span class="va">vecRows</span>, <span class="va">vecCols</span>, <span class="va">nTimes</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">forRows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pbapply/man/pbapply.html">pblapply</a></span><span class="op">(</span><span class="va">vecRows</span>, <span class="kw">function</span><span class="op">(</span><span class="va">nRows</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">forCols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pbapply/man/pbapply.html">pblapply</a></span><span class="op">(</span><span class="va">vecCols</span> <span class="op">+</span> <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">nCols</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">fun</span><span class="op">(</span><span class="va">bcr_patient_barcode</span> <span class="op">~</span> <span class="va">.</span>,
+                         <span class="va">BRCA.rnaseq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">nRows</span>, <span class="fl">1</span><span class="op">:</span><span class="va">nCols</span><span class="op">]</span><span class="op">)</span>,
+                     times <span class="op">=</span> <span class="va">nTimes</span><span class="op">)</span><span class="op">)</span>
+    <span class="op">}</span><span class="op">)</span>
+    <span class="va">colsNames</span> <span class="op">&lt;-</span> <span class="fu">names_by</span><span class="op">(</span>nameBy <span class="op">=</span> <span class="st">"columns_"</span>, vecBy <span class="op">=</span> <span class="va">vecCols</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">forCols</span>, <span class="va">colsNames</span><span class="op">)</span>
+  <span class="op">}</span><span class="op">)</span>
+  <span class="va">rowsNames</span> <span class="op">&lt;-</span> <span class="fu">names_by</span><span class="op">(</span>nameBy <span class="op">=</span> <span class="st">"rows_"</span>, vecBy <span class="op">=</span> <span class="va">vecRows</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">forRows</span>, <span class="va">rowsNames</span><span class="op">)</span>
+<span class="op">}</span>
 
-<span class="no">make_df</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">bm_data</span>, <span class="no">package</span>) {
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/deprecated.html">data_frame</a></span>(
-    <span class="kw">rows</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(
-      <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(
-        <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(
-          <span class="kw">pattern</span> <span class="kw">=</span> <span class="st">"rows_0*"</span>,
-             <span class="kw">replacement</span> <span class="kw">=</span> <span class="st">""</span>,
-             <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">bm_data</span>)
-        )
-      ),
-      <span class="kw">each</span> <span class="kw">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">bm_data</span>, <span class="no">length</span>))
-    ),
-    <span class="kw">columns</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(
-      <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(
-        <span class="kw">pattern</span> <span class="kw">=</span> <span class="st">"columns_0*"</span>,
-        <span class="kw">replacement</span> <span class="kw">=</span> <span class="st">""</span>,
-        <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">bm_data</span>, <span class="no">names</span>))
-      )
-    ),
-    <span class="kw">time</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span>(
-      <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(
-        <span class="no">bm_data</span>,
-        <span class="kw">function</span>(<span class="no">setOfCols</span>) {
-          <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(
-            <span class="no">setOfCols</span>,
-            <span class="kw">function</span>(<span class="no">set</span>) {
-              <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(<span class="no">set</span>$<span class="no">time</span>) / <span class="fl">10</span> ^ <span class="fl">9</span>
-            }
-          )
-        }
-      )
-    ),
-    <span class="kw">package</span> <span class="kw">=</span> <span class="no">package</span>
-  )
-}
+<span class="va">make_df</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">bm_data</span>, <span class="va">package</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/deprecated.html">data_frame</a></span><span class="op">(</span>
+    rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span>
+      x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>
+          pattern <span class="op">=</span> <span class="st">"rows_0*"</span>,
+             replacement <span class="op">=</span> <span class="st">""</span>,
+             x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">bm_data</span><span class="op">)</span>
+        <span class="op">)</span>
+      <span class="op">)</span>,
+      each <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">bm_data</span>, <span class="va">length</span><span class="op">)</span><span class="op">)</span>
+    <span class="op">)</span>,
+    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>
+        pattern <span class="op">=</span> <span class="st">"columns_0*"</span>,
+        replacement <span class="op">=</span> <span class="st">""</span>,
+        x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">bm_data</span>, <span class="va">names</span><span class="op">)</span><span class="op">)</span>
+      <span class="op">)</span>
+    <span class="op">)</span>,
+    time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span>
+        <span class="va">bm_data</span>,
+        <span class="kw">function</span><span class="op">(</span><span class="va">setOfCols</span><span class="op">)</span> <span class="op">{</span>
+          <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span>
+            <span class="va">setOfCols</span>,
+            <span class="kw">function</span><span class="op">(</span><span class="va">set</span><span class="op">)</span> <span class="op">{</span>
+              <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">set</span><span class="op">$</span><span class="va">time</span><span class="op">)</span> <span class="op">/</span> <span class="fl">10</span> <span class="op">^</span> <span class="fl">9</span>
+            <span class="op">}</span>
+          <span class="op">)</span>
+        <span class="op">}</span>
+      <span class="op">)</span>
+    <span class="op">)</span>,
+    package <span class="op">=</span> <span class="va">package</span>
+  <span class="op">)</span>
+<span class="op">}</span>
 
-<span class="no">bm_fsr_discretize</span> <span class="kw">&lt;-</span> <span class="fu">get_times</span>(<span class="kw">fun</span> <span class="kw">=</span> <span class="no">discretize</span>,
-                               <span class="kw">vecRows</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="kw">from</span> <span class="kw">=</span> <span class="fl">200</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">200</span>),
-                               <span class="kw">vecCols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">1000</span>),
-                               <span class="kw">nTimes</span> <span class="kw">=</span> <span class="fl">1L</span>)
-<span class="no">bm_rwk_discretize</span> <span class="kw">&lt;-</span> <span class="fu">get_times</span>(<span class="kw">fun</span> <span class="kw">=</span> <span class="no">Discretize</span>,
-                               <span class="kw">vecRows</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="kw">from</span> <span class="kw">=</span> <span class="fl">200</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">200</span>),
-                               <span class="kw">vecCols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">1000</span>),
-                               <span class="kw">nTimes</span> <span class="kw">=</span> <span class="fl">1L</span>)
+<span class="va">bm_fsr_discretize</span> <span class="op">&lt;-</span> <span class="fu">get_times</span><span class="op">(</span>fun <span class="op">=</span> <span class="va">discretize</span>,
+                               vecRows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">200</span>, to <span class="op">=</span> <span class="fl">1000</span>, by <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,
+                               vecCols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">1000</span><span class="op">)</span>,
+                               nTimes <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>
+<span class="va">bm_rwk_discretize</span> <span class="op">&lt;-</span> <span class="fu">get_times</span><span class="op">(</span>fun <span class="op">=</span> <span class="va">Discretize</span>,
+                               vecRows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">200</span>, to <span class="op">=</span> <span class="fl">1000</span>, by <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,
+                               vecCols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">1000</span><span class="op">)</span>,
+                               nTimes <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>
 
-<span class="no">df_fsr</span> <span class="kw">&lt;-</span> <span class="fu">make_df</span>(<span class="kw">bm_data</span> <span class="kw">=</span> <span class="no">bm_fsr_discretize</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"FSelectorRcpp"</span>)
-<span class="no">df_rwk</span> <span class="kw">&lt;-</span> <span class="fu">make_df</span>(<span class="kw">bm_data</span> <span class="kw">=</span> <span class="no">bm_rwk_discretize</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"RWeka"</span>)
-<span class="no">bm_df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="no">df_fsr</span>, <span class="no">df_rwk</span>)
+<span class="va">df_fsr</span> <span class="op">&lt;-</span> <span class="fu">make_df</span><span class="op">(</span>bm_data <span class="op">=</span> <span class="va">bm_fsr_discretize</span>, package <span class="op">=</span> <span class="st">"FSelectorRcpp"</span><span class="op">)</span>
+<span class="va">df_rwk</span> <span class="op">&lt;-</span> <span class="fu">make_df</span><span class="op">(</span>bm_data <span class="op">=</span> <span class="va">bm_rwk_discretize</span>, package <span class="op">=</span> <span class="st">"RWeka"</span><span class="op">)</span>
+<span class="va">bm_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">df_fsr</span>, <span class="va">df_rwk</span><span class="op">)</span>
 
-<span class="no">make_plot</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">y</span>) {
-  <span class="no">yUnit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="kw">pattern</span> <span class="kw">=</span> <span class="st">"time"</span>,
-                <span class="kw">replacement</span> <span class="kw">=</span> <span class="st">"s"</span>,
-                <span class="kw">x</span> <span class="kw">=</span> <span class="no">y</span>)
+<span class="va">make_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">yUnit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"time"</span>,
+                replacement <span class="op">=</span> <span class="st">"s"</span>,
+                x <span class="op">=</span> <span class="va">y</span><span class="op">)</span>
+  
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bm_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"rows"</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="st">"package"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">columns</span> <span class="op">~</span> <span class="va">.</span>, labeller <span class="op">=</span> <span class="va">label_both</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Number of rows [-]"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Elapsed time ["</span>, <span class="va">yUnit</span>, <span class="st">"]"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Microbenchmark: discretization function comparison"</span>,
+          subtitle <span class="op">=</span> <span class="st">"for different sizes of data sets"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
+        plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
+        legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span>
+<span class="op">}</span>
 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">bm_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="st">"rows"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">y</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"package"</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(<span class="no">columns</span> ~ <span class="no">.</span>, <span class="kw">labeller</span> <span class="kw">=</span> <span class="no">label_both</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span>(<span class="st">"Number of rows [-]"</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Elapsed time ["</span>, <span class="no">yUnit</span>, <span class="st">"]"</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="kw">label</span> <span class="kw">=</span> <span class="st">"Microbenchmark: discretization function comparison"</span>,
-          <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"for different sizes of data sets"</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">plot.title</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0.5</span>),
-        <span class="kw">plot.subtitle</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0.5</span>),
-        <span class="kw">legend.position</span> <span class="kw">=</span> <span class="st">"top"</span>)
-}
-
-<span class="no">bm_plot</span> <span class="kw">&lt;-</span> <span class="fu">make_plot</span>(<span class="st">"time"</span>)
-<span class="no">bm_plot_log</span> <span class="kw">&lt;-</span> <span class="fu">make_plot</span>(<span class="st">"log(time)"</span>)</pre></body></html></div>
+<span class="va">bm_plot</span> <span class="op">&lt;-</span> <span class="fu">make_plot</span><span class="op">(</span><span class="st">"time"</span><span class="op">)</span>
+<span class="va">bm_plot_log</span> <span class="op">&lt;-</span> <span class="fu">make_plot</span><span class="op">(</span><span class="st">"log(time)"</span><span class="op">)</span></pre></div>
 <div id="plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plots" class="anchor"></a>Plots</h2>
@@ -303,7 +307,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

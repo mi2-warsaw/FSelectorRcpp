@@ -140,7 +140,7 @@ by the percentage of the highest ranked attributes or by the number of the highe
 by the percentage of the highest ranked attributes or by the number of the highest ranked attributes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cut_attrs</span>(<span class='no'>attrs</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
+    <pre class="usage"><span class='fu'>cut_attrs</span><span class='op'>(</span><span class='va'>attrs</span>, k <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,12 +158,19 @@ For <code>0 &lt; k &lt; 1</code> it stands for the percent of top attributes to 
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Damian Skrzypiec <a href='mailto:damian.j.skrzypiec@gmail.com'>damian.j.skrzypiec@gmail.com</a> and
+Zygmunt Zawadzki <a href='mailto:zygmunt@zstat.pl'>zygmunt@zstat.pl</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='information_gain.html'>information_gain</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='no'>iris</span>)
-<span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "Petal.Width"  "Petal.Length"</div><div class='input'><span class='fu'><a href='to_formula.html'>to_formula</a></span>(<span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>), <span class='st'>"Species"</span>)</div><div class='output co'>#&gt; Species ~ Petal.Width + Petal.Length
-#&gt; &lt;environment: 0x555b8f825310&gt;</div><div class='input'><span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "Petal.Width"</div></pre>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='information_gain.html'>information_gain</a></span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>~</span> <span class='va'>.</span>, <span class='va'>iris</span><span class='op'>)</span>
+<span class='fu'>cut_attrs</span><span class='op'>(</span>attrs <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Petal.Width"  "Petal.Length"</div><div class='input'><span class='fu'><a href='to_formula.html'>to_formula</a></span><span class='op'>(</span><span class='fu'>cut_attrs</span><span class='op'>(</span>attrs <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>, <span class='st'>"Species"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Species ~ Petal.Width + Petal.Length
+#&gt; &lt;environment: 0x56197be9b398&gt;</div><div class='input'><span class='fu'>cut_attrs</span><span class='op'>(</span>attrs <span class='op'>=</span> <span class='va'>x</span>, k <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Petal.Width"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -179,7 +186,7 @@ For <code>0 &lt; k &lt; 1</code> it stands for the percent of top attributes to 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

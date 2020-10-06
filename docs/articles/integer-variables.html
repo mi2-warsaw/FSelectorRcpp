@@ -102,34 +102,36 @@
     
 <p>The information_gain and discretize functions are the two most important functions in the <code>FSelectorRcpp</code> package. Usually, there are easy to use, and the user should not worry about anything. However, there’s one case where the user intervention may be required.</p>
 <p>By default <code>information_gain</code> and <code>discretize</code> discretizes numeric and integer columns, and leaves other ones as is. In the example below the <code>x</code> column is discretized:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">FSelectorRcpp</span>)
-<span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>)),
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.2</span>, <span class="fl">2.1</span>, <span class="fl">4.1</span>, <span class="fl">7.3</span>, <span class="fl">8.2</span>, <span class="fl">3.2</span>),
-  <span class="kw">z</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"x"</span>),
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="../reference/discretize.html">discretize</a></span>(<span class="no">data</span>, <span class="no">y</span> ~ <span class="no">.</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span><span class="op">)</span><span class="op">)</span>,
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">2.1</span>, <span class="fl">4.1</span>, <span class="fl">7.3</span>, <span class="fl">8.2</span>, <span class="fl">3.2</span><span class="op">)</span>,
+  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"x"</span><span class="op">)</span>,
+  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/discretize.html">discretize</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">y</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span>
 <span class="co">#&gt;   y          x z</span>
 <span class="co">#&gt; 1 A (-Inf,5.7] x</span>
 <span class="co">#&gt; 2 A (-Inf,5.7] x</span>
 <span class="co">#&gt; 3 A (-Inf,5.7] y</span>
 <span class="co">#&gt; 4 B (5.7, Inf] y</span>
 <span class="co">#&gt; 5 B (5.7, Inf] y</span>
-<span class="co">#&gt; 6 A (-Inf,5.7] x</span></pre></body></html></div>
+<span class="co">#&gt; 6 A (-Inf,5.7] x</span></pre></div>
 <p>So far, so good. However, there is a problem when the column is of a type integer. Because integers might be used to encode levels of a factor, e.g., a number of a day in a week (0-6, 1-7), id from some mapping (e.g., <code>1 - Poland, 2 - USA, 3 - Germany</code>), and probably many other (gender and so on), possibly any variable that is going to be one-hot encoded in the final model. In such cases, discretizing those values don’t make any sense, because they’re already discrete. On the other hand, some variables might be encoded as integers, but they could be discretized. E.g., age, income, height, weight, and so on.</p>
 <p>It would be tough for FSelectorRcpp to guess if the integer encoded variable should be discretized because it depends heavily on the context. So we (as the authors of the <code>FSelectorRcpp</code>) decided that by default the integers columns will be treated like numerics, and they will be discretized. However, the user can control this behavior by using <code>discIntegers</code> parameter.</p>
 <p>See the example below to get some idea about the behavior of the <code>discretize</code> function when integers columns are present:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">FSelectorRcpp</span>)
-<span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>)),
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.2</span>, <span class="fl">2.1</span>, <span class="fl">4.1</span>, <span class="fl">7.3</span>, <span class="fl">8.2</span>, <span class="fl">3.2</span>),
-  <span class="kw">z</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"x"</span>),
-  <span class="kw">int</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>)),
-  <span class="kw">uniqueInt</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">25</span>, <span class="fl">11</span>)),
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span><span class="op">)</span><span class="op">)</span>,
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">2.1</span>, <span class="fl">4.1</span>, <span class="fl">7.3</span>, <span class="fl">8.2</span>, <span class="fl">3.2</span><span class="op">)</span>,
+  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"x"</span><span class="op">)</span>,
+  int <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,
+  uniqueInt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">25</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span>,
+  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="co"># default (integers are discretized)</span>
-<span class="fu"><a href="../reference/discretize.html">discretize</a></span>(<span class="no">data</span>, <span class="no">y</span> ~ <span class="no">.</span>)
+<span class="fu"><a href="../reference/discretize.html">discretize</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">y</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span>
 <span class="co">#&gt;   y          x z        int uniqueInt</span>
 <span class="co">#&gt; 1 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span>
 <span class="co">#&gt; 2 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span>
@@ -139,30 +141,31 @@
 <span class="co">#&gt; 6 A (-Inf,5.7] x (-Inf,1.5] (-Inf,21]</span>
 
 <span class="co"># discIntegers is set to FALSE - integers are left as is.</span>
-<span class="fu"><a href="../reference/discretize.html">discretize</a></span>(<span class="no">data</span>, <span class="no">y</span> ~ <span class="no">.</span>, <span class="kw">discIntegers</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="fu"><a href="../reference/discretize.html">discretize</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">y</span> <span class="op">~</span> <span class="va">.</span>, discIntegers <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt;   y          x z int uniqueInt</span>
 <span class="co">#&gt; 1 A (-Inf,5.7] x   1        10</span>
 <span class="co">#&gt; 2 A (-Inf,5.7] x   1        20</span>
 <span class="co">#&gt; 3 A (-Inf,5.7] y   1        11</span>
 <span class="co">#&gt; 4 B (5.7, Inf] y   2        22</span>
 <span class="co">#&gt; 5 B (5.7, Inf] y   2        25</span>
-<span class="co">#&gt; 6 A (-Inf,5.7] x   1        11</span></pre></body></html></div>
+<span class="co">#&gt; 6 A (-Inf,5.7] x   1        11</span></pre></div>
 <p>There might be a case that you have both types of integer columns in your data, and you can’t directly use <code>discIntegers</code>. In this case, you need to manually convert to <code>numeric</code> the columns which should be discretized.</p>
 <p>The code below shows a simple approach to convert the columns to numeric if they contain a lot of distinct values:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">can_discretize</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>, <span class="no">treshold</span> <span class="kw">=</span> <span class="fl">0.9</span>) {
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">can_discretize</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">treshold</span> <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">{</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&amp;&amp;</span>
+  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="va">treshold</span><span class="op">)</span>
+<span class="op">}</span>
 
-  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span>(<span class="no">x</span>) <span class="kw">&amp;&amp;</span>
-  (<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">x</span>)) / <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>) <span class="kw">&gt;</span> <span class="no">treshold</span>)
-}
-
-<span class="fu">can_discretize</span>(<span class="fl">1</span>:<span class="fl">10</span>)
+<span class="fu">can_discretize</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
-<span class="fu">can_discretize</span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">10</span>))
+<span class="fu">can_discretize</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] FALSE</span>
-<span class="fu">can_discretize</span>(<span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>,<span class="fl">10</span>), <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">2</span>, <span class="fl">10</span>))))
+<span class="fu">can_discretize</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] FALSE</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -172,29 +175,29 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">123</span>)
-<span class="no">dt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">data_frame</a></span>(
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">20</span>,
-  <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">20</span>),
-  <span class="kw">z</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>,<span class="fl">10</span>), <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">2</span>, <span class="fl">10</span>)))
-)
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
+<span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/deprecated.html">data_frame</a></span><span class="op">(</span>
+  x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>,
+  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span>
 <span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span>
 <span class="co">#&gt; Please use `tibble()` instead.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
 <span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
 
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(<span class="no">dt</span>)
+<span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dt</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 20</span>
 <span class="co">#&gt; Columns: 3</span>
 <span class="co">#&gt; $ x &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, …</span>
 <span class="co">#&gt; $ y &lt;dbl&gt; -0.56047565, -0.23017749, 1.55870831, 0.07050839, 0.12928774, 1.715…</span>
 <span class="co">#&gt; $ z &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(<span class="no">dt</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span>(<span class="no">can_discretize</span>, <span class="no">as.numeric</span>))
+<span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dt</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">can_discretize</span>, <span class="va">as.numeric</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 20</span>
 <span class="co">#&gt; Columns: 3</span>
 <span class="co">#&gt; $ x &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, …</span>
 <span class="co">#&gt; $ y &lt;dbl&gt; -0.56047565, -0.23017749, 1.55870831, 0.07050839, 0.12928774, 1.715…</span>
-<span class="co">#&gt; $ z &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2</span></pre></body></html></div>
+<span class="co">#&gt; $ z &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2</span></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -210,7 +213,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

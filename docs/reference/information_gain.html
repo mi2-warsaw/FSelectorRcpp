@@ -142,17 +142,17 @@ is a reimplementation of <span class="pkg">FSelector</span>'s <a href='https://r
 <a href='https://rdrr.io/pkg/FSelector/man/information.gain.html'>gain.ratio</a> and <a href='https://rdrr.io/pkg/FSelector/man/information.gain.html'>symmetrical.uncertainty</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>information_gain</span>(
-  <span class='no'>formula</span>,
-  <span class='no'>data</span>,
-  <span class='no'>x</span>,
-  <span class='no'>y</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"infogain"</span>, <span class='st'>"gainratio"</span>, <span class='st'>"symuncert"</span>),
-  <span class='kw'>equal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>discIntegers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>nbins</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>
-)</pre>
+    <pre class="usage"><span class='fu'>information_gain</span><span class='op'>(</span>
+  <span class='va'>formula</span>,
+  <span class='va'>data</span>,
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"infogain"</span>, <span class='st'>"gainratio"</span>, <span class='st'>"symuncert"</span><span class='op'>)</span>,
+  equal <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  discIntegers <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  nbins <span class='op'>=</span> <span class='fl'>5</span>,
+  threads <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,39 +215,47 @@ Attribute)}{H(Attribute)}$$</p>
 Attribute)}{H(Attribute) + H(Class)}$$</p>
 <p>where H(X) is Shannon's Entropy for a variable X and H(X, Y) is a joint
 Shannon's Entropy for a variable X with a condition to Y.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Zygmunt Zawadzki <a href='mailto:zygmunt@zstat.pl'>zygmunt@zstat.pl</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>irisX</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[-<span class='fl'>5</span>]
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>$<span class='no'>Species</span>
+<span class='va'>irisX</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>$</span><span class='va'>Species</span>
 
 <span class='co'>## data.frame interface</span>
-<span class='fu'>information_gain</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>irisX</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)</div><div class='output co'>#&gt;     attributes importance
+<span class='fu'>information_gain</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>irisX</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     attributes importance
 #&gt; 1 Sepal.Length  0.4521286
 #&gt; 2  Sepal.Width  0.2672750
 #&gt; 3 Petal.Length  0.9402853
 #&gt; 4  Petal.Width  0.9554360</div><div class='input'>
 <span class='co'># formula interface</span>
-<span class='fu'>information_gain</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt;     attributes importance
+<span class='fu'>information_gain</span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>Species</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     attributes importance
 #&gt; 1 Sepal.Length  0.4521286
 #&gt; 2  Sepal.Width  0.2672750
 #&gt; 3 Petal.Length  0.9402853
-#&gt; 4  Petal.Width  0.9554360</div><div class='input'><span class='fu'>information_gain</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"gainratio"</span>)</div><div class='output co'>#&gt;     attributes importance
+#&gt; 4  Petal.Width  0.9554360</div><div class='input'><span class='fu'>information_gain</span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>Species</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>iris</span>, type <span class='op'>=</span> <span class='st'>"gainratio"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     attributes importance
 #&gt; 1 Sepal.Length  0.4196464
 #&gt; 2  Sepal.Width  0.2472972
 #&gt; 3 Petal.Length  0.8584937
-#&gt; 4  Petal.Width  0.8713692</div><div class='input'><span class='fu'>information_gain</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"symuncert"</span>)</div><div class='output co'>#&gt;     attributes importance
+#&gt; 4  Petal.Width  0.8713692</div><div class='input'><span class='fu'>information_gain</span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>Species</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>iris</span>, type <span class='op'>=</span> <span class='st'>"symuncert"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     attributes importance
 #&gt; 1 Sepal.Length  0.4155563
 #&gt; 2  Sepal.Width  0.2452743
 #&gt; 3 Petal.Length  0.8571872
 #&gt; 4  Petal.Width  0.8705214</div><div class='input'>
 <span class='co'># sparse matrix interface</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>Matrix</span>)
-<span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>:<span class='fl'>8</span>); <span class='no'>j</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>9</span>, <span class='fl'>6</span>:<span class='fl'>10</span>); <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>7</span> * (<span class='fl'>1</span>:<span class='fl'>7</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Matrix/man/sparseMatrix.html'>sparseMatrix</a></span>(<span class='no'>i</span>, <span class='no'>j</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://Matrix.R-forge.R-project.org/'>Matrix</a></span><span class='op'>)</span>
+<span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>)</span>; <span class='va'>j</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>9</span>, <span class='fl'>6</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>; <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>7</span> <span class='op'>*</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Matrix/man/sparseMatrix.html'>sparseMatrix</a></span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>j</span>, x <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='fu'>information_gain</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)</div><div class='output co'>#&gt;    attributes importance
+<span class='fu'>information_gain</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    attributes importance
 #&gt; 1           1          0
 #&gt; 2           2          0
 #&gt; 3           3          0
@@ -257,7 +265,8 @@ Shannon's Entropy for a variable X with a condition to Y.</p>
 #&gt; 7           7          0
 #&gt; 8           8          0
 #&gt; 9           9          0
-#&gt; 10         10          0</div><div class='input'><span class='fu'>information_gain</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"gainratio"</span>)</div><div class='output co'>#&gt;    attributes importance
+#&gt; 10         10          0</div><div class='input'><span class='fu'>information_gain</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, type <span class='op'>=</span> <span class='st'>"gainratio"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    attributes importance
 #&gt; 1           1        NaN
 #&gt; 2           2        NaN
 #&gt; 3           3        NaN
@@ -267,7 +276,8 @@ Shannon's Entropy for a variable X with a condition to Y.</p>
 #&gt; 7           7        NaN
 #&gt; 8           8        NaN
 #&gt; 9           9        NaN
-#&gt; 10         10        NaN</div><div class='input'><span class='fu'>information_gain</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"symuncert"</span>)</div><div class='output co'>#&gt;    attributes importance
+#&gt; 10         10        NaN</div><div class='input'><span class='fu'>information_gain</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, type <span class='op'>=</span> <span class='st'>"symuncert"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    attributes importance
 #&gt; 1           1          0
 #&gt; 2           2          0
 #&gt; 3           3          0
@@ -294,7 +304,7 @@ Shannon's Entropy for a variable X with a condition to Y.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
