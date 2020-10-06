@@ -253,13 +253,13 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.304   0.001   0.308 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(
+#&gt;   0.309   0.000   0.314 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.266   0.000   0.265 </div><div class='input'>
+#&gt;   0.261   0.000   0.260 </div><div class='input'>
 <span class='co'># Optional exhaustive search.</span>
 <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
@@ -267,14 +267,14 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.402   0.007   0.411 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(
+#&gt;   0.357   0.000   0.356 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(
   <span class='fu'>feature_search</span>(<span class='kw'>attributes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[-<span class='fl'>5</span>],
                  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>evaluator</span>,
                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>,
                  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"exhaustive"</span>,
                  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 )</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.382   0.004   0.387 </div><div class='input'>
+#&gt;   0.381   0.000   0.381 </div><div class='input'>
 <span class='co'># 2) Maximize R^2 statistics in the linear regression model/problem.</span>
 
 <span class='no'>evaluator_R2_lm</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>attributes</span>, <span class='no'>data</span>, <span class='no'>dependent</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>]) {
@@ -313,7 +313,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt;     lm(to_formula(attributes, dependent), data = data)
 #&gt;   )$r.squared
 #&gt; }
-#&gt; &lt;environment: 0x564893d6e768&gt;
+#&gt; &lt;environment: 0x555b8b63fd78&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, 
@@ -514,7 +514,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt;     k = log(nrow(data))
 #&gt;   )[2]
 #&gt; }
-#&gt; &lt;environment: 0x564893d6e768&gt;
+#&gt; &lt;environment: 0x555b8b63fd78&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"), 

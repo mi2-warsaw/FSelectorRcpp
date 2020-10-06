@@ -163,7 +163,7 @@ For <code>0 &lt; k &lt; 1</code> it stands for the percent of top attributes to 
     <pre class="examples"><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='information_gain.html'>information_gain</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='no'>iris</span>)
 <span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "Petal.Width"  "Petal.Length"</div><div class='input'><span class='fu'><a href='to_formula.html'>to_formula</a></span>(<span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>), <span class='st'>"Species"</span>)</div><div class='output co'>#&gt; Species ~ Petal.Width + Petal.Length
-#&gt; &lt;environment: 0x564898058570&gt;</div><div class='input'><span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "Petal.Width"</div></pre>
+#&gt; &lt;environment: 0x555b8f825310&gt;</div><div class='input'><span class='fu'>cut_attrs</span>(<span class='kw'>attrs</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "Petal.Width"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
