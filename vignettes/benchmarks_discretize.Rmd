@@ -1,6 +1,6 @@
 ---
 title: "Benchmarks: discretize()"
-subtitle: "<small>[Marcin Kosinski](http://r-addict.com/About.html)&nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='http://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a><br>Krzysztof Slomczynski&nbsp;&nbsp;<a href='https://github.com/krzyslom'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:krzysztofslomczynski@gmail.com'><i class='fa fa-envelope-o'></i></a></small><br>"
+subtitle: "<small>[Marcin Kosinski](https://r-addict.com/About.html)&nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='https://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a><br>Krzysztof Slomczynski&nbsp;&nbsp;<a href='https://github.com/krzyslom'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:krzysztofslomczynski@gmail.com'><i class='fa fa-envelope-o'></i></a></small><br>"
 output:
   rmarkdown::html_vignette:
     mathjax:  default
@@ -26,7 +26,7 @@ if(is.pkg && !pkgdown::in_pkgdown()) {
   "(we don't want to run this code on the CRAN server).",
   "Please visit the ",
     paste(sep = "", 
-        "http://mi2-warsaw.github.io/FSelectorRcpp/",
+        "https://mi2-warsaw.github.io/FSelectorRcpp/",
         "articles/benchmarks_discretize.html")
   )
 }
@@ -77,14 +77,14 @@ Even though many categorization algorithms have been developed [@Holte1993, @Cha
 
 ## About The Cancer Genome Atlas
 
-> The Cancer Genome Atlas (TCGA) is a comprehensive and coordinated effort to accelerate our understanding of the molecular basis of cancer through the application of genome analysis technologies, including large-scale genome sequencing - [http://cancergenome.nih.gov/](http://cancergenome.nih.gov/). 
+> The Cancer Genome Atlas (TCGA) is a comprehensive and coordinated effort to accelerate our understanding of the molecular basis of cancer through the application of genome analysis technologies, including large-scale genome sequencing - [https://cancergenome.nih.gov/](https://cancergenome.nih.gov/). 
 
 [RTCGA team](https://github.com/orgs/RTCGA/people) converted selected datasets from this study into few separate packages that are hosted on Bioconductor. These R packages make selected datasets easier to access and manage. Data sets in RTCGA packages are large and cover complex relations between clinical outcomes and genetic background.
 
 To use RTCGA install package with instructions from it's [Bioconductor home page](https://www.bioconductor.org/packages/RTCGA/)
 
 ```{r, eval = FALSE}
-## try http:// if https:// URLs are not supported
+## try https:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
 biocLite("RTCGA")
 ```
@@ -110,8 +110,8 @@ names(BRCA.rnaseq) <- gsub(pattern = "[[:punct:]]", replacement = "_",
 
 ## More
 
-- [RTCGA Quick Guide](http://r-addict.com/2016/05/04/RTCGA-Quick-Guide.html)
-- [RTCGA Website](http://rtcga.github.io/RTCGA/)
+- [RTCGA Quick Guide](https://r-addict.com/2016/05/04/RTCGA-Quick-Guide.html)
+- [RTCGA Website](https://rtcga.github.io/RTCGA/)
 
 # Discretization Benchmarks
 
