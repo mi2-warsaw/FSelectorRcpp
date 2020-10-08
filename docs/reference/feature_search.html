@@ -74,7 +74,7 @@ is a reimplementation of FSelector's exhaustive.search and greedy.search." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -258,14 +258,14 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
                  data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.484   0.004   0.500 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span>
+#&gt;   0.293   0.004   0.303 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span>
   <span class='fu'>feature_search</span><span class='op'>(</span>attributes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>,
                  fun <span class='op'>=</span> <span class='va'>evaluator</span>,
                  data <span class='op'>=</span> <span class='va'>iris</span>,
                  parallel <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.395   0.000   0.398 </div><div class='input'>
+#&gt;   0.249   0.004   0.254 </div><div class='input'>
 <span class='co'># Optional exhaustive search.</span>
 <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span>
   <span class='fu'>feature_search</span><span class='op'>(</span>attributes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>,
@@ -274,7 +274,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
                  mode <span class='op'>=</span> <span class='st'>"exhaustive"</span><span class='op'>)</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.586   0.004   0.599 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span>
+#&gt;   0.373   0.000   0.373 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span>
   <span class='fu'>feature_search</span><span class='op'>(</span>attributes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>,
                  fun <span class='op'>=</span> <span class='va'>evaluator</span>,
                  data <span class='op'>=</span> <span class='va'>iris</span>,
@@ -282,7 +282,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
                  parallel <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.661   0.004   0.671 </div><div class='input'>
+#&gt;   0.354   0.000   0.355 </div><div class='input'>
 <span class='co'># 2) Maximize R^2 statistics in the linear regression model/problem.</span>
 
 <span class='va'>evaluator_R2_lm</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>attributes</span>, <span class='va'>data</span>, <span class='va'>dependent</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>{</span>
@@ -322,7 +322,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt;     lm(to_formula(attributes, dependent), data = data)
 #&gt;   )$r.squared
 #&gt; }
-#&gt; &lt;environment: 0x5619778425a8&gt;
+#&gt; &lt;environment: 0x55f11a1ebf40&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, 
@@ -524,7 +524,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 #&gt;     k = log(nrow(data))
 #&gt;   )[2]
 #&gt; }
-#&gt; &lt;environment: 0x5619778425a8&gt;
+#&gt; &lt;environment: 0x55f11a1ebf40&gt;
 #&gt; 
 #&gt; $call
 #&gt; feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"), 

@@ -18,6 +18,6 @@ If something is missing or not clear - please chat with us on our [slack](https:
 ### Blog posts history with use cases
 
 - [Entropy Based Image Binarization with imager and FSelectorRcpp, Marcin Kosiński](http://r-addict.com/2017/01/08/Entropy-Based-Image-Binarization.html)
-- [Venn Diagram Comparison of Boruta, FSelectorRcpp and GLMnet Algorithms, Marcin Kosiński](https://www.r-bloggers.com/venn-diagram-comparison-of-boruta-fselectorrcpp-and-glmnet-algorithms/)
+- [Venn Diagram Comparison of Boruta, FSelectorRcpp and GLMnet Algorithms, Marcin Kosiński](https://www.r-bloggers.com/2016/06/venn-diagram-comparison-of-boruta-fselectorrcpp-and-glmnet-algorithms/)
 
 ![Orly cover](man/figures/o_rly.png)
