@@ -13,7 +13,9 @@ information_gain(
   equal = FALSE,
   discIntegers = TRUE,
   nbins = 5,
-  threads = 1
+  threads = 1,
+  confInt = 0.95,
+  nBoot = 1000
 )
 }
 \arguments{
@@ -37,6 +39,11 @@ If false  integers are treated as factors and they are left as is.}
 \item{nbins}{Number of bins used for discretization. Only used if `equal = TRUE` and the response is numeric.}
 
 \item{threads}{defunct. Number of threads for parallel backend - now turned off because of safety reasons.}
+
+\item{confInt}{A number between 0 and 1 indicating the confidence interval or FALSE to turn them off.
+default: 95% confidence interval}
+
+\item{nBoot}{Number of draws to calculate confidence intervals. default: 1000}
 }
 \value{
 data.frame with the following columns:
