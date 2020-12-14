@@ -32,6 +32,9 @@
 #' If true (default), then integers are treated as numeric vectors and they are discretized.
 #' If false  integers are treated as factors and they are left as is.
 #' @param threads defunct. Number of threads for parallel backend - now turned off because of safety reasons.
+#' @param confInt A number between 0 and 1 indicating the confidence interval or FALSE to turn them off.
+#' default: 95% confidence interval
+#' @param nBoot Number of draws to calculate confidence intervals. default: 1000
 #'
 #' @return
 #'
@@ -76,7 +79,7 @@
 information_gain <- function(formula, data, x, y,
                              type = c("infogain", "gainratio", "symuncert"),
                              equal = FALSE, discIntegers = TRUE, nbins = 5,
-                             threads = 1) {
+                             threads = 1, confInt = 0.95, nBoot = 1000) {
 
   if (!xor(
           all(!missing(x), !missing(y)),
@@ -89,19 +92,45 @@ information_gain <- function(formula, data, x, y,
                "XOR use both `formula = response ~ attributes, data = dataset"))
   }
 
+  if((!is.numeric(confInt) || confInt > 1 || confInt <= 0) && confInt){
+    stop("confInt must be a number between 0 and 1 or FALSE")
+  }
+
   if (!missing(x) && !missing(y)) {
     if (class(x) == "formula") {
       stop(paste("Please use `formula = response ~ attributes, data = dataset`",
                  "interface instead of `x = formula`."))
     }
-    return(.information_gain(x = x, y = y, type = type,
+    res <- .information_gain(x = x, y = y, type = type,
                              equal = equal, nbins = nbins, threads = threads,
-                             discIntegers = discIntegers))
+                             discIntegers = discIntegers)
+    if(confInt){
+      res_matrix <- do.call('rbind', lapply(seq_len(nBoot), .boot, x = x, y = y,
+                                            type = type, equal = equal,
+                                            nbins = nbins, threads = threads,
+                                            discIntegers = discIntegers))
+      confint_lower <- (1 - confInt) / 2
+      confint_res <- apply(res_matrix, 2, quantile, probs = c(confint_lower, 1 - confint_lower))
+      res <- cbind(res, t(confint_res))
+      colnames(res) = c("attributes", "importance", "lower", "upper")
+    }
+    return(res)
   }
 
   if (!missing(formula) && !missing(data)) {
-    return(.information_gain(formula, data, type, equal, nbins,
-                             threads, discIntegers = discIntegers))
+    res <- .information_gain(formula, data, type, equal, nbins,
+                             threads, discIntegers = discIntegers)
+    if(confInt){
+      res_matrix <- do.call('rbind', lapply(seq_len(nBoot), .boot, x = formula, y = data,
+                                            type = type, equal = equal,
+                                            nbins = nbins, threads = threads,
+                                            discIntegers = discIntegers))
+      confint_lower <- (1 - confInt) / 2
+      confint_res <- apply(res_matrix, 2, quantile, probs = c(confint_lower, 1 - confint_lower))
+      res <- cbind(res, t(confint_res))
+      colnames(res) = c("attributes", "importance", "lower", "upper")
+    }
+    return(res)
   }
 }
 
@@ -137,7 +166,7 @@ information_gain <- function(formula, data, x, y,
   if (anyNA(y)) {
     warning(paste("There are missing values in the dependent variable",
                   "information_gain will remove them."))
-    idx <- complete.cases(y)
+    idx <- FSelectorRcpp:::complete.cases(y)
     x <- x[idx, , drop = FALSE] #nolint
     y <- y[idx]
   }
@@ -160,11 +189,11 @@ information_gain <- function(formula, data, x, y,
     y <- factor(y)
   }
 
-  values <- information_gain_cpp(x, y,
+  values <- FSelectorRcpp:::information_gain_cpp(x, y,
                 threads = threads, discIntegers = discIntegers)
-  classEntropy <- fs_entropy1d(y)
+  classEntropy <- FSelectorRcpp:::fs_entropy1d(y)
 
-  results <- information_type(classEntropy, values, type)
+  results <- FSelectorRcpp:::information_type(classEntropy, values, type)
   data.frame(
     attributes = colnames(x),
     importance = results, stringsAsFactors = FALSE)
@@ -185,7 +214,7 @@ information_gain <- function(formula, data, x, y,
   formula <- x
   data <- y
 
-  names_from_formula <- formula2names(formula, data)
+  names_from_formula <- FSelectorRcpp:::formula2names(formula, data)
 
   x <- data[, names_from_formula$x, drop = FALSE]
   y <- unname(unlist(data[, names_from_formula$y]))
@@ -209,10 +238,10 @@ information_gain <- function(formula, data, x, y,
                                         threads = 1) {
   type <- match.arg(type)
 
-  values <- sparse_information_gain_cpp(x, y, discIntegers = discIntegers)
+  values <- FSelectorRcpp:::sparse_information_gain_cpp(x, y, discIntegers = discIntegers)
   classEntropy <- fs_entropy1d(y)
 
-  results <- information_type(classEntropy, values, type)
+  results <- FSelectorRcpp:::information_type(classEntropy, values, type)
 
   attr <- colnames(x)
   if (is.null(attr)) {
@@ -237,3 +266,19 @@ information_type <- function(classEntropy, values,
 
   results
 }
+
+.boot <- function(n, x, y, type, equal, nbins, threads, discIntegers){
+
+  if(is.data.frame(y)){
+    y = y[sample(seq_len(nrow(y)), replace = TRUE), ]
+  }else{
+    indeces = sample(seq_along(y), replace = TRUE)
+    y = y[indeces]
+    x = x[indeces, ]
+  }
+  res <- .information_gain(x = x, y = y, type = type,
+                    equal = equal, nbins = nbins, threads = threads,
+                    discIntegers = discIntegers)
+  res$importance
+}
+
