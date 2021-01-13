@@ -72,7 +72,7 @@ can_discretize(as.integer(c(rep(1,10), rep(2, 10))))
 library(dplyr)
 
 set.seed(123)
-dt <- data_frame(
+dt <- tibble(
   x = 1:20,
   y = rnorm(20),
   z = as.integer(c(rep(1,10), rep(2, 10)))

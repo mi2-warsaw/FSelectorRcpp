@@ -1,5 +1,10 @@
 If something is missing or not clear - please chat with us on our [slack](https://fselectorrcpp.slack.com/messages/general/)?
 
+FSelectorRcpp 0.3.8
+----------------------------------------------------------------
+
+Fix CRAN tests. No new functionality.
+
 FSelectorRcpp 0.3.5
 ----------------------------------------------------------------
 - copied RreliefF scoring algorithm from FSelector [#78](https://github.com/mi2-warsaw/FSelectorRcpp/issues/78) [#86](https://github.com/mi2-warsaw/FSelectorRcpp/issues/86)

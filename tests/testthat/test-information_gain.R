@@ -43,6 +43,8 @@ if (require("FSelector")) {
   })
 
   test_that("Equal bin discretization", {
+    testthat::skip(message = "due to behaviour change in FSelector information.gain")
+
     fs <- information.gain(formula = Sepal.Length ~ ., data = iris)
     fsrcpp <- information_gain(formula = Sepal.Length ~ ., data = iris,
                                equal = TRUE)
@@ -94,7 +96,7 @@ test_that("Sparse matrix - basics", {
 })
 
 test_that("Removing NAs in formula (order)", {
-  xx <- data_frame(x = as.character(c(1, 2, 3)), y = as.character(c(1, 2, 3)),
+  xx <- tibble(x = as.character(c(1, 2, 3)), y = as.character(c(1, 2, 3)),
                    na = c(NA, NA, 1))
 
   expect_equal(information_gain(xx[, "x"], xx$y)$importance,
@@ -110,7 +112,7 @@ test_that("Interfaces errors", {
 
   expect_error(information_gain(formula = x, data = x))
 
-  xx <- data_frame(x = as.character(c(1, 2, 3)), y = as.character(c(1, 2, 3)))
+  xx <- tibble(x = as.character(c(1, 2, 3)), y = as.character(c(1, 2, 3)))
   expect_error(information_gain(x = y ~ ., y = xx))
 
 
@@ -142,7 +144,7 @@ test_that("Incorrect interface parameter specification", {
 })
 
 test_that("Warning when y is numeric", {
-  dt <- data_frame(x = rnorm(10), y = rnorm(10))
+  dt <- tibble(x = rnorm(10), y = rnorm(10))
   z <- rnorm(10)
 
   expect_warning(information_gain(y ~ x, dt))
@@ -160,7 +162,7 @@ test_that("Compare interfaces - formula vs x,y", {
 
 test_that("Information gain - integer column - discIntegers", {
 
-  dt <- data_frame(
+  dt <- tibble(
     y = iris$Species,
     x = as.integer(iris$Sepal.Length),
     z = as.numeric(as.integer(iris$Sepal.Length))

@@ -143,7 +143,7 @@ get_times <- function(fun, vecRows, vecCols, nTimes) {
 }
 
 make_df <- function(bm_data, package) {
-  data_frame(
+  tibble(
     rows = rep(
       x = as.integer(
         gsub(
