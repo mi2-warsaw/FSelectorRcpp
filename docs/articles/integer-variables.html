@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.8</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -71,7 +71,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/mi2-warsaw/FSelectorRcpp/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -91,7 +91,7 @@
       <h1 data-toc-skip>Integer variables.</h1>
                         <h4 class="author">Zygmunt Zawadzki</h4>
             
-            <h4 class="date">2020-10-08</h4>
+            <h4 class="date">2021-01-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mi2-warsaw/FSelectorRcpp/blob/master/vignettes/integer-variables.Rmd"><code>vignettes/integer-variables.Rmd</code></a></small>
       <div class="hidden name"><code>integer-variables.Rmd</code></div>
@@ -102,8 +102,8 @@
     
 <p>The information_gain and discretize functions are the two most important functions in the <code>FSelectorRcpp</code> package. Usually, there are easy to use, and the user should not worry about anything. However, there’s one case where the user intervention may be required.</p>
 <p>By default <code>information_gain</code> and <code>discretize</code> discretizes numeric and integer columns, and leaves other ones as is. In the example below the <code>x</code> column is discretized:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span><span class="op">)</span><span class="op">)</span>,
   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">2.1</span>, <span class="fl">4.1</span>, <span class="fl">7.3</span>, <span class="fl">8.2</span>, <span class="fl">3.2</span><span class="op">)</span>,
@@ -116,12 +116,12 @@
 <span class="co">#&gt; 3 A (-Inf,5.7] y</span>
 <span class="co">#&gt; 4 B (5.7, Inf] y</span>
 <span class="co">#&gt; 5 B (5.7, Inf] y</span>
-<span class="co">#&gt; 6 A (-Inf,5.7] x</span></pre></div>
+<span class="co">#&gt; 6 A (-Inf,5.7] x</span></code></pre></div>
 <p>So far, so good. However, there is a problem when the column is of a type integer. Because integers might be used to encode levels of a factor, e.g., a number of a day in a week (0-6, 1-7), id from some mapping (e.g., <code>1 - Poland, 2 - USA, 3 - Germany</code>), and probably many other (gender and so on), possibly any variable that is going to be one-hot encoded in the final model. In such cases, discretizing those values don’t make any sense, because they’re already discrete. On the other hand, some variables might be encoded as integers, but they could be discretized. E.g., age, income, height, weight, and so on.</p>
 <p>It would be tough for FSelectorRcpp to guess if the integer encoded variable should be discretized because it depends heavily on the context. So we (as the authors of the <code>FSelectorRcpp</code>) decided that by default the integers columns will be treated like numerics, and they will be discretized. However, the user can control this behavior by using <code>discIntegers</code> parameter.</p>
 <p>See the example below to get some idea about the behavior of the <code>discretize</code> function when integers columns are present:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span><span class="op">)</span><span class="op">)</span>,
   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">2.1</span>, <span class="fl">4.1</span>, <span class="fl">7.3</span>, <span class="fl">8.2</span>, <span class="fl">3.2</span><span class="op">)</span>,
@@ -148,11 +148,11 @@
 <span class="co">#&gt; 3 A (-Inf,5.7] y   1        11</span>
 <span class="co">#&gt; 4 B (5.7, Inf] y   2        22</span>
 <span class="co">#&gt; 5 B (5.7, Inf] y   2        25</span>
-<span class="co">#&gt; 6 A (-Inf,5.7] x   1        11</span></pre></div>
+<span class="co">#&gt; 6 A (-Inf,5.7] x   1        11</span></code></pre></div>
 <p>There might be a case that you have both types of integer columns in your data, and you can’t directly use <code>discIntegers</code>. In this case, you need to manually convert to <code>numeric</code> the columns which should be discretized.</p>
 <p>The code below shows a simple approach to convert the columns to numeric if they contain a lot of distinct values:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">can_discretize</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">treshold</span> <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">can_discretize</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">treshold</span> <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">{</span>
   
   <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&amp;&amp;</span>
   <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="va">treshold</span><span class="op">)</span>
@@ -176,15 +176,11 @@
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
-<span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/deprecated.html">data_frame</a></span><span class="op">(</span>
+<span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,
   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>,
   z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span>
-<span class="co">#&gt; Please use `tibble()` instead.</span>
-<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
 
 <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dt</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 20</span>
@@ -197,7 +193,7 @@
 <span class="co">#&gt; Columns: 3</span>
 <span class="co">#&gt; $ x &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, …</span>
 <span class="co">#&gt; $ y &lt;dbl&gt; -0.56047565, -0.23017749, 1.55870831, 0.07050839, 0.12928774, 1.715…</span>
-<span class="co">#&gt; $ z &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2</span></pre></div>
+<span class="co">#&gt; $ z &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

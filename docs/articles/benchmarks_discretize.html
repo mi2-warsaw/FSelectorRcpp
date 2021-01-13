@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.8</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -71,7 +71,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/mi2-warsaw/FSelectorRcpp/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -101,10 +101,11 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span>
+<pre><code>## Please install all suggested packages to run benchmark.</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RWeka</span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RWeka</span><span class="op">)</span></code></pre></div>
 <div id="about-discretization" class="section level1">
 <h1 class="hasAnchor">
 <a href="#about-discretization" class="anchor"></a>About discretization</h1>
@@ -123,10 +124,10 @@
 </blockquote>
 <p><a href="https://github.com/orgs/RTCGA/people">RTCGA team</a> converted selected datasets from this study into few separate packages that are hosted on Bioconductor. These R packages make selected datasets easier to access and manage. Data sets in RTCGA packages are large and cover complex relations between clinical outcomes and genetic background.</p>
 <p>To use RTCGA install package with instructions from it’s <a href="https://bioconductor.org/packages/release/bioc/html/RTCGA.html">Bioconductor home page</a></p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co">## try https:// if https:// URLs are not supported</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## try https:// if https:// URLs are not supported</span>
 <span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://bioconductor.org/biocLite.R"</span><span class="op">)</span>
-<span class="fu">biocLite</span><span class="op">(</span><span class="st">"RTCGA"</span><span class="op">)</span></pre></div>
+<span class="fu">biocLite</span><span class="op">(</span><span class="st">"RTCGA"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="dependent-variable" class="section level2">
 <h2 class="hasAnchor">
@@ -137,15 +138,15 @@
 <h2 class="hasAnchor">
 <a href="#independent-variables" class="anchor"></a>Independent variables</h2>
 <p>It is mandatory to get rid of special signs from their names.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RTCGA.rnaseq</span><span class="op">)</span>
-<span class="va">BRCA.rnaseq</span> <span class="op">&lt;-</span> <span class="fu">RTCGA.rnaseq</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/RTCGA.rnaseq/man/rnaseq.html">BRCA.rnaseq</a></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RTCGA.rnaseq</span><span class="op">)</span>
+<span class="va">BRCA.rnaseq</span> <span class="op">&lt;-</span> <span class="fu">RTCGA.rnaseq</span><span class="fu">::</span><span class="va">BRCA.rnaseq</span>
 <span class="va">BRCA.rnaseq</span><span class="op">$</span><span class="va">bcr_patient_barcode</span> <span class="op">&lt;-</span> 
    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">$</span><span class="va">bcr_patient_barcode</span>, <span class="fl">14</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"?"</span>, replacement <span class="op">=</span> <span class="st">"q"</span>,
                            x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"[[:punct:]]"</span>, replacement <span class="op">=</span> <span class="st">"_"</span>,
-                           x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span><span class="op">)</span></pre></div>
+                           x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="more" class="section level2">
 <h2 class="hasAnchor">
@@ -159,8 +160,8 @@
 <div id="discretization-benchmarks" class="section level1">
 <h1 class="hasAnchor">
 <a href="#discretization-benchmarks" class="anchor"></a>Discretization Benchmarks</h1>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/psolymos/pbapply">pbapply</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
 <span class="va">names_by</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nameBy</span>, <span class="va">vecBy</span><span class="op">)</span> <span class="op">{</span>
@@ -187,7 +188,7 @@
 <span class="op">}</span>
 
 <span class="va">make_df</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">bm_data</span>, <span class="va">package</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/deprecated.html">data_frame</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
     rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span>
       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span>
         <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>
@@ -253,11 +254,10 @@
 <span class="op">}</span>
 
 <span class="va">bm_plot</span> <span class="op">&lt;-</span> <span class="fu">make_plot</span><span class="op">(</span><span class="st">"time"</span><span class="op">)</span>
-<span class="va">bm_plot_log</span> <span class="op">&lt;-</span> <span class="fu">make_plot</span><span class="op">(</span><span class="st">"log(time)"</span><span class="op">)</span></pre></div>
+<span class="va">bm_plot_log</span> <span class="op">&lt;-</span> <span class="fu">make_plot</span><span class="op">(</span><span class="st">"log(time)"</span><span class="op">)</span></code></pre></div>
 <div id="plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plots" class="anchor"></a>Plots</h2>
-<p><img src="benchmarks_discretize_files/figure-html/plots-1.png" width="768"><img src="benchmarks_discretize_files/figure-html/plots-2.png" width="768"></p>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
