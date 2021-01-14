@@ -101,8 +101,7 @@
 
     
     
-<pre><code>## Please install all suggested packages to run benchmark.</code></pre>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mi2-warsaw/FSelectorRcpp">FSelectorRcpp</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RWeka</span><span class="op">)</span></code></pre></div>
@@ -124,7 +123,7 @@
 </blockquote>
 <p><a href="https://github.com/orgs/RTCGA/people">RTCGA team</a> converted selected datasets from this study into few separate packages that are hosted on Bioconductor. These R packages make selected datasets easier to access and manage. Data sets in RTCGA packages are large and cover complex relations between clinical outcomes and genetic background.</p>
 <p>To use RTCGA install package with instructions from it’s <a href="https://bioconductor.org/packages/release/bioc/html/RTCGA.html">Bioconductor home page</a></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## try https:// if https:// URLs are not supported</span>
 <span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://bioconductor.org/biocLite.R"</span><span class="op">)</span>
 <span class="fu">biocLite</span><span class="op">(</span><span class="st">"RTCGA"</span><span class="op">)</span></code></pre></div>
@@ -138,9 +137,9 @@
 <h2 class="hasAnchor">
 <a href="#independent-variables" class="anchor"></a>Independent variables</h2>
 <p>It is mandatory to get rid of special signs from their names.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RTCGA.rnaseq</span><span class="op">)</span>
-<span class="va">BRCA.rnaseq</span> <span class="op">&lt;-</span> <span class="fu">RTCGA.rnaseq</span><span class="fu">::</span><span class="va">BRCA.rnaseq</span>
+<span class="va">BRCA.rnaseq</span> <span class="op">&lt;-</span> <span class="fu">RTCGA.rnaseq</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/RTCGA.rnaseq/man/rnaseq.html">BRCA.rnaseq</a></span>
 <span class="va">BRCA.rnaseq</span><span class="op">$</span><span class="va">bcr_patient_barcode</span> <span class="op">&lt;-</span> 
    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">$</span><span class="va">bcr_patient_barcode</span>, <span class="fl">14</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">BRCA.rnaseq</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"?"</span>, replacement <span class="op">=</span> <span class="st">"q"</span>,
@@ -160,7 +159,7 @@
 <div id="discretization-benchmarks" class="section level1">
 <h1 class="hasAnchor">
 <a href="#discretization-benchmarks" class="anchor"></a>Discretization Benchmarks</h1>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/psolymos/pbapply">pbapply</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
@@ -258,6 +257,7 @@
 <div id="plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plots" class="anchor"></a>Plots</h2>
+<p><img src="benchmarks_discretize_files/figure-html/plots-1.png" width="768"><img src="benchmarks_discretize_files/figure-html/plots-2.png" width="768"></p>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
@@ -274,7 +274,7 @@
 <p>Dougherty, James, Ron Kohavi, and Mehran Sahami. 1995. “Supervised and Unsupervised Discretization of Continuous Features.” In <em>MACHINE Learning: PROCEEDINGS of the Twelfth International Conference</em>, 194–202. Morgan Kaufmann.</p>
 </div>
 <div id="ref-HarrellDISC">
-<p>Harrell, Frank. 2015. “General Handouts and Reference Material on Biostatistical Modeling - Problems Caused by Categorizing Continuous Variables.” Vanderbilt Biostatistics Wiki. 2015. <a href="http://biostat.mc.vanderbilt.edu/wiki/Main/CatContinuous">http://biostat.mc.vanderbilt.edu/wiki/Main/CatContinuous</a>.</p>
+<p>Harrell, Frank. 2015. “General Handouts and Reference Material on Biostatistical Modeling - Problems Caused by Categorizing Continuous Variables.” Vanderbilt Biostatistics Wiki. 2015. <a href="https://discourse.datamethods.org/t/categorizing-continuous-variables/3402">https://discourse.datamethods.org/t/categorizing-continuous-variables/3402</a>.</p>
 </div>
 <div id="ref-Holte1993">
 <p>Holte, Robert C. 1993. “Very Simple Classification Rules Perform Well on Most Commonly Used Datasets.” <em>Machine Learning</em> 11 (1): 63–90. <a href="https://doi.org/10.1023/A:1022631118932">https://doi.org/10.1023/A:1022631118932</a>.</p>
