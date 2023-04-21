@@ -54,7 +54,7 @@ relief <- function(formula, data, x, y, neighboursCount = 5, sampleSize = 10) {
   }
 
   if (!missing(x) && !missing(y)) {
-    if (class(x) == "formula") {
+    if (inherits(x, "formula")) {
       stop(paste("Please use `formula = response ~ attributes, data = dataset`",
                  "interface instead of `x = formula`."))
     }
