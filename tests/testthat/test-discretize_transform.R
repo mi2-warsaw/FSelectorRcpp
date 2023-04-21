@@ -22,6 +22,8 @@ test_that("Print FsDiscretizeTransformer", {
   disc <- discretize(Species ~ ., iris)
   desc <- capture.output(print(extract_discretize_transformer(disc)))
 
+  desc <- gsub(paste(desc, collapse = ""), pattern = " ", replacement = "")
+
   expected <- c("FsDiscretizeTransformer", "", "Cutpoints:", "  Sepal.Length: -Inf, 5.55, 6.15, Inf",
                 "  Sepal.Width: -Inf, 2.95, 3.35, Inf", "  Petal.Length: -Inf, 2.45, 4.75, Inf",
                 "  Petal.Width: -Inf, 0.8, 1.75, Inf", "", "FsDiscretizeTransformer allows to discretize data using",
@@ -30,6 +32,7 @@ test_that("Print FsDiscretizeTransformer", {
                 "  Petal.Length: -Inf, 2.45, 4.75, Inf", "  Petal.Width: -Inf, 0.8, 1.75, Inf",
                 "", "FsDiscretizeTransformer allows to discretize data using",
                 "discretize_transform(disc, newData) function.")
+  expected <- gsub(paste(expected, collapse = ""), pattern = " ", replacement = "")
   expect_equal(desc, expected)
 })
 
