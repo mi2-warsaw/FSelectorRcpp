@@ -16,7 +16,6 @@ Description: 'Rcpp' (free of 'Java'/'Weka') implementation of 'FSelector' entrop
 Depends: R (>= 3.4)
 License: GPL-2
 LazyData: TRUE
-SystemRequirements: C++11
 Imports:
  Rcpp (>= 0.12.12),
  foreach,
@@ -48,7 +47,7 @@ Suggests:
  lintr,
  pkgdown,
  withr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 BugReports: https://github.com/mi2-warsaw/FSelectorRcpp/issues
 URL: https://github.com/mi2-warsaw/FSelectorRcpp
