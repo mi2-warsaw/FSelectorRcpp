@@ -105,6 +105,30 @@ information_gain <- function(formula, data, x, y,
   }
 }
 
+#' Direct Interface to Information Gain.
+
+#' @param x A \link{data.frame}, sparse matrix or formula with attributes.
+#' @param y A vector with response variable or data.frame if formula is used.
+#' @param type Method name.
+#' @param equal A logical. Whether to discretize dependent variable with the
+#' \code{equal frequency binning discretization} or not.
+#' @param nbins Number of bins used for discretization. Only used if `equal = TRUE` and the response is numeric.
+#' @param discIntegers logical value.
+#' If true (default), then integers are treated as numeric vectors and they are discretized.
+#' If false  integers are treated as factors and they are left as is.
+#' @param threads defunct. Number of threads for parallel backend - now turned off because of safety reasons.
+#'
+#' @details
+#' In principle using \code{\link{information_gain}} is safer.
+#'
+#' data.frame with the following columns:
+#' \itemize{
+#'  \item{attributes}{ - variables names.}
+#'  \item{importance}{ - worth of the attributes.}
+#' }
+#'
+#' @export
+#'
 .information_gain <- function(x, y,
                               type = c("infogain", "gainratio", "symuncert"),
                               equal = FALSE,
@@ -114,6 +138,7 @@ information_gain <- function(formula, data, x, y,
   UseMethod(".information_gain", x)
 }
 
+#' @export
 .information_gain.default <- function(x, y,
                                       type = c("infogain",
                                                "gainratio",
@@ -124,6 +149,7 @@ information_gain <- function(formula, data, x, y,
   stop("Unsupported data type.")
 }
 
+#' @export
 .information_gain.data.frame <- function(x, y,
                                          type = c("infogain",
                                                   "gainratio",
@@ -170,6 +196,7 @@ information_gain <- function(formula, data, x, y,
     importance = results, stringsAsFactors = FALSE)
 }
 
+#' @export
 .information_gain.formula <- function(x, y,
                                       type = c("infogain",
                                                "gainratio",
@@ -198,7 +225,7 @@ information_gain <- function(formula, data, x, y,
     threads = threads)
 }
 
-
+#' @export
 .information_gain.dgCMatrix <- function(x, y,
                                         type = c("infogain",
                                                  "gainratio",
