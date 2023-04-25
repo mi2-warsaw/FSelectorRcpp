@@ -17,7 +17,7 @@ extern SEXP _FSelectorRcpp_fs_table_numeric2d(SEXP, SEXP);
 extern SEXP _FSelectorRcpp_fs_table1d(SEXP);
 extern SEXP _FSelectorRcpp_information_gain_cpp(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _FSelectorRcpp_sparse_information_gain_cpp(SEXP, SEXP, SEXP);
-extern void run_testthat_tests(void);
+extern SEXP run_testthat_tests(SEXP use_xml_sxp);
 
 static const R_CallMethodDef CallEntries[] = {
   {"_FSelectorRcpp_cutOff_k",                    (DL_FUNC) &_FSelectorRcpp_cutOff_k,                    3},

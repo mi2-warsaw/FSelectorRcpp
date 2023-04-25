@@ -100,8 +100,9 @@ information_gain <- function(formula, data, x, y,
   }
 
   if (!missing(formula) && !missing(data)) {
-    return(.information_gain(formula, data, type, equal, nbins,
-                             threads, discIntegers = discIntegers))
+    return(.information_gain(formula, data, type = type,
+                             equal = equal, nbins = nbins, threads = threads,
+                             discIntegers = discIntegers))
   }
 }
 
@@ -132,8 +133,8 @@ information_gain <- function(formula, data, x, y,
 .information_gain <- function(x, y,
                               type = c("infogain", "gainratio", "symuncert"),
                               equal = FALSE,
-                              nbins = 5,
                               discIntegers = TRUE,
+                              nbins = 5,
                               threads = 1) {
   UseMethod(".information_gain", x)
 }
@@ -145,6 +146,7 @@ information_gain <- function(formula, data, x, y,
                                                "symuncert"),
                                       equal = FALSE,
                                       discIntegers = TRUE,
+                                      nbins = 5,
                                       threads = 1) {
   stop("Unsupported data type.")
 }
@@ -202,8 +204,8 @@ information_gain <- function(formula, data, x, y,
                                                "gainratio",
                                                "symuncert"),
                                       equal = FALSE,
-                                      nbins = 5,
                                       discIntegers = TRUE,
+                                      nbins = 5,
                                       threads = 1) {
   if (!is.data.frame(y)) {
     stop("y must be a data.frame!")
@@ -231,8 +233,8 @@ information_gain <- function(formula, data, x, y,
                                                  "gainratio",
                                                  "symuncert"),
                                         equal = FALSE,
-                                        nbins = 5,
                                         discIntegers = TRUE,
+                                        nbins = 5,
                                         threads = 1) {
   type <- match.arg(type)
 

@@ -9,8 +9,8 @@
   y,
   type = c("infogain", "gainratio", "symuncert"),
   equal = FALSE,
-  nbins = 5,
   discIntegers = TRUE,
+  nbins = 5,
   threads = 1
 )
 }
@@ -24,11 +24,11 @@
 \item{equal}{A logical. Whether to discretize dependent variable with the
 \code{equal frequency binning discretization} or not.}
 
-\item{nbins}{Number of bins used for discretization. Only used if `equal = TRUE` and the response is numeric.}
-
 \item{discIntegers}{logical value.
 If true (default), then integers are treated as numeric vectors and they are discretized.
 If false  integers are treated as factors and they are left as is.}
+
+\item{nbins}{Number of bins used for discretization. Only used if `equal = TRUE` and the response is numeric.}
 
 \item{threads}{defunct. Number of threads for parallel backend - now turned off because of safety reasons.}
 }
