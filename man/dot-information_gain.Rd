@@ -40,7 +40,7 @@ In principle using \code{\link{information_gain}} is safer.
 
 data.frame with the following columns:
 \itemize{
- \item{attributes}{ - variables names.}
- \item{importance}{ - worth of the attributes.}
+ \item attributes - variables names.
+ \item importance - worth of the attributes.
 }
 }

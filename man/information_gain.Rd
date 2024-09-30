@@ -41,8 +41,8 @@ If false  integers are treated as factors and they are left as is.}
 \value{
 data.frame with the following columns:
 \itemize{
- \item{attributes}{ - variables names.}
- \item{importance}{ - worth of the attributes.}
+ \item attributes - variables names.
+ \item importance - worth of the attributes.
 }
 }
 \description{

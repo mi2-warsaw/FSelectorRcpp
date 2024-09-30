@@ -1,6 +1,5 @@
 ---
 title: "Motivation, Installation and Quick Workflow"
-subtitle: "<small> [Marcin Kosinski](http://r-addict.com/About.html) &nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='http://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a> <br> [Zygmunt Zawadzki](https://www.zstat.pl/) &nbsp;&nbsp;<a href='https://www.zstat.pl/'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/zzawadz'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:zygmunt@zstat.pl'><i class='fa fa-envelope-o'></i></a></small><br>"
 output:
   rmarkdown::html_vignette:
     mathjax:  default
@@ -11,7 +10,7 @@ output:
 bibliography: RJreferences.bib
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Get started: Motivation, Installation and Quick Workflow}
+  %\VignetteIndexEntry{Motivation, Installation and Quick Workflow}
 ---
 
 ```{r setup, include = FALSE}
@@ -116,7 +115,6 @@ feature_search(          # feature_search work in 2 modes - 'exhaustive' and 'gr
 
 ## Use cases
 
-- [Entropy Based Image Binarization with imager and FSelectorRcpp](http://r-addict.com/2017/01/08/Entropy-Based-Image-Binarization.html)
 - [Venn Diagram Comparison of Boruta, FSelectorRcpp and GLMnet Algorithms](https://www.r-bloggers.com/2016/06/venn-diagram-comparison-of-boruta-fselectorrcpp-and-glmnet-algorithms/)
 
 # References

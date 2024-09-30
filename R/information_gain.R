@@ -37,8 +37,8 @@
 #'
 #' data.frame with the following columns:
 #' \itemize{
-#'  \item{attributes}{ - variables names.}
-#'  \item{importance}{ - worth of the attributes.}
+#'  \item attributes - variables names.
+#'  \item importance - worth of the attributes.
 #' }
 #'
 #' @author Zygmunt Zawadzki \email{zygmunt@zstat.pl}
@@ -124,8 +124,8 @@ information_gain <- function(formula, data, x, y,
 #'
 #' data.frame with the following columns:
 #' \itemize{
-#'  \item{attributes}{ - variables names.}
-#'  \item{importance}{ - worth of the attributes.}
+#'  \item attributes - variables names.
+#'  \item importance - worth of the attributes.
 #' }
 #'
 #' @export

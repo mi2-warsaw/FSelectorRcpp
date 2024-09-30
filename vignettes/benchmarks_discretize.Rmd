@@ -1,6 +1,5 @@
 ---
 title: "Benchmarks: discretize()"
-subtitle: "<small>[Marcin Kosinski](http://r-addict.com/About.html)&nbsp;&nbsp;<a href='https://stackoverflow.com/users/3857701'><i class='fa fa-stack-overflow'></i></a>&nbsp;&nbsp;<a href='http://r-addict.com'><i class='fa fa-comment'></i></a>&nbsp;&nbsp;<a href='https://github.com/MarcinKosinski'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:m.p.kosinski@gmail.com'><i class='fa fa-envelope-o'></i></a><br>Krzysztof Slomczynski&nbsp;&nbsp;<a href='https://github.com/krzyslom'><i class='fa fa-github'></i></a>&nbsp;&nbsp;<a href='mailto:krzysztofslomczynski@gmail.com'><i class='fa fa-envelope-o'></i></a></small><br>"
 output:
   rmarkdown::html_vignette:
     mathjax:  default
@@ -11,7 +10,7 @@ output:
 bibliography: RJreferences.bib
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Microbenchmarks of FSelectoRcpp and FSelector - discretization}
+  %\VignetteIndexEntry{Benchmarks: discretize()}
 ---
 
 ```{r, echo=FALSE, message=TRUE, results='asis'}
@@ -110,7 +109,6 @@ names(BRCA.rnaseq) <- gsub(pattern = "[[:punct:]]", replacement = "_",
 
 ## More
 
-- [RTCGA Quick Guide](http://r-addict.com/2016/05/04/RTCGA-Quick-Guide.html)
 - [RTCGA Website](https://rtcga.github.io/RTCGA/)
 
 # Discretization Benchmarks
