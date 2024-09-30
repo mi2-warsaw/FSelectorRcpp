@@ -115,7 +115,7 @@ greedy_search <- function(attributes, fun, data,
 #' @param sizes Used when \code{mode = "exhaustive"} - a vector of sizes
 #' of attributes subsets.
 #' @param parallel Allow parallelization.
-#' @param \dots Other arguments passed to \link{foreach} function.
+#' @param \dots Other arguments passed to \link[foreach]{foreach} function.
 #'
 #' @author Zygmunt Zawadzki \email{zygmunt@zstat.pl}
 #' @author Krzysztof Slomczynski \email{krzysztofslomczynski@@gmail.com}

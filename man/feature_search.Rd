@@ -33,7 +33,7 @@ of attributes subsets.}
 
 \item{parallel}{Allow parallelization.}
 
-\item{\dots}{Other arguments passed to \link{foreach} function.}
+\item{\dots}{Other arguments passed to \link[foreach]{foreach} function.}
 }
 \value{
 A list with following components
