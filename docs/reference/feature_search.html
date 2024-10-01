@@ -19,7 +19,7 @@ is a reimplementation of FSelector's exhaustive.search and greedy.search."><!-- 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSelectorRcpp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13</span>
       </span>
     </div>
 
@@ -191,7 +191,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 <span class="r-in"><span>                 data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.098   0.000   0.098 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.108   0.000   0.108 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu">feature_search</span><span class="op">(</span>attributes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">5</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                 fun <span class="op">=</span> <span class="va">evaluator</span>,</span></span>
@@ -199,7 +199,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 <span class="r-in"><span>                 parallel <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.084   0.000   0.085 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.096   0.000   0.095 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Optional exhaustive search.</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span></span></span>
@@ -209,7 +209,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 <span class="r-in"><span>                 mode <span class="op">=</span> <span class="st">"exhaustive"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.134   0.000   0.134 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.132   0.000   0.132 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu">feature_search</span><span class="op">(</span>attributes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">5</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                 fun <span class="op">=</span> <span class="va">evaluator</span>,</span></span>
@@ -218,7 +218,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 <span class="r-in"><span>                 parallel <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.132   0.000   0.131 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.166   0.000   0.165 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 2) Maximize R^2 statistics in the linear regression model/problem.</span></span></span>
 <span class="r-in"><span></span></span>
@@ -258,7 +258,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     summary(lm(to_formula(attributes, dependent), data = data))$r.squared</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5603135d3d68&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b23e8c31f0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $call</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_search(attributes = names(iris)[-1], fun = evaluator_R2_lm, </span>
@@ -459,7 +459,7 @@ attributes' subset combinations (of sizes passed in <code>sizes</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     extractAIC(fit = glm(to_formula(attributes, dependent), family = gaussian, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         data = data), k = log(nrow(data)))[2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5603135d3d68&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b23e8c31f0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $call</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_search(attributes = c("Prewt", "Treat", "offset(Prewt)"), </span>
