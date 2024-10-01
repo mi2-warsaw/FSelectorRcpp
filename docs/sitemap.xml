@@ -1,0 +1,20 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/articles/benchmarks_discretize.html</loc></url>
+<url><loc>/articles/get_started.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/integer-variables.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/cut_attrs.html</loc></url>
+<url><loc>/reference/discretize.html</loc></url>
+<url><loc>/reference/discretize_transform.html</loc></url>
+<url><loc>/reference/dot-information_gain.html</loc></url>
+<url><loc>/reference/feature_search.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/information_gain.html</loc></url>
+<url><loc>/reference/relief.html</loc></url>
+<url><loc>/reference/to_formula.html</loc></url>
+</urlset>
+
